@@ -1,0 +1,90 @@
+body{
+  padding-top: 65px;
+}
+.main-container{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.left-side-bar{
+  padding: 5px;
+}
+.right-side-bar{
+  padding: 5px;
+}
+.center-container{
+  padding: 5px
+}
+.pinned-posts-container{
+  border:2px solid lightgrey;
+}
+.my-feed-container{
+  border:2px solid lightgrey;
+}
+.community-feed-container{
+  border:2px solid lightgrey;
+}
+.suscribed-boards{
+  border: 2px solid lightgrey;
+}
+.main-content{
+  border: 2px solid lightgrey;
+}
+.navbar-right{
+  padding-top: 15px;
+}
+.navbar button{
+  background-color: transparent;
+  border: none;
+}
+.main-content-body {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.message {
+  margin-top: 20px;
+}
+
+.message-metadata {
+  font-size: 12px;
+  text-align: right;
+  color: dimgrey;
+}
+
+.message hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.message .panel-body {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.message-outgoing {
+  margin-left: 150px;
+}
+
+.message-outgoing .panel-heading {
+  background-color: lightgrey;
+}
+
+.message-incoming {
+  margin-right: 150px;
+}
+
+.message-incoming .panel-heading {
+  background-color: grey;
+  color: white;
+}
+
+.messaging-text-entry {
+  margin-left: 150px;
+  margin-right: 0px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.messaging-text-entry textarea {
+  resize: none;
+}
