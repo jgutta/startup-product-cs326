@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>UBoard</title>
+
+    <!-- Bootstrap's CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/messaging.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- Navbar.... -->
+    <nav class="navbar navbar-fixed-top navbar-default">
+      <div class = "row">
+        <!--left side of navbar-->
+        <div class = "col-md-2 col-md-offset-1 navbar-left">
+          <button type = "button" class = "home-btn">
+            <a href = "#"><h3><span class="glyphicon glyphicon-home"> UBoard</span></h3></a>
+          </button>
+        </div>
+        <!--center of navbar-->
+        <div class = "col-md-2 col-md-offset-2 navbar-center">
+          <div class = "btn-group nav-btn-group" role ="group">
+            <button type = "button" class = "messages-btn">
+              <a href = "#"><h3><span class="glyphicon glyphicon-envelope"></span></h3></a>
+            </button>
+            <button type = "button" class = "home-btn">
+              <a href = "#"><h3><span class="glyphicon glyphicon-pencil"></span></h3></a>
+            </button>
+            <button type = "button" class = "home-btn">
+              <a href = "#"><h3><span class="glyphicon glyphicon-calendar"></span></h3></a>
+            </button>
+            <button type = "button" class = "home-btn">
+              <a href = "#"><h3><span class="glyphicon glyphicon-user"></span></h3></a>
+            </button>
+          </div>
+        </div>
+        <!--right side of navbar-->
+        <div class = "col-md-2 col-md-offset-2 navbar-right pull-left">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search UBoards...">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-default submit">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav><!--end of navbar-->
+
+    <!-- ...Container for three columms -->
+    <div class = "container main-container">
+      <div class = "row">
+        <!--left side bar -->
+        <div class = "col-md-2 left-side-bar">
+
+          <div class = "suscribed-boards">
+            <center><h3>Subscribed Boards</h3></center>
+            <hr>
+            <div class = "add-board-textarea">
+              <input type="text" class="form-control" placeholder="Add Board...">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default submit">
+                  <span class="glyphicon glyphicon-plus-sign"> Subscribe Now</span>
+                </button>
+              </span>
+            </div>
+            <hr>
+            <div class = "list-of-subscribed">
+              <ul><a href ="#">Board One</a></ul>
+              <ul><a href ="#">Board two</a></ul>
+              <ul><a href ="#">Board three</a></ul>
+              <ul><a href ="#">Board four</a></ul>
+              <ul><a href ="#">Board five</a></ul>
+            </div>
+          </div>
+        </div>
+
+        <!--center container -->
+        <div class = "col-md-7 center-container">
+          <div class = "main-content">
+
+            <div class = "main-content-title">
+              <center><h2>UBoard Messaging</h2></center>
+            </div>
+
+            <hr>
+
+            <div class = "main-content-body">
+	      <div class="row">
+		<div class="col-md-12">
+		  <ul class="nav nav-tabs">
+		    <li role="presentation" class="active"><a href="#">cinemaloverno7</a></li>
+		    <li role="presentation"><a href="#">guitarist78</a></li>
+		    <li role="presentation"><a href="#">ilikemonopoly</a></li>
+		    <li role="presentation"><a href="#">pizzzzaparty666</a></li>
+		    <li role="presentation"><a href="#">concertrocker\m/</a></li>
+		  </ul>
+		</div>
+	      </div>
+
+	      <div class="panel panel-default message message-outgoing">
+		<div class="panel-heading">
+		  <h3 class="panel-title">Re: The Projectionist</h3>
+		</div>
+		<div class="panel-body">
+		  <!-- Post content -->
+		  <div class="row">
+		    <div class="col-md-12">
+		      Yeah, I'll definitely be able to bring the movie.
+		    </div>
+		  </div>
+		  <hr>
+		  <!-- Post metadata -->
+		  <div class="row">
+		    <div class="col-md-12 message-metadata">
+		      tim.richards - Sat Feb 6, 2:15 PM
+		    </div>
+		  </div>
+		</div>
+	      </div>
+
+	      <div class="panel panel-default message message-incoming">
+		<div class="panel-heading">
+		  <h3 class="panel-title">Re: The Projectionist</h3>
+		</div>
+		<div class="panel-body">
+		  <!-- Post content -->
+		  <div class="row">
+		    <div class="col-md-12">
+		      Awesome! I think I'll be bringing a group of ~5 with me.
+		    </div>
+		  </div>
+		  <hr>
+		  <!-- Post metadata -->
+		  <div class="row">
+		    <div class="col-md-12 message-metadata">
+		      cinemaloverno7 - Sat Feb 6, 3:47 PM
+		    </div>
+		  </div>
+		</div>
+	      </div>
+
+	      <div class="panel panel-default message message-incoming">
+		<div class="panel-heading">
+		  <h3 class="panel-title">Re: The Projectionist</h3>
+		</div>
+		<div class="panel-body">
+		  <!-- Post content -->
+		  <div class="row">
+		    <div class="col-md-12">
+		      Oh, btw, any word on Rene?
+		    </div>
+		  </div>
+		  <hr>
+		  <!-- Post metadata -->
+		  <div class="row">
+		    <div class="col-md-12 message-metadata">
+		      cinemaloverno7 - Sat Feb 6, 3:52 PM
+		    </div>
+		  </div>
+		</div>
+	      </div>
+
+	      <div class="row messaging-text-entry">
+		<div class="column-md-12"
+		  <form>
+		    <fieldset class="form-group">
+		      <textarea class="form-control" placeholder="Write a message..." rows="3"></textarea>
+		    </fieldset>
+		    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+		  </form>
+		</div>
+	      </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!--right side bar main container -->
+        <div class = "col-md-3 right-side-bar">
+          <div class = "pinned-posts-container">
+            <center><h3>Pinned</h3></center><hr>
+            <div class = "pinned-posts">
+              <ul>
+                <button type = "button" class = "pin">
+                  <span class="glyphicon glyphicon-pushpin"> </span></button>
+                <a href = "#">Pinned Post</a>
+              </ul>
+              <ul>
+                <button type = "button" class = "pin">
+                  <span class="glyphicon glyphicon-pushpin"> </span></button>
+                <a href = "#">Pinned Post</a>
+              </ul>
+              <ul>
+                <button type = "button" class = "pin">
+                  <span class="glyphicon glyphicon-pushpin"> </span></button>
+                <a href = "#">Pinned Post</a>
+              </ul>
+              <ul>
+                <button type = "button" class = "pin">
+                  <span class="glyphicon glyphicon-pushpin"></span></button>
+                <a href = "#">Pinned Post</a>
+              </ul>
+            </div>
+          </div>
+
+          <br>
+
+          <div class = "my-feed-container">
+            <center><h3>My Feed</h3></center><hr>
+            <div class = "my-feed">
+              <ul><a href = "#"> Posts in my feed </a></ul>
+              <ul><a href = "#"> Posts in my feed </a></ul>
+              <ul><a href = "#"> Posts in my feed </a></ul>
+              <ul><a href = "#"> Posts in my feed </a></ul>
+            </div>
+          </div>
+
+          <br>
+
+          <div class = "community-feed-container">
+            <center><h3>Community Feed</h3></center><hr>
+            <div class = "community-feed">
+              <ul><a href = "#"> Posts in the community feed </a></ul>
+              <ul><a href = "#"> Posts in the community feed </a></ul>
+              <ul><a href = "#"> Posts in the community feed </a></ul>
+              <ul><a href = "#"> Posts in the community feed </a></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--end of three column container-->
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+
+</html>
