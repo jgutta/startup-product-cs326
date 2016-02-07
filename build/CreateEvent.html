@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>UBoard</title>
+
+  <!-- Bootstrap's CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/UBoardMainPage.css" rel="stylesheet">
+  <link href="css/CreateEvent.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navbar.... -->
+  <nav class="navbar navbar-fixed-top navbar-default">
+    <div class="row">
+      <!--left side of navbar-->
+      <div class="col-md-2 col-md-offset-1 navbar-left">
+        <button type="button" class="home-btn">
+          <a href="#"><h3><span class="glyphicon glyphicon-home"> UBoard</span></h3></a>
+        </button>
+      </div>
+      <!--center of navbar-->
+      <div class="col-md-2 col-md-offset-2 navbar-center">
+        <div class="btn-group nav-btn-group" role="group">
+          <button type="button" class="messages-btn">
+            <a href="#"><h3><span class="glyphicon glyphicon-envelope"></span></h3></a>
+          </button>
+          <button type="button" class="home-btn">
+            <a href="#"><h3><span class="glyphicon glyphicon-pencil"></span></h3></a>
+          </button>
+          <button type="button" class="home-btn">
+            <a href="#"><h3><span class="glyphicon glyphicon-calendar"></span></h3></a>
+          </button>
+          <button type="button" class="home-btn">
+            <a href="#"><h3><span class="glyphicon glyphicon-user"></span></h3></a>
+          </button>
+        </div>
+      </div>
+      <!--right side of navbar-->
+      <div class="col-md-2 col-md-offset-2 navbar-right pull-left">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search UBoards...">
+          <span class="input-group-btn">
+              <button type="submit" class="btn btn-default submit">
+                <span class="glyphicon glyphicon-search"></span>
+          </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!--end of navbar-->
+
+  <!-- ...Container for three columms -->
+  <div class="container main-container">
+    <div class="row">
+      <!--left side bar -->
+      <div class="col-md-2 left-side-bar">
+
+        <div class="suscribed-boards">
+          <center>
+            <h3>Subscribed Boards</h3></center>
+          <hr>
+          <div class="add-board-textarea">
+            <input type="text" class="form-control" placeholder="Add Board...">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default submit">
+                  <span class="glyphicon glyphicon-plus-sign"> Subscribe Now</span>
+            </button>
+            </span>
+          </div>
+          <hr>
+          <div class="list-of-subscribed">
+            <ul><a href="#">Board One</a></ul>
+            <ul><a href="#">Board two</a></ul>
+            <ul><a href="#">Board three</a></ul>
+            <ul><a href="#">Board four</a></ul>
+            <ul><a href="#">Board five</a></ul>
+          </div>
+        </div>
+      </div>
+
+      <!--center container -->
+      <div class="col-md-7 center-container">
+        <div class="main-content">
+
+          <div class="main-content-title">
+            <center>
+              <h2>Create an Event</h2></center>
+          </div>
+
+          <hr>
+
+          <div class="main-content-body">
+
+            <div class="panel-body title">
+              <div class="media">
+                <center>Event Title</center>
+                <div class="media-body">
+                  <textarea class="form-control" rows="1" placeholder=""></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-body date time title">
+              <div class="media">
+                <div class="col-md-4 col-md-offset-1">
+                  <center>Event Date</center>
+                  <textarea class="form-control" rows="1" placeholder=""></textarea>
+                </div>
+                <div class="col-md-4 col-md-offset-2">
+                  <center>Event Time</center>
+                  <textarea class="form-control" rows="1" placeholder=""></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-body description title">
+              <div class="media">
+                <div class="media-top">
+                  <center>Event Description</center>
+                </div>
+                <div class="media-body">
+                  <textarea class="form-control" rows="7" placeholder=""></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-body checkboxes">
+              <div class="media">
+                <div class="media-top title">
+                  <center>What Boards would you like to post this to?</center>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                  <input type="checkbox" name="board" value="General" checked> General
+                  <br>
+                  <input type="checkbox" name="board" value="Concerts"> Concerts
+                  <br>
+                  <input type="checkbox" name="board" value="Games"> Games
+                  <br>
+                  <input type="checkbox" name="board" value="Local Events"> Local Events
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                  <input type="checkbox" name="board" value="Music"> Music
+                  <br>
+                  <input type="checkbox" name="board" value="Notes and Textbooks"> Notes/Textbooks
+                  <br>
+                  <input type="checkbox" name="board" value="RSOs"> RSOs
+                  <br>
+                  <input type="checkbox" name="board" value="Sports"> Sports
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                  <input type="checkbox" name="board" value="Studying"> Studying
+                  <br>
+                  <input type="checkbox" name="board" value="TV/Movies"> TV/Movies
+                  <br>
+                  <input type="checkbox" name="board" value="Videogames"> Videogames
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="submit">
+              <center><input type="submit" value="Submit"></center>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--right side bar main container -->
+      <div class="col-md-3 right-side-bar">
+        <div class="pinned-posts-container">
+          <center>
+            <h3>Pinned</h3></center>
+          <hr>
+          <div class="pinned-posts">
+            <ul>
+              <button type="button" class="pin">
+                <span class="glyphicon glyphicon-pushpin"> </span></button>
+              <a href="#">Pinned Post</a>
+            </ul>
+            <ul>
+              <button type="button" class="pin">
+                <span class="glyphicon glyphicon-pushpin"> </span></button>
+              <a href="#">Pinned Post</a>
+            </ul>
+            <ul>
+              <button type="button" class="pin">
+                <span class="glyphicon glyphicon-pushpin"> </span></button>
+              <a href="#">Pinned Post</a>
+            </ul>
+            <ul>
+              <button type="button" class="pin">
+                <span class="glyphicon glyphicon-pushpin"></span></button>
+              <a href="#">Pinned Post</a>
+            </ul>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="my-feed-container">
+          <center>
+            <h3>My Feed</h3></center>
+          <hr>
+          <div class="my-feed">
+            <ul><a href="#"> Posts in my feed </a></ul>
+            <ul><a href="#"> Posts in my feed </a></ul>
+            <ul><a href="#"> Posts in my feed </a></ul>
+            <ul><a href="#"> Posts in my feed </a></ul>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="community-feed-container">
+          <center>
+            <h3>Community Feed</h3></center>
+          <hr>
+          <div class="community-feed">
+            <ul><a href="#"> Posts in the community feed </a></ul>
+            <ul><a href="#"> Posts in the community feed </a></ul>
+            <ul><a href="#"> Posts in the community feed </a></ul>
+            <ul><a href="#"> Posts in the community feed </a></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!--end of three column container-->
+
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="js/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
