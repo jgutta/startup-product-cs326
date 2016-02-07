@@ -10,7 +10,7 @@
     <!-- Bootstrap's CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="css/Board.css" rel="stylesheet">
+    <link href="css/EventThread.css" rel="stylesheet">
   </head>
 
   <body>
@@ -86,60 +86,84 @@
         <div class = "col-md-7 center-container">
           <div class = "main-content">
 
-            <div class = "main-content-title">
-              <center><h2>Board Name</h2></center>
+            <div class="row col-md-4">
+                <!--image for event here -->
+                <!-- users will be able to select custom image for event. if unwanted, system defaults to profile pic -->
+                <img src="img/defaultDisplay.jpg" width="90%" />
+
             </div>
 
-            <hr>
+            <div class="col-md-8 title-head">
+              <h4>POST TITLE   <small> Date:1/1/16 Time:12:00AM </small></h4>
+            </div>
+
 
             <div class = "main-content-body">
 
-              <!--- Row 1 of Main Content --->
-              <div class = "row">
-                <div class = "col-md-3 post">
-                  <a href = "#"><img src = "img/ExampleBoard.jpg" width = "100%"></a>
-                </div>
-                <div class = "col-md-9 post">
-                  <h4>POST TITLE</h4><h5>Date:1/1/16 Time:12:00AM</h5>
-    				This is where the first few characters of a post would show. Usually some sort of description of the event.
-                </div>
+              EVENT DESCRIPTION GOES HERE!!
+              <br>
+              Posted by Username@UBoard
+              <hr>
+              LINKS TO REPLIES GO HERE!!
+            </div>
+
+          </div>
+
+          <br>
+
+            <div class="reply col-md-9 pull-right">
+              <div class="row col-md-4">
+                  <!-- user profile pic links to their page -->
+                  <a href = "#"><img src = "img/defaultDisplay.jpg" width = "90%"></a>
+
               </div>
 
-              <!--- Row 2 of Main Content --->
-              <div class = "row">
-                <div class = "col-md-3 post">
-                  <a href = "#"><img src = "img/ExampleBoard.jpg" width = "100%"></a>
-                </div>
-                <div class = "col-md-9 post">
-				 <h4>POST TITLE</h4><h5>Date:1/1/16 Time:12:00AM</h5>
-                  This is where the first few characters of a post would show. Usually some sort of description of the event.
-                </div>
+              <div class="col-md-8 title-head">
+                <h4>USER123   <small> said: </small></h4>
+
               </div>
 
-              <!--- Row 3 of Main Content --->
-              <div class = "row">
-                <div class = "col-md-3 post">
-                  <a href = "#"><img src = "img/ExampleBoard.jpg" width = "100%"></a>
-                </div>
-                <div class = "col-md-9 post">
-                  <h4>POST TITLE</h4><h5>Date:1/1/16 Time:12:00AM</h5>
-                  This is where the first few characters of a post would show. Usually some sort of description of the event.
-                </div>
-              </div>
 
-              <!--- Row 4 of Main Content --->
-              <div class = "row">
-                <div class = "col-md-3 post">
-                  <a href = "#"><img src = "img/ExampleBoard.jpg" width = "100%"></a>
-                </div>
-                <div class = "col-md-9 post">
-                   <h4>POST TITLE</h4><h5>Date:1/1/16 Time:12:00AM</h5>
+              <div class = "main-content-body">
 
-                  This is where the first few characters of a post would show. Usually some sort of description of the event.
-                </div>
+
+                User reply goes here!!
+                <hr>
+                LINKS TO REPLIES GO HERE!!
               </div>
             </div>
-          </div>
+
+            <div class="reply col-md-9 pull-right">
+              <div class="row col-md-4">
+                <!-- user profile pic links to their page -->
+                  <a href = "#"><img src = "img/defaultDisplay.jpg" width = "90%"></a>
+
+              </div>
+
+              <div class="col-md-8 title-head">
+                <h4>USER123   <small> said: </small></h4>
+              </div>
+
+
+              <div class = "main-content-body">
+
+                User reply goes here!!
+                <hr>
+                LINKS TO REPLIES GO HERE!!
+              </div>
+            </div>
+
+            <!--
+            <div class="reply col-md-9 pull-right">
+              <a href = "#"><img src = "img/defaultDisplay.jpg" width = "25%"></a>
+              reply comments here!! example 2
+              <br>
+              Posted by Username@UBoard
+              <hr>
+              LINKS TO REPLIES GO HERE!!
+            </div>
+          -->
+
         </div>
 
           <!--right side bar main container -->

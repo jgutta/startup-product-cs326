@@ -28,6 +28,7 @@ body{
 }
 .main-content{
   border: 2px solid lightgrey;
+  padding-bottom: 15px;
 }
 .navbar-right{
   padding-top: 15px;
@@ -36,32 +37,40 @@ body{
   background-color: transparent;
   border: none;
 }
-.main-content-body {
- height: 600px; /*just for now, to allow scrolling. To be removed*/
+/* start here */
+.main-content img{
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 10px;
 }
-.main-content-body .row .col-md-3{
-margin-left: 20px;
-padding-top: 5px;
-padding-bottom: 5px;
-}
-.main-content-body .row .col-md-9{
-margin-right: 20px;
+
 }
 .main-content-body .row{
   display: flex;
   padding-bottom: 10px;
 }
+.main-content .title-head{
+  border: 2px;
+  padding-right: 10px
+  padding-bottom: 5px;
+}
 
-.main-content-body .row h4{
+.main-content h4{
  display: inline-block;
  font-weight: bold;
- padding-bottom: 10px;
+ padding-bottom: 35px;
 }
-.main-content-body .row h5{
- display: inline-block;
- font-weight: bold;
- padding-left: 175px;
+
+.reply {
+  border: 2px solid lightgrey;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 7px;
+  margin-bottom:7px;
 }
-.post{
-background: gray; /*Posts colored in grey for now to differenciate them from the rest of the page. Will be changed once color scheme is set.*/
+.reply .col-md-8 {
+  padding-right: 150px;
+}
+.reply .main-content-body{
+  padding-top: 50px;
 }
