@@ -2,6 +2,10 @@ body {
   padding-top: 65px;
 }
 
+.main-content {
+  min-height: 697px;
+}
+
 .main-content-title {
   padding-left: 85px;
 }
