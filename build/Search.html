@@ -11,8 +11,9 @@
   <!-- Bootstrap's CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom CSS -->
-  <link href="css/UBoardMainPage.css" rel="stylesheet">
-  <link href="css/CreateEvent.css" rel="stylesheet">
+  <link href="css/Board.css" rel="stylesheet">
+  <link href="css/Search.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -88,92 +89,87 @@
 
       <!--center container -->
       <div class="col-md-7 center-container">
-        <form role="form">
-          <div class="main-content">
+        <div class="main-content">
 
-            <div class="main-content-title">
-              <center>
-                <h2>Create an Event</h2></center>
-            </div>
+          <div class="main-content-title">
+            <h2>Search</h2>
+          </div>
+          <div class="main-content-body">
+            <center>
+              <div class="input-group" style="width: 500px">
+                <input type="text" class="form-control" value="PARTY">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle dropdown" data-toggle="dropdown">
+                  All  <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">All</a></li>
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Concerts</a></li>
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Local Events</a></li>
+                    <li><a href="#">Music</a></li>
+                    <li><a href="#">Notes/Textbooks</a></li>
+                    <li><a href="#">RSOs</a></li>
+                    <li><a href="#">Sports</a></li>
+                    <li><a href="#">Studying</a></li>
+                    <li><a href="#">TV/Movies</a></li>
+                    <li><a href="#">Videogames</a></li>
+                  </ul>
+                  <button type="submit" class="btn btn-default submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                  </button>
+                </span>
+              </div>
+            </center>
 
             <hr>
-
-            <div class="main-content-body">
-
-              <div class="panel-body title form-group">
-                <div class="media">
-                  <center>Event Title</center>
-                  <div class="media-body">
-                    <input type="text" class="form-control" placeholder=""></input>
+            <div class="panel-group">
+              <div class="panel panel-default result">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Party At PUUUFFFTTOONNN</h3>
+                </div>
+                <div class="panel-body">
+                  <!-- Post content -->
+                  <div class="row">
+                    <div class="col-md-12">
+                      Party at 10:30 at Pufton Vill...
+                    </div>
                   </div>
+                  <hr>
+                  <!-- Post metadata -->
+                  <div class="row">
+                    <div class="col-md-12 result-metadata">
+                      tim.richards - Sat Feb 6, 2:15 PM
+                    </div>
+                  </div>
+
                 </div>
               </div>
-
-              <div class="panel-body date time title form-group">
-                <div class="media">
-                  <div class="col-md-4 col-md-offset-1">
-                    <center>Event Date</center>
-                    <input type="text" class="form-control" placeholder=""></input>
-                  </div>
-                  <div class="col-md-4 col-md-offset-2">
-                    <center>Event Time</center>
-                    <input type="text" class="form-control" placeholder=""></input>
-                  </div>
+              <div class="panel panel-default result">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Anyone wanna Party?</h3>
                 </div>
-              </div>
+                <div class="panel-body">
+                  <!-- Post content -->
+                  <div class="row">
+                    <div class="col-md-12">
+                      I'm a very lonely person and I woul...
+                    </div>
+                  </div>
+                  <hr>
+                  <!-- Post metadata -->
+                  <div class="row">
+                    <div class="col-md-12 result-metadata">
+                      tim.richards - Sat Feb 6, 3:15 PM
+                    </div>
+                  </div>
 
-              <div class="panel-body description title form-group">
-                <div class="media">
-                  <div class="media-top">
-                    <center>Event Description</center>
-                  </div>
-                  <div class="media-body">
-                    <textarea class="form-control" rows="7" placeholder=""></textarea>
-                  </div>
                 </div>
-              </div>
-
-              <div class="panel-body checkboxes form-group">
-                <div class="media">
-                  <div class="media-top title">
-                    <center>What Boards would you like to post this to?</center>
-                  </div>
-                  <div class="col-md-3 col-md-offset-1">
-                    <input type="checkbox" name="board" value="General" checked> General
-                    <br>
-                    <input type="checkbox" name="board" value="Concerts"> Concerts
-                    <br>
-                    <input type="checkbox" name="board" value="Games"> Games
-                    <br>
-                    <input type="checkbox" name="board" value="Local Events"> Local Events
-                  </div>
-                  <div class="col-md-3 col-md-offset-1">
-                    <input type="checkbox" name="board" value="Music"> Music
-                    <br>
-                    <input type="checkbox" name="board" value="Notes and Textbooks"> Notes/Textbooks
-                    <br>
-                    <input type="checkbox" name="board" value="RSOs"> RSOs
-                    <br>
-                    <input type="checkbox" name="board" value="Sports"> Sports
-                  </div>
-                  <div class="col-md-3 col-md-offset-1">
-                    <input type="checkbox" name="board" value="Studying"> Studying
-                    <br>
-                    <input type="checkbox" name="board" value="TV/Movies"> TV/Movies
-                    <br>
-                    <input type="checkbox" name="board" value="Videogames"> Videogames
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="submit">
-                <center>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </center>
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
       <!--right side bar main container -->
@@ -235,7 +231,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
   <!--end of three column container-->
 
