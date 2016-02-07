@@ -1,0 +1,33 @@
+body {
+  padding-top: 65px;
+}
+
+.main-content-title {
+  padding-left: 85px;
+}
+
+.result {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px !important;
+}
+
+.result-metadata {
+  font-size: 12px;
+  text-align: right;
+  color: dimgrey;
+}
+
+.result hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.result .panel-body{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.result .panel-body .row {
+  padding-bottom: 0px;
+}
