@@ -10,6 +10,9 @@ body{
   color: #555555;
   border: none;
 }
+
+
+
 .main-content-body .row{
   padding-bottom: 10px;
 }
@@ -22,8 +25,11 @@ body{
 .navbar .input-group{
   margin-top: 12px;
 }
-.reply {
+.replyF {
   margin-top: 20px;
+}
+.replyC{
+  background-color: #f1f6f6;
 }
 
 .reply img{
