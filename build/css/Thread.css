@@ -1,36 +1,6 @@
-body{
-  padding-top: 65px;
-  background: #f1f6f6;
-}
-.submit{
-  width: 85%
-}
-.navbar button{
-  background-color: transparent;
-  color: #555555;
-  border: none;
-}
-
-.main-content-body .row{
-  padding-bottom: 10px;
-}
-.navbar {
-  background: #004d4d;
-}
-.navbar span {
-  color: white;
-}
-.navbar .input-group{
-  margin-top: 12px;
-}
-
 .replyBtn{
   color: #fff;
   background-color: #004d4d;
-}
-.replyBtn:active{
-  color: #000;
-  background-color: #B6CECE;
 }
 
 .replyF {
