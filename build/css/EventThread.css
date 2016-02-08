@@ -1,76 +1,35 @@
 body{
   padding-top: 65px;
+  background: #f1f6f6;
 }
-.main-container{
-  margin-left: 50px;
-  margin-right: 50px;
-}
-.left-side-bar{
-  padding: 5px;
-}
-.right-side-bar{
-  padding: 5px;
-}
-.center-container{
-  padding: 5px
-}
-.pinned-posts-container{
-  border:2px solid lightgrey;
-}
-.my-feed-container{
-  border:2px solid lightgrey;
-}
-.community-feed-container{
-  border:2px solid lightgrey;
-}
-.suscribed-boards{
-  border: 2px solid lightgrey;
-}
-.main-content{
-  border: 2px solid lightgrey;
-  padding-bottom: 15px;
-}
-.navbar-right{
-  padding-top: 15px;
+.submit{
+  width: 85%
 }
 .navbar button{
   background-color: transparent;
+  color: #555555;
   border: none;
 }
-/* start here */
-.main-content img{
-  padding-top: 5px;
-  padding-left: 5px;
-  padding-bottom: 10px;
-}
-
-}
 .main-content-body .row{
-  display: flex;
   padding-bottom: 10px;
 }
-.main-content .title-head{
-  border: 2px;
-  padding-right: 10px
-  padding-bottom: 5px;
+.navbar {
+  background: #004d4d;
 }
-
-.main-content h4{
- display: inline-block;
- font-weight: bold;
- padding-bottom: 35px;
+.navbar span {
+  color: white;
 }
-
+.navbar .input-group{
+  margin-top: 12px;
+}
 .reply {
-  border: 2px solid lightgrey;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-top: 7px;
-  margin-bottom:7px;
+  margin-top: 20px;
 }
-.reply .col-md-8 {
-  padding-right: 150px;
+
+.reply img{
+  padding-top: 7px;
 }
+
 .reply .main-content-body{
-  padding-top: 50px;
+  padding-right: 1px;
 }

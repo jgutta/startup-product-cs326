@@ -20,7 +20,7 @@
         <!--left side of navbar-->
         <div class = "col-md-2 col-md-offset-1 navbar-left">
           <button type = "button" class = "home-btn">
-            <a href = "#"><h3><span class="glyphicon glyphicon-home"> UBoard</span></h3></a>
+            <a href = "#"><h3><span class="glyphicon glyphicon-home">UBoard</span></h3></a>
           </button>
         </div>
         <!--center of navbar-->
@@ -55,38 +55,41 @@
     </nav><!--end of navbar-->
 
     <!-- ...Container for three columms -->
-    <div class = "container main-container">
-      <div class = "row">
-        <!--left side bar -->
-        <div class = "col-md-2 left-side-bar">
-
-          <div class = "suscribed-boards">
-            <center><h3>Subscribed Boards</h3></center>
-            <hr>
-            <div class = "add-board-textarea">
-              <input type="text" class="form-control" placeholder="Add Board...">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default submit">
-                  <span class="glyphicon glyphicon-plus-sign"> Subscribe Now</span>
-                </button>
-              </span>
-            </div>
-            <hr>
-            <div class = "list-of-subscribed">
-              <ul><a href ="#">Board One</a></ul>
-              <ul><a href ="#">Board two</a></ul>
-              <ul><a href ="#">Board three</a></ul>
-              <ul><a href ="#">Board four</a></ul>
-              <ul><a href ="#">Board five</a></ul>
+    <center>  <div class = "container main-container">
+	     <div class = "row">
+          <!--left side bar -->
+          <div class = "col-md-3">
+            <div class = "panel panel-default">
+	             <div class="panel-body">
+            		<center><h3>Subscribed Boards</h3></center>
+            		<hr>
+            		<div class = "add-board-textarea">
+            		  <input type="text" class="form-control" placeholder="Add Board...">
+            		  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default submit">
+                      <span class="glyphicon glyphicon-plus-sign"> Subscribe</span>
+                    </button>
+		              </span>
+		            </div>
+		            <hr>
+		            <div class = "list-of-subscribed">
+		              <center>
+                    <a href ="#">Board One</a><br>
+                    <a href ="#">Board two</a><br>
+                    <a href ="#">Board three</a><br>
+                    <a href ="#">Board four</a><br>
+                    <a href ="#">Board five</a><br>
+		              </center>
+		            </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!--center container -->
-        <div class = "col-md-7 center-container">
-          <div class = "main-content">
-
-            <div class="row col-md-4">
+          <!--center container -->
+          <div class = "col-md-6">
+            <div class = "panel panel-default">
+	            <div class="panel-body">
+                <div class="row col-md-4">
                 <!--image for event here -->
                 <!-- users will be able to select custom image for event. if unwanted, system defaults to profile pic -->
                 <img src="img/defaultDisplay.jpg" width="90%" />
@@ -109,9 +112,9 @@
 
           </div>
 
-          <br>
 
-            <div class="reply col-md-9 pull-right">
+
+            <div class="reply panel panel-default col-md-9 pull-right">
               <div class="row col-md-4">
                   <!-- user profile pic links to their page -->
                   <a href = "#"><img src = "img/defaultDisplay.jpg" width = "90%"></a>
@@ -133,7 +136,7 @@
               </div>
             </div>
 
-            <div class="reply col-md-9 pull-right">
+            <div class="reply panel panel-default col-md-9 pull-right">
               <div class="row col-md-4">
                 <!-- user profile pic links to their page -->
                   <a href = "#"><img src = "img/defaultDisplay.jpg" width = "90%"></a>
@@ -151,78 +154,72 @@
                 <hr>
                 LINKS TO REPLIES GO HERE!!
               </div>
+              </div>
             </div>
-
-            <!--
-            <div class="reply col-md-9 pull-right">
-              <a href = "#"><img src = "img/defaultDisplay.jpg" width = "25%"></a>
-              reply comments here!! example 2
-              <br>
-              Posted by Username@UBoard
-              <hr>
-              LINKS TO REPLIES GO HERE!!
-            </div>
-          -->
-
-        </div>
+          </div><!-- end of center container-->
 
           <!--right side bar main container -->
-          <div class = "col-md-3 right-side-bar">
-            <div class = "pinned-posts-container">
-              <center><h3>Pinned</h3></center><hr>
-              <div class = "pinned-posts">
-                <ul>
-                  <button type = "button" class = "pin">
-                  <span class="glyphicon glyphicon-pushpin"> </span></button>
-                  <a href = "#">Pinned Post</a>
-                </ul>
-                <ul>
-                  <button type = "button" class = "pin">
-                  <span class="glyphicon glyphicon-pushpin"> </span></button>
-                  <a href = "#">Pinned Post</a>
-                </ul>
-                <ul>
-                  <button type = "button" class = "pin">
-                  <span class="glyphicon glyphicon-pushpin"> </span></button>
-                  <a href = "#">Pinned Post</a>
-                </ul>
-                <ul>
-                  <button type = "button" class = "pin">
-                  <span class="glyphicon glyphicon-pushpin"></span></button>
-                  <a href = "#">Pinned Post</a>
-                </ul>
+          <div class = "col-md-3">
+            <div class = "panel panel-default">
+              <div class = "panel-body">
+		            <center><h3>Pinned</h3></center><hr>
+		            <div class = "pinned-posts">
+                  <center>
+                    <button type = "button" class = "pin">
+                      <span class="glyphicon glyphicon-pushpin"></span></button>
+                    <a href = "#">Pinned Post</a>
+                    <br>
+                    <button type = "button" class = "pin">
+                      <span class="glyphicon glyphicon-pushpin"></span></button>
+                    <a href = "#">Pinned Post</a>
+                    <br>
+                    <button type = "button" class = "pin">
+                      <span class="glyphicon glyphicon-pushpin"></span></button>
+                    <a href = "#">Pinned Post</a>
+                    <br>
+                    <button type = "button" class = "pin">
+                      <span class="glyphicon glyphicon-pushpin"></span></button>
+                    <a href = "#">Pinned Post</a>
+                    <br>
+                  </center>
+		            </div>
               </div>
             </div>
 
             <br>
 
-            <div class = "my-feed-container">
-              <center><h3>My Feed</h3></center><hr>
-              <div class = "my-feed">
-                <ul><a href = "#"> Posts in my feed </a></ul>
-                <ul><a href = "#"> Posts in my feed </a></ul>
-                <ul><a href = "#"> Posts in my feed </a></ul>
-                <ul><a href = "#"> Posts in my feed </a></ul>
+            <div class = "panel panel-default">
+              <div class = "panel-body">
+		            <center><h3>My Feed</h3></center><hr>
+		              <div class = "my-feed">
+                    <center>
+                      <a href = "#"> Posts in my feed </a><br>
+                      <a href = "#"> Posts in my feed </a><br>
+                      <a href = "#"> Posts in my feed </a><br>
+                      <a href = "#"> Posts in my feed </a><br>
+                    </center>
+              		</div>
+                </div>
+              </div>
+
+              <br>
+
+<div class = "panel panel-default">
+  <div class = "panel-body">
+		<center><h3>Community Feed</h3></center><hr>
+		<div class = "community-feed">
+		  <center>
+		    <a href = "#"> Posts in the community feed </a><br>
+		    <a href = "#"> Posts in the community feed </a><br>
+		    <a href = "#"> Posts in the community feed </a><br>
+		    <a href = "#"> Posts in the community feed </a><br>
+		  </center>
+		</div>
               </div>
             </div>
-
-            <br>
-
-            <div class = "community-feed-container">
-              <center><h3>Community Feed</h3></center><hr>
-              <div class = "community-feed">
-                <ul><a href = "#"> Posts in the community feed </a></ul>
-                <ul><a href = "#"> Posts in the community feed </a></ul>
-                <ul><a href = "#"> Posts in the community feed </a></ul>
-                <ul><a href = "#"> Posts in the community feed </a></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!--end of three column container-->
-
-
+          </div><!-- end of right side bar-->
+	</div><!--end of row div for three columns-->
+    </div></center><!--end of three column container-->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>
