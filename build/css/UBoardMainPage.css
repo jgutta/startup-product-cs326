@@ -22,3 +22,7 @@ body{
 .navbar .input-group{
   margin-top: 12px;
 }
+
+.panel-heading{
+  background-color: #B6CECE !important;
+}
