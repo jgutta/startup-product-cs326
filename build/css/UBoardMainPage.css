@@ -10,10 +10,7 @@ body{
   color: #555555;
   border: none;
 }
-.main-content-body .row{
-  padding-bottom: 10px;
-}
-.main-content-body img{
+.main-content-body .board-img img{
   float: left;
   width: 50%;
   padding-right: 5px;

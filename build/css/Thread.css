@@ -11,8 +11,6 @@ body{
   border: none;
 }
 
-
-
 .main-content-body .row{
   padding-bottom: 10px;
 }
@@ -25,11 +23,22 @@ body{
 .navbar .input-group{
   margin-top: 12px;
 }
+
+.replyBtn{
+  color: #fff;
+  background-color: #004d4d;
+}
+.replyBtn:active{
+  color: blue;
+  background-color: red;
+}
+
 .replyF {
   margin-top: 20px;
 }
 .replyC{
   background-color: #f1f6f6;
+  padding-bottom: 15px;
 }
 
 .reply img{
