@@ -11,6 +11,10 @@ body {
   padding-left: 80px;
 }
 
+.search-bar {
+  padding-right: 30px;
+}
+
 .result {
   margin-left: 20px;
   margin-right: 20px;
