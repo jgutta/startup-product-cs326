@@ -53,3 +53,14 @@
 .messaging-text-entry textarea {
   resize: none;
 }
+
+.btn-default {
+  font-size: 12px;
+  margin-left: 5px;
+  padding: 0px;
+  border: 0px;
+}
+
+.tab {
+  padding-right: 10px !important;
+}

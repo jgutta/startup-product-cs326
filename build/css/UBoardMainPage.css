@@ -1,11 +1,14 @@
 body{
   padding-top: 65px;
+  background: #f1f6f6;
 }
 .left-side-bar{
   padding: 5px;
+  background: white;
 }
 .right-side-bar{
   padding: 5px;
+  background: white;
 }
 .center-container{
   padding: 5px
@@ -24,6 +27,7 @@ body{
 }
 .main-content{
   border: 2px solid lightgrey;
+  background: white;
 }
 .navbar-right{
   padding-top: 15px;
@@ -34,4 +38,10 @@ body{
 }
 .main-content-body .row{
   padding-bottom: 10px;
+}
+.navbar {
+  background: #004d4d;
+}
+.navbar span {
+  color: white;
 }
