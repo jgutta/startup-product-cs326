@@ -1,0 +1,67 @@
+body{
+  padding-top: 65px;
+}
+.main-container{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.left-side-bar{
+  padding: 5px;
+}
+.right-side-bar{
+  padding: 5px;
+}
+.center-container{
+  padding: 5px
+}
+.pinned-posts-container{
+  border:2px solid lightgrey;
+}
+.my-feed-container{
+  border:2px solid lightgrey;
+}
+.community-feed-container{
+  border:2px solid lightgrey;
+}
+.suscribed-boards{
+  border: 2px solid lightgrey;
+}
+.main-content{
+  border: 2px solid lightgrey;
+}
+.navbar-right{
+  padding-top: 15px;
+}
+.navbar button{
+  background-color: transparent;
+  border: none;
+}
+.main-content-body {
+ height: 600px; /*just for now, to allow scrolling. To be removed*/
+}
+.main-content-body .row .col-md-3{
+margin-left: 20px;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+.main-content-body .row .col-md-9{
+margin-right: 20px;
+}
+.main-content-body .row{
+  display: flex;
+  padding-bottom: 10px;
+}
+
+.main-content-body .row h4{
+ display: inline-block;
+ font-weight: bold;
+ padding-bottom: 10px;
+}
+.main-content-body .row h5{
+ display: inline-block;
+ font-weight: bold;
+ padding-left: 175px;
+}
+.post{
+background: gray; /*Posts colored in grey for now to differenciate them from the rest of the page. Will be changed once color scheme is set.*/
+}

@@ -1,0 +1,55 @@
+.main-content-body .row {
+  padding-bottom: 0px;
+}
+.main-content-body {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.message {
+  margin-top: 20px;
+}
+
+.message-metadata {
+  font-size: 12px;
+  text-align: right;
+  color: dimgrey;
+}
+
+.message hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.message .panel-body {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.message-outgoing {
+  margin-left: 150px;
+}
+
+.message-outgoing .panel-heading {
+  background-color: lightgrey;
+}
+
+.message-incoming {
+  margin-right: 150px;
+}
+
+.message-incoming .panel-heading {
+  background-color: grey;
+  color: white;
+}
+
+.messaging-text-entry {
+  margin-left: 150px;
+  margin-right: 0px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.messaging-text-entry textarea {
+  resize: none;
+}

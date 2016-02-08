@@ -1,0 +1,26 @@
+.title {
+  font-size: 17px;
+}
+
+textarea {
+  resize: none;
+  /* Needs to be !important, since Bootstrap sets this elsewhere. */
+  box-shadow: none !important;
+  border: none;
+}
+
+.checkboxes {
+  font-size: 12px;
+}
+
+.submit {
+  padding-bottom: 20px;
+}
+
+.date {
+  padding-top: 0px;
+}
+
+.description {
+  padding-top: 0px;
+}
