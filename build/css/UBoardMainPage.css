@@ -5,35 +5,63 @@ body{
 .left-side-bar{
   padding: 5px;
   background: white;
+  background-color: lightgrey;
+  border: 2px solid white;
 }
 .right-side-bar{
   padding: 5px;
   background: white;
 }
 .center-container{
-  padding: 5px
+  padding: 5px;
+  background-color: lightgrey;
+  border: 2px solid white;
 }
+
 .pinned-posts-container{
-  border:2px solid lightgrey;
-}
-.my-feed-container{
-  border:2px solid lightgrey;
+  background-color: white;
+  padding: 10px;
 }
 .community-feed-container{
-  border:2px solid lightgrey;
+  background-color: white;
+  padding: 10px;
 }
+.my-feed-container{
+  background-color: white;
+  padding: 10px;
+}
+
+.community-feed-background{
+  background-color: lightgrey;
+  padding: 5px;
+}
+.my-feed-background{
+  background-color: lightgrey;
+  padding: 5px;
+}
+.pinned-post-background{
+  background-color: lightgrey;
+  padding: 5px;
+}
+
 .suscribed-boards{
-  border: 2px solid lightgrey;
+  background-color: white;
+  padding: 5px;
 }
+
 .main-content{
-  border: 2px solid lightgrey;
-  background: white;
+    border: 2px solid lightgrey;
+    background: white;
+    background-color: white;
+    padding-top: 10px;
 }
+
 .navbar-right{
   padding-top: 15px;
 }
 .navbar button{
   background-color: transparent;
+  color: #555555;
   border: none;
 }
 .main-content-body .row{
