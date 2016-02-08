@@ -1,36 +1,5 @@
-body{
-  padding-top: 65px;
-}
-.left-side-bar{
-  padding: 5px;
-}
-.right-side-bar{
-  padding: 5px;
-}
-.center-container{
-  padding: 5px
-}
-.pinned-posts-container{
-  border:2px solid lightgrey;
-}
-.my-feed-container{
-  border:2px solid lightgrey;
-}
-.community-feed-container{
-  border:2px solid lightgrey;
-}
-.suscribed-boards{
-  border: 2px solid lightgrey;
-}
-.main-content{
-  border: 2px solid lightgrey;
-}
-.navbar-right{
-  padding-top: 15px;
-}
-.navbar button{
-  background-color: transparent;
-  border: none;
+.main-content-body .row {
+  padding-bottom: 0px;
 }
 .main-content-body {
   margin-left: 20px;
