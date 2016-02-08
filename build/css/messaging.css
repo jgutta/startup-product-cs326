@@ -1,5 +1,5 @@
 .main-content-body .row {
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 .main-content-body {
   margin-left: 20px;
@@ -31,7 +31,7 @@
 }
 
 .message-outgoing .panel-heading {
-  background-color: lightgrey;
+  background-color: #0ca1a1 !important;
 }
 
 .message-incoming {
@@ -39,13 +39,13 @@
 }
 
 .message-incoming .panel-heading {
-  background-color: grey;
+  background-color: #004d4d !important;
   color: white;
 }
 
 .messaging-text-entry {
   margin-left: 150px;
-  margin-right: 0px;
+  margin-right: 0;
   margin-top: 40px;
   margin-bottom: 10px;
 }
@@ -57,8 +57,8 @@
 .tab .btn-default {
   font-size: 12px;
   margin-left: 5px;
-  padding: 0px;
-  border: 0px;
+  padding: 0;
+  border: 0;
 }
 
 .tab {
