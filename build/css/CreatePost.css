@@ -28,3 +28,9 @@ textarea {
 .submit {
   text-align: center;
 }
+
+.red {
+  color: red;
+  font-size: 12px;
+  padding-left: 15px;
+}
