@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Settings</title>
+    <title>UBoard</title>
 
     <!-- Bootstrap's CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
             <!--left side of navbar-->
             <div class = "col-md-2 col-md-offset-1 navbar-left">
                 <button type = "button" class = "home-btn">
-                    <a href = "#"><h3><span class="glyphicon glyphicon-home"> UBoard</span></h3></a>
+                    <a href = "#"><h3><span class="glyphicon glyphicon-home">UBoard</span></h3></a>
                 </button>
             </div>
             <!--center of navbar-->
@@ -54,218 +54,237 @@
             </div>
         </div>
     </nav><!--end of navbar-->
-    <!-- Container for the main 3 columns -->
+
+    <!-- ...Container for three columms -->
     <div class = "container main-container">
         <div class = "row">
-
             <!--left side bar -->
-            <div class = "col-md-2 left-side-bar">
-
-                <div class = "suscribed-boards">
-                    <center><h3>Subscribed Boards</h3></center>
-                    <hr>
-                    <div class = "add-board-textarea">
-                        <input type="text" class="form-control" placeholder="Add Board...">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default submit">
-                                <span class="glyphicon glyphicon-plus-sign"> Subscribe Now</span>
-                            </button>
-                        </span>
+            <center><div class = "col-md-3">
+                <div class = "panel panel-default">
+                    <div class="panel-body">
+                        <center><h3>Subscribed Boards</h3></center>
+                        <hr>
+                        <div class = "add-board-textarea">
+                            <input type="text" class="form-control" placeholder="Add Board...">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default submit">
+                                    <span class="glyphicon glyphicon-plus-sign"> Subscribe</span>
+                                </button>
+                            </span>
+                        </div>
+                        <hr>
+                        <div class = "list-of-subscribed">
+                            <center>
+                                <a href ="#">Board One</a><br>
+                                <a href ="#">Board two</a><br>
+                                <a href ="#">Board three</a><br>
+                                <a href ="#">Board four</a><br>
+                                <a href ="#">Board five</a><br>
+                            </center>
+                        </div>
                     </div>
-                    <hr>
-                    <div class = "list-of-subscribed">
-                        <ul><a href ="#">Board One</a></ul>
-                        <ul><a href ="#">Board two</a></ul>
-                        <ul><a href ="#">Board three</a></ul>
-                        <ul><a href ="#">Board four</a></ul>
-                        <ul><a href ="#">Board five</a></ul>
-                    </div>
-
                 </div>
-            </div>
+            </div></center>
+
             <!--center container -->
-            <div class = "col-md-7 center-container">
-                <div class = "main-content">
+            <div class = "col-md-6">
+                <div class ="panel panel-default">
+                    <div class = "panel-body">
+                        <div class = "main-content">
 
-                    <div class = "main-content-title">
-                        <center><h3>Account Settings</h3></center>
-                    </div>
-
-                    <hr>
-
-                    <div class = "main-content-body">
-
-                        <!--- Row 1 of Main Content --->
-                        <div class = "row">
-                            <div class = "col-md-3">
-                                <a href = "#"><img src = "img/default_profile_pic.png" width = "100%"></a>
-                                <br>
-                                <span class = "bold">Profile Pic:  </span><input type="button" value="Browse">
-                            </div>
-                            <div class = "col-md-8">
-                                <span class="bold">Email:</span> youremail@umass.edu <a href= "#"><span>Change</span></a>
-                                <br>
-                                <span class="bold">Password:</span>
-                                <input type="password" name="pwd">
-                                <a href= "#"><span>Change</span></a>
-                                <br>
-                                <span class = "bold">Display Name: </span>
-                                <input type="text" name="displayname" > <a href= "#"><span> Change</span></a><br>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                </button>
-                                <span class = "bold">Gender: </span>
-                                <br>
-                                <div class="chbx">
-                                    <input type="radio" name="gender" value="male"> Male<br>
-                                    <input type="radio" name="gender" value="female"> Female<br>
-                                    <input type="radio" name="gender" value="other"> Other
-                                    <br>
-                                </div>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                </button>
-                                <span class= "bold"> Email Settings:</span>
-                                <div class = "col-md-12 chbx">
-                                    <input type="checkbox" name="Joined" value=""> Joined<br>
-                                    <input type="checkbox" name="Interested" value=""> Interested
-                                    <br>
-
-                                </div>
-                                <br>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                </button>
-                                <span class="bold"> Blocked: </span>
-                                <div class = "col-md-12">
-                                    <button type = "button" class = "set-btn">
-                                        <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
-                                    </button> Person
-                                    <br>
-
-                                    <button type = "button" class = "set-btn">
-                                        <a href = "#"><span class="glyphicon glyphicon-plus"></span></a>
-                                    </button>
-                                    <input type="text" name="blocked" ><br>
-                                </div>
-                                <br>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                </button>
-                                <span class="bold"> Your Boards: </span><br>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
-                                </button> YourBoard1<br>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
-                                </button> YourBoard2<br>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
-                                </button> YourBoard3<br>
-                                <button type = "button" class = "set-btn">
-                                    <a href = "#"><span class="glyphicon glyphicon-plus"></span></a>
-                                </button>
-                                <div class="dropup">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="YourBoards" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        Your Boards
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="YourBoards">
-                                        <li><a href="#">General</a></li>
-                                        <li><a href="#">Concerts</a></li>
-                                        <li><a href="#">Games</a></li>
-                                        <li><a href="#">Local Events</a></li>
-                                        <li><a href="#">Music</a></li>
-                                        <li><a href="#">Notes/Textbooks</a></li>
-                                        <li><a href="#">RSOs</a></li>
-                                        <li><a href="#">Sports</a></li>
-                                        <li><a href="#">Studying</a></li>
-                                        <li><a href="#">TV/Movies</a></li>
-                                        <li><a href="#">Videogames</a></li>
-                                    </ul>
-                                </div>
+                            <div class = "main-content-title">
+                                <center><h3>Account Settings</h3></center>
                             </div>
 
+                            <hr>
+
+                            <div class = "main-content-body">
+
+                                <!--- Row 1 of Main Content --->
+                                <div class = "pull-left">
+                                    <div class = "row">
+                                        <div class = "col-md-3">
+                                            <a href = "#"><img src = "img/default_profile_pic.png" width = "100%"></a>
+                                            <br>
+                                            <span class = "bold">Pic: </span><input type="button" value="Browse">
+                                        </div>
+                                        <div class = "col-md-8">
+                                            <span class="bold">Email:</span> youremail@umass.edu <a href= "#"><span>Change</span></a>
+                                            <br>
+                                            <span class="bold">Password:</span>
+                                            <input type="password" name="pwd">
+                                            <a href= "#"><span>Change</span></a>
+                                            <br>
+                                            <span class = "bold">Display Name: </span>
+                                            <input type="text" name="displayname" > <a href= "#"><span> Change</span></a><br>
+                                            <button type = "button" class = "set-btn">
+                                                <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </button>
+                                            <span class = "bold">Gender: </span>
+                                            <br>
+                                            <div class="chbx">
+                                                <input type="radio" name="gender" value="male"> Male<br>
+                                                <input type="radio" name="gender" value="female"> Female<br>
+                                                <input type="radio" name="gender" value="other"> Other
+                                                <br>
+                                            </div>
+                                            <button type = "button" class = "set-btn">
+                                                <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </button>
+                                            <span class= "bold"> Email Settings:</span>
+                                            <div class = "col-md-12 chbx">
+                                                <input type="checkbox" name="Joined" value=""> Joined<br>
+                                                <input type="checkbox" name="Interested" value=""> Interested
+                                                <br>
+
+                                            </div>
+                                            <br>
+                                            <button type = "button" class = "set-btn">
+                                                <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </button>
+                                            <span class="bold"> Blocked: </span>
+                                            <div class = "col-md-12">
+                                                <button type = "button" class = "set-btn">
+                                                    <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
+                                                </button> Person
+                                                <br>
+
+                                                <button type = "button" class = "set-btn">
+                                                    <a href = "#"><span class="glyphicon glyphicon-plus"></span></a>
+                                                </button>
+                                                <input type="text" name="blocked" ><br>
+                                            </div>
+                                            <br>
+                                            <button type = "button" class = "set-btn">
+                                                <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </button>
+                                            <span class="bold"> Your Boards: </span><br>
+                                            <div class ="chbx">
+                                                <button type = "button" class = "set-btn">
+                                                    <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
+                                                </button> YourBoard1<br>
+                                                <button type = "button" class = "set-btn">
+                                                    <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
+                                                </button> YourBoard2<br>
+                                                <button type = "button" class = "set-btn">
+                                                    <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
+                                                </button> YourBoard3<br>
+                                                <button type = "button" class = "set-btn">
+                                                    <a href = "#"><span class="glyphicon glyphicon-plus"></span></a>
+                                                </button>
+                                                <div class = "shift">
+                                                    <div class="dropup">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="YourBoards" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            Your Boards
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="YourBoards">
+                                                            <li><a href="#">General</a></li>
+                                                            <li><a href="#">Concerts</a></li>
+                                                            <li><a href="#">Games</a></li>
+                                                            <li><a href="#">Local Events</a></li>
+                                                            <li><a href="#">Music</a></li>
+                                                            <li><a href="#">Notes/Textbooks</a></li>
+                                                            <li><a href="#">RSOs</a></li>
+                                                            <li><a href="#">Sports</a></li>
+                                                            <li><a href="#">Studying</a></li>
+                                                            <li><a href="#">TV/Movies</a></li>
+                                                            <li><a href="#">Videogames</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <!--- Row 2 of Main Content --->
+                                    <div class = "row">
+                                        <div class = "col-md-3 ">
+
+                                        </div>
+                                        <div class = "col-md-9">
+                                            <input type="button" class = "pull-right" value="Deactivate">
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
-
-
-                        <!--- Row 6 of Main Content --->
-                        <div class = "row">
-                            <div class = "col-md-3 ">
-
-                            </div>
-                            <div class = "col-md-9">
-                                <input type="button" class = "pull-right" value="Deactivate">
-
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
 
             <!--right side bar main container -->
-            <div class = "col-md-3 right-side-bar">
-                <div class = "pinned-posts-container">
-                    <center><h3>Pinned</h3></center><hr>
-                    <div class = "pinned-posts">
-                        <ul>
-                            <button type = "button" class = "pin">
-                                <span class="glyphicon glyphicon-pushpin"> </span></button>
-                                <a href = "#">Pinned Post</a>
-                            </ul>
-                            <ul>
+            <div class = "col-md-3">
+                <div class = "panel panel-default">
+                    <div class = "panel-body">
+                        <center><h3>Pinned</h3></center><hr>
+                        <div class = "pinned-posts">
+                            <center>
                                 <button type = "button" class = "pin">
-                                    <span class="glyphicon glyphicon-pushpin"> </span></button>
+                                    <span class="glyphicon glyphicon-pushpin"></span></button>
                                     <a href = "#">Pinned Post</a>
-                                </ul>
-                                <ul>
+                                    <br>
                                     <button type = "button" class = "pin">
-                                        <span class="glyphicon glyphicon-pushpin"> </span></button>
+                                        <span class="glyphicon glyphicon-pushpin"></span></button>
                                         <a href = "#">Pinned Post</a>
-                                    </ul>
-                                    <ul>
+                                        <br>
                                         <button type = "button" class = "pin">
                                             <span class="glyphicon glyphicon-pushpin"></span></button>
                                             <a href = "#">Pinned Post</a>
-                                        </ul>
+                                            <br>
+                                            <button type = "button" class = "pin">
+                                                <span class="glyphicon glyphicon-pushpin"></span></button>
+                                                <a href = "#">Pinned Post</a>
+                                                <br>
+                                            </center>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <br>
 
-                                <div class = "my-feed-container">
-                                    <center><h3>My Feed</h3></center><hr>
-                                    <div class = "my-feed">
-                                        <ul><a href = "#"> Posts in my feed </a></ul>
-                                        <ul><a href = "#"> Posts in my feed </a></ul>
-                                        <ul><a href = "#"> Posts in my feed </a></ul>
-                                        <ul><a href = "#"> Posts in my feed </a></ul>
+                                <div class = "panel panel-default">
+                                    <div class = "panel-body">
+                                        <center><h3>My Feed</h3></center><hr>
+                                        <div class = "my-feed">
+                                            <center>
+                                                <a href = "#"> Posts in my feed </a><br>
+                                                <a href = "#"> Posts in my feed </a><br>
+                                                <a href = "#"> Posts in my feed </a><br>
+                                                <a href = "#"> Posts in my feed </a><br>
+                                            </center>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <br>
 
-                                <div class = "community-feed-container">
-                                    <center><h3>Community Feed</h3></center><hr>
-                                    <div class = "community-feed">
-                                        <ul><a href = "#"> Posts in the community feed </a></ul>
-                                        <ul><a href = "#"> Posts in the community feed </a></ul>
-                                        <ul><a href = "#"> Posts in the community feed </a></ul>
-                                        <ul><a href = "#"> Posts in the community feed </a></ul>
+                                <div class = "panel panel-default">
+                                    <div class = "panel-body">
+                                        <center><h3>Community Feed</h3></center><hr>
+                                        <div class = "community-feed">
+                                            <center>
+                                                <a href = "#"> Posts in the community feed </a><br>
+                                                <a href = "#"> Posts in the community feed </a><br>
+                                                <a href = "#"> Posts in the community feed </a><br>
+                                                <a href = "#"> Posts in the community feed </a><br>
+                                            </center>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end of three column container-->
+                            </div><!-- end of right side bar-->
+                        </div><!--end of row div for three columns-->
+                    </div><!--end of three column container-->
 
+                    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                    <script src="js/jquery.min.js"></script>
+                    <!-- Include all compiled plugins (below), or include individual files as needed -->
+                    <script src="js/bootstrap.min.js"></script>
+                </body>
 
-                <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-                <script src="js/jquery.min.js"></script>
-                <!-- Include all compiled plugins (below), or include individual files as needed -->
-                <script src="js/bootstrap.min.js"></script>
-            </body>
-
-            </html>
+                </html>
