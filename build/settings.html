@@ -21,7 +21,7 @@
             <!--left side of navbar-->
             <div class = "col-md-2 col-md-offset-1 navbar-left">
                 <button type = "button" class = "home-btn">
-                    <a href = "#"><h3><span class="glyphicon glyphicon-home">UBoard</span></h3></a>
+                    <a href = "#"><h3><span class="glyphicon glyphicon-home"> UBoard</span></h3></a>
                 </button>
             </div>
             <!--center of navbar-->
@@ -32,9 +32,6 @@
                     </button>
                     <button type = "button" class = "home-btn">
                         <a href = "#"><h3><span class="glyphicon glyphicon-pencil"></span></h3></a>
-                    </button>
-                    <button type = "button" class = "home-btn">
-                        <a href = "#"><h3><span class="glyphicon glyphicon-calendar"></span></h3></a>
                     </button>
                     <button type = "button" class = "home-btn">
                         <a href = "#"><h3><span class="glyphicon glyphicon-user"></span></h3></a>
@@ -104,19 +101,21 @@
                                 <div class = "pull-left">
                                     <div class = "row">
                                         <div class = "col-md-3">
-                                            <a href = "#"><img src = "img/default_profile_pic.png" width = "100%"></a>
+                                            <a href = "#"><img src = "img/default_profile_pic.png" width = "100%" class ="picBorder"></a>
                                             <br>
-                                            <span class = "bold">Pic: </span><input type="button" value="Browse">
+                                            <span class = "bold">Pic: </span><button type="button" class="btn btn-primary">Browse</button>
                                         </div>
                                         <div class = "col-md-8">
-                                            <span class="bold">Email:</span> youremail@umass.edu <a href= "#"><span>Change</span></a>
+                                            <span class="bold">Email:</span> joneill@sgc.umass.edu <a href= "#"><span class = "pull-right"> Change</span></a>
                                             <br>
                                             <span class="bold">Password:</span>
-                                            <input type="password" name="pwd">
-                                            <a href= "#"><span>Change</span></a>
+                                            <!-- for later<input type="password" name="pwd">-->
+                                            <span>*************</span>
+                                            <a href= "#"><span class = "pull-right"> Change</span></a>
                                             <br>
                                             <span class = "bold">Display Name: </span>
-                                            <input type="text" name="displayname" > <a href= "#"><span> Change</span></a><br>
+                                            <span>JackO'Neill</span>
+                                            <!-- for later <input type="text" name="displayname" > --><a href= "#"><span class = "pull-right"> Change</span></a><br>
                                             <button type = "button" class = "set-btn">
                                                 <a href = "#"><span class="glyphicon glyphicon-chevron-down"></span></a>
                                             </button>
@@ -133,9 +132,7 @@
                                             </button>
                                             <span class= "bold"> Email Settings:</span>
                                             <div class = "col-md-12 chbx">
-                                                <input type="checkbox" name="Joined" value=""> Joined<br>
-                                                <input type="checkbox" name="Interested" value=""> Interested
-                                                <br>
+                                                <input type="checkbox" name="Subscribed" value=""> Subscribed<br>
 
                                             </div>
                                             <br>
@@ -146,7 +143,7 @@
                                             <div class = "col-md-12 ybmove">
                                                 <button type = "button" class = "set-btn">
                                                     <a href = "#"><span class="glyphicon glyphicon-minus"></span></a>
-                                                </button> Person
+                                                </button> HarryMaybourne
                                                 <br>
 
                                                 <button type = "button" class = "set-btn">
@@ -172,7 +169,7 @@
                                                 <button type = "button" class = "set-btn">
                                                     <a href = "#"><span class="glyphicon glyphicon-plus"></span></a>
                                                 </button>
-                                                <div class = "shift">
+                                                <div class = "shift dropMenu">
                                                     <div class="dropup">
                                                         <button class="btn btn-default dropdown-toggle" type="button" id="YourBoards" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                             Your Boards
@@ -205,7 +202,7 @@
 
                                         </div>
                                         <div class = "col-md-9">
-                                            <input type="button" class = "pull-right" value="Deactivate">
+                                            <button type="button" class="btn btn-primary pull-right">Deactivate</button>
 
                                         </div>
                                     </div>

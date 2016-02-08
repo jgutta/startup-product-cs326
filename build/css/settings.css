@@ -21,3 +21,9 @@
 .ybmove{
     padding-left: 30px !important;
 }
+.dropMenu{
+display: inline-block;
+}
+.picBorder{
+    margin-bottom: 5px;
+}
