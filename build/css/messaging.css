@@ -1,10 +1,6 @@
 .main-content-body .row {
   padding-bottom: 0;
 }
-.main-content-body {
-  margin-left: 20px;
-  margin-right: 20px;
-}
 
 .message {
   margin-top: 20px;
@@ -28,10 +24,6 @@
 
 .message-outgoing {
   margin-left: 150px;
-}
-
-.message-outgoing .panel-heading {
-  background-color: #48a8a8 !important;
 }
 
 .message-incoming {
