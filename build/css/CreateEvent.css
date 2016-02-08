@@ -24,3 +24,7 @@ textarea {
 .description {
   padding-top: 0px;
 }
+
+.check {
+  text-align: left;
+}
