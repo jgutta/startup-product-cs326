@@ -31,7 +31,7 @@
 }
 
 .message-outgoing .panel-heading {
-  background-color: #0ca1a1 !important;
+  background-color: #48a8a8 !important;
 }
 
 .message-incoming {
@@ -63,6 +63,10 @@
 
 .tab {
   padding-right: 10px !important;
+}
+
+.messaging-people-dropdown .btn-default {
+  border: 0;
 }
 
 .text-entry-title {
