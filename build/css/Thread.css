@@ -29,8 +29,8 @@ body{
   background-color: #004d4d;
 }
 .replyBtn:active{
-  color: blue;
-  background-color: red;
+  color: #000;
+  background-color: #B6CECE;
 }
 
 .replyF {
