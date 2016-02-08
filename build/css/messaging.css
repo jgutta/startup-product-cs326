@@ -4,6 +4,7 @@
 
 .message {
   margin-top: 20px;
+  border-color: grey;
 }
 
 .message-metadata {
@@ -15,6 +16,7 @@
 .message hr {
   margin-top: 5px;
   margin-bottom: 5px;
+  border-color: lightgrey;
 }
 
 .message .panel-body {
