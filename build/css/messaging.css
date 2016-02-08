@@ -64,3 +64,14 @@
 .tab {
   padding-right: 10px !important;
 }
+
+.text-entry-title {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: white;
+}
+
+.text-entry-message {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
