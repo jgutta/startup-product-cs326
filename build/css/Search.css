@@ -7,9 +7,7 @@ body {
   min-height: 697px;
 }
 
-.main-content-title {
-  padding-left: 80px;
-}
+
 
 .search-bar {
   padding-right: 30px;
@@ -39,4 +37,8 @@ body {
 
 .result .panel-body .row {
   padding-bottom: 0px;
+}
+
+.panel-heading{
+  background-color: #B6CECE !important;
 }
