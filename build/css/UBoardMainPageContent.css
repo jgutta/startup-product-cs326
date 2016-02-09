@@ -1,0 +1,39 @@
+.board-footer{
+  padding-top: 0px;
+  margin-bottom: 0px;
+  font-size: 12px;
+  text-align: right;
+  color: dimgrey;
+}
+.board-img{
+  padding-bottom: 0px;
+}
+.board-img hr{
+  margin: 0px;
+}
+.main-content-body .board-img img{
+  float: left;
+  width: 50%;
+  padding-right: 5px;
+}
+.main-content-body .panel-heading{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.main-content-body h4{
+  margin: 0px;
+}
+.main-content-body a:link{
+  color: black;
+  text-decoration: none;
+}
+.main-content-body a:visited{
+  color: black;
+}
+.main-content-body a:hover{
+  color: black;
+  text-decoration: none;
+}
+.main-content-body a:active{
+  color: black;
+}
