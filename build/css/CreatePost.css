@@ -34,3 +34,22 @@ textarea {
   font-size: 12px;
   padding-left: 15px;
 }
+
+.check {
+  padding-left: 65px;
+}
+
+.picture {
+  text-align: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.pic{
+  padding-bottom: 0px;
+  padding-right: 10px;
+}
+
+.date {
+  padding-bottom: 0px;
+}

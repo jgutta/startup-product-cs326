@@ -110,7 +110,7 @@
                   <span class="red">Fields marked with asterisk (*) are required</span>
                   <div class="panel-body title form-group">
                     <div class="media">
-                      <center>Title*</center>
+                      <center>Title<font color="red">*</font></center>
                       <div class="media-body">
                         <input type="text" class="form-control" placeholder=""></input>
                       </div>
@@ -119,13 +119,27 @@
 
                   <div class="panel-body date time title form-group">
                     <div class="media">
-                      <div class="col-md-4 col-md-offset-1">
+                      <div class="col-md-6">
                         <center>Date</center>
-                        <input type="text" class="form-control" placeholder="e.g. 2/8/16"></input>
+                        <div class="form-group">
+                          <div class="input-group date" id="datetimepicker1">
+                            <input type='text' class="form-control" placeholder="e.g. 2/9/16"/>
+                            <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-md-4 col-md-offset-2">
+                      <div class="col-md-6">
                         <center>Time</center>
-                        <input type="text" class="form-control" placeholder="e.g. 7:00 PM"></input>
+                        <div class="form-group">
+                          <div class="input-group date" id="datetimepicker3">
+                            <input type='text' class="form-control" placeholder="e.g. 7:00 PM"/>
+                            <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -133,7 +147,7 @@
                   <div class="panel-body description title form-group">
                     <div class="media">
                       <div class="media-top">
-                        <center>Description*</center>
+                        <center>Description<font color="red">*</font></center>
                       </div>
                       <div class="media-body">
                         <textarea class="form-control" rows="7" placeholder=""></textarea>
@@ -141,35 +155,42 @@
                     </div>
                   </div>
 
+                  <div class="panel-body picture form-group">
+                    <a href="#"><img src="img/ExampleBoard.jpg" width="30%" class="pic"></a>
+                    <button type="button" class="btn btn-primary">Browse</button>
+                  </div>
+
                   <div class="panel-body checkboxes form-group">
                     <div class="media">
                       <div class="media-top title">
-                        <center>What Boards would you like to post this to?</center>
+                        <center>What Boards would you like to post this to?<font color="red">*</font></center>
                       </div>
-                      <div class="col-md-4">
-                        <input type="checkbox" name="board" value="General" checked> General
-                        <br>
-                        <input type="checkbox" name="board" value="Concerts"> Concerts
-                        <br>
-                        <input type="checkbox" name="board" value="Games"> Games
-                        <br>
-                        <input type="checkbox" name="board" value="Local Events"> Local Events
-                      </div>
-                      <div class="col-md-4">
-                        <input type="checkbox" name="board" value="Music"> Music
-                        <br>
-                        <input type="checkbox" name="board" value="Notes and Textbooks"> Notes/Textbooks
-                        <br>
-                        <input type="checkbox" name="board" value="RSOs"> RSOs
-                        <br>
-                        <input type="checkbox" name="board" value="Sports"> Sports
-                      </div>
-                      <div class="col-md-4">
-                        <input type="checkbox" name="board" value="Studying"> Studying
-                        <br>
-                        <input type="checkbox" name="board" value="TV/Movies"> TV/Movies
-                        <br>
-                        <input type="checkbox" name="board" value="Videogames"> Videogames
+                      <div class="col-md-12 check">
+                        <div class="col-md-4">
+                          <input type="checkbox" name="board" value="General" checked> General
+                          <br>
+                          <input type="checkbox" name="board" value="Concerts"> Concerts
+                          <br>
+                          <input type="checkbox" name="board" value="Games"> Games
+                          <br>
+                          <input type="checkbox" name="board" value="Local Events"> Local Events
+                        </div>
+                        <div class="col-md-4">
+                          <input type="checkbox" name="board" value="Music"> Music
+                          <br>
+                          <input type="checkbox" name="board" value="Notes and Textbooks"> Notes/Textbooks
+                          <br>
+                          <input type="checkbox" name="board" value="RSOs"> RSOs
+                          <br>
+                          <input type="checkbox" name="board" value="Sports"> Sports
+                        </div>
+                        <div class="col-md-4">
+                          <input type="checkbox" name="board" value="Studying"> Studying
+                          <br>
+                          <input type="checkbox" name="board" value="TV/Movies"> TV/Movies
+                          <br>
+                          <input type="checkbox" name="board" value="Videogames"> Videogames
+                        </div>
                       </div>
                     </div>
                   </div>

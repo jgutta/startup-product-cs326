@@ -10,7 +10,8 @@
     <!-- Bootstrap's CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="css/EventThread.css" rel="stylesheet">
+    <link href="css/UBoardMainPage.css" rel="stylesheet">
+    <link href="css/Thread.css" rel="stylesheet">
   </head>
 
   <body>
@@ -20,7 +21,7 @@
         <!--left side of navbar-->
         <div class = "col-md-2 col-md-offset-1 navbar-left">
           <button type = "button" class = "home-btn">
-            <a href = "#"><h3><span class="glyphicon glyphicon-home">UBoard</span></h3></a>
+            <a href = "#"><h3><span class="glyphicon glyphicon-home"> UBoard</span></h3></a>
           </button>
         </div>
         <!--center of navbar-->
@@ -31,9 +32,6 @@
             </button>
             <button type = "button" class = "home-btn">
               <a href = "#"><h3><span class="glyphicon glyphicon-pencil"></span></h3></a>
-            </button>
-            <button type = "button" class = "home-btn">
-              <a href = "#"><h3><span class="glyphicon glyphicon-calendar"></span></h3></a>
             </button>
             <button type = "button" class = "home-btn">
               <a href = "#"><h3><span class="glyphicon glyphicon-user"></span></h3></a>
@@ -107,6 +105,11 @@
               <hr>
               Posted by <a href = "#">Username@UBoard</a>
               <hr>
+              <div class="pull-left">
+                <button type="replyBtn" class="btn btn-primary">
+                  <span> Reply </span>
+                </button>
+              </div>
               <a href = "#">LINKS TO REPLIES GO HERE!!</a>
             </div>
 
@@ -117,7 +120,7 @@
             <div class="replyF reply panel panel-default replyC col-md-9 pull-right">
               <div class="row col-md-4">
                   <!-- user profile pic links to their page -->
-                  <a href = "#"><img src = "img/defaultDisplay.jpg" width = "90%"></a>
+                  <a href = "#"><img src = "img/default_profile_pic.png" width = "75%"></a>
 
               </div>
 
@@ -132,6 +135,11 @@
 
                 User reply goes here!!
                 <hr>
+                <div class="pull-left">
+                  <button type="replyBtn" class="btn btn-primary">
+                    <span> Reply </span>
+                  </button>
+                </div>
                 <a href = "#">LINKS TO REPLIES GO HERE!!</a>
               </div>
             </div>
@@ -140,12 +148,12 @@
             <div class="reply panel panel-default replyC col-md-9 pull-right">
               <div class="row col-md-4">
                 <!-- user profile pic links to their page -->
-                  <a href = "#"><img src = "img/defaultDisplay.jpg" width = "90%"></a>
+                  <a href = "#"><img src = "img/default_profile_pic.png" width = "75%"></a>
 
               </div>
 
               <div class="col-md-8 title-head">
-                <h4><a href = "#">USER123</a>   <small> said: </small></h4>
+                <h4><a href = "#">USER456</a>   <small> said: </small></h4>
               </div>
 
 
@@ -153,6 +161,11 @@
 
                 User reply goes here!!
                 <hr>
+                <div class="pull-left">
+                  <button type="replyBtn" class="btn btn-primary">
+                    <span> Reply </span>
+                  </button>
+                </div>
                 <a href = "#">LINKS TO REPLIES GO HERE!!</a>
               </div>
               </div>

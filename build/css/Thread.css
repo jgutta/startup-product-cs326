@@ -1,0 +1,15 @@
+.replyF {
+  margin-top: 20px;
+}
+.replyC{
+  background-color: #f1f6f6;
+  padding-bottom: 15px;
+}
+
+.reply img{
+  padding-top: 7px;
+}
+
+.reply .main-content-body{
+  padding-right: 1px;
+}
