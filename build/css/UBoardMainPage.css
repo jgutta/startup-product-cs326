@@ -10,17 +10,12 @@ body{
   color: #555555;
   border: none;
 }
-.main-content-body .board-img img{
-  float: left;
-  width: 50%;
-  padding-right: 5px;
+.navrbar-right span:active{
+  background-color: transparent;
 }
-.main-content-body .panel-heading{
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.main-content-body h4{
-  margin: 0px;
+
+.navrbar-right span:hover{
+  background-color: transparent;
 }
 .navbar {
   background: #004d4d;
