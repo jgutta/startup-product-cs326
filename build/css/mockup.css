@@ -1,0 +1,141 @@
+body {
+  background: #f1f6f6;
+}
+.left-sidebar {
+  padding-right: 0;
+}
+.right-sidebar {
+  padding-left: 0;
+}
+.nav-pills > li > a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #f1f6f6;
+  color: black;
+}
+.nav-pills > li + li {
+  margin-top: 10px;
+}
+.nav-pills > li > a:hover {
+  background-color: #90b2b2;
+}
+.nav-pills > .active > a {
+  background-color: #48a8a8;
+}
+.pager {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+.pager > li > a {
+  color: black;
+}
+.list-group {
+  margin-bottom: 0;
+}
+.list-group > li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.dropdown {
+  margin-top: 10px;
+}
+.content-title {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.content-title-separator {
+  border-top: 3px double #62a4a4;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+p {
+  margin: 0;
+}
+.date-posted {
+  text-align: right;
+  color: gray;
+}
+.post-comment-count {
+  text-align: right;
+  color: gray;
+  font-size: .8em;
+}
+
+/* Content Panels */
+
+.content-panel > .panel-heading {
+  background-color: #90b2b2;
+  border-bottom: 1px solid #62a4a4;
+  border-radius: 0;
+}
+.content-panel > .panel-title {
+  font-weight: bold;
+}
+.content-panel {
+  border: 1px solid #62a4a4;
+  border-radius: 0;
+}
+
+/* Navbar */
+
+.navbar {
+  min-height: 40px;
+  background: #107575;
+  border-bottom: 10px solid #0d5e5e;
+  margin-bottom: 15px;
+}
+.navbar-nav > li > a, .navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 40px;
+}
+.navbar-brand > img {
+  padding-top: 8px;
+  padding-left: 15px;
+}
+.navbar > .container-fluid {
+  padding-left: 0;
+}
+.navbar-center {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  margin: auto;
+}
+.navbar-center > .navbar-title {
+  color: white;
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 2.5em;
+  font-family: Serif;
+}
+.navbar-right > div > input, button {
+  max-height: 30px;
+}
+.navbar-right > .btn-group {
+  margin-right: 20px;
+}
+.navbar-right > div > button {
+  font-size: 1.2em;
+  padding-top: 4px;
+  background-color: #107575;
+  border: 0;
+  color: white;
+}
+.navbar-right > div > .input-group-btn > button {
+  padding-top: 4px;
+  color: #107575;
+  border: 0;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+.navbar-right > .input-group > input {
+  border: 0;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}

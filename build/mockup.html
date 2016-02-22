@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>UBoard</title>
+
+  <!-- Bootstrap's CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- Custom CSS -->
+  <link href="css/UBoard.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- The navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <img alt="Brand" src="images/UBoard_logo.png">
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-center">
+        <h3 class="navbar-title">UBoard</h3>
+      </ul>
+
+      <form class="navbar-form navbar-right" role="search">
+
+        <div class="btn-group" role="group" aria-label="...">
+          <button type="button" class="btn btn-default">
+            <i class="fa fa-envelope"></i>
+          </button>
+          <button type="button" class="btn btn-default">
+            <i class="fa fa-cog"></i>
+          </button>
+          <button type="button" class="btn btn-default">
+            <i class="fa fa-pencil"></i>
+          </button>
+        </div>
+
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search UBoard Posts">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+	  </span>
+        </div>
+
+      </form>
+
+    </div>
+  </nav>
+
+  <!-- The container for our grid. -->
+  <div class="container-fluid">
+    <!-- The row that contains the main columns of the website. -->
+    <div class="row">
+
+      <!-- The left sidebar. -->
+      <div class="col-sm-2 left-sidebar">
+
+        <div class="panel panel-default content-panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Subscribed Boards</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li role="presentation"><a href="#">Concerts</a></li>
+              <li role="presentation"><a href="#">Videogames</a></li>
+              <li role="presentation"><a href="#">RSOs</a></li>
+              <li role="presentation"><a href="#">Local Events</a></li>
+            </ul>
+
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="addBoardsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Add Board
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="addBoardsMenu">
+                <li><a href="#">General</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Studying</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default content-panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Pinned Posts</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <li class="list-group-item"><a href="#">Concert at Herter</a></li>
+              <li class="list-group-item"><a href="#">Smash at Sylvan</a></li>
+              <li class="list-group-item"><a href="#">Anyone want to jam? (Drummer)</a></li>
+              <li class="list-group-item"><a href="#">RSO Movie Night</a></li>
+            </ul>
+            <nav>
+              <ul class="pager">
+                <li><a href="#">More...</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- The main content panel. -->
+      <div class="col-sm-7">
+        <div class="panel panel-default content-panel">
+          <div class="panel-body" style="height:500px;">
+
+            <h3 class="content-title">Welcome to UBoard</h3>
+            <hr class="content-title-separator">
+
+          </div>
+        </div>
+      </div>
+
+      <!-- The right sidebar. -->
+      <div class="col-sm-3 right-sidebar">
+
+        <div class="panel panel-default content-panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">My Feed</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="#">Concert at Herter</a>
+                  </div>
+                  <div class="col-sm-6 date-posted">
+                    Posted 5 hours ago
+                  </div>
+                </div>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                <div class="post-comment-count">
+                  15 comments, 37 views
+                </div>
+              </li>
+
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="#">Smash at Sylvan</a>
+                  </div>
+                  <div class="col-sm-6 date-posted">
+                    Posted 3 hours ago
+                  </div>
+                </div>
+                <hr>
+                <p>Suspendisse accumsan posuere neque, vitae...</p>
+                <div class="post-comment-count">
+                  9 comments, 24 views
+                </div>
+              </li>
+
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="#">Anyone want to jam?...</a>
+                  </div>
+                  <div class="col-sm-6 date-posted">
+                    Posted 11 hours ago
+                  </div>
+                </div>
+                <hr>
+                <p>Aenean non urna tempor, faucibus massa vel,...</p>
+                <div class="post-comment-count">
+                  14 comments, 30 views
+                </div>
+              </li>
+
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="#">RSO Movie Night</a>
+                  </div>
+                  <div class="col-sm-6 date-posted">
+                    Posted 1 day ago
+                  </div>
+                </div>
+                <hr>
+                <p>Nullam luctus consequat magna, a consequat...</p>
+                <div class="post-comment-count">
+                  10 comments, 43 views
+                </div>
+              </li>
+
+            </ul>
+            <nav>
+              <ul class="pager">
+                <li><a href="#">More...</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="panel panel-default content-panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Community Feed</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="#">Concert at Herter</a>
+                  </div>
+                  <div class="col-sm-6 date-posted">
+                    Posted 5 hours ago
+                  </div>
+                </div>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                <div class="post-comment-count">
+                  15 comments, 37 views
+                </div>
+              </li>
+
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="#">Smash at Sylvan</a>
+                  </div>
+                  <div class="col-sm-6 date-posted">
+                    Posted 3 hours ago
+                  </div>
+                </div>
+                <hr>
+                <p>Suspendisse accumsan posuere neque, vitae...</p>
+                <div class="post-comment-count">
+                  9 comments, 24 views
+                </div>
+              </li>
+
+            </ul>
+            <nav>
+              <ul class="pager">
+                <li><a href="#">More...</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+
+</html>
