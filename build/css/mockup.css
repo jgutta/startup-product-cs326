@@ -38,6 +38,14 @@ body {
 }
 .dropdown {
   margin-top: 10px;
+  text-align: center;
+}
+.dropdown-menu {
+  left: 50%;
+  right: auto;
+  text-align: center;
+  transform: translate(-50%, 0);
+  min-width: 60%;
 }
 .content-title {
   margin-top: 0;
