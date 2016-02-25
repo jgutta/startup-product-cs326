@@ -163,12 +163,19 @@ p {
   border: 0;
   color: white;
 }
+.navbar-right > .btn-group > button:hover {
+  background-color: #f1f6f6;
+  border-radius: 5px !important;
+}
 .navbar-right > div > .input-group-btn > button {
   padding-top: 4px;
   color: #107575;
   border: 0;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
+}
+.navbar-right > div > .input-group-btn > button:hover {
+  background-color: #f1f6f6;
 }
 .navbar-right > .input-group > input {
   border: 0;
