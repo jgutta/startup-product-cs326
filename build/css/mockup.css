@@ -1,12 +1,16 @@
 body {
   background: #f1f6f6;
 }
+
+/* Sidebars */
 .left-sidebar {
   padding-right: 0;
 }
 .right-sidebar {
   padding-left: 0;
 }
+
+/* Nav-pills */
 .nav-pills > li > a {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -19,9 +23,8 @@ body {
 .nav-pills > li > a:hover {
   background-color: #90b2b2;
 }
-.nav-pills > .active > a {
-  background-color: #48a8a8;
-}
+
+/* Pagers */
 .pager {
   margin-top: 15px;
   margin-bottom: 0;
@@ -29,6 +32,12 @@ body {
 .pager > li > a {
   color: black;
 }
+.pager > li > a:hover {
+  background-color: #90b2b2;
+  border-color: #62a4a4;
+}
+
+/* List-groups */
 .list-group {
   margin-bottom: 0;
 }
@@ -36,10 +45,23 @@ body {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+.list-group > li:hover {
+  background-color: #f1f6f6;
+}
+.list-group > li:hover > hr {
+  border-color: lightgray;
+}
+
+/* Dropdown Menu*/
 .dropdown {
   margin-top: 10px;
   text-align: center;
 }
+.dropdown-toggle:hover {
+  background-color: #90b2b2;
+  border-color: #62a4a4;
+}
+
 .dropdown-menu {
   left: 50%;
   right: auto;
@@ -47,6 +69,8 @@ body {
   transform: translate(-50%, 0);
   min-width: 60%;
 }
+
+/* Content Title */
 .content-title {
   margin-top: 0;
   margin-bottom: 0;
@@ -56,13 +80,17 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+/* Misc */
 hr {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 p {
-  margin: 0;
+ p margin: 0;
 }
+
+/* Post Data */
 .date-posted {
   text-align: right;
   color: gray;
