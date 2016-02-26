@@ -1,25 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap Template</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS goes here -->
-  </head>
-  <body>
-    <!-- Custom HTML goes here -->
-    Hello world!
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- App code -->
-    <script src="js/bundle.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>UBoard</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- Custom CSS goes here -->
+  <link href="css/mockup.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- The navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <img alt="Brand" src="img/UBoard_logo.png">
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-center">
+        <h3 class="navbar-title">UBoard</h3>
+      </ul>
+
+      <form class="navbar-form navbar-right" role="search">
+
+        <div class="btn-group" role="group" aria-label="...">
+          <button type="button" class="btn btn-default">
+            <i class="fa fa-envelope"></i>
+          </button>
+          <button type="button" class="btn btn-default">
+            <i class="fa fa-cog"></i>
+          </button>
+          <button type="button" class="btn btn-default">
+            <i class="fa fa-pencil"></i>
+          </button>
+        </div>
+
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search UBoard Posts">
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+
+      </form>
+
+    </div>
+  </nav>
+
+  <!-- The container for our grid. -->
+  <div class="container-fluid">
+    <!-- The row that contains the main columns of the website. -->
+    <div class="row">
+
+      <!-- The left sidebar. -->
+      <div class="col-sm-2 left-sidebar">
+
+        <div id="subscribed-boards"></div>
+
+        <div id="pinned-posts"></div>
+
+      </div>
+
+      <!-- The main content panel. -->
+      <div class="col-sm-7">
+        <div id="main-content"></div>
+      </div>
+
+      <!-- The right sidebar. -->
+      <div class="col-sm-3 right-sidebar">
+
+        <div id="my-feed"></div>
+
+        <div id="community-feed"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="js/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- App code -->
+  <script src="js/app.js"></script>
+</body>
+
 </html>
