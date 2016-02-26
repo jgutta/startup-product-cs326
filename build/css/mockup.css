@@ -143,12 +143,16 @@ hr {
   text-align: center;
   margin: auto;
 }
-.navbar-center > .navbar-title {
+.navbar-title {
   color: white;
   font-weight: bold;
   margin-top: 5px;
   font-size: 2.5em;
   font-family: Serif;
+}
+.navbar-title > a {
+  color: white;
+  text-decoration: none;
 }
 .navbar-right > div > input, .btn {
   max-height: 30px;
