@@ -33,7 +33,12 @@ render(
   document.getElementById('subscribed-boards')
 );
 render(
-  <PinnedPosts />,
+  <PinnedPosts>
+    <a href="#">Concert at Herter</a>
+    <a href="#">Smash at Sylvan</a>
+    <a href="#">Anyone want to jam? (Drummer)</a>
+    <a href="#">RSO Movie Night</a>
+  </PinnedPosts>,
   document.getElementById('pinned-posts')
 );
 render(

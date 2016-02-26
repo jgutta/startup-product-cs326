@@ -9,10 +9,13 @@ export default class PinnedPosts extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="list-group">
-            <li className="list-group-item"><a href="#">Concert at Herter</a></li>
-            <li className="list-group-item"><a href="#">Smash at Sylvan</a></li>
-            <li className="list-group-item"><a href="#">Anyone want to jam? (Drummer)</a></li>
-            <li className="list-group-item"><a href="#">RSO Movie Night</a></li>
+            {React.Children.map(this.props.children, function(child) {
+               return (
+                 <li className="list-group-item">
+                   {child}
+                 </li>
+               )
+             })}
           </ul>
           <nav>
             <ul className="pager">
