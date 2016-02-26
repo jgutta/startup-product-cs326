@@ -89,9 +89,6 @@ hr {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-p {
- p margin: 0;
-}
 
 /* Post Data */
 .date-posted {
@@ -153,31 +150,32 @@ p {
   font-size: 2.5em;
   font-family: Serif;
 }
-.navbar-right > div > input, button {
+.navbar-right > div > input, .btn {
   max-height: 30px;
 }
 .navbar-right > .btn-group {
   margin-right: 20px;
 }
-.navbar-right > div > button {
+.navbar-right > div > .btn {
   font-size: 1.2em;
   padding-top: 4px;
   background-color: #107575;
   border: 0;
   color: white;
 }
-.navbar-right > .btn-group > button:hover {
+.navbar-right > .btn-group > .btn:hover {
   background-color: #f1f6f6;
   border-radius: 5px !important;
+  color: #107575;
 }
-.navbar-right > div > .input-group-btn > button {
+.navbar-right > div > .input-group-btn > .btn {
   padding-top: 4px;
   color: #107575;
   border: 0;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
 }
-.navbar-right > div > .input-group-btn > button:hover {
+.navbar-right > div > .input-group-btn > .btn:hover {
   background-color: #f1f6f6;
 }
 .navbar-right > .input-group > input {

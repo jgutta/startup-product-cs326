@@ -1,32 +1,36 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Router, Route, Link } from 'react-router';
 
-import MainContent from './components/maincontent';
+import MainPage from './components/mainpage';
+import Messaging from './components/messaging';
+
 import SubscribedBoards from './components/subscribedboards';
 import PinnedPosts from './components/pinnedposts';
 import Feed from './components/feed';
 
-ReactDOM.render(
-  <MainContent title="UBoard React!">React content</MainContent>,
+render(
+  <Router>
+    <Route path="/" component={MainPage} />
+    <Route path="index" component={MainPage} />
+    <Route path="messaging" component={Messaging} />
+  </Router>,
   document.getElementById('main-content')
 );
 
-ReactDOM.render(
+render(
   <SubscribedBoards />,
   document.getElementById('subscribed-boards')
 );
-
-ReactDOM.render(
+render(
   <PinnedPosts />,
   document.getElementById('pinned-posts')
 );
-
-ReactDOM.render(
+render(
   <Feed title="My Feed React!" />,
   document.getElementById('my-feed')
 );
-
-ReactDOM.render(
+render(
   <Feed title="Community Feed React!" />,
   document.getElementById('community-feed')
 );
