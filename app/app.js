@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route} from 'react-router';
+import { Router, Route } from 'react-router';
 
 import MainPage from './components/mainpage/mainpage';
 import Board from './components/board/board';
