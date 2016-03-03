@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route } from 'react-router';
+import { Router, Route, hashHistory } from 'react-router';
 
 import MainPage from './components/mainpage/mainpage';
 import Board from './components/board/board';
@@ -15,7 +15,7 @@ import PinnedPosts from './components/pinnedposts';
 import Feed from './components/feed';
 
 render(
-  <Router>
+  <Router history={hashHistory}>
     <Route path='/' component={MainPage} />
     <Route path='index' component={MainPage} />
     <Route path='board' component={Board} />
@@ -42,7 +42,7 @@ render(
   document.getElementById('pinned-posts')
 );
 render(
-  <Feed title='MyFeed React!' />,
+  <Feed title='MyFeed React!' user={1} />,
   document.getElementById('my-feed')
 );
 render(
