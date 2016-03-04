@@ -6,8 +6,10 @@ var initialData = {
     '1': {
       '_id': 1,
       'username': 'tim.richards',
+
       'feed': 1,
-      'pinnedPosts': 1
+      'pinnedPosts': 1,
+      'subscribedBoards': [ 2, 4, 7, 11 ]
     },
     '2': {
       '_id': 2,
@@ -34,7 +36,52 @@ var initialData = {
     }
   },
 
-  'boards': {},
+  'boards': {
+    '1': {
+      '_id': 1,
+      'name': 'General'
+    },
+    '2': {
+      '_id': 2,
+      'name': 'Concerts'
+    },
+    '3': {
+      '_id': 3,
+      'name': 'Games'
+    },
+    '4': {
+      '_id': 4,
+      'name': 'Local Events'
+    },
+    '5': {
+      '_id': 5,
+      'name': 'Music'
+    },
+    '6': {
+      '_id': 6,
+      'name': 'Note/Textbook Exchange'
+    },
+    '7': {
+      '_id': 7,
+      'name': 'RSOs'
+    },
+    '8': {
+      '_id': 8,
+      'name': 'Sports'
+    },
+    '9': {
+      '_id': 9,
+      'name': 'Studying'
+    },
+    '10': {
+      '_id': 10,
+      'name': 'TV/Movies'
+    },
+    '11': {
+      '_id': 11,
+      'name': 'Videogames'
+    }
+  },
 
   'threads': {
     '1': {

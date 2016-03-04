@@ -10,6 +10,7 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
+
 function getThreadSync(threadId) {
   var thread = readDocument('threads', threadId);
   return thread;
@@ -31,4 +32,20 @@ export function getPinnedPostsData(user, cb) {
   pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
 
   emulateServerReturn(pinnedPostsData, cb);
+}
+
+
+function getBoardSync(boardId) {
+  var board = readDocument('boards', boardId);
+  return board;
+}
+
+export function getSubscribedBoardsData(user, cb) {
+  var userData = readDocument('users', user);
+  var subscribedBoardsData = {
+    contents: []
+  };
+  subscribedBoardsData.contents = userData.subscribedBoards.map(getBoardSync);
+
+  emulateServerReturn(subscribedBoardsData, cb);
 }

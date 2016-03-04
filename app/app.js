@@ -29,7 +29,7 @@ render(
 );
 
 render(
-  <SubscribedBoards />,
+  <SubscribedBoards user={1} />,
   document.getElementById('subscribed-boards')
 );
 render(
