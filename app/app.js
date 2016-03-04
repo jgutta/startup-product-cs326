@@ -42,10 +42,10 @@ render(
   document.getElementById('pinned-posts')
 );
 render(
-  <Feed title='MyFeed React!' user={1} />,
+  <Feed title='My Feed' user={1} />,
   document.getElementById('my-feed')
 );
 render(
-  <Feed title='Community Feed React!' />,
+  <Feed title='Community Feed' user={2} />,
   document.getElementById('community-feed')
 );

@@ -1,21 +1,24 @@
 import React from 'react';
+import { unixTimeFromNow } from '../util';
 
 export default class FeedPost extends React.Component {
   render() {
+    var data = this.props.data;
+
     return (
       <li className="list-group-item">
         <div className="row">
           <div className="col-sm-6">
-            <a href="#">{this.props.title}</a>
+            <a href="#">{data.originalPost.title}</a>
           </div>
           <div className="col-sm-6 date-posted">
-            Posted {this.props.postTime} ago
+            Posted {unixTimeFromNow(data.originalPost.postDate)}
           </div>
         </div>
         <hr />
-        <p>{this.props.children}</p>
+        <p>{data.originalPost.contents}</p>
         <div className="post-comment-count">
-          {this.props.commentsNo} comments, {this.props.viewsNo} views
+          {data.commentsNo} comments, {data.viewsNo} views
         </div>
       </li>
     )

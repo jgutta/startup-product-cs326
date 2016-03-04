@@ -47,6 +47,9 @@ body {
 }
 .list-group > li > p {
   margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .list-group > li:hover {
   background-color: #f1f6f6;
