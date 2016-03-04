@@ -23,3 +23,12 @@ export function getFeedData(user, cb) {
 
   emulateServerReturn(feedData, cb);
 }
+
+export function getPinnedPostsData(user, cb) {
+  var userData = readDocument('users', user);
+  var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
+
+  pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
+
+  emulateServerReturn(pinnedPostsData, cb);
+}

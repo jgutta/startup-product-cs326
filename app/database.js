@@ -6,14 +6,14 @@ var initialData = {
     '1': {
       '_id': 1,
       'username': 'tim.richards',
-      'feed': 1
+      'feed': 1,
+      'pinnedPosts': 1
     },
     '2': {
       '_id': 2,
       'username': 'tim.richards',
       'feed': 2
     }
-
   },
 
   'feeds': {
@@ -24,6 +24,13 @@ var initialData = {
     '2': {
       'id': 2,
       'contents': [ 1, 4 ]
+    }
+  },
+
+  'pinnedPosts': {
+    '1': {
+      '_id': 1,
+      'contents': [ 2, 3 ]
     }
   },
 
@@ -78,7 +85,7 @@ var initialData = {
         'author': 1,
         'title': 'Concert at Herter',
         'postDate': 1457105227129,
-        'contents': 'contents'
+        'contents': "There's going to be a math-rock concert Wednesday night at Herter, if anyone's interested. Giraffes? Giraffes! is going to be playing!"
       },
 
       'replies': []
@@ -92,8 +99,8 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Smash at Sylvan',
-        'postDate': 1457105227129,
-        'contents': 'contents'
+        'postDate': 1457123570979,
+        'contents': 'Anyone in Sylvan want to play super smash brothers? I have a setup for melee at my dorm.'
       },
 
       'replies': []
@@ -107,8 +114,8 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Anyone want to jam? (Drummer)',
-        'postDate': 1457105227129,
-        'contents': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis ante nec dapibus lacinia. Maecenas luctus pretium justo. Curabitur tristique risus sed odio condimentum, a maximus turpis ultrices. Vestibulum sed pellentesque lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum eu auctor arcu. Nam vel nisl lobortis, dignissim est et, suscipit neque. Donec volutpat arcu erat, ac scelerisque nisi ultricies eu.'
+        'postDate': 1457133892466,
+        'contents': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
       },
 
       'replies': []

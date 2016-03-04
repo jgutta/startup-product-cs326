@@ -97,6 +97,8 @@ hr {
 .date-posted {
   text-align: right;
   color: gray;
+  font-size: .85em;
+  padding-top: .2em;
 }
 .post-comment-count {
   text-align: right;
