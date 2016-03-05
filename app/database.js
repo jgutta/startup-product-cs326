@@ -9,12 +9,33 @@ var initialData = {
 
       'feed': 1,
       'pinnedPosts': 1,
-      'subscribedBoards': [ 2, 4, 7, 11 ]
+      'subscribedBoards': [ 2, 4, 7, 11 ],
+
+      'conversations': [ 1, 2, 3, 4, 5 ]
     },
     '2': {
       '_id': 2,
-      'username': 'tim.richards',
       'feed': 2
+    },
+    '3': {
+      '_id': 3,
+      'username': 'cinemaloverno7'
+    },
+    '4': {
+      '_id': 4,
+      'username': 'guitarist78'
+    },
+    '5': {
+      '_id': 5,
+      'username': 'ilikemonopoly'
+    },
+    '6': {
+      '_id': 6,
+      'username': 'pizzzzaparty666'
+    },
+    '7': {
+      '_id': 7,
+      'username': 'concertrocker\m/'
     }
   },
 
@@ -169,7 +190,46 @@ var initialData = {
     }
   },
 
-  'conversations': {}
+  'conversations': {
+    '1': {
+      '_id': 1,
+      'users': [ 1, 3 ],
+
+      'messages': [
+        {
+          'author': 1,
+          'postDate': 1457135847180,
+          'contents': "Yeah, I'll definitely be able to bring the movie."
+        },
+        {
+          'author': 3,
+          'postDate': 1457136164289,
+          'contents': "Awesome! I think I'll be bringing a group of ~5 with me."
+        },
+        {
+          'author': 3,
+          'postDate': 1457136262123,
+          'contents': 'Oh, btw, any word on Rene?'
+        }
+      ]
+    },
+    '2': {
+      '_id': 2,
+      'users': [ 1, 4 ]
+    },
+    '3': {
+      '_id': 3,
+      'users': [ 1, 5 ]
+    },
+    '4': {
+      '_id': 4,
+      'users': [ 1, 6 ]
+    },
+    '5': {
+      '_id': 5,
+      'users': [ 1, 7 ]
+    }
+  }
 };
 
 var data = JSON.parse(localStorage.getItem('facebook_data'));
