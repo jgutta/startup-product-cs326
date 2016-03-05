@@ -1,8 +1,39 @@
 import React from 'react';
+
 import MainContent from '../maincontent';
+import Conversation from './conversation';
+
+import { getConversationsData } from '../../server';
 
 export default class Messaging extends React.Component {
+  constructor(props) {
+    // super() calls the parent class constructor -- e.g. React.Component's constructor.
+    super(props);
+    // Set state's initial value.
+    // Note that the constructor is the ONLY place you should EVER set state directly!
+    // In all other places, use the `setState` method instead.
+    // Setting `state` directly in other places will not trigger `render()` to run, so your
+    // program will have bugs.
+    this.state = {
+      // Empty feed.
+      contents: []
+    };
+  }
+
+  componentDidMount() {
+    getConversationsData(this.props.user, (conversationsData) => {
+      // Note: setState does a *shallow merge* of the current state and the new
+      // state. If state was currently set to {foo: 3}, and we setState({bar: 5}),
+      // state would then be {foo: 3, bar: 5}. This won't be a problem here.
+      console.log('test');
+      this.setState(conversationsData);
+    });
+  }
+
   render() {
+    console.log(this.state);
+    var conversation = this.state.conversations[0];
+
     return (
       <MainContent title="Uboard Messaging">
         <div className="row">
@@ -39,74 +70,7 @@ export default class Messaging extends React.Component {
           </div>
         </div>
 
-        <div className="panel panel-default message message-outgoing">
-          <div className="panel-heading">
-            <h3 className="panel-title">Re: The Projectionist</h3>
-          </div>
-          <div className="panel-body">
-            <div className="row">
-              <div className="col-md-12">
-                Yeah, Ill definitely be able to bring the movie.
-              </div>
-            </div>
-            <hr />
-            <div className="row">
-              <div className="col-md-12 message-metadata">
-                tim.richards - Sat Feb 6, 2:15 PM
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="panel panel-default message message-incoming">
-          <div className="panel-heading">
-            <h3 className="panel-title">Re: The Projectionist</h3>
-          </div>
-          <div className="panel-body">
-            <div className="row">
-              <div className="col-md-12">
-                Awesome! I think Ill be bringing a group of ~5 with me.
-              </div>
-            </div>
-            <hr />
-            <div className="row">
-              <div className="col-md-12 message-metadata">
-                cinemaloverno7 - Sat Feb 6, 3:47 PM
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="panel panel-default message message-incoming">
-          <div className="panel-heading">
-            <h3 className="panel-title">Re: The Projectionist</h3>
-          </div>
-          <div className="panel-body">
-            <div className="row">
-              <div className="col-md-12">
-                Oh, btw, any word on Rene?
-              </div>
-            </div>
-            <hr />
-            <div className="row">
-              <div className="col-md-12 message-metadata">
-                cinemaloverno7 - Sat Feb 6, 3:52 PM
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row messaging-text-entry">
-          <div className="col-md-12">
-            <form>
-              <fieldset className="form-group">
-                <textarea className="form-control text-entry-title" rows="1">Re: The Projectionist</textarea>
-                <textarea className="form-control text-entry-message" placeholder="Write a message..." rows="3"></textarea>
-              </fieldset>
-              <button type="submit" className="btn btn-primary pull-right">Submit</button>
-            </form>
-          </div>
-        </div>
+        <Conversation conversation={conversation}/>
       </MainContent>
     )
   }

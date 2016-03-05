@@ -49,3 +49,19 @@ export function getSubscribedBoardsData(user, cb) {
 
   emulateServerReturn(subscribedBoardsData, cb);
 }
+
+
+function getConversationSync(conversationId) {
+  var conversation = readDocument('conversations', conversationId);
+  return conversation;
+}
+
+export function getConversationsData(user, cb) {
+  var userData = readDocument('users', user);
+  var conversationsData = {
+    contents: []
+  };
+  conversationsData.contents = userData.conversations.map(getConversationSync);
+
+  emulateServerReturn(conversationsData, cb);
+}

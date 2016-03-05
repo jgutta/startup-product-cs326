@@ -14,6 +14,12 @@ import SubscribedBoards from './components/subscribedboards';
 import PinnedPosts from './components/pinnedposts';
 import Feed from './components/feed';
 
+class MessagingPage extends React.Component {
+  render() {
+    return <Messaging user={1} />;
+  }
+}
+
 render(
   <Router history={hashHistory}>
     <Route path='/' component={MainPage} />
@@ -22,7 +28,7 @@ render(
     <Route path='thread' component={Thread} />
     <Route path='createthread' component={CreateThread} />
     <Route path='search' component={Search} />
-    <Route path='messaging' component={Messaging} />
+    <Route path='messaging' component={MessagingPage} />
     <Route path='accountsettings' component={AccountSettings} />
   </Router>,
   document.getElementById('main-content')

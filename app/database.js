@@ -198,16 +198,19 @@ var initialData = {
       'messages': [
         {
           'author': 1,
+          'title': 'Re: The Projectionist',
           'postDate': 1457135847180,
           'contents': "Yeah, I'll definitely be able to bring the movie."
         },
         {
           'author': 3,
+          'title': 'Re: The Projectionist',
           'postDate': 1457136164289,
           'contents': "Awesome! I think I'll be bringing a group of ~5 with me."
         },
         {
           'author': 3,
+          'title': 'Re: The Projectionist',
           'postDate': 1457136262123,
           'contents': 'Oh, btw, any word on Rene?'
         }
