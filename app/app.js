@@ -20,13 +20,19 @@ class MessagingPage extends React.Component {
   }
 }
 
+class CreateThreadPage extends React.Component {
+  render() {
+    return <CreateThread user={1} />;
+  }
+}
+
 render(
   <Router history={hashHistory}>
     <Route path='/' component={MainPage} />
     <Route path='index' component={MainPage} />
     <Route path='board' component={Board} />
     <Route path='thread' component={Thread} />
-    <Route path='createthread' component={CreateThread} />
+    <Route path='createthread' component={CreateThreadPage} />
     <Route path='search' component={Search} />
     <Route path='messaging' component={MessagingPage} />
     <Route path='accountsettings' component={AccountSettings} />
