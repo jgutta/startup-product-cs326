@@ -4,8 +4,16 @@ import Message from './message';
 
 export default class Conversation extends React.Component {
   render() {
+    var data = this.props.data;
     return (
       <div>
+
+        {data.messages.map((message, i) => {
+           return (
+             <Message key={i} data={message} />
+           )
+         })}
+
         <div className="row messaging-text-entry">
           <div className="col-md-12">
             <form>

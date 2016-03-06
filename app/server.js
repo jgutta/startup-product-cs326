@@ -51,8 +51,14 @@ export function getSubscribedBoardsData(user, cb) {
 }
 
 
+function getMessageSync(message) {
+  message.author = readDocument('users', message.author).username;
+  return message;
+}
+
 function getConversationSync(conversationId) {
   var conversation = readDocument('conversations', conversationId);
+  conversation.messages = conversation.messages.map(getMessageSync);
   return conversation;
 }
 

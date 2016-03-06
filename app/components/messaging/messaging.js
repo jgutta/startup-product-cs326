@@ -25,53 +25,58 @@ export default class Messaging extends React.Component {
       // Note: setState does a *shallow merge* of the current state and the new
       // state. If state was currently set to {foo: 3}, and we setState({bar: 5}),
       // state would then be {foo: 3, bar: 5}. This won't be a problem here.
-      console.log('test');
       this.setState(conversationsData);
     });
   }
 
   render() {
-    console.log(this.state);
-    var conversation = this.state.conversations[0];
+    if (!this.state.contents || !this.state.contents[0]) {
+      return (
+        <MainContent title="UBoard Messaging" />
+      )
+    }
+    else {
+      var conversation = this.state.contents[0]
 
-    return (
-      <MainContent title="Uboard Messaging">
-        <div className="row">
-          <div className="col-md-12">
-            <ul className="nav nav-tabs">
-              <li role="presentation" className="active"><a href="#" className="tab">
-                PIC cinemaloverno7
-                <button type="button" className="btn btn-default">
-                  <span className="glyphicon glyphicon-remove-sign"></span>
-                </button>
-              </a></li>
-              <li role="presentation"><a href="#" className="tab">
-                PIC guitarist78
-                <button type="button" className="btn btn-default">
-                  <span className="glyphicon glyphicon-remove-sign"></span>
-                </button>
-              </a></li>
-              <li role="presentation"><a href="#" className="tab">
-                PIC ilikemonopoly
-                <button type="button" className="btn btn-default">
-                  <span className="glyphicon glyphicon-remove-sign"></span>
-                </button>
-              </a></li>
-              <li className="dropdown messaging-people-dropdown pull-right">
-                <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span className="caret"></span>
-                </button>
-                <ul className="dropdown-menu">
-                  <li><a href="#">PIC pizzzzaparty666</a></li>
-                  <li><a href="#">PIC concertrocker\m/</a></li>
-                </ul>
-              </li>
-            </ul>
+      return (
+        <MainContent title="UBoard Messaging">
+          <div className="row">
+            <div className="col-md-12">
+              <ul className="nav nav-tabs">
+                <li role="presentation" className="active"><a href="#" className="tab">
+                  PIC cinemaloverno7
+                  <button type="button" className="btn btn-default">
+                    <span className="glyphicon glyphicon-remove-sign"></span>
+                  </button>
+                </a></li>
+                <li role="presentation"><a href="#" className="tab">
+                  PIC guitarist78
+                  <button type="button" className="btn btn-default">
+                    <span className="glyphicon glyphicon-remove-sign"></span>
+                  </button>
+                </a></li>
+                <li role="presentation"><a href="#" className="tab">
+                  PIC ilikemonopoly
+                  <button type="button" className="btn btn-default">
+                    <span className="glyphicon glyphicon-remove-sign"></span>
+                  </button>
+                </a></li>
+                <li className="dropdown messaging-people-dropdown pull-right">
+                  <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span className="caret"></span>
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li><a href="#">PIC pizzzzaparty666</a></li>
+                    <li><a href="#">PIC concertrocker\m/</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <Conversation conversation={conversation}/>
-      </MainContent>
-    )
+          <Conversation data={conversation} />
+        </MainContent>
+      )
+    }
   }
 }

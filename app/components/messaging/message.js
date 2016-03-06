@@ -1,4 +1,5 @@
 import React from 'react';
+import { unixTimeToString } from '../../util';
 
 export default class Message extends React.Component {
   render() {
@@ -16,7 +17,7 @@ export default class Message extends React.Component {
           <hr />
           <div className="row">
             <div className="col-md-12 message-metadata">
-              {data.author} - {data.postDate}
+              {data.author} - {unixTimeToString(data.postDate)}
             </div>
           </div>
         </div>

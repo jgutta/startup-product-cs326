@@ -218,19 +218,27 @@ var initialData = {
     },
     '2': {
       '_id': 2,
-      'users': [ 1, 4 ]
+      'users': [ 1, 4 ],
+
+      'messages': []
     },
     '3': {
       '_id': 3,
-      'users': [ 1, 5 ]
+      'users': [ 1, 5 ],
+
+      'messages': []
     },
     '4': {
       '_id': 4,
-      'users': [ 1, 6 ]
+      'users': [ 1, 6 ],
+
+      'messages': []
     },
     '5': {
       '_id': 5,
-      'users': [ 1, 7 ]
+      'users': [ 1, 7 ],
+
+      'messages': []
     }
   }
 };
