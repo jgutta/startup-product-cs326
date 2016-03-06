@@ -1,5 +1,10 @@
+.messaging-tab-list {
+  margin: 0 !important;
+}
+
 .conversation {
-  border: 1px solid lightgray;
+  border: 1px solid #aaa;
+  border-top: 0;
   overflow: hidden;
   padding: 25px;
   padding-left: 50px;

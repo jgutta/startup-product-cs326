@@ -45,7 +45,7 @@ export default class Messaging extends React.Component {
       return (
         <MainContent title="UBoard Messaging">
           <Tabs selectedIndex={0}>
-            <TabList>
+            <TabList className="messaging-tab-list">
               {this.state.contents.map((conversation) => {
                  return (
                    <Tab key={conversation._id}>{conversation.user}</Tab>
