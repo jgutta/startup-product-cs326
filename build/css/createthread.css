@@ -1,0 +1,59 @@
+.title {
+  font-size: 15px;
+}
+
+textarea {
+  resize: none;
+  /* Needs to be !important, since Bootstrap sets this elsewhere. */
+  box-shadow: none !important;
+  border: none;
+}
+
+.checkboxes {
+  font-size: 12px;
+}
+
+.submit {
+  padding-bottom: 5px;
+}
+
+.date {
+  padding-top: 0px;
+}
+
+.description {
+  padding-top: 0px;
+}
+
+.submit {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.red {
+  color: red;
+  font-size: 12px;
+  padding-left: 15px;
+}
+
+.check {
+  padding-left: 100px;
+}
+
+.picture {
+  text-align: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.browse{
+  margin: auto;
+}
+
+.date {
+  padding-bottom: 0px;
+}
+
+.p{
+  margin: auto;
+}

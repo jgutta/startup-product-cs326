@@ -5,8 +5,16 @@ export default class Message extends React.Component {
   render() {
     var data = this.props.data;
 
+    var messageClassNames = 'panel panel-default message';
+    if (this.props.user === data.author) {
+      messageClassNames += ' message-outgoing';
+    }
+    else {
+      messageClassNames += ' message-incoming';
+    }
+
     return (
-      <div className="panel panel-default message message-outgoing">
+      <div className={messageClassNames}>
         <div className="panel-heading">
           <h3 className="panel-title">{data.title}</h3>
         </div>
@@ -17,7 +25,7 @@ export default class Message extends React.Component {
           <hr />
           <div className="row">
             <div className="col-md-12 message-metadata">
-              {data.author} - {unixTimeToString(data.postDate)}
+              {data.authorUsername} - {unixTimeToString(data.postDate)}
             </div>
           </div>
         </div>

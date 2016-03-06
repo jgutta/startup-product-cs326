@@ -1,0 +1,79 @@
+.messaging-tab-list {
+  margin: 0 !important;
+}
+
+.conversation {
+  border: 1px solid #aaa;
+  border-top: 0;
+  overflow: hidden;
+  padding: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.no-messages-alert {
+  color: gray;
+  text-align: center;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+.message {
+  border-color: gray;
+}
+
+.message > .panel-heading {
+  border: 0;
+}
+
+.message > .panel-body {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.message > .panel-body > hr {
+  border-color: lightgray;
+}
+
+.message-metadata {
+  font-size: .9em;
+  text-align: right;
+  color: dimgray;
+}
+
+.message-outgoing {
+  margin-left: 40%;
+}
+.message-outgoing > .panel-heading {
+  background-color: #48a8a8;
+}
+
+.message-incoming {
+  margin-right: 40%;
+}
+.message-incoming > .panel-heading {
+  background-color: #004d4d;
+  color: white;
+}
+
+.messaging-text-entry {
+  margin-left: 40%;
+  margin-right: 0;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.messaging-text-entry > fieldset > textarea {
+  resize: none;
+}
+.text-entry-title {
+  border-color: gray;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 0;
+}
+.text-entry-message {
+  border-color: gray;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

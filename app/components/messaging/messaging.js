@@ -5,6 +5,12 @@ import Conversation from './conversation';
 
 import { getConversationsData } from '../../server';
 
+var ReactTabs = require('react-tabs');
+var Tab = ReactTabs.Tab;
+var Tabs = ReactTabs.Tabs;
+var TabList = ReactTabs.TabList;
+var TabPanel = ReactTabs.TabPanel;
+
 export default class Messaging extends React.Component {
   constructor(props) {
     // super() calls the parent class constructor -- e.g. React.Component's constructor.
@@ -30,51 +36,32 @@ export default class Messaging extends React.Component {
   }
 
   render() {
-    if (!this.state.contents || !this.state.contents[0]) {
+    if (!this.state.contents || !this.state.contents.length > 0) {
       return (
         <MainContent title="UBoard Messaging" />
       )
     }
     else {
-      var conversation = this.state.contents[0]
-
       return (
         <MainContent title="UBoard Messaging">
-          <div className="row">
-            <div className="col-md-12">
-              <ul className="nav nav-tabs">
-                <li role="presentation" className="active"><a href="#" className="tab">
-                  PIC cinemaloverno7
-                  <button type="button" className="btn btn-default">
-                    <span className="glyphicon glyphicon-remove-sign"></span>
-                  </button>
-                </a></li>
-                <li role="presentation"><a href="#" className="tab">
-                  PIC guitarist78
-                  <button type="button" className="btn btn-default">
-                    <span className="glyphicon glyphicon-remove-sign"></span>
-                  </button>
-                </a></li>
-                <li role="presentation"><a href="#" className="tab">
-                  PIC ilikemonopoly
-                  <button type="button" className="btn btn-default">
-                    <span className="glyphicon glyphicon-remove-sign"></span>
-                  </button>
-                </a></li>
-                <li className="dropdown messaging-people-dropdown pull-right">
-                  <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    <span className="caret"></span>
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li><a href="#">PIC pizzzzaparty666</a></li>
-                    <li><a href="#">PIC concertrocker\m/</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Tabs selectedIndex={0}>
+            <TabList className="messaging-tab-list">
+              {this.state.contents.map((conversation) => {
+                 return (
+                   <Tab key={conversation._id}>{conversation.user}</Tab>
+                 );
+               })}
+            </TabList>
 
-          <Conversation data={conversation} />
+
+            {this.state.contents.map((conversation) => {
+               return (
+                 <TabPanel key={conversation._id}>
+                   <Conversation data={conversation} user={this.props.user} />
+                 </TabPanel>
+               );
+             })}
+          </Tabs>
         </MainContent>
       )
     }
