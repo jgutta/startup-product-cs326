@@ -10,7 +10,7 @@ export default class Conversation extends React.Component {
 
         {data.messages.map((message, i) => {
            return (
-             <Message key={i} data={message} />
+             <Message key={i} data={message} user={this.props.user} />
            )
          })}
 

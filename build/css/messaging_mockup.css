@@ -1,0 +1,38 @@
+.message {
+  margin-top: 20px;
+  border-color: gray;
+}
+
+.message > .panel-heading {
+  border: 0;
+}
+
+.message > .panel-body {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.message > .panel-body > hr {
+  border-color: lightgray;
+}
+
+.message-metadata {
+  font-size: .9em;
+  text-align: right;
+  color: dimgray;
+}
+
+.message-outgoing {
+  margin-left: 40%;
+}
+.message-outgoing > .panel-heading {
+  background-color:#48a8a8;
+}
+
+.message-incoming {
+  margin-right: 40%;
+}
+.message-incoming > .panel-heading {
+  background-color: #004d4d;
+  color: white;
+}

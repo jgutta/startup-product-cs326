@@ -74,7 +74,7 @@ export default class Messaging extends React.Component {
             </div>
           </div>
 
-          <Conversation data={conversation} />
+          <Conversation data={conversation} user={this.props.user} />
         </MainContent>
       )
     }

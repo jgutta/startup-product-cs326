@@ -52,7 +52,7 @@ export function getSubscribedBoardsData(user, cb) {
 
 
 function getMessageSync(message) {
-  message.author = readDocument('users', message.author).username;
+  message.authorUsername = readDocument('users', message.author).username;
   return message;
 }
 
