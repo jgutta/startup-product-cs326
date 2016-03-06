@@ -36,3 +36,23 @@
   background-color: #004d4d;
   color: white;
 }
+
+.messaging-text-entry {
+  margin-left: 40%;
+  margin-right: 0;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.messaging-text-entry > fieldset > textarea {
+  resize: none;
+}
+.text-entry-title {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: white;
+}
+.text-entry-message {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
