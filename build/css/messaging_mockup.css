@@ -1,5 +1,12 @@
+.conversation {
+  border: 1px solid lightgray;
+  overflow: hidden;
+  padding: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 .message {
-  margin-top: 20px;
   border-color: gray;
 }
 
@@ -48,11 +55,13 @@
   resize: none;
 }
 .text-entry-title {
+  border-color: gray;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border-bottom-color: white;
+  border-bottom: 0;
 }
 .text-entry-message {
+  border-color: gray;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }

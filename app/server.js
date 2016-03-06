@@ -56,9 +56,18 @@ function getMessageSync(message) {
   return message;
 }
 
-function getConversationSync(conversationId) {
+function getConversationSync(user, conversationId) {
   var conversation = readDocument('conversations', conversationId);
+
   conversation.messages = conversation.messages.map(getMessageSync);
+
+  for(var i = conversation.users.length - 1; i >= 0; i--) {
+    if(conversation.users[i] === user) {
+      conversation.users.splice(i, 1);
+    }
+  }
+  conversation.user = readDocument('users', conversation.users[0]).username;
+
   return conversation;
 }
 
@@ -67,7 +76,7 @@ export function getConversationsData(user, cb) {
   var conversationsData = {
     contents: []
   };
-  conversationsData.contents = userData.conversations.map(getConversationSync);
+  conversationsData.contents = userData.conversations.map((conversation) => getConversationSync(user, conversation));
 
   emulateServerReturn(conversationsData, cb);
 }

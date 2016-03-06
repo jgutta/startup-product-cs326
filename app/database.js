@@ -35,7 +35,7 @@ var initialData = {
     },
     '7': {
       '_id': 7,
-      'username': 'concertrocker\m/'
+      'username': 'concertrocker\\m/'
     }
   },
 
@@ -220,7 +220,14 @@ var initialData = {
       '_id': 2,
       'users': [ 1, 4 ],
 
-      'messages': []
+      'messages': [
+        {
+          'author': 1,
+          'title': 'Re: Band',
+          'postDate': 1456885425431,
+          'contents': "Can I get an audition? I'm a really good guitarist."
+        }
+      ]
     },
     '3': {
       '_id': 3,
