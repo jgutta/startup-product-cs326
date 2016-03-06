@@ -1,4 +1,4 @@
-import { readDocument, writeDocument, addDocument } from './database.js';
+import { readDocument, writeDocument, addDocument, readCollection } from './database.js';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -24,6 +24,7 @@ export function getFeedData(user, cb) {
 
   emulateServerReturn(feedData, cb);
 }
+
 
 export function getPinnedPostsData(user, cb) {
   var userData = readDocument('users', user);
@@ -70,4 +71,9 @@ export function getConversationsData(user, cb) {
   conversationsData.contents = userData.conversations.map(getConversationSync);
 
   emulateServerReturn(conversationsData, cb);
+}
+
+export function getSearchData(cb) {
+  var threads = readCollection('threads');
+  emulateServerReturn(threads, cb);
 }

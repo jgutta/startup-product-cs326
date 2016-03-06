@@ -267,6 +267,12 @@ export function readDocument(collection, id) {
   return JSONClone(data[collection][id]);
 }
 
+export function readCollection(collection) {
+  // Clone the data. We do this to model a database, where you receive a
+  // *copy* of the objects and not the objects itself.
+  return JSONClone(data[collection]);
+}
+
 /**
  * Emulates writing a "document" to a NoSQL database.
  */
