@@ -95,6 +95,29 @@ export function getConversationsData(user, cb) {
   emulateServerReturn(conversationsData, cb);
 }
 
+export function getConversationData(user, conversationId, cb) {
+  var conversationData = {};
+  conversationData.conversation = getConversationSync(user, conversationId);
+
+  emulateServerReturn(conversationData, cb);
+}
+
+
+export function postMessage(conversationId, author, title, contents, cb) {
+  var conversation = readDocument('conversations', conversationId);
+  conversation.messages.push({
+    'author': author,
+    'title': title,
+    'postDate': new Date().getTime(),
+    'contents': contents
+  });
+
+  writeDocument('conversations', conversation);
+
+  emulateServerReturn(getConversationSync(author, conversationId), cb);
+}
+
+
 export function getSearchData(cb) {
   var threads = readCollection('threads');
   var threadData = {
@@ -103,7 +126,6 @@ export function getSearchData(cb) {
 
   for(var i in threads)
     threadData.contents.push(threads[i]);
-
 
   emulateServerReturn(threadData, cb);
 }
