@@ -80,3 +80,17 @@ export function getConversationsData(user, cb) {
 
   emulateServerReturn(conversationsData, cb);
 }
+
+
+export function postMessage(conversationId, author, title, contents, cb) {
+  var conversation = readDocument('conversations', conversationId);
+  conversation.messages.push({
+    'author': author,
+    'title': title,
+    'postDate': new Date().getTime(),
+    'contents': contents
+  });
+  writeDocument('conversations', conversation);
+
+  emulateServerReturn(getConversationSync(author, conversationId), cb);
+}
