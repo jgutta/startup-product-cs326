@@ -51,6 +51,19 @@ export function getSubscribedBoardsData(user, cb) {
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
+export function getBoardsData(cb){
+  var boards = readCollection('boards');
+  var boardsData = {
+    boardsList: []
+  };
+
+  for(var i in boards)
+    boardsData.boardsList.push(boards[i]);
+
+
+  emulateServerReturn(boardsData, cb);
+}
+
 
 function getMessageSync(message) {
   message.authorUsername = readDocument('users', message.author).username;
@@ -84,5 +97,13 @@ export function getConversationsData(user, cb) {
 
 export function getSearchData(cb) {
   var threads = readCollection('threads');
-  emulateServerReturn(threads, cb);
+  var threadData = {
+    contents: []
+  };
+
+  for(var i in threads)
+    threadData.contents.push(threads[i]);
+
+
+  emulateServerReturn(threadData, cb);
 }
