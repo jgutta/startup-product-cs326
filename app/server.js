@@ -81,6 +81,13 @@ export function getConversationsData(user, cb) {
   emulateServerReturn(conversationsData, cb);
 }
 
+export function getConversationData(user, conversationId, cb) {
+  var conversationData = {};
+  conversationData.conversation = getConversationSync(user, conversationId);
+
+  emulateServerReturn(conversationData, cb);
+}
+
 
 export function postMessage(conversationId, author, title, contents, cb) {
   var conversation = readDocument('conversations', conversationId);
@@ -90,6 +97,7 @@ export function postMessage(conversationId, author, title, contents, cb) {
     'postDate': new Date().getTime(),
     'contents': contents
   });
+
   writeDocument('conversations', conversation);
 
   emulateServerReturn(getConversationSync(author, conversationId), cb);
