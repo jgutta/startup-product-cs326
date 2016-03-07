@@ -6,7 +6,7 @@ export default class CreateThread extends React.Component {
     return (
       <MainContent title="Create Thread">
       <div classNameName="col-md-6">
-        <div className="panel panel-default">
+        <div className="panel panel-default p">
           <div className="panel-body">
             <form role="form">
               <div className="main-content">
@@ -61,8 +61,8 @@ export default class CreateThread extends React.Component {
                   </div>
 
                   <div className="panel-body picture form-group">
-                    <a href="#"><img src="img/default.png" width="30%" className="pic"/></a>
-                    <button type="button" className="btn btn-primary">Browse</button>
+                    <a><img src="img/default.png" width="30%"/></a>
+                    <input type="file" className="browse" accept="image/*"></input>
                   </div>
 
                   <div className="panel-body checkboxes form-group">
@@ -72,7 +72,7 @@ export default class CreateThread extends React.Component {
                       </div>
                       <div className="col-md-12 check">
                         <div className="col-md-4">
-                          <input type="checkbox" name="board" value="General" checked/> General
+                          <input type="checkbox" name="board" value="General" defaultchecked/> General
                           <br/>
                           <input type="checkbox" name="board" value="Concerts"/> Concerts
                           <br/>
