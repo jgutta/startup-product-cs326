@@ -1,14 +1,43 @@
 import React from 'react';
 import MainContent from '../maincontent';
+import { createThread } from '../../server';
 
 export default class CreateThread extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: '',
+      date: '',
+      time: '',
+      description: '',
+      image: '',
+      boards: []
+    };
+  }
+
+  handleNewThread(e) {
+    e.preventDefault();
+
+    var threadTitle = this.state.title.trim();
+    var threadDate = this.state.date.trim();
+    var threadTime = this.state.time.trim();
+    var threadDescription = this.state.description.trim();
+    var threadImage = this.state.image.trim();
+    var threadBoards = this.state.boards.trim();
+
+    createThread(this.props.user, threadTitle, threadDate, threadTime, threadDescription, threadImage, threadBoards, () => {
+        this.refresh();
+      });
+  }
+
   render() {
     return (
       <MainContent title="Create Thread">
         <div classNameName="col-md-6">
           <div className="panel panel-default p">
             <div className="panel-body">
-              <form role="form" action="thread.php" method="get">
+              <form>
                 <div className="main-content">
 
                   <div className="main-content-body">
@@ -102,7 +131,7 @@ export default class CreateThread extends React.Component {
                   </div>
                   <hr/>
                   <div className="submit">
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={(e) => this.handleNewThread(e)}>Submit</button>
                   </div>
                 </div>
               </form>

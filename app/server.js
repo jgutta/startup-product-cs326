@@ -133,3 +133,18 @@ export function getSearchData(cb) {
 
   emulateServerReturn(threadData, cb);
 }
+
+export function createThread(author, title, date, time, desc, image, boards, cb) {
+    var threads = {
+      'author': author,
+      'title': title,
+      'date': date,
+      'time': time,
+      'description': desc,
+      'image': image,
+      'boards': boards
+    };
+
+    writeDocument('threads', threads);
+    emulateServerReturn(threads, cb);
+  }
