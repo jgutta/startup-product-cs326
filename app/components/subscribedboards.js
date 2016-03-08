@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import { getSubscribedBoardsData, getBoardsData } from '../server';
 
@@ -64,7 +65,7 @@ export default class SubscribedBoards extends React.Component {
             {this.state.contents.map((board) => {
                return (
                  <li role="presentation" key={board._id}>
-                   <a href="#">{board.name}</a>
+                   <Link to={"/board/" + board._id}>{board.name}</Link>
                  </li>
                );
              })}

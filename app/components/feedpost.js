@@ -16,7 +16,7 @@ export default class FeedPost extends React.Component {
           </div>
         </div>
         <hr />
-        <p>{data.originalPost.contents}</p>
+        <p>{data.originalPost.description}</p>
         <div className="post-comment-count">
           {data.commentsNo} comments, {data.viewsNo} views
         </div>
