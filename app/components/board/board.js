@@ -1,7 +1,8 @@
 import React from 'react';
 import MainContent from '../maincontent';
-import feedPost from './feedPost'
-import { getBoardInfo } from '../../server';
+//import feedItem from './feedItem'
+import FeedPost from '../feedpost';
+import { getBoardInfo} from '../../server';
 export default class Board extends React.Component {
   constructor(props){
     super(props);
@@ -12,23 +13,27 @@ export default class Board extends React.Component {
   }
   componentDidMount() {
 
-    getBoardInfo(1, (boardData) => {
+    getBoardInfo(1, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop. 
       //console.log(boardData.threads[0])
       this.setState(boardData);
       this.setState({contents: boardData.threads})
+
   });
   }
 
+//  console.log(this.state.threads)
   render() {
-  //  console.log(JSON.stringify(this.state))
-  //  console.log(this.state.threads)
+console.log(this.state)
     return (
       <MainContent title={this.state.name}>
         <ul className="list-group">
-            {this.state.contents.map((thread) => {
-
+            {this.state.contents.map((thread,i) => {
+              // console.log(thread, i)
                return (
-                 <feedPost key={thread._id} threadID= {thread} />
+
+                   //console.log(obj);
+                   <FeedPost key={i} data= {thread}/>
+
                );
              })}
           </ul>

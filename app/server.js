@@ -39,8 +39,8 @@ export function getFeedData(user, cb) {
 }
 export function getBoardInfo(boardId, cb){
   var board = readDocument('boards', boardId);
-
-  emulateServerReturn(board, cb)
+  board.threads = board.threads.map((id) => getThreadSync(id));
+  emulateServerReturn(board, cb);
 }
 
 export function getPinnedPostsData(user, cb) {
