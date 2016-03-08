@@ -11,20 +11,24 @@ export default class Board extends React.Component {
   };
   }
   componentDidMount() {
+
     getBoardInfo(1, (boardData) => {
+      //console.log(boardData.threads[0])
       this.setState(boardData);
-      //this.setState({contents: boardData.threads})
+      this.setState({contents: boardData.threads})
   });
   }
 
   render() {
+  //  console.log(JSON.stringify(this.state))
+  //  console.log(this.state.threads)
     return (
       <MainContent title={this.state.name}>
-        {this.state.threads}
         <ul className="list-group">
             {this.state.contents.map((thread) => {
+
                return (
-                 <feedPost key={thread._id} thread= {thread} />
+                 <feedPost key={thread._id} threadID= {thread} />
                );
              })}
           </ul>

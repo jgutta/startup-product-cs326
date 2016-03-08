@@ -65,7 +65,7 @@ var initialData = {
     '1': {
       '_id': 1,
       'name': 'General',
-      'threads': [1,2,3]
+      'threads': [ 1, 2, 3]
     },
     '2': {
       '_id': 2,
@@ -75,7 +75,7 @@ var initialData = {
     '3': {
       '_id': 3,
       'name': 'Games',
-      'threads': [4]
+      'threads': [ 4 ]
     },
     '4': {
       '_id': 4,

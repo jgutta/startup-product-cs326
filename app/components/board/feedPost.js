@@ -1,10 +1,25 @@
 import React from 'react';
 import { unixTimeFromNow } from '../../util';
-
+import { getThreadSync } from '../../server';
 export default class feedPost extends React.Component {
-  render() {
-    var thread = this.props.thread;
+  constructor(props){
+    super(props);
+    this.state = {
+    // Empty feed.
+    thread: ''
+  };
+}
 
+componentDidMount() {
+    //console.log(JSON.stringify(this.state))
+  getThreadSync(this.props.threadID, (threadData) => {
+
+    this.setState({thread:threadData})
+});}
+
+  render() {
+    console.log(JSON.stringify(this.state))
+    var thread = this.state.thread;
     return (
       <li className="list-group-item">
       <div className = "row panel panel-default postContain">
@@ -24,7 +39,7 @@ export default class feedPost extends React.Component {
                   {thread.commentsNo} Replies
                 </div>
                 <div className="col-md-3 reply">
-                  Pin this Post
+                <a href="#">  Pin this Post</a>
                 </div>
        <div className="col-md-6 result-metadata">
                   {thread.originalPost.author} - {unixTimeFromNow(thread.originalPost.postDate)}
