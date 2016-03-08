@@ -65,7 +65,7 @@ export default class SubscribedBoards extends React.Component {
             {this.state.contents.map((board) => {
                return (
                  <li role="presentation" key={board._id}>
-                   <Link to={"/board/" + board._id}>{board.name}</Link>
+                   <Link to={"/boards/" + board._id}>{board.name}</Link>
                  </li>
                );
              })}

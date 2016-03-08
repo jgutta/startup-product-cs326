@@ -61,6 +61,7 @@ render(
     <Route path='/' component={App}>
       <IndexRoute component={MainPage} />
       <Route path='board' component={Board} />
+      <Route path='boards/:id' component={Board} />
       <Route path='thread' component={Thread} />
       <Route path='createthread' component={CreateThreadPage} />
       <Route path='search' component={Search} />
