@@ -40,6 +40,14 @@ function getBoardSync(boardId) {
   return board;
 }
 
+export function getAllBoards(cb){
+  var boardList =[];
+  for (var i=1; i<=11; i++){
+    boardList.push(readDocument('boards', i));
+  }
+  emulateServerReturn(boardList, cb);
+}
+
 export function getSubscribedBoardsData(user, cb) {
   var userData = readDocument('users', user);
   var subscribedBoardsData = {
