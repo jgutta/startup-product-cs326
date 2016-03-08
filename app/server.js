@@ -24,13 +24,10 @@ export function getFeedData(user, cb) {
 
   emulateServerReturn(feedData, cb);
 }
-export function getBoardThreads(boardId, cb){
+export function getBoardInfo(boardId, cb){
   var board = readDocument('boards', boardId);
-  var threads = {
-    contents: []
-  }
-  threads.contents = board.threads;
-  emulateServerReturn(threads, cb)
+
+  emulateServerReturn(board, cb)
 }
 
 export function getPinnedPostsData(user, cb) {
@@ -43,7 +40,7 @@ export function getPinnedPostsData(user, cb) {
 }
 
 
-function getBoardSync(boardId) {//
+function getBoardSync(boardId) {
   var board = readDocument('boards', boardId);
   return board;
 }

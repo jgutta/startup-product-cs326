@@ -1,6 +1,7 @@
 import React from 'react';
 import MainContent from '../maincontent';
-//import { getBoardsSync } from '../server';
+import feedPost from './feedPost'
+import { getBoardInfo } from '../../server';
 export default class Board extends React.Component {
   constructor(props){
     super(props);
@@ -9,18 +10,25 @@ export default class Board extends React.Component {
     contents: []
   };
   }
-//  componentDidMount() {
-  //  getBoardsSync(this.props.user, (boardData) => {
-      // Note: setState does a *shallow merge* of the current state and the new
-      // state. If state was currently set to {foo: 3}, and we setState({bar: 5}),
-      // state would then be {foo: 3, bar: 5}. This won't be a problem here.
-    //  this.setState(boardData);
-  //  });
-//  }
+  componentDidMount() {
+    getBoardInfo(1, (boardData) => {
+      this.setState(boardData);
+      //this.setState({contents: boardData.threads})
+  });
+  }
 
   render() {
     return (
-      <MainContent title="Board">Board</MainContent>
+      <MainContent title={this.state.name}>
+        {this.state.threads}
+        <ul className="list-group">
+            {this.state.contents.map((thread) => {
+               return (
+                 <feedPost key={thread._id} thread= {thread} />
+               );
+             })}
+          </ul>
+      </MainContent>
     )
   }
 }

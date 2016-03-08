@@ -122,9 +122,11 @@ var initialData = {
       'commentsNo': 3,
       'viewsNo': 10,
 
+
       'originalPost': {
         'author': 1,
         'title': 'UMass Hackathon',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457072173808,
         'contents': 'Hackathon friday at the Campus Center. Come hack!'
       },
@@ -162,6 +164,7 @@ var initialData = {
 
       'originalPost': {
         'author': 1,
+        'img': 'img/ExampleBoard.jpg',
         'title': 'Concert at Herter',
         'postDate': 1457105227129,
         'contents': "There's going to be a math-rock concert Wednesday night at Herter, if anyone's interested. Giraffes? Giraffes! is going to be playing!"
@@ -178,6 +181,7 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Smash at Sylvan',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457123570979,
         'contents': 'Anyone in Sylvan want to play super smash brothers? I have a setup for melee at my dorm.'
       },
@@ -193,6 +197,7 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Anyone want to jam? (Drummer)',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457133892466,
         'contents': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
       },
