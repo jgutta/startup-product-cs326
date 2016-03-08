@@ -60,47 +60,58 @@ var initialData = {
   'boards': {
     '1': {
       '_id': 1,
-      'name': 'General'
+      'name': 'General',
+      'threads': [1,2,3]
     },
     '2': {
       '_id': 2,
-      'name': 'Concerts'
+      'name': 'Concerts',
+      'threads': []
     },
     '3': {
       '_id': 3,
-      'name': 'Games'
+      'name': 'Games',
+      'threads': [4]
     },
     '4': {
       '_id': 4,
-      'name': 'Local Events'
+      'name': 'Local Events',
+      'threads': []
     },
     '5': {
       '_id': 5,
-      'name': 'Music'
+      'name': 'Music',
+      'threads': []
     },
     '6': {
       '_id': 6,
-      'name': 'Note/Textbook Exchange'
+      'name': 'Note/Textbook Exchange',
+      'threads': []
     },
     '7': {
       '_id': 7,
-      'name': 'RSOs'
+      'name': 'RSOs',
+      'threads': []
     },
     '8': {
       '_id': 8,
-      'name': 'Sports'
+      'name': 'Sports',
+      'threads': []
     },
     '9': {
       '_id': 9,
-      'name': 'Studying'
+      'name': 'Studying',
+      'threads': []
     },
     '10': {
       '_id': 10,
-      'name': 'TV/Movies'
+      'name': 'TV/Movies',
+      'threads': []
     },
     '11': {
       '_id': 11,
-      'name': 'Videogames'
+      'name': 'Videogames',
+      'threads': []
     }
   },
 

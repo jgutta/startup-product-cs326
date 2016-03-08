@@ -47,7 +47,7 @@ export default class SubscribedBoards extends React.Component {
         nosub.push(all[i]);
       }
     }
-    console.log(nosub);
+    //console.log(nosub);
     return nosub;
   }
 
