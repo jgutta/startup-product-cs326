@@ -37,21 +37,26 @@ export default class MainPage extends React.Component {
             <div className="panel-body">
               <div className= "main-content-body">
                 {boardsList.map((board, i) => {
-                  if((i%2)===0 && i!==0){
+                  if(i===10){
                     return(
                       <div className="row">
                         <div className="col-md-6">
-                          <BoardTab key={i-1} title={tempBoard.name} description={tempBoard.description} numUser={tempBoard.numUsers} numPosts={tempBoard.numPosts}/>
-                        </div>
-                        <div className="col-md-6">
-                          <BoardTab key={i} title={board.name} description={board.description} numUser={board.numUsers} numPosts={board.numPosts}/>
+                          <BoardTab key={i} title={board.name} description={board.description} numUser={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
                         </div>
                       </div>
                     );
-                  }
-                  else{
-                    tempBoard = board;
-                  }
+                  }else if((i%2)===0 && i!==0){
+                    return(
+                      <div className="row">
+                        <div className="col-md-6">
+                          <BoardTab key={i-1} title={tempBoard.name} description={tempBoard.description} numUser={tempBoard.numUsers} numPosts={tempBoard.numPosts} boardImg={tempBoard.image} boardID={tempBoard._id}/>
+                        </div>
+                        <div className="col-md-6">
+                          <BoardTab key={i} title={board.name} description={board.description} numUser={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
+                        </div>
+                      </div>
+                    );
+                  }else{tempBoard = board}
                 })}
               </div>
             </div>
