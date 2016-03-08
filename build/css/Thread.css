@@ -14,6 +14,11 @@
   padding-right: 1px;
 }
 
+.pull-left button{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
 hr{
   margin: 7px;
 }

@@ -35,6 +35,14 @@ export default class Messaging extends React.Component {
     });
   }
 
+  compareConversations(convA, convB) {
+    // If there are no messages in the conversation, set the time of that conversation to 0.
+    var timeA = convA.messages.length < 1 ? 0 : convA.messages[convA.messages.length - 1].postDate;
+    var timeB = convB.messages.length < 1 ? 0 : convB.messages[convB.messages.length - 1].postDate;
+
+    return timeB - timeA;
+  }
+
   render() {
     if (!this.state.contents || !this.state.contents.length > 0) {
       return (
@@ -42,6 +50,8 @@ export default class Messaging extends React.Component {
       )
     }
     else {
+      this.state.contents.sort(this.compareConversations);
+
       return (
         <MainContent title="UBoard Messaging">
           <Tabs selectedIndex={0}>
@@ -52,7 +62,6 @@ export default class Messaging extends React.Component {
                  );
                })}
             </TabList>
-
 
             {this.state.contents.map((conversation) => {
                return (
