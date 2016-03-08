@@ -130,9 +130,11 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'UMass Hackathon',
+        'date': '3/11/16',
+        'time': '7:00PM',
         'img': 'img/ExampleBoard.jpg',
         'postDate': 1457072173808,
-        'contents': 'Hackathon friday at the Campus Center. Come hack!'
+        'description': 'Hackathon friday at the Campus Center. Come hack!'
       },
 
       'replies': [
@@ -168,10 +170,12 @@ var initialData = {
 
       'originalPost': {
         'author': 1,
-        'img': 'img/ExampleBoard.jpg',
         'title': 'Concert at Herter',
+        'date': '3/9/16',
+        'time': '6:30PM',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457105227129,
-        'contents': "There's going to be a math-rock concert Wednesday night at Herter, if anyone's interested. Giraffes? Giraffes! is going to be playing!"
+        'description': "There's going to be a math-rock concert Wednesday night at Herter, if anyone's interested. Giraffes? Giraffes! is going to be playing!"
       },
 
       'replies': []
@@ -185,9 +189,11 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Smash at Sylvan',
+        'date': '',
+        'time': '',
         'img': 'img/ExampleBoard.jpg',
         'postDate': 1457123570979,
-        'contents': 'Anyone in Sylvan want to play super smash brothers? I have a setup for melee at my dorm.'
+        'description': 'Anyone in Sylvan want to play super smash brothers? I have a setup for melee at my dorm.'
       },
 
       'replies': []
@@ -201,9 +207,11 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Anyone want to jam? (Drummer)',
+        'date': '',
+        'time': '',
         'img': 'img/ExampleBoard.jpg',
         'postDate': 1457133892466,
-        'contents': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
+        'description': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
       },
 
       'replies': []
