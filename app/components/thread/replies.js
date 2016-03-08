@@ -1,5 +1,6 @@
 import React from 'react';
 import { unixTimeToString } from '../../util';
+//import OnCLick from thread.js
 
 export default class Replies extends React.Component {
   constructor(props){
@@ -9,9 +10,11 @@ export default class Replies extends React.Component {
     };
   }
 
+  //handle replies to replies
+
   render(){
     return(
-      //have to eliminate "pull-right"
+      //!!have to eliminate "pull-right"
         //I need to create custom indentation, but when do i hit bedrock?
       <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
        <div className="row col-md-4">

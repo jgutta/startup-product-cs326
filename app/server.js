@@ -16,6 +16,19 @@ function getThreadSync(threadId) {
   return thread;
 }
 
+//!!
+export function getThreadData(threadId, cb) {
+  var thread = readDocument('threads', threadId);
+  var threadData = {
+    contents: []
+  };
+  threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
+
+  emulateServerReturn(threadData, cb);
+}
+
+//!!postThreadReply(). worry later
+
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
   var feedData = readDocument('feeds', userData.feed);
