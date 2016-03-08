@@ -22,80 +22,77 @@ export default class Thread extends React.Component {
   componentDidMount() {
     this.refresh();
   }
-/*
-  handleContentsChange(e) {
-    e.preventDefault();
-    this.setState({ messageContentsValue: e.target.value });
+
+  //when reply is clicked, it opens a window to post comment
+  //!!
+  /*
+  onClick(e){
+    // make popup with textfield
+    //call handle reply
   } */
-/*
-  handlePost(e) {
-    e.preventDefault();
-    var messageTitle = this.state.messageTitleValue.trim();
-    var messageContents = this.state.messageContentsValue.trim();
 
-    if (messageContents !== '') {
-      postMessage(this.props.conversationId, this.props.user, messageTitle, messageContents, () => {
-        this.refresh();
-      });
-    }
-
-    this.setState({
-      messageTitleValue: messageTitle,
-      messageContentsValue: ''
-    }); */
-  //}
-  // for reply button, opens text feield for you to respond.
-  //onClick(){}
+  //when you hit enter - after opening the text window and entering text - posts comment in replies[]
+  /*
+  handleReply(e) {
+      e.preventDefault();
+      var replies =  this.state.replies;
+      var replyText = replies.contents;
+      if(replyText !== ''){
+        //!!current time: var time = new Date().getTime();
+        //!!postThreadReply()
+      }
+  } */
 
   render() {
-    var replies = this.state.replies;
+    var replies = []; //should be this state
 
     return (
-      <MainContent title="Thread">
-        <div className = "panel-body panel panel-default">
+      <MainContent title='this.state.originalPost.title'>
+        <div>
           <div className="panel-body">
             <div className="row col-md-4">
-              //**passed from John/Evan?
             <img src="img/defaultDisplay.jpg" width="90%" />
 
         </div>
 
         <div className="col-md-8 title-head">
-          <h4> {this.props.originalPost.title} </h4>
-          //**related to John/Evan?
-          <h4><small> {unixTimeToString(this.props.originalPost.postDate)} </small></h4>
+          <h4><small> unixTimeToString(this.props.originalPost.postDate) </small></h4>
         </div>
 
 
         <div className = "main-content-body">
 
-          {this.props.originalPost.contents}
+          this.props.originalPost.contents
           <hr />
-            <div>
+            <div className="footer">
               <div className="pull-left">
                 <button type="replyBtn" className="btn btn-primary">
                   <span> Reply </span>
                 </button>
+
               </div>
-              Posted by <a href = "#">{this.props.originalPost.author}@UBoard</a>.
+              Posted by <a href = "#">this.props.originalPost.author@UBoard</a>.
+              <br />
             </div>
           <hr />
         </div>
-      </div>
-
-        //replies here
         <div>
           {replies.map((i) => {
              return (
                //DEFINITION -nested replies[]?
-               //!!temporarily define explicitly
+               //!!these props should be maintained as comments are created
                <Replies key={i} rKey={i} author={5} contents="floopy d00p fibbity b0p" postDate={1456871392} replies={ [] } />
              )
            })}
         </div>
+      </div>
 
         </div>
-      < /MainContent>
+      </MainContent>
     )
   }
 }
+/*
+1. how do i get passed images for OP -> databse, thread.originalPost.img
+2. maintaining replies properties as created?
+*/
