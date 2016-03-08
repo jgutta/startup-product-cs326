@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 
 export default class Navbar extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class Navbar extends React.Component {
     if (e.key === 'Enter') {
       var query = this.state.value.trim();
       if (query !== '') {
-        console.log(query);
+        hashHistory.push({ pathname: '/messaging/', query: { query: query } });
       }  
     }
   }
@@ -64,7 +64,9 @@ export default class Navbar extends React.Component {
                      value={this.state.value} onChange={(e) => this.handleChange(e)}
                      onKeyUp={(e) => this.handleKeyUp(e)}/>
               <span className="input-group-btn">
-                <button className="btn btn-default" type="button"><a href="/#/search"><i className="fa fa-search"></i></a></button>
+                <Link className="btn btn-default" to={{ pathname: '/messaging/', query: { query: this.state.value.trim() } }}>
+                  <i className="fa fa-search"></i>
+                </Link>
               </span>
             </div>
 
