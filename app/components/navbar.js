@@ -19,7 +19,7 @@ export default class Navbar extends React.Component {
     if (e.key === 'Enter') {
       var query = this.state.value.trim();
       if (query !== '') {
-        hashHistory.push({ pathname: '/messaging/', query: { query: query } });
+        hashHistory.push({ pathname: '/search/', query: { query: query } });
       }  
     }
   }
@@ -64,7 +64,7 @@ export default class Navbar extends React.Component {
                      value={this.state.value} onChange={(e) => this.handleChange(e)}
                      onKeyUp={(e) => this.handleKeyUp(e)}/>
               <span className="input-group-btn">
-                <Link className="btn btn-default" to={{ pathname: '/messaging/', query: { query: this.state.value.trim() } }}>
+                <Link className="btn btn-default" to={{ pathname: '/search/', query: { query: this.state.value.trim() } }}>
                   <i className="fa fa-search"></i>
                 </Link>
               </span>
