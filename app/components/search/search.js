@@ -29,31 +29,33 @@ export default class Search extends React.Component {
 
 
   render() {
+    let { query } = this.props.location.query;
 
     return (
       <MainContent title= "UBoard Search">
-          <div className="main-content">
-            <div className="main-content-body">
-              <div className="bar">
-                <div className="input-group search-bar">
-                  <span className="input-group-btn">
-                    <input type="text" className="form-control" placeholder="Search UBoard" />
+        <p>{query}</p>
+        <div className="main-content">
+          <div className="main-content-body">
+            <div className="bar">
+              <div className="input-group search-bar">
+                <span className="input-group-btn">
+                  <input type="text" className="form-control" placeholder="Search UBoard" />
                   <button className="btn btn-default" type="button"><a href="javascript:location.reload(true)"><i className="fa fa-search"></i></a></button>
                 </span>
               </div>
             </div>
 
-              <hr />
-                <div className="results">
-                  {this.state.contents.map((thread) => {
-                     return (
-                       <SearchResult key={thread._id} data={thread} />
-                     );
-                   })}
-                </div>
+            <hr />
+            <div className="results">
+              {this.state.contents.map((thread) => {
+                 return (
+                   <SearchResult key={thread._id} data={thread} />
+                 );
+               })}
+            </div>
 
-                </div>
           </div>
+        </div>
         </MainContent>
     )
   }
