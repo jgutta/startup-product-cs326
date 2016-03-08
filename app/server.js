@@ -1,4 +1,4 @@
-import { readDocument, writeDocument, addDocument } from './database.js';
+import { readDocument, writeDocument,/*addDoc was not used, commenting for now addDocument,*/ readCollection } from './database.js';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -16,6 +16,46 @@ function getThreadSync(threadId) {
   return thread;
 }
 
+//!!
+export function getThreadData(threadId, cb) {
+  var thread = readDocument('threads', threadId);
+  var threadData = {
+    contents: []
+  };
+  threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
+
+  emulateServerReturn(threadData, cb);
+}
+
+//!!
+export function postThreadReply(threadId, author, contents, cb){
+  var thread = readDocument('threads', threadId);
+  thread.replies.push({
+    'author': author,
+    'postDate': new Date().getTime(),
+    'contents': contents
+    //??profile image? can i get from author?
+  });
+  writeDocument('threads', thread);
+
+  emulateServerReturn(getThreadSync(threadId), cb);
+}
+
+//!!
+export function postReplyReply(threadId, replyId, author, contents, cb){
+var thread = readDocument('threads', threadId);
+var reply = thread.replies[replyId];
+reply.replies.push({
+  'author': author,
+  'postDate': new Date().getTime(),
+  'contents': contents
+  //??profile image? can i get from author?
+});
+writeDocument('threads', thread);
+
+emulateServerReturn(getThreadSync(threadId), cb);
+}
+
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
   var feedData = readDocument('feeds', userData.feed);
@@ -23,6 +63,11 @@ export function getFeedData(user, cb) {
   feedData.contents = feedData.contents.map(getThreadSync);
 
   emulateServerReturn(feedData, cb);
+}
+export function getBoardInfo(boardId, cb){
+  var board = readDocument('boards', boardId);
+
+  emulateServerReturn(board, cb)
 }
 
 export function getPinnedPostsData(user, cb) {
@@ -58,6 +103,19 @@ export function getSubscribedBoardsData(user, cb) {
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
+export function getBoardsData(cb){
+  var boards = readCollection('boards');
+  var boardsData = {
+    boardsList: []
+  };
+
+  for(var i in boards)
+    boardsData.boardsList.push(boards[i]);
+
+
+  emulateServerReturn(boardsData, cb);
+}
+
 
 function getMessageSync(message) {
   message.authorUsername = readDocument('users', message.author).username;
@@ -88,3 +146,53 @@ export function getConversationsData(user, cb) {
 
   emulateServerReturn(conversationsData, cb);
 }
+
+export function getConversationData(user, conversationId, cb) {
+  var conversationData = {};
+  conversationData.conversation = getConversationSync(user, conversationId);
+
+  emulateServerReturn(conversationData, cb);
+}
+
+
+export function postMessage(conversationId, author, title, contents, cb) {
+  var conversation = readDocument('conversations', conversationId);
+  conversation.messages.push({
+    'author': author,
+    'title': title,
+    'postDate': new Date().getTime(),
+    'contents': contents
+  });
+
+  writeDocument('conversations', conversation);
+
+  emulateServerReturn(getConversationSync(author, conversationId), cb);
+}
+
+
+export function getSearchData(cb) {
+  var threads = readCollection('threads');
+  var threadData = {
+    contents: []
+  };
+
+  for(var i in threads)
+    threadData.contents.push(threads[i]);
+
+  emulateServerReturn(threadData, cb);
+}
+
+export function createThread(author, title, date, time, desc, image, boards, cb) {
+    var threads = {
+      'author': author,
+      'title': title,
+      'date': date,
+      'time': time,
+      'description': desc,
+      'image': image,
+      'boards': boards
+    };
+
+    writeDocument('threads', threads);
+    emulateServerReturn(threads, cb);
+  }

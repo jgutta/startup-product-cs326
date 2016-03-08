@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router';
 
-import { getSubscribedBoardsData } from '../server';
+import { getSubscribedBoardsData, getBoardsData } from '../server';
 
 export default class SubscribedBoards extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class SubscribedBoards extends React.Component {
     // program will have bugs.
     this.state = {
       // Empty feed.
+      boardsList: [],
       contents: []
     };
   }
@@ -24,9 +26,35 @@ export default class SubscribedBoards extends React.Component {
       // state would then be {foo: 3, bar: 5}. This won't be a problem here.
       this.setState(subscribedBoardsData);
     });
+    getBoardsData((BoardsData) => {
+      // Note: setState does a *shallow merge* of the current state and the new
+      // state. If state was currently set to {foo: 3}, and we setState({bar: 5}),
+      // state would then be {foo: 3, bar: 5}. This won't be a problem here.
+      this.setState(BoardsData);
+    });
+  }
+
+  getNotSubscribed(sub, all) {
+    var nosub = [];
+    var t;
+    for(var i in all) {
+      t=false;
+      for(var j in sub) {
+        if(all[i]._id === sub[j]._id) {
+          t=true;
+        }
+      }
+      if(!t) {
+        nosub.push(all[i]);
+      }
+    }
+    //console.log(nosub);
+    return nosub;
   }
 
   render() {
+    var nosub = this.getNotSubscribed(this.state.contents, this.state.boardsList);
+
     return (
       <div className="panel panel-default content-panel">
         <div className="panel-heading">
@@ -37,7 +65,7 @@ export default class SubscribedBoards extends React.Component {
             {this.state.contents.map((board) => {
                return (
                  <li role="presentation" key={board._id}>
-                   <a href="#">{board.name}</a>
+                   <Link to={"/boards/" + board._id}>{board.name}</Link>
                  </li>
                );
              })}
@@ -49,10 +77,13 @@ export default class SubscribedBoards extends React.Component {
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="addBoardsMenu">
-              <li><a href="#">General</a></li>
-              <li><a href="#">Movies</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Studying</a></li>
+              {nosub.map((board) => {
+                 return (
+                   <li role="presentation" key={board._id}>
+                     <a href="#">{board.name}</a>
+                   </li>
+                 );
+               })}
             </ul>
           </div>
         </div>

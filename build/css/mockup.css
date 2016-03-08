@@ -177,9 +177,8 @@ hr {
   border-radius: 5px !important;
   color: #107575;
 }
-.navbar-right > div > .input-group-btn > .btn {
-  padding-top: 4px;
-  color: #107575;
+.navbar-right > .input-group > .input-group-btn > .btn {
+  color: #107575;  
   border: 0;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;

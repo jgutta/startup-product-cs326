@@ -36,8 +36,15 @@ textarea {
   padding-left: 15px;
 }
 
-.check {
-  padding-left: 100px;
+.checkbox-grid li {
+    display: block;
+    float: left;
+    width: 25%;
+    vertical-align: middle;
+}
+
+.box {
+  margin: auto;
 }
 
 .picture {
@@ -56,4 +63,5 @@ textarea {
 
 .p{
   margin: auto;
+  border: 1px solid #aaa;
 }

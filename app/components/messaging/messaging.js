@@ -57,7 +57,7 @@ export default class Messaging extends React.Component {
             {this.state.contents.map((conversation) => {
                return (
                  <TabPanel key={conversation._id}>
-                   <Conversation data={conversation} user={this.props.user} />
+                   <Conversation data={conversation} user={this.props.user} conversationId={conversation._id} />
                  </TabPanel>
                );
              })}

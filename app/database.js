@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Modify with your startup's name!
+var startupName = "DevSkillet";
+
+// Put your mock objects here, as in Workshop 4
 var initialData = {
   'users': {
     '1': {
@@ -60,47 +64,58 @@ var initialData = {
   'boards': {
     '1': {
       '_id': 1,
-      'name': 'General'
+      'name': 'General',
+      'threads': [ 1, 2, 3]
     },
     '2': {
       '_id': 2,
-      'name': 'Concerts'
+      'name': 'Concerts',
+      'threads': []
     },
     '3': {
       '_id': 3,
-      'name': 'Games'
+      'name': 'Games',
+      'threads': [ 4 ]
     },
     '4': {
       '_id': 4,
-      'name': 'Local Events'
+      'name': 'Local Events',
+      'threads': []
     },
     '5': {
       '_id': 5,
-      'name': 'Music'
+      'name': 'Music',
+      'threads': []
     },
     '6': {
       '_id': 6,
-      'name': 'Note/Textbook Exchange'
+      'name': 'Note/Textbook Exchange',
+      'threads': []
     },
     '7': {
       '_id': 7,
-      'name': 'RSOs'
+      'name': 'RSOs',
+      'threads': []
     },
     '8': {
       '_id': 8,
-      'name': 'Sports'
+      'name': 'Sports',
+      'threads': []
     },
     '9': {
       '_id': 9,
-      'name': 'Studying'
+      'name': 'Studying',
+      'threads': []
     },
     '10': {
       '_id': 10,
-      'name': 'TV/Movies'
+      'name': 'TV/Movies',
+      'threads': []
     },
     '11': {
       '_id': 11,
-      'name': 'Videogames'
+      'name': 'Videogames',
+      'threads': []
     }
   },
 
@@ -111,11 +126,15 @@ var initialData = {
       'commentsNo': 3,
       'viewsNo': 10,
 
+
       'originalPost': {
         'author': 1,
         'title': 'UMass Hackathon',
+        'date': '3/11/16',
+        'time': '7:00PM',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457072173808,
-        'contents': 'Hackathon friday at the Campus Center. Come hack!'
+        'description': 'Hackathon friday at the Campus Center. Come hack!'
       },
 
       'replies': [
@@ -152,8 +171,11 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Concert at Herter',
+        'date': '3/9/16',
+        'time': '6:30PM',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457105227129,
-        'contents': "There's going to be a math-rock concert Wednesday night at Herter, if anyone's interested. Giraffes? Giraffes! is going to be playing!"
+        'description': "There's going to be a math-rock concert Wednesday night at Herter, if anyone's interested. Giraffes? Giraffes! is going to be playing!"
       },
 
       'replies': []
@@ -167,8 +189,11 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Smash at Sylvan',
+        'date': '',
+        'time': '',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457123570979,
-        'contents': 'Anyone in Sylvan want to play super smash brothers? I have a setup for melee at my dorm.'
+        'description': 'Anyone in Sylvan want to play super smash brothers? I have a setup for melee at my dorm.'
       },
 
       'replies': []
@@ -182,8 +207,11 @@ var initialData = {
       'originalPost': {
         'author': 1,
         'title': 'Anyone want to jam? (Drummer)',
+        'date': '',
+        'time': '',
+        'img': 'img/ExampleBoard.jpg',
         'postDate': 1457133892466,
-        'contents': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
+        'description': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
       },
 
       'replies': []
@@ -250,7 +278,7 @@ var initialData = {
   }
 };
 
-var data = JSON.parse(localStorage.getItem('facebook_data'));
+var data = JSON.parse(localStorage.getItem(startupName));
 if (data === null) {
   data = JSONClone(initialData);
 }
@@ -274,6 +302,12 @@ export function readDocument(collection, id) {
   return JSONClone(data[collection][id]);
 }
 
+export function readCollection(collection) {
+  // Clone the data. We do this to model a database, where you receive a
+  // *copy* of an object and not the object itself.
+  return JSONClone(data[collection]);
+}
+
 /**
  * Emulates writing a "document" to a NoSQL database.
  */
@@ -282,7 +316,7 @@ export function writeDocument(collection, changedDocument) {
   // Store a copy of the object into the database. Models a database's behavior.
   data[collection][id] = JSONClone(changedDocument);
   // Update our 'database'.
-  localStorage.setItem('facebook_data', JSON.stringify(data));
+  localStorage.setItem(startupName, JSON.stringify(data));
 }
 
 /**
@@ -303,7 +337,7 @@ export function addDocument(collectionName, newDoc) {
  * Reset our browser-local database.
  */
 export function resetDatabase() {
-  localStorage.setItem('facebook_data', JSON.stringify(initialData));
+  localStorage.setItem(startupName, JSON.stringify(initialData));
   data = JSONClone(initialData);
 }
 
@@ -314,15 +348,15 @@ class ResetDatabase extends React.Component {
   render() {
     return (
       <button className="btn btn-default" type="button" onClick={() => {
-          resetDatabase();
-          window.alert("Database reset! Refreshing the page now...");
-          document.location.reload(false);
-        }}>Reset Mock DB</button>
+        resetDatabase();
+        window.alert("Database reset! Refreshing the page now...");
+        document.location.reload(false);
+      }}>Reset Mock DB</button>
     );
   }
 }
 
 ReactDOM.render(
   <ResetDatabase />,
-  document.getElementById('fb-db-reset')
+  document.getElementById('db-reset')
 );
