@@ -24,73 +24,9 @@
 
 <body>
 
-  <!-- The navbar -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
+  <div id="app"></div>
 
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">
-          <img alt="Brand" src="img/UBoard_logo.png">
-        </a>
-      </div>
-
-      <ul class="nav navbar-nav navbar-center">
-        <h3 class="navbar-title">
-          <a href="#">UBoard</a>
-        </h3>
-      </ul>
-
-      <form class="navbar-form navbar-right" role="search">
-
-        <div class="btn-group" role="group" aria-label="...">
-          <a class="btn btn-default" href="/#/messaging">
-            <i class="fa fa-envelope"></i>
-          </a>
-          <a class="btn btn-default" href="/#/accountsettings">
-            <i class="fa fa-cog"></i>
-          </a>
-          <a class="btn btn-default" href="/#/createthread">
-            <i class="fa fa-pencil"></i>
-          </a>
-        </div>
-
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search UBoard Posts">
-          <span class="input-group-btn">
-              <button class="btn btn-default" type="button"><a href="/#/search"><i class="fa fa-search"></i></a></button>
-          </span>
-        </div>
-
-      </form>
-
-    </div>
-  </nav>
-
-  <!-- The container for our grid. -->
-  <div class="container-fluid">
-    <!-- The row that contains the main columns of the website. -->
-    <div class="row">
-
-      <!-- The left sidebar. -->
-      <div class="col-sm-2 left-sidebar">
-        <div id="subscribed-boards"></div>
-        <div id="pinned-posts"></div>
-        <div id="db-reset"></div>
-      </div>
-
-      <!-- The main content panel. -->
-      <div class="col-sm-7">
-        <div id="main-content"></div>
-      </div>
-
-      <!-- The right sidebar. -->
-      <div class="col-sm-3 right-sidebar">
-        <div id="my-feed"></div>
-        <div id="community-feed"></div>
-      </div>
-
-    </div>
-  </div>
+  <div id="db-reset"></div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery.min.js"></script>
