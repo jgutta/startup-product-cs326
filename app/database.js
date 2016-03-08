@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Modify with your startup's name!
+var startupName = "DevSkillet";
+
+// Put your mock objects here, as in Workshop 4
 var initialData = {
   'users': {
     '1': {
@@ -261,7 +265,7 @@ var initialData = {
   }
 };
 
-var data = JSON.parse(localStorage.getItem('facebook_data'));
+var data = JSON.parse(localStorage.getItem(startupName));
 if (data === null) {
   data = JSONClone(initialData);
 }
@@ -287,7 +291,7 @@ export function readDocument(collection, id) {
 
 export function readCollection(collection) {
   // Clone the data. We do this to model a database, where you receive a
-  // *copy* of the objects and not the objects itself.
+  // *copy* of an object and not the object itself.
   return JSONClone(data[collection]);
 }
 
@@ -299,7 +303,7 @@ export function writeDocument(collection, changedDocument) {
   // Store a copy of the object into the database. Models a database's behavior.
   data[collection][id] = JSONClone(changedDocument);
   // Update our 'database'.
-  localStorage.setItem('facebook_data', JSON.stringify(data));
+  localStorage.setItem(startupName, JSON.stringify(data));
 }
 
 /**
@@ -320,7 +324,7 @@ export function addDocument(collectionName, newDoc) {
  * Reset our browser-local database.
  */
 export function resetDatabase() {
-  localStorage.setItem('facebook_data', JSON.stringify(initialData));
+  localStorage.setItem(startupName, JSON.stringify(initialData));
   data = JSONClone(initialData);
 }
 
@@ -331,15 +335,15 @@ class ResetDatabase extends React.Component {
   render() {
     return (
       <button className="btn btn-default" type="button" onClick={() => {
-          resetDatabase();
-          window.alert("Database reset! Refreshing the page now...");
-          document.location.reload(false);
-        }}>Reset Mock DB</button>
+        resetDatabase();
+        window.alert("Database reset! Refreshing the page now...");
+        document.location.reload(false);
+      }}>Reset Mock DB</button>
     );
   }
 }
 
 ReactDOM.render(
   <ResetDatabase />,
-  document.getElementById('fb-db-reset')
+  document.getElementById('db-reset')
 );
