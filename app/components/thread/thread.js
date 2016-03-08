@@ -64,27 +64,28 @@ export default class Thread extends React.Component {
 
           this.props.originalPost.contents
           <hr />
-            <div>
+            <div className="footer">
               <div className="pull-left">
                 <button type="replyBtn" className="btn btn-primary">
                   <span> Reply </span>
                 </button>
+
               </div>
               Posted by <a href = "#">this.props.originalPost.author@UBoard</a>.
+              <br />
             </div>
           <hr />
         </div>
-      </div>
-
         <div>
           {replies.map((i) => {
              return (
                //DEFINITION -nested replies[]?
-               //!!temporarily define explicitly
+               //!!these props should be maintained as comments are created
                <Replies key={i} rKey={i} author={5} contents="floopy d00p fibbity b0p" postDate={1456871392} replies={ [] } />
              )
            })}
         </div>
+      </div>
 
         </div>
       </MainContent>
@@ -93,5 +94,5 @@ export default class Thread extends React.Component {
 }
 /*
 1. how do i get passed images for OP -> databse, thread.originalPost.img
-2.
+2. maintaining replies properties as created?
 */
