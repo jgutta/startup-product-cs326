@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { unixTimeFromNow } from '../util';
 
 export default class FeedPost extends React.Component {
@@ -9,7 +10,7 @@ export default class FeedPost extends React.Component {
       <li className="list-group-item">
         <div className="row">
           <div className="col-sm-6">
-            <a href="#">{data.originalPost.title}</a>
+            <Link to={"/threads/" + data._id}>{data.originalPost.title}</Link>
           </div>
           <div className="col-sm-6 date-posted">
             Posted {unixTimeFromNow(data.originalPost.postDate)}

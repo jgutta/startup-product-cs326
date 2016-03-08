@@ -63,6 +63,7 @@ render(
       <Route path='board' component={Board} />
       <Route path='boards/:id' component={Board} />
       <Route path='thread' component={Thread} />
+      <Route path='threads/:id' component={Thread} />
       <Route path='createthread' component={CreateThreadPage} />
       <Route path='search' component={Search} />
       <Route path='messaging' component={MessagingPage} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class Navbar extends React.Component {
   render() {
@@ -14,22 +15,22 @@ export default class Navbar extends React.Component {
 
           <ul className="nav navbar-nav navbar-center">
             <h3 className="navbar-title">
-              <a href="#">UBoard</a>
+              <Link to="/">UBoard</Link>
             </h3>
           </ul>
 
           <form className="navbar-form navbar-right" role="search">
 
             <div className="btn-group" role="group" aria-label="...">
-              <a className="btn btn-default" href="/#/messaging">
+              <Link className="btn btn-default" to="/messaging/">
                 <i className="fa fa-envelope"></i>
-              </a>
-              <a className="btn btn-default" href="/#/accountsettings">
+              </Link>
+              <Link className="btn btn-default" to="/accountsettings/">
                 <i className="fa fa-cog"></i>
-              </a>
-              <a className="btn btn-default" href="/#/createthread">
+              </Link>
+              <Link className="btn btn-default" to="/createthread/">
                 <i className="fa fa-pencil"></i>
-              </a>
+              </Link>
             </div>
 
             <div className="input-group">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import { getPinnedPostsData } from '../server';
 
@@ -37,7 +38,7 @@ export default class PinnedPosts extends React.Component {
             {this.state.contents.map((thread) => {
                return (
                  <li className="list-group-item" key={thread._id}>
-                   <a href="#" >{thread.originalPost.title}</a>
+                   <Link to={"/threads/" + thread._id}>{thread.originalPost.title}</Link>
                  </li>
                );
              })}
