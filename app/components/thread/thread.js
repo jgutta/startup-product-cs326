@@ -44,30 +44,25 @@ export default class Thread extends React.Component {
   } */
 
   render() {
-    var replies = this.state.replies;
+    var replies = []; //should be this state
 
     return (
-      <MainContent>
-        <div className = "panel-body panel panel-default">
+      <MainContent title='this.state.originalPost.title'>
+        <div>
           <div className="panel-body">
             <div className="row col-md-4">
-              //**passed from John/Evan?
             <img src="img/defaultDisplay.jpg" width="90%" />
 
         </div>
 
         <div className="col-md-8 title-head">
-          //!!!i dont have this info, will change to mock data tonight.
-            //creates 'undefined' errors
-          <h4> {this.state.originalPost.title} </h4>
-          //**related to John/Evan?
-          <h4><small> {unixTimeToString(this.props.originalPost.postDate)} </small></h4>
+          <h4><small> unixTimeToString(this.props.originalPost.postDate) </small></h4>
         </div>
 
 
         <div className = "main-content-body">
 
-          {this.props.originalPost.contents}
+          this.props.originalPost.contents
           <hr />
             <div>
               <div className="pull-left">
@@ -75,13 +70,12 @@ export default class Thread extends React.Component {
                   <span> Reply </span>
                 </button>
               </div>
-              Posted by <a href = "#">{this.props.originalPost.author}@UBoard</a>.
+              Posted by <a href = "#">this.props.originalPost.author@UBoard</a>.
             </div>
           <hr />
         </div>
       </div>
 
-        //replies here
         <div>
           {replies.map((i) => {
              return (
@@ -97,3 +91,7 @@ export default class Thread extends React.Component {
     )
   }
 }
+/*
+1. how do i get passed images for OP -> databse, thread.originalPost.img
+2.
+*/
