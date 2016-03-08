@@ -1,6 +1,6 @@
 import React from 'react';
 import { unixTimeToString } from '../../util';
-//import OnCLick from thread.js
+//import OnCLick & handlepost from thread.js
 
 export default class Replies extends React.Component {
   constructor(props){
@@ -10,7 +10,8 @@ export default class Replies extends React.Component {
     };
   }
 
-  //handle replies to replies
+  //handle replies to replies with onClick & handlePost.
+    //may have to create seperate method for replies to replies
 
   render(){
     return(

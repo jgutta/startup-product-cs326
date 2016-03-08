@@ -27,7 +27,34 @@ export function getThreadData(threadId, cb) {
   emulateServerReturn(threadData, cb);
 }
 
-//!!postThreadReply(). worry later
+//!!
+export function postThreadReply(threadId, author, contents, cb){
+  var thread = readDocument('threads', threadId);
+  thread.replies.push({
+    'author': author,
+    'postDate': new Date().getTime(),
+    'contents': contents
+    //??profile image? can i get from author?
+  });
+  writeDocument('threads', thread);
+
+  emulateServerReturn(getThreadSync(threadId), cb);
+}
+
+//!!
+export function postReplyReply(threadId, replyId, author, contents, cb){
+var thread = readDocument('threads', threadId);
+var reply = thread.replies[replyId];
+reply.replies.push({
+  'author': author,
+  'postDate': new Date().getTime(),
+  'contents': contents
+  //??profile image? can i get from author?
+});
+writeDocument('threads', thread);
+
+emulateServerReturn(getThreadSync(threadId), cb);
+}
 
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);

@@ -22,36 +22,32 @@ export default class Thread extends React.Component {
   componentDidMount() {
     this.refresh();
   }
-/*
-  handleContentsChange(e) {
-    e.preventDefault();
-    this.setState({ messageContentsValue: e.target.value });
+
+  //when reply is clicked, it opens a window to post comment
+  //!!
+  /*
+  onClick(e){
+    // make popup with textfield
+    //call handle reply
   } */
-/*
-  handlePost(e) {
-    e.preventDefault();
-    var messageTitle = this.state.messageTitleValue.trim();
-    var messageContents = this.state.messageContentsValue.trim();
 
-    if (messageContents !== '') {
-      postMessage(this.props.conversationId, this.props.user, messageTitle, messageContents, () => {
-        this.refresh();
-      });
-    }
-
-    this.setState({
-      messageTitleValue: messageTitle,
-      messageContentsValue: ''
-    }); */
-  //}
-  // for reply button, opens text feield for you to respond.
-  //onClick(){}
+  //when you hit enter - after opening the text window and entering text - posts comment in replies[]
+  /*
+  handleReply(e) {
+      e.preventDefault();
+      var replies =  this.state.replies;
+      var replyText = replies.contents;
+      if(replyText !== ''){
+        //!!current time: var time = new Date().getTime();
+        //!!postThreadReply()
+      }
+  } */
 
   render() {
     var replies = this.state.replies;
 
     return (
-      <MainContent title="Thread">
+      <MainContent>
         <div className = "panel-body panel panel-default">
           <div className="panel-body">
             <div className="row col-md-4">
@@ -61,7 +57,9 @@ export default class Thread extends React.Component {
         </div>
 
         <div className="col-md-8 title-head">
-          <h4> {this.props.originalPost.title} </h4>
+          //!!!i dont have this info, will change to mock data tonight.
+            //creates 'undefined' errors
+          <h4> {this.state.originalPost.title} </h4>
           //**related to John/Evan?
           <h4><small> {unixTimeToString(this.props.originalPost.postDate)} </small></h4>
         </div>
@@ -95,7 +93,7 @@ export default class Thread extends React.Component {
         </div>
 
         </div>
-      < /MainContent>
+      </MainContent>
     )
   }
 }
