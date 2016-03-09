@@ -65,14 +65,13 @@ export default class CreateThread extends React.Component {
     var threadImage = this.state.image.trim();
     var threadBoards = this.state.boards;
 
-    console.log(this.props.user, threadTitle, threadDate, threadTime, threadDescription, threadImage, threadBoards);
-
     if(threadTitle === "" || threadDescription === "" || threadBoards.length === 0){
-      console.log("Something required is empty!");
+      alert("Something required is empty!");
     }
+
     else{
-      createThread(this.props.user, threadTitle, threadDate, threadTime, threadDescription, threadImage, threadBoards, () => {
-        hashHistory.push({ pathname: '/threads/'});
+      createThread(this.props.user, threadTitle, threadDate, threadTime, threadDescription, threadImage, threadBoards, (thread) => {
+        hashHistory.push({ pathname: '/threads/' + thread._id});
       });
     }
   }

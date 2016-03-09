@@ -169,33 +169,46 @@ export function postMessage(conversationId, author, title, contents, cb) {
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
 
-
 export function getSearchData(cb) {
   var threads = readCollection('threads');
   var threadData = {
     contents: []
   };
 
-  for(var i in threads)
-    threadData.contents.push(threads[i]);
+  for(var i in threads){
+    var th = threads[i];
+    th.boards = th.boards.map(getBoardSync)
+    threadData.contents.push(th);
+  }
+
 
   emulateServerReturn(threadData, cb);
 }
 
 export function createThread(author, title, date, time, desc, image, boards, cb) {
     var thread = {
-      'author': author,
-      'title': title,
-      'date': date,
-      'time': time,
-      'description': desc,
-      'image': image,
       'boards': boards,
-      'postDate': new Date().getTime(),
       'commentsNo': 0,
-      'viewsNo': 0
+      'viewsNo': 0,
+
+      'originalPost': {
+        'author': author,
+        'title': title,
+        'date': date,
+        'time': time,
+        'image': image,
+        'postDate': new Date().getTime(),
+        'description': desc
+      }
     };
 
     thread = addDocument('threads', thread);
+
+    for(var i in boards){
+        var board = readDocument('boards', boards[i]);
+        board.threads.push(thread._id);
+        writeDocument('boards', board);
+    }
+    
     emulateServerReturn(thread, cb);
   }
