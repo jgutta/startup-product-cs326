@@ -74,7 +74,7 @@ var initialData = {
     '2': {
       '_id': 2,
       'name': 'Concerts',
-      'threads': [],
+      'threads': [ 2 ],
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Connect with people to attend concerts with, or give and find out information about local upcoming concerts.',
@@ -208,7 +208,7 @@ var initialData = {
     },
     '2': {
       '_id': 2,
-      'boards': [ 1 ],
+      'boards': [ 1, 2 ],
       'commentsNo': 0,
       'viewsNo': 37,
 
