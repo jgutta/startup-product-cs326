@@ -9,21 +9,27 @@ export default class Board extends React.Component {
     this.state = {
     // Empty feed.
     contents: []
+    //id: 0
   };
   }
   componentDidMount() {
 
-    getBoardInfo(this.props.params.id, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop. 
+    getBoardInfo(this.props.params.id, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop.
       //console.log(boardData.threads[0])
       this.setState(boardData);
       this.setState({contents: boardData.threads})
 
   });
   }
-
+  componentWillReceiveProps(nextProps){
+    getBoardInfo(nextProps.params.id, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop.
+      //console.log(boardData.threads[0])
+      this.setState(boardData);
+      this.setState({contents: boardData.threads})
+  });
+}
 //  console.log(this.state.threads)
   render() {
-console.log(this.state)
     return (
       <MainContent title={this.state.name}>
         <ul className="list-group">
