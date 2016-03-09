@@ -27,14 +27,14 @@ export default class Replies extends React.Component {
               </div>
 
               <div className="col-md-8 title-head">
-                <h4><a href = "#">{this.props.author}</a>   <small> said: </small></h4>
+                <h4><a href = "#">this.props.author</a>   <small> said: </small></h4>
 
               </div>
               <br />
               <br />
-              {this.props.contents}
+              this.props.contents
               <br />
-               Posted on {unixTimeToString(this.props.postDate)}
+               Posted on unixTimeToString(this.props.postDate)
 
       </div>
     )

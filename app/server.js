@@ -10,51 +10,30 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
-
 function getThreadSync(threadId) {
   var thread = readDocument('threads', threadId);
   return thread;
 }
 
-//!!
-export function getThreadData(threadId, cb) {
+function getOPSynch(threadId){
   var thread = readDocument('threads', threadId);
-  var threadData = {
-    contents: []
-  };
-  threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
-
-  emulateServerReturn(threadData, cb);
+  var op = readDocument('originalPost', thread.originalPost);
+  return op;
 }
 
 //!!
-export function postThreadReply(threadId, author, contents, cb){
-  var thread = readDocument('threads', threadId);
-  thread.replies.push({
-    'author': author,
-    'postDate': new Date().getTime(),
-    'contents': contents
-    //??profile image? can i get from author?
-  });
-  writeDocument('threads', thread);
-
-  emulateServerReturn(getThreadSync(threadId), cb);
+export function getOPData(threadId, cb) {
+  var threadData = readDocument('threads', threadId);
+  var op = readDocument('originalPost', threadData.originalPost);
+  op.contents = op.contents.map( (id) => getOPSynch(id) );
+  emulateServerReturn(op, cb);
 }
 
 //!!
-export function postReplyReply(threadId, replyId, author, contents, cb){
-var thread = readDocument('threads', threadId);
-var reply = thread.replies[replyId];
-reply.replies.push({
-  'author': author,
-  'postDate': new Date().getTime(),
-  'contents': contents
-  //??profile image? can i get from author?
-});
-writeDocument('threads', thread);
-
-emulateServerReturn(getThreadSync(threadId), cb);
-}
+/*
+export function postThreadReply(threadId, author, contents, cb){}
+//!!
+export function postReplyReply(threadId, replyId, author, contents, cb){} */
 
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
