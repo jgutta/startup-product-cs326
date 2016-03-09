@@ -184,18 +184,27 @@ export function getSearchData(cb) {
 
 export function createThread(author, title, date, time, desc, image, boards, cb) {
     var thread = {
-      'author': author,
-      'title': title,
-      'date': date,
-      'time': time,
-      'description': desc,
-      'image': image,
       'boards': boards,
-      'postDate': new Date().getTime(),
       'commentsNo': 0,
-      'viewsNo': 0
+      'viewsNo': 0,
+
+      'originalPost': {
+        'author': author,
+        'title': title,
+        'date': date,
+        'time': time,
+        'image': image,
+        'postDate': new Date().getTime(),
+        'description': desc
+      }
     };
 
     thread = addDocument('threads', thread);
+
+    for(var i in boards){
+        var board = readDocument('boards', boards[i]);
+        board.threads.push(thread._id);
+        writeDocument('boards', board);
+    }
     emulateServerReturn(thread, cb);
   }
