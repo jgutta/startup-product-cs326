@@ -75,8 +75,9 @@ export default class Search extends React.Component {
                 </span>
               </div>
             </div>
-
             <hr />
+            <div className="results"><h4>SEARCH RESULTS: {this.state.value}</h4></div>
+
             <div className="results">
               {this.state.contents.map((thread) => {
                  return (
