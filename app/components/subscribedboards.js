@@ -66,14 +66,21 @@ export default class SubscribedBoards extends React.Component {
 
   handleUnSub(e, id) {
     e.preventDefault();
-    console.log(id);
     deleteSubscribeBoard(this.props.user, id, () => {
       this.refresh();
     });
   }
 
+  onEmpty(){
+    if(this.getNotSubscribed(this.state.contents, this.state.boardsList).length == 0){
+      return "false";
+    }
+    else{return "dropdown";}
+  }
+
   render() {
     var nosub = this.getNotSubscribed(this.state.contents, this.state.boardsList);
+    var drop = this.onEmpty();
     return (
       <div className="panel panel-default content-panel">
         <div className="panel-heading">
@@ -93,8 +100,10 @@ export default class SubscribedBoards extends React.Component {
              })}
           </ul>
 
+
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="addBoardsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+            <button className="btn btn-default dropdown-toggle" type="button" id="addBoardsMenu" data-toggle={drop} aria-haspopup="true" aria-expanded="true">
               Add Board
               <span className="caret"></span>
             </button>
