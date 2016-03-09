@@ -13,7 +13,7 @@ export default class Board extends React.Component {
   }
   componentDidMount() {
 
-    getBoardInfo(1, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop. 
+    getBoardInfo(this.props.params.id, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop. 
       //console.log(boardData.threads[0])
       this.setState(boardData);
       this.setState({contents: boardData.threads})
