@@ -169,15 +169,18 @@ export function postMessage(conversationId, author, title, contents, cb) {
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
 
-
 export function getSearchData(cb) {
   var threads = readCollection('threads');
   var threadData = {
     contents: []
   };
 
-  for(var i in threads)
-    threadData.contents.push(threads[i]);
+  for(var i in threads){
+    var th = threads[i];
+    th.boards = th.boards.map(getBoardSync)
+    threadData.contents.push(th);
+  }
+
 
   emulateServerReturn(threadData, cb);
 }

@@ -166,7 +166,7 @@ var initialData = {
   'threads': {
     '1': {
       '_id': 1,
-      'boards': [ 1 ],
+      'boards': [ 1, 2 ],
       'commentsNo': 3,
       'viewsNo': 10,
 
