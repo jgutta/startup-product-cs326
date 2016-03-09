@@ -124,6 +124,22 @@ export function addSubscribeBoard(user, board, cb) {
   emulateServerReturn(userData, cb);
 }
 
+function getIndex(array, element) {
+  for(var i =0; i<array.length; i++){
+    if(array[i] == element){
+      return i;
+    }
+  }
+}
+
+export function deleteSubscribeBoard(user, board, cb) {
+  var userData = readDocument('users', user);
+  var index = getIndex(userData.subscribedBoards, board);
+  userData.subscribedBoards.splice(index, 1);
+  writeDocument('users', userData);
+  emulateServerReturn(userData, cb);
+}
+
 
 function getMessageSync(message) {
   message.authorUsername = readDocument('users', message.author).username;

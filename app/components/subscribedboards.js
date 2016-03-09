@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { getSubscribedBoardsData, getBoardsData, addSubscribeBoard } from '../server';
+import { getSubscribedBoardsData, getBoardsData, addSubscribeBoard, deleteSubscribeBoard} from '../server';
 
 export default class SubscribedBoards extends React.Component {
   constructor(props) {
@@ -64,9 +64,16 @@ export default class SubscribedBoards extends React.Component {
     });
   }
 
+  handleUnSub(e, id) {
+    e.preventDefault();
+    console.log(id);
+    deleteSubscribeBoard(this.props.user, id, () => {
+      this.refresh();
+    });
+  }
+
   render() {
     var nosub = this.getNotSubscribed(this.state.contents, this.state.boardsList);
-
     return (
       <div className="panel panel-default content-panel">
         <div className="panel-heading">
@@ -77,7 +84,12 @@ export default class SubscribedBoards extends React.Component {
             {this.state.contents.map((board) => {
                return (
                  <li role="presentation" key={board._id}>
-                   <Link to={"/boards/" + board._id}>{board.name}</Link>
+                   <Link to={"/boards/" + board._id}>
+                     {board.name}
+                     <button className=" btn btn-default pull-right" onClick={(e) => this.handleUnSub(e, board._id)}>
+                       -
+                     </button>
+                   </Link>
                  </li>
                );
              })}
