@@ -1,4 +1,4 @@
-import { readDocument, writeDocument,/*addDoc was not used, commenting for now addDocument,*/ readCollection } from './database.js';
+import { readDocument, writeDocument, addDocument, readCollection } from './database.js';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -183,16 +183,19 @@ export function getSearchData(cb) {
 }
 
 export function createThread(author, title, date, time, desc, image, boards, cb) {
-    var threads = {
+    var thread = {
       'author': author,
       'title': title,
       'date': date,
       'time': time,
       'description': desc,
       'image': image,
-      'boards': boards
+      'boards': boards,
+      'postDate': new Date().getTime(),
+      'commentsNo': 0,
+      'viewsNo': 0
     };
 
-    writeDocument('threads', threads);
-    emulateServerReturn(threads, cb);
+    thread = addDocument('threads', thread);
+    emulateServerReturn(thread, cb);
   }
