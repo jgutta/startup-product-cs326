@@ -44,8 +44,8 @@ export default class MainPage extends React.Component {
                     return(
                       <div className="row">
                         <div className="col-md-6">
-                          <Link to={"/boards/" + board._id}>{board.name}>
-                            <BoardTab key={i} title={board.name} description={board.description} numUser={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
+                          <Link to={"/boards/" + board._id}>
+                            <BoardTab key={i} title={board.name} description={board.description} numUsers={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
                           </Link>
                         </div>
                       </div>
@@ -55,12 +55,12 @@ export default class MainPage extends React.Component {
                     return(
                       <div className="row">
                         <div className="col-md-6">
-                          <Link to={"/boards/" + tempBoard._id}>{tempBoard.name}>
+                          <Link to={"/boards/" + tempBoard._id}>
                             <BoardTab key={i-1} title={tempBoard.name} description={tempBoard.description} numUsers={tempBoard.numUsers} numPosts={tempBoard.numPosts} boardImg={tempBoard.image} boardID={tempBoard._id}/>
                           </Link>
                         </div>
                         <div className="col-md-6">
-                          <Link to={"/boards/" + board._id}>{board.name}>
+                          <Link to={"/boards/" + board._id}>
                             <BoardTab key={i} title={board.name} description={board.description} numUser={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
                           </Link>
                         </div>
