@@ -73,9 +73,9 @@ export default class SubscribedBoards extends React.Component {
 
   onEmpty(){
     if(this.getNotSubscribed(this.state.contents, this.state.boardsList).length == 0){
-      return "false";
+      return "btn btn-default dropdown-toggle disabled";
     }
-    else{return "dropdown";}
+    else{return "btn btn-default dropdown-toggle";}
   }
 
   render() {
@@ -103,7 +103,7 @@ export default class SubscribedBoards extends React.Component {
 
           <div className="dropdown">
 
-            <button className="btn btn-default dropdown-toggle" type="button" id="addBoardsMenu" data-toggle={drop} aria-haspopup="true" aria-expanded="true">
+            <button className={drop} type="button" id="addBoardsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Add Board
               <span className="caret"></span>
             </button>

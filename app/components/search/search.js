@@ -69,7 +69,7 @@ export default class Search extends React.Component {
                   <input type="text" className="form-control" placeholder="Search UBoard"
                     value={this.state.value} onChange={(e) => this.handleChange(e)}
                     onKeyUp={(e) => this.handleKeyUp(e)} />
-                  <button className="btn btn-default" type="button" onClick={(e) => this.handleSubmit(e)}>
+                  <button className="btn btn-default schbt" type="button" onClick={(e) => this.handleSubmit(e)}>
                     <i className="fa fa-search"></i>
                   </button>
                 </span>
