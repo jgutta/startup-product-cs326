@@ -31,6 +31,7 @@ export default class Search extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({value: nextProps.location.query.query});
+
   }
 
   handleChange(e) {
@@ -59,6 +60,7 @@ export default class Search extends React.Component {
 
   render() {
 
+
     return (
       <MainContent title= "UBoard Search">
         <div className="main-content">
@@ -76,7 +78,7 @@ export default class Search extends React.Component {
               </div>
             </div>
             <hr />
-            <div className="results"><h4>SEARCH RESULTS: {this.state.value}</h4></div>
+            <div className="results"><h4>SEARCH RESULTS: {this.props.location.query.query}</h4></div>
 
             <div className="results">
               {this.state.contents.map((thread) => {
