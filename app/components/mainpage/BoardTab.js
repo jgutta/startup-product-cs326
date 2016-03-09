@@ -9,11 +9,17 @@ export default class BoardTab extends React.Component {
           <center><h4>{this.props.title}</h4></center>
         </div>
         <div className= "panel-body board-img">
-          {this.props.boardImage}
-          {this.props.description}
+          <div className="row">
+            <div className="col-md-6">
+              <img src={this.props.boardImg} />
+            </div>
+            <div className="col-md-6">
+              {this.props.description}
+            </div>
+          </div>
           <hr />
           <div className= "board-footer">
-            Users: {this.props.numUsers} Posts: {this.props.numPosts}
+            Users: {this.props.numUsers} - Posts: {this.props.numPosts}
           </div>
         </div>
       </div>

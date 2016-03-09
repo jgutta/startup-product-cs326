@@ -69,7 +69,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'This is a general board where posts can be about any topic, or can be questions about the site. All posts are archived here.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '2': {
       '_id': 2,
@@ -78,7 +78,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Connect with people to attend concerts with, or give and find out information about local upcoming concerts.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '3': {
       '_id': 3,
@@ -87,7 +87,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Find groups of people, or start your own group, looking to meet up and play a variety of tabel-top games, card games, and all sorts of boardgames.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '4': {
       '_id': 4,
@@ -96,7 +96,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Learn about what is happening in your community, commit to attending events, or look for people to attend your events.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '5': {
       '_id': 5,
@@ -105,7 +105,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Share music with people, give and get suggestions based on your tastes, find jam buddies, and discuss anything music.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '6': {
       '_id': 6,
@@ -114,7 +114,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Find notes for all your classes or help your classmates by posting yours. You can also find people to share or exchange textbooks with.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '7': {
       '_id': 7,
@@ -123,7 +123,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Connect with your RSO and get all the information about upcoming events, or coordinate with other people to get an RSO off the ground.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '8': {
       '_id': 8,
@@ -132,7 +132,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Find people to get a pickup game going, coordinate with teammates, find a local club team, or discuss any game happening around you.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '9': {
       '_id': 9,
@@ -141,7 +141,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Find a study buddy for final week, get suggestions about your study habits, or get suggestions about how much studying a test needs.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '10': {
       '_id': 10,
@@ -150,7 +150,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Planning a movie night? Find some new friends to attend or find a movie you have been wanting to watch and make some new friends at the same time.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     },
     '11': {
       '_id': 11,
@@ -159,7 +159,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Find friends to host a lan party, an online party, or anything inbetween. Discussion old games, new games, and discuss awaited releases.',
-      'image': '../../build/img/ExampleBoard.jpg'
+      'image': 'img/default.png'
     }
   },
 
