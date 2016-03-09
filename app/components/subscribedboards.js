@@ -86,9 +86,7 @@ export default class SubscribedBoards extends React.Component {
                  <li role="presentation" key={board._id}>
                    <Link to={"/boards/" + board._id}>
                      {board.name}
-                     <button className=" btn btn-default pull-right" onClick={(e) => this.handleUnSub(e, board._id)}>
-                       -
-                     </button>
+                     <i className="fa fa-minus-circle pull-right" onClick={(e) => this.handleUnSub(e, board._id)}></i>
                    </Link>
                  </li>
                );
