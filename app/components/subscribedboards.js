@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-import { getSubscribedBoardsData, getBoardsData } from '../server';
+import { getSubscribedBoardsData, getBoardsData, addSubscribeBoard } from '../server';
 
 export default class SubscribedBoards extends React.Component {
   constructor(props) {
@@ -48,8 +47,21 @@ export default class SubscribedBoards extends React.Component {
         nosub.push(all[i]);
       }
     }
-    //console.log(nosub);
     return nosub;
+  }
+
+
+    refresh() {
+      getSubscribedBoardsData(this.props.user, (boardData) => {
+        this.setState(boardData);
+      });
+    }
+
+  handleSubmit(e, id) {
+    e.preventDefault();
+    addSubscribeBoard(this.props.user, id, () => {
+      this.refresh();
+    });
   }
 
   render() {
@@ -80,7 +92,7 @@ export default class SubscribedBoards extends React.Component {
               {nosub.map((board) => {
                  return (
                    <li role="presentation" key={board._id}>
-                     <a href="#">{board.name}</a>
+                     <a href="#" onClick={(e) => this.handleSubmit(e, board._id)}>{board.name}</a>
                    </li>
                  );
                })}

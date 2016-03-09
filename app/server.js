@@ -116,6 +116,14 @@ export function getBoardsData(cb){
   emulateServerReturn(boardsData, cb);
 }
 
+export function addSubscribeBoard(user, board, cb) {
+  var userData = readDocument('users', user);
+  userData.subscribedBoards.push(board);
+  userData.subscribedBoards.sort();
+  writeDocument('users', userData);
+  emulateServerReturn(userData, cb);
+}
+
 
 function getMessageSync(message) {
   message.authorUsername = readDocument('users', message.author).username;
@@ -209,6 +217,6 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
         board.threads.push(thread._id);
         writeDocument('boards', board);
     }
-    
+
     emulateServerReturn(thread, cb);
   }
