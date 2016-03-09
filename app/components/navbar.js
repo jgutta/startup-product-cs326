@@ -20,7 +20,7 @@ export default class Navbar extends React.Component {
       var query = this.state.value.trim();
       if (query !== '') {
         hashHistory.push({ pathname: '/search/', query: { query: query } });
-      }  
+      }
     }
   }
 
@@ -62,7 +62,7 @@ export default class Navbar extends React.Component {
             <div className="input-group">
               <input type="text" className="form-control" placeholder="Search UBoard Posts"
                      value={this.state.value} onChange={(e) => this.handleChange(e)}
-                     onKeyUp={(e) => this.handleKeyUp(e)}/>
+                     onKeyUp={(e) => this.handleKeyUp(e)} />
               <span className="input-group-btn">
                 <Link className="btn btn-default" to={{ pathname: '/search/', query: { query: this.state.value.trim() } }}>
                   <i className="fa fa-search"></i>

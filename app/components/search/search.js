@@ -1,7 +1,8 @@
 import React from 'react';
+import { hashHistory } from 'react-router';
 import MainContent from '../maincontent';
 import SearchResult from './searchresult';
-import {getSearchData} from '../../server';
+import { getSearchData } from '../../server';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -14,7 +15,8 @@ export default class Search extends React.Component {
     // program will have bugs.
     this.state = {
       // Empty feed.
-      contents: []
+      contents: [],
+      value: this.props.location.query.query
     };
   }
 
@@ -27,20 +29,49 @@ export default class Search extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.location.query.query});
+  }
+
+  handleChange(e) {
+     e.preventDefault();
+     this.setState({value: e.target.value});
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.submit();
+  }
+
+  handleKeyUp(e) {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      this.submit();
+    }
+  }
+
+  submit() {
+    var queryText = this.state.value.trim();
+    if (queryText !== "") {
+       hashHistory.push({ pathname: '/search/', query: { query: queryText } });
+    }
+  }
 
   render() {
-    let { query } = this.props.location.query;
 
     return (
       <MainContent title= "UBoard Search">
-        <p>{query}</p>
         <div className="main-content">
           <div className="main-content-body">
             <div className="bar">
               <div className="input-group search-bar">
                 <span className="input-group-btn">
-                  <input type="text" className="form-control" placeholder="Search UBoard" />
-                  <button className="btn btn-default" type="button"><a href="javascript:location.reload(true)"><i className="fa fa-search"></i></a></button>
+                  <input type="text" className="form-control" placeholder="Search UBoard"
+                    value={this.state.value} onChange={(e) => this.handleChange(e)}
+                    onKeyUp={(e) => this.handleKeyUp(e)} />
+                  <button className="btn btn-default" type="button" onClick={(e) => this.handleSubmit(e)}>
+                    <i className="fa fa-search"></i>
+                  </button>
                 </span>
               </div>
             </div>

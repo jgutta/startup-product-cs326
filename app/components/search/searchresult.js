@@ -1,20 +1,18 @@
 import React from 'react';
 import { unixTimeFromNow } from '../../util';
-import { getBoardSync } from '../../server';
+import { Link } from 'react-router';
 
 export default class SearchResult extends React.Component {
   render() {
     var data = this.props.data;
-    console.log(data.boards);
     return (
       <div className="panel panel-default">
         <div className="panel-body result">
           <div className="row">
             <div className="col-sm-6">
-
-              <a href="#">{data.originalPost.title}</a> : {data.boards.map((board) => {
+              <Link to={"/threads/" + data._id}>{data.originalPost.title}</Link> : {data.boards.map((board) => {
                  return (
-                   board.name+" "
+                     board.name+" "
                  );
                })}
             </div>
