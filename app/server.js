@@ -1,4 +1,4 @@
-import { readDocument, writeDocument,/*addDoc was not used, commenting for now addDocument,*/ readCollection } from './database.js';
+import { readDocument, writeDocument, addDocument, readCollection } from './database.js';
 
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
@@ -95,6 +95,30 @@ export function getBoardsData(cb){
   emulateServerReturn(boardsData, cb);
 }
 
+export function addSubscribeBoard(user, board, cb) {
+  var userData = readDocument('users', user);
+  userData.subscribedBoards.push(board);
+  userData.subscribedBoards.sort();
+  writeDocument('users', userData);
+  emulateServerReturn(userData, cb);
+}
+
+function getIndex(array, element) {
+  for(var i =0; i<array.length; i++){
+    if(array[i] == element){
+      return i;
+    }
+  }
+}
+
+export function deleteSubscribeBoard(user, board, cb) {
+  var userData = readDocument('users', user);
+  var index = getIndex(userData.subscribedBoards, board);
+  userData.subscribedBoards.splice(index, 1);
+  writeDocument('users', userData);
+  emulateServerReturn(userData, cb);
+}
+
 
 function getMessageSync(message) {
   message.authorUsername = readDocument('users', message.author).username;
@@ -148,30 +172,46 @@ export function postMessage(conversationId, author, title, contents, cb) {
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
 
-
 export function getSearchData(cb) {
   var threads = readCollection('threads');
   var threadData = {
     contents: []
   };
 
-  for(var i in threads)
-    threadData.contents.push(threads[i]);
+  for(var i in threads){
+    var th = threads[i];
+    th.boards = th.boards.map(getBoardSync)
+    threadData.contents.push(th);
+  }
+
 
   emulateServerReturn(threadData, cb);
 }
 
 export function createThread(author, title, date, time, desc, image, boards, cb) {
-    var threads = {
-      'author': author,
-      'title': title,
-      'date': date,
-      'time': time,
-      'description': desc,
-      'image': image,
-      'boards': boards
+    var thread = {
+      'boards': boards,
+      'commentsNo': 0,
+      'viewsNo': 0,
+
+      'originalPost': {
+        'author': author,
+        'title': title,
+        'date': date,
+        'time': time,
+        'image': image,
+        'postDate': new Date().getTime(),
+        'description': desc
+      }
     };
 
-    writeDocument('threads', threads);
-    emulateServerReturn(threads, cb);
+    thread = addDocument('threads', thread);
+
+    for(var i in boards){
+        var board = readDocument('boards', boards[i]);
+        board.threads.push(thread._id);
+        writeDocument('boards', board);
+    }
+
+    emulateServerReturn(thread, cb);
   }

@@ -23,6 +23,13 @@ body {
 .nav-pills > li > a:hover {
   background-color: #90b2b2;
 }
+.nav-pills > li > a > i {
+  margin-top: 4px;
+  color: dimgray;
+}
+.nav-pills > li > a > i:hover {
+  color: black;
+}
 
 /* Pagers */
 .pager {
@@ -159,7 +166,8 @@ hr {
   color: white;
   text-decoration: none;
 }
-.navbar-right > div > input, .btn {
+.navbar-right > div > input,
+.navbar-right > .input-group > .input-group-btn > .btn {
   max-height: 30px;
 }
 .navbar-right > .btn-group {
@@ -178,7 +186,7 @@ hr {
   color: #107575;
 }
 .navbar-right > .input-group > .input-group-btn > .btn {
-  color: #107575;  
+  color: #107575;
   border: 0;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;

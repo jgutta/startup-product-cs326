@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-import { getSubscribedBoardsData, getBoardsData } from '../server';
+import { getSubscribedBoardsData, getBoardsData, addSubscribeBoard, deleteSubscribeBoard} from '../server';
 
 export default class SubscribedBoards extends React.Component {
   constructor(props) {
@@ -48,13 +47,40 @@ export default class SubscribedBoards extends React.Component {
         nosub.push(all[i]);
       }
     }
-    //console.log(nosub);
     return nosub;
+  }
+
+
+    refresh() {
+      getSubscribedBoardsData(this.props.user, (boardData) => {
+        this.setState(boardData);
+      });
+    }
+
+  handleSubmit(e, id) {
+    e.preventDefault();
+    addSubscribeBoard(this.props.user, id, () => {
+      this.refresh();
+    });
+  }
+
+  handleUnSub(e, id) {
+    e.preventDefault();
+    deleteSubscribeBoard(this.props.user, id, () => {
+      this.refresh();
+    });
+  }
+
+  onEmpty(){
+    if(this.getNotSubscribed(this.state.contents, this.state.boardsList).length == 0){
+      return "btn btn-default dropdown-toggle disabled";
+    }
+    else{return "btn btn-default dropdown-toggle";}
   }
 
   render() {
     var nosub = this.getNotSubscribed(this.state.contents, this.state.boardsList);
-
+    var drop = this.onEmpty();
     return (
       <div className="panel panel-default content-panel">
         <div className="panel-heading">
@@ -65,14 +91,19 @@ export default class SubscribedBoards extends React.Component {
             {this.state.contents.map((board) => {
                return (
                  <li role="presentation" key={board._id}>
-                   <Link to={"/boards/" + board._id}>{board.name}</Link>
+                   <Link to={"/boards/" + board._id}>
+                     {board.name}
+                     <i className="fa fa-minus-circle pull-right" onClick={(e) => this.handleUnSub(e, board._id)}></i>
+                   </Link>
                  </li>
                );
              })}
           </ul>
 
+
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="addBoardsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+            <button className={drop} type="button" id="addBoardsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Add Board
               <span className="caret"></span>
             </button>
@@ -80,7 +111,7 @@ export default class SubscribedBoards extends React.Component {
               {nosub.map((board) => {
                  return (
                    <li role="presentation" key={board._id}>
-                     <a href="#">{board.name}</a>
+                     <a href="#" onClick={(e) => this.handleSubmit(e, board._id)}>{board.name}</a>
                    </li>
                  );
                })}
