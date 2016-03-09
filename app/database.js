@@ -83,7 +83,7 @@ var initialData = {
     '3': {
       '_id': 3,
       'name': 'Games',
-      'threads': [ 4 ],
+      'threads': [],
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Find groups of people, or start your own group, looking to meet up and play a variety of tabel-top games, card games, and all sorts of boardgames.',
@@ -92,7 +92,7 @@ var initialData = {
     '4': {
       '_id': 4,
       'name': 'Local Events',
-      'threads': [],
+      'threads': [ 1 ],
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Learn about what is happening in your community, commit to attending events, or look for people to attend your events.',
@@ -101,7 +101,7 @@ var initialData = {
     '5': {
       '_id': 5,
       'name': 'Music',
-      'threads': [],
+      'threads': [ 4 ],
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Share music with people, give and get suggestions based on your tastes, find jam buddies, and discuss anything music.',
@@ -155,7 +155,7 @@ var initialData = {
     '11': {
       '_id': 11,
       'name': 'Videogames',
-      'threads': [],
+      'threads': [ 3 ],
       'numUsers': 0,
       'numPosts': 0,
       'description': 'Find friends to host a lan party, an online party, or anything inbetween. Discussion old games, new games, and discuss awaited releases.',
@@ -166,7 +166,7 @@ var initialData = {
   'threads': {
     '1': {
       '_id': 1,
-      'boards': [ 1, 2 ],
+      'boards': [ 1, 4 ],
       'commentsNo': 3,
       'viewsNo': 10,
 
@@ -226,7 +226,7 @@ var initialData = {
     },
     '3': {
       '_id': 3,
-      'boards': [ 1 ],
+      'boards': [ 1, 11 ],
       'commentsNo': 0,
       'viewsNo': 30,
 
@@ -244,7 +244,7 @@ var initialData = {
     },
     '4': {
       '_id': 4,
-      'boards': [ 3 ],
+      'boards': [ 5 ],
       'commentsNo': 0,
       'viewsNo': 30,
 

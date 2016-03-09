@@ -59,8 +59,6 @@ export default class Search extends React.Component {
   }
 
   render() {
-
-
     return (
       <MainContent title= "UBoard Search">
         <div className="main-content">

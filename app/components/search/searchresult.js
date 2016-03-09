@@ -16,9 +16,7 @@ export default class SearchResult extends React.Component {
   }
 
   render() {
-
     var data = this.props.data;
-    console.log(this.commas(data.boards));
     return (
       <div className="panel panel-default">
         <div className="panel-body result">
