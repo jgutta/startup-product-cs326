@@ -63,7 +63,7 @@ export default class Search extends React.Component {
       <MainContent title= "UBoard Search">
         <div className="main-content">
           <div className="main-content-body">
-            <div className="bar">
+            <div className="bar pull-left">
               <div className="input-group search-bar">
                 <span className="input-group-btn">
                   <input type="text" className="form-control" placeholder="Search UBoard"
@@ -75,9 +75,9 @@ export default class Search extends React.Component {
                 </span>
               </div>
             </div>
-            <hr />
-            <div className="results"><h4>SEARCH RESULTS: {this.props.location.query.query}</h4></div>
 
+            <div className="resultss"><h4>Search Results for: {this.props.location.query.query}</h4></div>
+            <hr />
             <div className="results">
               {this.state.contents.map((thread) => {
                  return (

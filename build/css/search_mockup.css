@@ -8,14 +8,21 @@
 }
 
 .results {
-  padding-top: 20px;
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.resultss {
+  padding-top: 50px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
 .bar {
-  width: 80%;
+  width: 96.5%;
   margin: auto;
+  padding-top: 10px;
 }
 
 .schbt {
