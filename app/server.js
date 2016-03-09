@@ -206,5 +206,6 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
         board.threads.push(thread._id);
         writeDocument('boards', board);
     }
+    
     emulateServerReturn(thread, cb);
   }
