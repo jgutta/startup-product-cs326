@@ -34,6 +34,7 @@ export default class Thread extends React.Component {
           <div> </div>
         )
       }
+
         //console.log(this.state);
     return (
       <MainContent title= {this.state.contents.originalPost.title} >
@@ -43,12 +44,8 @@ export default class Thread extends React.Component {
             <img src="img/default.png" width="90%" />
 
         </div>
-
-        <div className="col-md-8 title-head">
-          <h4><small> {unixTimeToString(this.state.contents.originalPost.postDate)} </small></h4>
-        </div>
-
-
+        Date: {this.state.contents.originalPost.date}, Time:{this.state.contents.originalPost.time}
+        <hr />
         <div className = "main-content-body">
 
           {this.state.contents.originalPost.description}
@@ -60,12 +57,12 @@ export default class Thread extends React.Component {
                 </button>
 
               </div>
-              Posted by <a href = "#"> {this.state.contents.originalPost.author} </a>.
+              Posted by <a href = "#"> {this.state.contents.originalPost.author}, on {unixTimeToString(this.state.contents.originalPost.postDate)} </a>.
               <br />
             </div>
-          <hr />
+
         </div>
-        <div className = 'putShitHere'>
+        <div className = 'putRepliesHere'>
 
         </div>
       </div>
@@ -81,3 +78,18 @@ export default class Thread extends React.Component {
      <Replies key={i} rKey={i} author={5} contents="floopy d00p fibbity b0p" postDate={1456871392} replies={ [] } />
    )
  })} */
+
+ /*
+ if(this.state.contents.originalPost.date){
+   <div className="col-md-8 title-head">
+     <h4><small> this.state.contents.originalPost.date </small></h4>
+   </div>
+ }
+ */
+ /*
+ if(this.state.contents.originalPost.date && this.state.contents.originalPost.time){
+   <div className="col-md-8 title-head">
+     <h4><small> {this.state.contents.originalPost.date} </small></h4>
+   </div>
+}
+*/
