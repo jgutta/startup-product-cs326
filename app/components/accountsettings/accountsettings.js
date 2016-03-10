@@ -33,7 +33,7 @@ export default class AccountSettings extends React.Component {
                     <div className = "row">
                         <div className = "col-md-3">
                             <img src = "img/default_profile_pic.png" width = "100%" />
-                            <input type="file" className="browse pull-left" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
+                            <input type="file" className="pull-left" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
                         </div>
                         <div className = "col-md-8">
                             <span className ="bold">Email:</span> richards@cs.umass.edu<span className = "pull-right"> Change</span>
