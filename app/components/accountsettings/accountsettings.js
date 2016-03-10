@@ -11,7 +11,6 @@ export default class AccountSettings extends React.Component {
             password: '',
             emailset: '',
             image: '',
-            subscribedBoards: '',
             gender: ''
         };
     }
@@ -33,20 +32,21 @@ export default class AccountSettings extends React.Component {
                 <div className = "pull-left">
                     <div className = "row">
                         <div className = "col-md-3">
-                            <a href = "#"><img src = "img/default_profile_pic.png" width = "100%" className ="picBorder" /></a>
-                            <input type="file" className="browse" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
+                            <img src = "img/default_profile_pic.png" width = "100%" />
+                            <input type="file" className="pull-left" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
                         </div>
                         <div className = "col-md-8">
-                            <span className ="bold">Email:</span> richards@cs.umass.edu<a href= "#"><span className = "pull-right"> Change</span></a>
+                            <span className ="bold">Email:</span> richards@cs.umass.edu<span className = "pull-right"> Change</span>
                             <br />
                             <span className ="bold">Password:</span>
                             <span>*************</span>
-                            <a href= "#"><span className = "pull-right"> Change</span></a>
+                            <span className = "pull-right"> Change</span>
                             <br />
                             <span className = "bold">Display Name: </span>
                             <span>Tim Richards</span>
-                            <button type = "button" className = "set-btn">
-                                <a href = "#"><span className ="glyphicon glyphicon-chevron-down"></span></a>
+                            <br />
+                            <button type = "button" className = "set-btn pull-left">
+                                <span className ="glyphicon glyphicon-chevron-down"></span>
                             </button>
                             <span className = "bold">Gender: </span>
                             <br />
@@ -57,7 +57,7 @@ export default class AccountSettings extends React.Component {
                                     <br />
                                 </div>
                                 <button type = "button" className = "set-btn">
-                                    <a href = "#"><span className ="glyphicon glyphicon-chevron-down"></span></a>
+                                    <span className ="glyphicon glyphicon-chevron-down"></span>
                                 </button>
                                 <span className = "bold"> Email Settings:</span>
                                 <div className = "col-md-12 chbx">
@@ -66,24 +66,21 @@ export default class AccountSettings extends React.Component {
                                 </div>
                                 <br />
                                 <button type = "button" className = "set-btn">
-                                    <a href = "#"><span className ="glyphicon glyphicon-chevron-down"></span></a>
+                                    <span className ="glyphicon glyphicon-chevron-down"></span>
                                 </button>
                                 <span className ="bold"> Blocked: </span>
                                 <div className = "col-md-12 ybmove">
                                     <button type = "button" className = "set-btn">
-                                        <a href = "#"><span className ="glyphicon glyphicon-minus"></span></a>
+                                        <span className ="glyphicon glyphicon-minus"></span>
                                     </button> HarryMaybourne
                                     <br />
 
-                                    <button type = "button" className = "set-btn">
-                                        <a href = "#"><span className ="glyphicon glyphicon-plus"></span></a>
+                                    <button type = "button" className = "set-btn pull-left">
+                                        <span className ="glyphicon glyphicon-plus"></span>
                                     </button>
                                     <input type="text" name="blocked" /><br />
                                 </div>
                                 <br />
-                                <button type = "button" className = "set-btn">
-                                    <a href = "#"><span className ="glyphicon glyphicon-chevron-down"></span></a>
-                                </button>
 
                                         </div>
                                     </div>
