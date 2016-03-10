@@ -10,6 +10,7 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
+
 function getThreadSync(threadId) {
   var thread = readDocument('threads', threadId);
   return thread;
@@ -24,10 +25,19 @@ export function getThreadData(threadId, cb){
 }
 
 //!!
-/*
-export function postThreadReply(threadId, author, contents, cb){}
-//!!
-export function postReplyReply(threadId, replyId, author, contents, cb){} */
+export function postReplyReply(threadId, replyId, author, contents, cb){
+var thread = readDocument('threads', threadId);
+var reply = thread.replies[replyId];
+reply.replies.push({
+  'author': author,
+  'postDate': new Date().getTime(),
+  'contents': contents
+  //??profile image? can i get from author?
+});
+writeDocument('threads', thread);
+
+emulateServerReturn(getThreadSync(threadId), cb);
+}
 
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
@@ -60,9 +70,9 @@ function getBoardSync(boardId) {
 
 export function getAllBoards(cb){
   var boardList =[];
-  for (var i=1; i<=11; i++){
-    boardList.push(readDocument('boards', i));
-  }
+ for (var i=1; i<=11; i++){
+   boardList.push(readDocument('boards', i));
+ }
   emulateServerReturn(boardList, cb);
 }
 
@@ -76,27 +86,21 @@ export function getSubscribedBoardsData(user, cb) {
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
-export function getBoardsData(cb) {
+export function getBoardsData(cb){
   var boards = readCollection('boards');
   var boardsData = {
     boardsList: []
   };
-
   for(var i in boards)
     boardsData.boardsList.push(boards[i]);
 
-
   emulateServerReturn(boardsData, cb);
-}
-
-function sortNumber(a, b) {
-  return a - b;
 }
 
 export function addSubscribeBoard(user, board, cb) {
   var userData = readDocument('users', user);
   userData.subscribedBoards.push(board);
-  userData.subscribedBoards.sort(sortNumber);
+  userData.subscribedBoards.sort();
   writeDocument('users', userData);
   emulateServerReturn(userData, cb);
 }
@@ -178,7 +182,12 @@ export function getSearchData(cb) {
 
   for(var i in threads){
     var th = threads[i];
-    th.boards = th.boards.map(getBoardSync)
+
+    th.boards = th.boards.map(getBoardSync);
+
+    var userData = readDocument('users', th.originalPost.author);
+    th.originalPost.authorName = userData.username;
+
     threadData.contents.push(th);
   }
 
@@ -212,4 +221,15 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     }
 
     emulateServerReturn(thread, cb);
+  }
+  export function getUserData(userId){
+      var user = {
+          'username' : readDocument('username', userId),
+          'email' : readDocument('email', userId),
+          'gender' : readDocument('gender', userId),
+          'emailset' : readDocument('emailset',userId),
+          'password': readDocument('password',userId)
+      };
+        writeDocument('user',user);
+        emulateServerReturn(user, userId);
   }
