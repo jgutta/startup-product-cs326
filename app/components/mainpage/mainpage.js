@@ -61,7 +61,7 @@ export default class MainPage extends React.Component {
                         </div>
                         <div className="col-md-6">
                           <Link to={"/boards/" + board._id}>
-                            <BoardTab key={i} title={board.name} description={board.description} numUser={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
+                            <BoardTab key={i} title={board.name} description={board.description} numUsers={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
                           </Link>
                         </div>
                       </div>
