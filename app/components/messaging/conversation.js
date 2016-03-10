@@ -69,7 +69,7 @@ export default class Conversation extends React.Component {
 
     if (!this.state.loaded) {
       return (
-        <div style={{ height: '500px' }}></div>
+        <div style={{ height: '350px' }}></div>
       )
     }
 
