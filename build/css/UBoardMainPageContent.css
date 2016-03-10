@@ -11,10 +11,15 @@
 .board-img hr{
   margin: 0px;
 }
-.main-page-body .board-img img{
+.pic-col{
+  padding-right: 0px;
+}
+.pic-col img{
   float: left;
   width: 100%;
-  padding-right: 5px;
+}
+.main-page-panel{
+  border-width: 0px;
 }
 .main-page-body .panel-heading{
   padding-top: 10px;
@@ -36,7 +41,4 @@
 }
 .main-page-body a:active{
   color: black;
-}
-.board-tab-row{
-  height: 12em;
 }

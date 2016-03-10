@@ -35,7 +35,7 @@ export default class MainPage extends React.Component {
     var holdTemp = true;
     return (
       <MainContent title="Welcome to UBoard">
-          <div className= "panel panel-default">
+          <div className= "panel panel-default main-page-panel">
             <div className="panel-body">
               <div className= "main-page-body">
                 {boardsList.map((board, i) => {
@@ -61,7 +61,7 @@ export default class MainPage extends React.Component {
                         </div>
                         <div className="col-md-6">
                           <Link to={"/boards/" + board._id}>
-                            <BoardTab key={i} title={board.name} description={board.description} numUser={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
+                            <BoardTab key={i} title={board.name} description={board.description} numUsers={board.numUsers} numPosts={board.numPosts} boardImg={board.image} boardID={board._id}/>
                           </Link>
                         </div>
                       </div>

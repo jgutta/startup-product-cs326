@@ -10,7 +10,7 @@ export default class BoardTab extends React.Component {
         </div>
         <div className= "panel-body board-img">
           <div className="row board-tab-row">
-            <div className="col-md-6">
+            <div className="col-md-6 pic-col">
               <img src={this.props.boardImg} />
             </div>
             <div className="col-md-6">
