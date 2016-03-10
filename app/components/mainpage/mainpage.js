@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../maincontent';
-import {getBoardsData} from '../../server.js';
+import {getAllBoards} from '../../server.js';
 import BoardTab from './BoardTab.js';
 import { Link } from 'react-router';
 
@@ -21,7 +21,7 @@ export default class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    getBoardsData((boardsData) => {
+    getAllBoards((boardsData) => {
       // Note: setState does a *shallow merge* of the current state and the new
       // state. If state was currently set to {foo: 3}, and we setState({bar: 5}),
       // state would then be {foo: 3, bar: 5}. This won't be a problem here.
@@ -30,7 +30,6 @@ export default class MainPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.contents);
     var boardsList = this.state.contents; //list of all boards
     var tempBoard;
     var holdTemp = true;

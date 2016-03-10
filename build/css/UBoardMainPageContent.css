@@ -37,3 +37,6 @@
 .main-page-body a:active{
   color: black;
 }
+.board-tab-row{
+  height: 12em;
+}

@@ -68,9 +68,9 @@ function getBoardSync(boardId) {
 
 export function getAllBoards(cb){
   var boardList =[];
-  for (var i=1; i<=11; i++){
-    boardList.push(readDocument('boards', i));
-  }
+ for (var i=1; i<=11; i++){
+   boardList.push(readDocument('boards', i));
+ }
   emulateServerReturn(boardList, cb);
 }
 
@@ -89,7 +89,6 @@ export function getBoardsData(cb) {
   var boardsData = {
     boardsList: []
   };
-
   for(var i in boards)
     boardsData.boardsList.push(boards[i]);
 
