@@ -35,8 +35,6 @@ export default class MainPage extends React.Component {
     var holdTemp = true;
     return (
       <MainContent title="Welcome to UBoard">
-          <div className= "panel panel-default main-page-panel">
-            <div className="panel-body">
               <div className= "main-page-body">
                 {boardsList.map((board, i) => {
 
@@ -73,8 +71,7 @@ export default class MainPage extends React.Component {
 
                 })}
               </div>
-            </div>
-          </div>
+
       </MainContent>
     )
   }
