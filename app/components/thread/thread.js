@@ -17,13 +17,12 @@ export default class Thread extends React.Component {
     //this.refresh();
     getOPData(this.props.params.id, (threadData) => {
       this.setState(threadData);
-      //this.setState({contents: threadData.replies})
+      //this.setState({contents: threadData})
     } );
   }
 
   render() {
-    //console.log(this.state);
-    //var replies = this.state.replies.params; //yields undefined when mapping replies...
+    console.log(this.state);
 
     return (
       <MainContent title= {this.state.originalPost.title} >

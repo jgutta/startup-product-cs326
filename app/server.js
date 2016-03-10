@@ -22,11 +22,13 @@ function getOPSynch(threadId){
 }
 
 //!!
-export function getOPData(threadId, cb) {
-  var threadData = readDocument('threads', threadId);
-  var op = readDocument('originalPost', threadData.originalPost);
-  op.contents = op.contents.map( (id) => getOPSynch(id) );
-  emulateServerReturn(op, cb);
+export function getThreadData(threadId, cb){
+  var thread = readDocument('threads', threadId);
+  var threadData = {
+     contents: []
+   };
+   threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
+   emulateServerReturn(threadData, cb);
 }
 
 //!!
