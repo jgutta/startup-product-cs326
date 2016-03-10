@@ -16,6 +16,7 @@ export default class Conversation extends React.Component {
     }
 
     this.state = {
+      loaded: false,
       messageTitleValue: defaultTitle,
       messageContentsValue: '',
       conversation: {
@@ -26,6 +27,7 @@ export default class Conversation extends React.Component {
 
   refresh() {
     getConversationData(this.props.user, this.props.conversationId, (conversationData) => {
+      conversationData.loaded = true
       this.setState(conversationData);
     });
   }
@@ -64,6 +66,12 @@ export default class Conversation extends React.Component {
 
   render() {
     var conversation = this.state.conversation;
+
+    if (!this.state.loaded) {
+      return (
+        <div style={{ height: '500px' }}></div>
+      )
+    }
 
     if (conversation.messages.length < 1) {
       return (
