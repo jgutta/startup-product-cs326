@@ -5,16 +5,19 @@ import ReactDOM from 'react-dom';
 var startupName = "DevSkillet";
 
 // Put your mock objects here, as in Workshop 4
+// 1 = male 2 = female 3 = other
 var initialData = {
   'users': {
     '1': {
       '_id': 1,
       'username': 'tim.richards',
-
+      'gender': 1,
+      'password':'badpassword1',
       'feed': 1,
       'pinnedPosts': 1,
       'subscribedBoards': [ 2, 4, 7, 11 ],
-
+      'blocked': [],
+      'email': 'richards@cs.umass.edu',
       'conversations': [ 1, 2, 3, 4, 5 ]
     },
     '2': {
