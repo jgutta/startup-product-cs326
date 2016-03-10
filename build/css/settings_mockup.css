@@ -1,0 +1,29 @@
+.bold{
+    font-weight: bold;
+}
+.chbx{
+    padding-left: 40px !important;
+}
+.deactivate{
+    padding-right: 20px !important;
+}
+.resze{
+    width: 150px !important;
+    height: 35px !important;
+}
+.set-btn{
+    background-color: transparent;
+    border-color: transparent;
+}
+.shift{
+    padding-right: 20px;
+}
+.ybmove{
+    padding-left: 30px !important;
+}
+.dropMenu{
+display: inline-block;
+}
+.picBorder{
+    margin-bottom: 5px;
+}

@@ -11,7 +11,6 @@ export default class AccountSettings extends React.Component {
             password: '',
             emailset: '',
             image: '',
-            subscribedBoards: '',
             gender: ''
         };
     }
@@ -45,6 +44,7 @@ export default class AccountSettings extends React.Component {
                             <br />
                             <span className = "bold">Display Name: </span>
                             <span>Tim Richards</span>
+                            <br />
                             <button type = "button" className = "set-btn">
                                 <a href = "#"><span className ="glyphicon glyphicon-chevron-down"></span></a>
                             </button>
