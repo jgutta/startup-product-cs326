@@ -26,6 +26,20 @@ export default class Thread extends React.Component {
       this.setState({contents: threadData})
   });
 }
+  checkOptionalInfo(){
+    var op = this.state.contents.originalPost;
+    if((op.date !== '') && (op.time !== '')){
+      return(<div>  Date:  {op.date}, Time:  {op.time} <hr /> </div> )
+    }
+    else{
+      if(op.date !== ''){
+        return(<div>  Date:  {op.date} <hr /> </div>)
+      }
+      if(op.time !== ''){
+        return(<div>  Time:  {op.time} <hr /> </div>)
+      }
+    }
+  }
 
   render() {
     //console.log(this.props.params.id);
@@ -36,7 +50,6 @@ export default class Thread extends React.Component {
       }
       //put date/check time here
 
-      console.log(this.props);
     return (
       <MainContent title= {this.state.contents.originalPost.title} >
         <div>
@@ -45,8 +58,8 @@ export default class Thread extends React.Component {
             <img src={this.state.contents.originalPost.img} width="90%" />
 
         </div>
-        Date:  {this.state.contents.originalPost.date}, Time:  {this.state.contents.originalPost.time}
-        <hr />
+        {this.checkOptionalInfo()}
+
         <div className = "main-content-body">
 
           {this.state.contents.originalPost.description}
