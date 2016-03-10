@@ -65,7 +65,7 @@ export default class Thread extends React.Component {
           {this.state.contents.originalPost.description}
           <hr />
             <div className="footer">
-              <div className="pull-left">
+              <div className="pull-left pl00f">
                 <button type="replyBtn" className="btn btn-primary">
                   <span> Reply </span>
                 </button>
