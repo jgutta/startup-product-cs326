@@ -25,7 +25,7 @@ export default class SearchResult extends React.Component {
               <Link to={"/threads/" + data._id}>{data.originalPost.title}</Link> - {this.commas(data.boards)}
             </div>
             <div className="col-sm-6 date-posted">
-              Posted {unixTimeFromNow(data.originalPost.postDate)}
+              Posted {unixTimeFromNow(data.originalPost.postDate)} by {data.originalPost.authorName}
             </div>
           </div>
         <hr />

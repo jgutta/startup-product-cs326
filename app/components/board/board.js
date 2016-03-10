@@ -17,7 +17,7 @@ export default class Board extends React.Component {
     getBoardInfo(this.props.params.id, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop.
       //console.log(boardData.threads[0])
       this.setState(boardData);
-      //this.setState({contents: boardData.threads})
+      this.setState({contents: boardData.threads})
 
   });
   }
@@ -25,7 +25,7 @@ export default class Board extends React.Component {
     getBoardInfo(nextProps.params.id, (boardData) => { // currently hardcoded to get board one, in the future this will be a prop.
       //console.log(boardData.threads[0])
       this.setState(boardData);
-      //this.setState({contents: boardData.threads})
+      this.setState({contents: boardData.threads})
   });
 }
 //  console.log(this.state.threads)

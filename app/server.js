@@ -10,30 +10,34 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
+
 function getThreadSync(threadId) {
   var thread = readDocument('threads', threadId);
   return thread;
 }
 
-function getOPSynch(threadId){
+export function getThreadData(threadId, cb){
   var thread = readDocument('threads', threadId);
-  var op = readDocument('originalPost', thread.originalPost);
-  return op;
+  var threadData = {
+     contents : thread
+   };
+   emulateServerReturn(threadData, cb);
 }
 
 //!!
-export function getOPData(threadId, cb) {
-  var threadData = readDocument('threads', threadId);
-  var op = readDocument('originalPost', threadData.originalPost);
-  op.contents = op.contents.map( (id) => getOPSynch(id) );
-  emulateServerReturn(op, cb);
-}
+export function postReplyReply(threadId, replyId, author, contents, cb){
+var thread = readDocument('threads', threadId);
+var reply = thread.replies[replyId];
+reply.replies.push({
+  'author': author,
+  'postDate': new Date().getTime(),
+  'contents': contents
+  //??profile image? can i get from author?
+});
+writeDocument('threads', thread);
 
-//!!
-/*
-export function postThreadReply(threadId, author, contents, cb){}
-//!!
-export function postReplyReply(threadId, replyId, author, contents, cb){} */
+emulateServerReturn(getThreadSync(threadId), cb);
+}
 
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
@@ -66,9 +70,9 @@ function getBoardSync(boardId) {
 
 export function getAllBoards(cb){
   var boardList =[];
-  for (var i=1; i<=11; i++){
-    boardList.push(readDocument('boards', i));
-  }
+ for (var i=1; i<=11; i++){
+   boardList.push(readDocument('boards', i));
+ }
   emulateServerReturn(boardList, cb);
 }
 
@@ -87,10 +91,8 @@ export function getBoardsData(cb){
   var boardsData = {
     boardsList: []
   };
-
   for(var i in boards)
     boardsData.boardsList.push(boards[i]);
-
 
   emulateServerReturn(boardsData, cb);
 }
@@ -180,7 +182,12 @@ export function getSearchData(cb) {
 
   for(var i in threads){
     var th = threads[i];
-    th.boards = th.boards.map(getBoardSync)
+
+    th.boards = th.boards.map(getBoardSync);
+
+    var userData = readDocument('users', th.originalPost.author);
+    th.originalPost.authorName = userData.username;
+
     threadData.contents.push(th);
   }
 
