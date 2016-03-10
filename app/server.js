@@ -76,7 +76,7 @@ export function getSubscribedBoardsData(user, cb) {
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
-export function getBoardsData(cb){
+export function getBoardsData(cb) {
   var boards = readCollection('boards');
   var boardsData = {
     boardsList: []
@@ -89,10 +89,14 @@ export function getBoardsData(cb){
   emulateServerReturn(boardsData, cb);
 }
 
+function sortNumber(a, b) {
+  return a - b;
+}
+
 export function addSubscribeBoard(user, board, cb) {
   var userData = readDocument('users', user);
   userData.subscribedBoards.push(board);
-  userData.subscribedBoards.sort();
+  userData.subscribedBoards.sort(sortNumber);
   writeDocument('users', userData);
   emulateServerReturn(userData, cb);
 }
