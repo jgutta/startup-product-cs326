@@ -10,32 +10,51 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
+
 function getThreadSync(threadId) {
   var thread = readDocument('threads', threadId);
   return thread;
 }
 
-function getOPSynch(threadId){
-  var thread = readDocument('threads', threadId);
-  var op = readDocument('originalPost', thread.originalPost);
-  return op;
-}
-
 //!!
-export function getThreadData(threadId, cb){
+export function getThreadData(threadId, cb) {
   var thread = readDocument('threads', threadId);
   var threadData = {
-     contents: []
-   };
-   threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
-   emulateServerReturn(threadData, cb);
+    contents: []
+  };
+  threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
+
+  emulateServerReturn(threadData, cb);
 }
 
 //!!
-/*
-export function postThreadReply(threadId, author, contents, cb){}
+export function postThreadReply(threadId, author, contents, cb){
+  var thread = readDocument('threads', threadId);
+  thread.replies.push({
+    'author': author,
+    'postDate': new Date().getTime(),
+    'contents': contents
+    //??profile image? can i get from author?
+  });
+  writeDocument('threads', thread);
+
+  emulateServerReturn(getThreadSync(threadId), cb);
+}
+
 //!!
-export function postReplyReply(threadId, replyId, author, contents, cb){} */
+export function postReplyReply(threadId, replyId, author, contents, cb){
+var thread = readDocument('threads', threadId);
+var reply = thread.replies[replyId];
+reply.replies.push({
+  'author': author,
+  'postDate': new Date().getTime(),
+  'contents': contents
+  //??profile image? can i get from author?
+});
+writeDocument('threads', thread);
+
+emulateServerReturn(getThreadSync(threadId), cb);
+}
 
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
@@ -84,7 +103,7 @@ export function getSubscribedBoardsData(user, cb) {
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
-export function getBoardsData(cb) {
+export function getBoardsData(cb){
   var boards = readCollection('boards');
   var boardsData = {
     boardsList: []
@@ -97,14 +116,10 @@ export function getBoardsData(cb) {
   emulateServerReturn(boardsData, cb);
 }
 
-function sortNumber(a, b) {
-  return a - b;
-}
-
 export function addSubscribeBoard(user, board, cb) {
   var userData = readDocument('users', user);
   userData.subscribedBoards.push(board);
-  userData.subscribedBoards.sort(sortNumber);
+  userData.subscribedBoards.sort();
   writeDocument('users', userData);
   emulateServerReturn(userData, cb);
 }
@@ -186,7 +201,12 @@ export function getSearchData(cb) {
 
   for(var i in threads){
     var th = threads[i];
-    th.boards = th.boards.map(getBoardSync)
+
+    th.boards = th.boards.map(getBoardSync);
+    
+    var userData = readDocument('users', th.originalPost.author);
+    th.originalPost.authorName = userData.username;
+
     threadData.contents.push(th);
   }
 
