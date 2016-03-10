@@ -18,12 +18,16 @@
   float: left;
   width: 100%;
 }
+.board-tab-header{
+  background-color: #90b2b2 !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 .main-page-panel{
   border-width: 0px;
 }
-.main-page-body .panel-heading{
-  padding-top: 10px;
-  padding-bottom: 10px;
+.main-page-panel .board-tab{
+  border-color: #62a4a4
 }
 .main-page-body h4{
   margin: 0px;

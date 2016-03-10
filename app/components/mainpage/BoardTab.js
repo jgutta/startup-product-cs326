@@ -5,7 +5,7 @@ export default class BoardTab extends React.Component {
   render(){
     return(
       <div className= "panel panel-default board-tab">
-        <div className= "panel-heading">
+        <div className= "panel-heading board-tab-header">
           <center><h4>{this.props.title}</h4></center>
         </div>
         <div className= "panel-body board-img">
