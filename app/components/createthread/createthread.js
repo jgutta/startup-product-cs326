@@ -73,7 +73,8 @@ export default class CreateThread extends React.Component {
     }
     else{
       createThread(this.props.user, threadTitle, threadDate, threadTime, threadDescription, threadImage, threadBoards, (thread) => {
-        window.top.location.reload(hashHistory.push({ pathname: '/threads/' + thread._id}));
+          scrollTo(0,0);
+          hashHistory.push({ pathname: '/threads/' + thread._id});
       });
     }
   }
