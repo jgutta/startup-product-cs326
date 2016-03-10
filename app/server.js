@@ -15,19 +15,11 @@ function getThreadSync(threadId) {
   return thread;
 }
 
-function getOPSynch(threadId){
-  var thread = readDocument('threads', threadId);
-  var op = readDocument('originalPost', thread.originalPost);
-  return op;
-}
-
-//!!
 export function getThreadData(threadId, cb){
   var thread = readDocument('threads', threadId);
   var threadData = {
-     contents: []
+     contents : thread
    };
-   threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
    emulateServerReturn(threadData, cb);
 }
 
