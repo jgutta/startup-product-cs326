@@ -13,12 +13,19 @@ export default class Thread extends React.Component {
 
   componentDidMount() {
     getThreadData(this.props.params.id, (threadData) => {
-        console.log(threadData);
+        //console.log(threadData);
       this.setState(threadData);
       this.setState({contents: threadData})
     } );
       //console.log(this.props.params.id);
   }
+  componentWillReceiveProps(nextProps){
+    getThreadData(nextProps.params.id, (threadData) => { // currently hardcoded to get board one, in the future this will be a prop.
+      //console.log(boardData.threads[0])
+      this.setState(threadData);
+      this.setState({contents: threadData})
+  });
+}
 
   render() {
     //console.log(this.props.params.id);
@@ -33,7 +40,7 @@ export default class Thread extends React.Component {
         <div>
           <div className="panel-body">
             <div className="row col-md-4">
-            <img src="img/defaultDisplay.jpg" width="90%" />
+            <img src="img/default.png" width="90%" />
 
         </div>
 
