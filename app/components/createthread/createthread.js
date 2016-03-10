@@ -147,7 +147,7 @@ export default class CreateThread extends React.Component {
 
                     <div className="panel-body picture form-group">
                       <a><img id="output" src={this.state.image} width="30%"/></a>
-                      <input type="file" className="browse" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
+                      <input type="file" className="browse" accept="image/jpeg, image/png" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
                     </div>
 
                     <div className="panel-body checkboxes form-group box">
