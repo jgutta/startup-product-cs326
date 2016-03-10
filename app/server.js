@@ -91,7 +91,6 @@ export function getBoardsData(cb){
   for(var i in boards)
     boardsData.boardsList.push(boards[i]);
 
-
   emulateServerReturn(boardsData, cb);
 }
 
