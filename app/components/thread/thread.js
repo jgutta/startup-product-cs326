@@ -44,7 +44,7 @@ export default class Thread extends React.Component {
             <img src="img/default.png" width="90%" />
 
         </div>
-        Date: {this.state.contents.originalPost.date}, Time:{this.state.contents.originalPost.time}
+        Date:  {this.state.contents.originalPost.date}, Time:  {this.state.contents.originalPost.time}
         <hr />
         <div className = "main-content-body">
 
