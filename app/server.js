@@ -22,11 +22,13 @@ function getOPSynch(threadId){
 }
 
 //!!
-export function getOPData(threadId, cb) {
-  var threadData = readDocument('threads', threadId);
-  var op = readDocument('originalPost', threadData.originalPost);
-  op.contents = op.contents.map( (id) => getOPSynch(id) );
-  emulateServerReturn(op, cb);
+export function getThreadData(threadId, cb){
+  var thread = readDocument('threads', threadId);
+  var threadData = {
+     contents: []
+   };
+   threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
+   emulateServerReturn(threadData, cb);
 }
 
 //!!
@@ -82,7 +84,7 @@ export function getSubscribedBoardsData(user, cb) {
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
-export function getBoardsData(cb){
+export function getBoardsData(cb) {
   var boards = readCollection('boards');
   var boardsData = {
     boardsList: []
@@ -94,10 +96,14 @@ export function getBoardsData(cb){
   emulateServerReturn(boardsData, cb);
 }
 
+function sortNumber(a, b) {
+  return a - b;
+}
+
 export function addSubscribeBoard(user, board, cb) {
   var userData = readDocument('users', user);
   userData.subscribedBoards.push(board);
-  userData.subscribedBoards.sort();
+  userData.subscribedBoards.sort(sortNumber);
   writeDocument('users', userData);
   emulateServerReturn(userData, cb);
 }
