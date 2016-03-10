@@ -32,7 +32,7 @@ export default class AccountSettings extends React.Component {
                 <div className = "pull-left">
                     <div className = "row">
                         <div className = "col-md-3">
-                            <a href = "#"><img src = "img/default_profile_pic.png" width = "100%" className ="picBorder" /></a>
+                            <a href = "#"><img src = "img/default_profile_pic.png" width = "100%" /></a>
                             <input type="file" className="browse" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
                         </div>
                         <div className = "col-md-8">
