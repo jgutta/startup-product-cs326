@@ -68,7 +68,9 @@ export default class CreateThread extends React.Component {
     if(threadTitle === "" || threadDescription === "" || threadBoards.length === 0){
       alert("Something required is empty!");
     }
-
+    else if(threadBoards.length >= 5){
+      alert("The max limit of boards is 4!")
+    }
     else{
       createThread(this.props.user, threadTitle, threadDate, threadTime, threadDescription, threadImage, threadBoards, (thread) => {
         hashHistory.push({ pathname: '/threads/' + thread._id});

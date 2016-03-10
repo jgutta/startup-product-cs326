@@ -16,29 +16,12 @@ function getThreadSync(threadId) {
   return thread;
 }
 
-//!!
-export function getThreadData(threadId, cb) {
+export function getThreadData(threadId, cb){
   var thread = readDocument('threads', threadId);
   var threadData = {
-    contents: []
-  };
-  threadData.contents = thread.replies.map((everything) => getThreadSync(thread, everything));
-
-  emulateServerReturn(threadData, cb);
-}
-
-//!!
-export function postThreadReply(threadId, author, contents, cb){
-  var thread = readDocument('threads', threadId);
-  thread.replies.push({
-    'author': author,
-    'postDate': new Date().getTime(),
-    'contents': contents
-    //??profile image? can i get from author?
-  });
-  writeDocument('threads', thread);
-
-  emulateServerReturn(getThreadSync(threadId), cb);
+     contents : thread
+   };
+   emulateServerReturn(threadData, cb);
 }
 
 //!!
@@ -203,7 +186,7 @@ export function getSearchData(cb) {
     var th = threads[i];
 
     th.boards = th.boards.map(getBoardSync);
-    
+
     var userData = readDocument('users', th.originalPost.author);
     th.originalPost.authorName = userData.username;
 
