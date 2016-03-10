@@ -1,8 +1,8 @@
 import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
-import { unixTimeToString } from '../../util';
-import { getThreadData } from '../../server';
+//import { unixTimeToString } from '../../util';
+import { getOPData } from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -13,41 +13,20 @@ export default class Thread extends React.Component {
     };
   }
 
-  refresh() {
-    getThreadData(this.props.threadId, (threadData) => {
+  componentDidMount() {
+    //this.refresh();
+    getOPData(this.props.params.id, (threadData) => {
       this.setState(threadData);
+      //this.setState({contents: threadData.replies})
     } );
   }
 
-  componentDidMount() {
-    this.refresh();
-  }
-
-  //when reply is clicked, it opens a window to post comment
-  //!!
-  /*
-  onClick(e){
-    // make popup with textfield
-    //call handle reply
-  } */
-
-  //when you hit enter - after opening the text window and entering text - posts comment in replies[]
-  /*
-  handleReply(e) {
-      e.preventDefault();
-      var replies =  this.state.replies;
-      var replyText = replies.contents;
-      if(replyText !== ''){
-        //!!current time: var time = new Date().getTime();
-        //!!postThreadReply()
-      }
-  } */
-
   render() {
-    var replies = []; //should be this state
+    //console.log(this.state);
+    //var replies = this.state.replies.params; //yields undefined when mapping replies...
 
     return (
-      <MainContent title='this.state.originalPost.title'>
+      <MainContent title= {this.state.originalPost.title} >
         <div>
           <div className="panel-body">
             <div className="row col-md-4">
@@ -71,16 +50,15 @@ export default class Thread extends React.Component {
                 </button>
 
               </div>
-              Posted by <a href = "#">this.props.originalPost.author@UBoard</a>.
+              Posted by <a href = "#">this.props.originalPost.author</a>.
               <br />
             </div>
           <hr />
         </div>
         <div>
-          {replies.map((i) => {
+          {this.state.contents.map((i) => {
              return (
-               //DEFINITION -nested replies[]?
-               //!!these props should be maintained as comments are created
+               //how do i pull paramenters for these objs?
                <Replies key={i} rKey={i} author={5} contents="floopy d00p fibbity b0p" postDate={1456871392} replies={ [] } />
              )
            })}
@@ -96,3 +74,32 @@ export default class Thread extends React.Component {
 1. how do i get passed images for OP -> databse, thread.originalPost.img
 2. maintaining replies properties as created?
 */
+//
+
+/*
+  componentWillReceiveProps(nextProps){
+    getThreadData(nextProps.params.id, (threadData) => {
+      this.setState(threadData);
+      //this.setState({contents: threadData.replies})
+  });
+} */
+
+//when reply is clicked, it opens a window to post comment
+//!!
+/*
+onClick(e){
+  // make popup with textfield
+  //call handle reply
+} */
+
+//when you hit enter - after opening the text window and entering text - posts comment in replies[]
+/*
+handleReply(e) {
+    e.preventDefault();
+    var replies =  this.state.replies;
+    var replyText = replies.contents;
+    if(replyText !== ''){
+      //!!current time: var time = new Date().getTime();
+      //!!postThreadReply()
+    }
+} */
