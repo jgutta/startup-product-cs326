@@ -13,6 +13,10 @@ textarea {
   font-size: 12px;
 }
 
+.checkbox-grid{
+  padding-left: 65px;
+}
+
 .submit {
   padding-bottom: 5px;
 }

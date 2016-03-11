@@ -12,7 +12,7 @@ export default class CreateThread extends React.Component {
       date: '',
       time: '',
       description: '',
-      image: '',
+      image: 'img/default.png',
       boards: ["1"]
     };
   }
@@ -39,6 +39,12 @@ export default class CreateThread extends React.Component {
 
   handleImageChange(e) {
     e.preventDefault();
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('output');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(e.target.files[0]);
     this.setState({ image: e.target.value });
   }
 
@@ -140,8 +146,8 @@ export default class CreateThread extends React.Component {
                     </div>
 
                     <div className="panel-body picture form-group">
-                      <a><img src="img/default.png" width="30%"/></a>
-                      <input type="file" className="browse" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
+                      <a><img id="output" src={this.state.image} width="30%"/></a>
+                      <input type="file" className="browse" accept="image/jpeg, image/png" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
                     </div>
 
                     <div className="panel-body checkboxes form-group box">

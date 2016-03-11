@@ -1,27 +1,56 @@
+
+/*board tab*/
+.board-tab-header{
+  background-color: #90b2b2 !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 0;
+}
+.board-tab{
+  border-radius: 0;
+  border-color: #62a4a4;
+  height: 100%;
+  margin-bottom: 0px;
+  overflow: hidden;
+}
+.board-tab-body{
+  padding-bottom: 0px;
+  overflow:hidden;
+  height: 155px;
+}
 .board-footer{
   padding-top: 0px;
+  padding-right: 5px;
   margin-bottom: 0px;
   font-size: 12px;
   text-align: right;
   color: dimgrey;
 }
-.board-img{
-  padding-bottom: 0px;
+.board-tab hr{
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
-.board-img hr{
-  margin: 0px;
+/*board tab picture*/
+.pic-col{
+  padding-right: 0px;
 }
-.main-page-body .board-img img{
+.pic-col img{
   float: left;
   width: 100%;
-  padding-right: 5px;
+  height: 135px;
 }
-.main-page-body .panel-heading{
-  padding-top: 10px;
-  padding-bottom: 10px;
+/*Board tab container*/
+.board-col{
+padding: 5px;
+height: 230px;
 }
+/*Main body*/
 .main-page-body h4{
   margin: 0px;
+}
+.main-page-body{
+  margin-left: 15px;
+  margin-right: 15px;
 }
 .main-page-body a:link{
   color: black;
@@ -36,7 +65,4 @@
 }
 .main-page-body a:active{
   color: black;
-}
-.board-tab-row{
-  height: 12em;
 }

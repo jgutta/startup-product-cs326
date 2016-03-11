@@ -86,8 +86,8 @@ var initialData = {
       'threads': [ 2 ],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Connect with people to attend concerts with, or give and find out information about local upcoming concerts.',
-      'image': 'img/default.png'
+      'description': 'Find friends to attend a concert with. You can also find info on upcoming concerts or supply info for your upcoming concerts!',
+      'image': 'img/concert.jpg'
     },
     '3': {
       '_id': 3,
@@ -95,8 +95,8 @@ var initialData = {
       'threads': [],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Find groups of people, or start your own group, looking to meet up and play a variety of tabel-top games, card games, and all sorts of boardgames.',
-      'image': 'img/default.png'
+      'description': 'Find groups of people looking to meet up and play a variety of tabel-top games, card games, and all sorts of boardgames.',
+      'image': 'img/games.jpg'
     },
     '4': {
       '_id': 4,
@@ -104,8 +104,8 @@ var initialData = {
       'threads': [ 1 ],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Learn about what is happening in your community, commit to attending events, or look for people to attend your events.',
-      'image': 'img/default.png'
+      'description': 'Find out about what is happening in your community, commit to attending local events, or look for people to attend your events.',
+      'image': 'img/localevent.jpg'
     },
     '5': {
       '_id': 5,
@@ -113,8 +113,8 @@ var initialData = {
       'threads': [ 4 ],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Share music with people, give and get suggestions based on your tastes, find jam buddies, and discuss anything music.',
-      'image': 'img/default.png'
+      'description': 'Share music with people, give and get suggestions based on your tastes, find jam buddies, and discuss anything else music.',
+      'image': 'img/music.jpg'
     },
     '6': {
       '_id': 6,
@@ -122,8 +122,8 @@ var initialData = {
       'threads': [],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Find notes for all your classes or help your classmates by posting yours. You can also find people to share or exchange textbooks with.',
-      'image': 'img/default.png'
+      'description': 'Find notes for all your classes and post your own to share. You can also find people to share or exchange textbooks.',
+      'image': 'img/textbook.jpg'
     },
     '7': {
       '_id': 7,
@@ -131,8 +131,8 @@ var initialData = {
       'threads': [],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Connect with your RSO and get all the information about upcoming events, or coordinate with other people to get an RSO off the ground.',
-      'image': 'img/default.png'
+      'description': 'Connect with your RSO and get all the information about upcoming events, or find other people to get an RSO running.',
+      'image': 'img/rso.jpg'
     },
     '8': {
       '_id': 8,
@@ -140,8 +140,8 @@ var initialData = {
       'threads': [],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Find people to get a pickup game going, coordinate with teammates, find a local club team, or discuss any game happening around you.',
-      'image': 'img/default.png'
+      'description': 'Find people to get a pickup game going, coordinate with teammates, find a local club team, or discuss local games.',
+      'image': 'img/sport.jpg'
     },
     '9': {
       '_id': 9,
@@ -149,8 +149,8 @@ var initialData = {
       'threads': [],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Find a study buddy for final week, get suggestions about your study habits, or get suggestions about how much studying a test needs.',
-      'image': 'img/default.png'
+      'description': 'Find a study buddy for finals week, find practice questions of your test, or get suggestions about improving your study habits.',
+      'image': 'img/studying.jpg'
     },
     '10': {
       '_id': 10,
@@ -158,8 +158,8 @@ var initialData = {
       'threads': [],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Planning a movie night? Find some new friends to attend or find a movie you have been wanting to watch and make some new friends at the same time.',
-      'image': 'img/default.png'
+      'description': 'Planning a movie night? Find some new friends to attend your showing or find a movie you have been wanting to watch.',
+      'image': 'img/tv.jpg'
     },
     '11': {
       '_id': 11,
@@ -167,8 +167,8 @@ var initialData = {
       'threads': [ 3 ],
       'numUsers': 0,
       'numPosts': 0,
-      'description': 'Find friends to host a lan party, an online party, or anything inbetween. Discussion old games, new games, and discuss awaited releases.',
-      'image': 'img/default.png'
+      'description': 'Find friends to host a lan party or an online party. Discuss old games, new games, and awaited releases. Everything games!',
+      'image': 'img/videogames.jpg'
     }
   },
 
