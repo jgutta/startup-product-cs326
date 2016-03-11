@@ -6,24 +6,27 @@ export default class Replies extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      //contents: []
+      contents: []
      };
+    console.log(this.state);
     //console.log(this.props.rKey);
     //console.log(this.props.data);
   }
 
   componentDidMount() {
     getRepliesData(this.props.rKey, (replyData) => {
-        console.log(replyData);
+        //console.log(replyData);
       this.setState(replyData);
       this.setState({contents: replyData})
     } );
   }
 
   render(){
+    console.log(this.state);
     return(
       //!!have to eliminate "pull-right"
         //I need to create custom indentation, but when do i hit bedrock?
+        <div>
       <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
        <div className="row col-md-4 rep">
                   <center>
@@ -43,8 +46,16 @@ export default class Replies extends React.Component {
               {this.props.data.contents}
               <hr />
                {unixTimeToString(this.props.data.postDate)}
-
       </div>
+
+      <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
+        {this.state.contents.replies.map((reps, i) => {
+          return(
+          <Replies key={i} rKey={i} data={reps} currUser='tim.richards'  />
+        )
+        })}
+      </div>
+    </div>
     )
   }
 

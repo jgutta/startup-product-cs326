@@ -24,16 +24,11 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
-function getRepliesSynch(replies) {
-  var mainReplies = readDocument('replies', replies);
-    mainReplies = getAllReplies(mainReplies);
-  return mainReplies;
-}
-
 //for retrieving children of replies
 function getAllReplies(replies){
   //loop through main replies
   var allReplies = replies;
+  if(allReplies.length> 0){
   for (var i=0; i<=replies.length; i++){
     //read nested replies[]
     var thisRep = readDocument('replies', replies.replies );
@@ -41,13 +36,19 @@ function getAllReplies(replies){
     allReplies[i].replies = thisRep;
     //recurse
     getAllReplies(allReplies[i].replies);
-  }
+  }}
   return allReplies;
 }
 /*
 replies[i].replies = readDocument('replies', replies.replies);
 getAllReplies(replies[i].replies);
 */
+
+function getRepliesSynch(replies) {
+  var mainReplies = readDocument('replies', replies);
+  var  everything = getAllReplies(mainReplies);
+  return everything;
+}
 
 export function getRepliesData(replyId, cb){
   var replies = getRepliesSynch(replyId);
