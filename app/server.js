@@ -29,7 +29,7 @@ function getRepliesSynch(replyId) {
   return replies;
 }
 
-export function getReplyiesData(replyId, cb){
+export function getRepliesData(replyId, cb){
   var replies = getRepliesSynch(replyId);
   var replyData = {
     contents : replies

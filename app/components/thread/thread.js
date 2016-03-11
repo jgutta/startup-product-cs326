@@ -79,7 +79,7 @@ export default class Thread extends React.Component {
         <div className = 'putRepliesHere'>
           {this.state.contents.replies.map((reps, i) => {
             return(
-              <Replies key={i} data={reps} currUser='tim.richards'  />
+              <Replies key={i} rKey={i} data={reps} currUser='tim.richards'  />
             )
           })}
         </div>
