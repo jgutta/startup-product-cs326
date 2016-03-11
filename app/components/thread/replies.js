@@ -6,7 +6,7 @@ export default class Replies extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      contents: []
+      //contents: []
      };
     //console.log(this.props.rKey);
     //console.log(this.props.data);
@@ -14,18 +14,13 @@ export default class Replies extends React.Component {
 
   componentDidMount() {
     getRepliesData(this.props.rKey, (replyData) => {
-        //console.log(threadData);
         console.log(replyData);
       this.setState(replyData);
       this.setState({contents: replyData})
     } );
-      //console.log(this.props.params.id);
   }
 
-  //I NEED A WAY TO RENDER ALL REPLIES....
-
   render(){
-
     return(
       //!!have to eliminate "pull-right"
         //I need to create custom indentation, but when do i hit bedrock?
