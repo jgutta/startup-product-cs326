@@ -13,15 +13,14 @@ export default class AccountSettings extends React.Component {
             blocked: '',
             email: '',
             emailset: '',
-            image: 'img/default_profile_pic.png',
-            toggleEmail: false
+            image: 'img/default_profile_pic.png'
         };
     }
 
     componentDidMount(){
         getUserData(this.props.user, (userData) =>{
             this.setState({
-                user: userData,
+                user: userData.user,
                 email: userData.email,
                 username: userData.username,
                 gender: userData.gender,
@@ -61,14 +60,14 @@ export default class AccountSettings extends React.Component {
                         </div>
                         <div className = "col-md-8">
                             <span className ="bold">Email:</span>{this.state.user.email}<span className = "pull-right"> Change</span>
-                            {this.state.toggleEmail ? <p>TogglingEmail!</p> : <p>Not Toggled :(</p>}
+
                             <br />
                             <span className ="bold">Password:</span>
                             <span> *************</span>
                             <span className = "pull-right"> Change</span>
                             <br />
                             <span className = "bold">Display Name: </span>
-                            <span>Tim Richards</span>
+                            <span>{this.state.user.username}</span>
                             <br />
                             <button type = "button" className = "set-btn">
                                 <span className ="glyphicon glyphicon-chevron-down"></span>
@@ -97,7 +96,7 @@ export default class AccountSettings extends React.Component {
                                 <div className = "col-md-12 ybmove">
                                     <button type = "button" className = "set-btn">
                                         <span className ="glyphicon glyphicon-minus"></span>
-                                    </button> HarryMaybourne
+                                    </button>{this.state.user.blocked}
                                     <br />
 
                                     <button type = "button" className = "set-btn pull-left">

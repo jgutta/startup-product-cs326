@@ -222,9 +222,9 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
   }
 
   export function getUserData(userId, cb){
-      var user =  readDocument('users', userId);
+      var use =  readDocument('users', userId);
       var userData = {
-          user : user
+          user : use
       };
         emulateServerReturn(userData, cb);
   }
