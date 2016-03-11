@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../maincontent';
-//import Replies from './replies';
+import Replies from './replies';
 import { unixTimeToString } from '../../util';
 import { getThreadData } from '../../server';
 
@@ -77,7 +77,11 @@ export default class Thread extends React.Component {
 
         </div>
         <div className = 'putRepliesHere'>
-
+          {this.state.contents.replies.map((reps, i) => {
+            return(
+              <Replies key={i} data={reps} currUser='tim.richards'  />
+            )
+          })}
         </div>
       </div>
 

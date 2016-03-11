@@ -24,19 +24,17 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
-//!!
-export function postReplyReply(threadId, replyId, author, contents, cb){
-var thread = readDocument('threads', threadId);
-var reply = thread.replies[replyId];
-reply.replies.push({
-  'author': author,
-  'postDate': new Date().getTime(),
-  'contents': contents
-  //??profile image? can i get from author?
-});
-writeDocument('threads', thread);
+function getRepliesSynch(replyId) {
+  var replies = readDocument('replies', replyId);
+  return replies;
+}
 
-emulateServerReturn(getThreadSync(threadId), cb);
+export function getReplyiesData(replyId, cb){
+  var replies = getRepliesSynch(replyId);
+  var replyData = {
+    contents : replies
+  };
+  emulateServerReturn(replyData, cb);
 }
 
 export function getFeedData(user, cb) {

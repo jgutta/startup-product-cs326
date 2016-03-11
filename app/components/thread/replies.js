@@ -19,7 +19,7 @@ export default class Replies extends React.Component {
         //I need to create custom indentation, but when do i hit bedrock?
       <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
        <div className="row col-md-4">
-                  //?? user profile pic links to their page?
+                  
                   <a href = "#"><img src = "img/default_profile_pic.png" width = "75%" /></a>
                   <button type="replyBtn" className="btn btn-primary">
                     <span> Reply </span>
