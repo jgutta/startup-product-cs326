@@ -78,9 +78,19 @@ export default class SubscribedBoards extends React.Component {
     else{return "btn btn-default dropdown-toggle";}
   }
 
+  sortBoards(boardA,boardB) {
+    return boardA._id - boardB._id;
+  }
+
   render() {
+    var boards = this.state.contents;
+    boards.sort(this.sortBoards);
+
     var nosub = this.getNotSubscribed(this.state.contents, this.state.boardsList);
+    nosub.sort(this.sortBoards);
+
     var drop = this.onEmpty();
+
     return (
       <div className="panel panel-default content-panel">
         <div className="panel-heading">
@@ -88,7 +98,7 @@ export default class SubscribedBoards extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="nav nav-pills nav-stacked">
-            {this.state.contents.map((board) => {
+            {boards.map((board) => {
                return (
                  <li role="presentation" key={board._id}>
                    <Link to={"/boards/" + board._id}>

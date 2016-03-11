@@ -98,7 +98,6 @@ export function getBoardsData(cb){
 export function addSubscribeBoard(user, board, cb) {
   var userData = readDocument('users', user);
   userData.subscribedBoards.push(board);
-  userData.subscribedBoards.sort();
   writeDocument('users', userData);
   emulateServerReturn(userData, cb);
 }
