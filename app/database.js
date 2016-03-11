@@ -10,15 +10,17 @@ var initialData = {
   'users': {
     '1': {
       '_id': 1,
-      'username': 'tim.richards',
-      'gender': 1,
-      'password':'badpassword1',
       'feed': 1,
       'pinnedPosts': 1,
       'subscribedBoards': [ 2, 4, 7, 11 ],
-      'blocked': [],
+      'conversations': [ 1, 2, 3, 4, 5 ],
+      'username': 'tim.richards',
+      'gender': 1,
+      'password':'badpassword1',
+      'blocked': [ 8 ],
       'email': 'richards@cs.umass.edu',
-      'conversations': [ 1, 2, 3, 4, 5 ]
+      'emailset': 1,
+      'image': 'img/default_profile_pic.png'
     },
     '2': {
       '_id': 2,
@@ -43,6 +45,10 @@ var initialData = {
     '7': {
       '_id': 7,
       'username': 'concertrocker\\m/'
+    },
+    '8':{
+        '_id': 8,
+        'username': 'spambot'
     }
   },
 
