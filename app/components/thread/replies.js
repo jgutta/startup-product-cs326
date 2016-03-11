@@ -19,6 +19,8 @@ export default class Replies extends React.Component {
       //console.log(this.props.params.id);
   }
 
+  //I NEED A WAY TO RENDER ALL REPLIES....
+
   render(){
 
     return(
@@ -26,11 +28,11 @@ export default class Replies extends React.Component {
         //I need to create custom indentation, but when do i hit bedrock?
       <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
        <div className="row col-md-4">
-
-                  <a href = "#"><img src = "img/default_profile_pic.png" width = "75%" /></a>
-                  <button type="replyBtn" className="btn btn-primary">
+                  <center>
+                  <img src = "img/default_profile_pic.png" width = "75%" />
+                   <button type="replyBtn" className="btn btn-primary">
                     <span> Reply </span>
-                  </button>
+                  </button></center>
               </div>
 
               <div className="col-md-8 title-head">
