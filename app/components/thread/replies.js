@@ -5,7 +5,9 @@ import { unixTimeToString } from '../../util';
 export default class Replies extends React.Component {
   constructor(props){
     super(props);
-    this.state = { };
+    this.state = {
+      contents: []
+     };
     //console.log(this.props.rKey);
     //console.log(this.props.data);
   }
@@ -13,6 +15,7 @@ export default class Replies extends React.Component {
   componentDidMount() {
     getRepliesData(this.props.rKey, (replyData) => {
         //console.log(threadData);
+        console.log(replyData);
       this.setState(replyData);
       this.setState({contents: replyData})
     } );
@@ -27,9 +30,10 @@ export default class Replies extends React.Component {
       //!!have to eliminate "pull-right"
         //I need to create custom indentation, but when do i hit bedrock?
       <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
-       <div className="row col-md-4">
+       <div className="row col-md-4 rep">
                   <center>
                   <img src = "img/default_profile_pic.png" width = "75%" />
+                  <br />
                    <button type="replyBtn" className="btn btn-primary">
                     <span> Reply </span>
                   </button></center>

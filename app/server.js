@@ -25,8 +25,8 @@ export function getThreadData(threadId, cb){
 }
 
 function getRepliesSynch(replyId) {
-  var replies = readDocument('replies', replyId);
-  return replies;
+  var mainReplies = readDocument('replies', replyId);
+  return mainReplies;
 }
 
 export function getRepliesData(replyId, cb){
