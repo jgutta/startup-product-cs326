@@ -10,15 +10,17 @@ var initialData = {
   'users': {
     '1': {
       '_id': 1,
-      'username': 'tim.richards',
-      'gender': 1,
-      'password':'badpassword1',
       'feed': 1,
       'pinnedPosts': 1,
       'subscribedBoards': [ 2, 4, 7, 11 ],
-      'blocked': [],
+      'conversations': [ 1, 2, 3, 4, 5 ],
+      'username': 'tim.richards',
+      'gender': 1,
+      'password':'badpassword1',
+      'blocked': [ 8 ],
       'email': 'richards@cs.umass.edu',
-      'conversations': [ 1, 2, 3, 4, 5 ]
+      'emailset': 1,
+      'image': 'img/default_profile_pic.png'
     },
     '2': {
       '_id': 2,
@@ -43,6 +45,10 @@ var initialData = {
     '7': {
       '_id': 7,
       'username': 'concertrocker\\m/'
+    },
+    '8':{
+        '_id': 8,
+        'username': 'spambot'
     }
   },
 
@@ -179,7 +185,7 @@ var initialData = {
         'title': 'UMass Hackathon',
         'date': '3/11/16',
         'time': '7:00PM',
-        'img': 'img/ExampleBoard.jpg',
+        'img': 'img/default.png',
         'postDate': 1457072173808,
         'description': 'Hackathon friday at the Campus Center. Come hack!'
       },
@@ -220,7 +226,7 @@ var initialData = {
         'title': 'Concert at Herter',
         'date': '3/9/16',
         'time': '6:30PM',
-        'img': 'img/ExampleBoard.jpg',
+        'img': 'img/default.png',
         'postDate': 1457105227129,
         'description': "There's going to be a math-rock concert Wednesday night at Herter, if anyone's interested. Giraffes? Giraffes! is going to be playing!"
       },
@@ -238,7 +244,7 @@ var initialData = {
         'title': 'Smash at Sylvan',
         'date': '',
         'time': '',
-        'img': 'img/ExampleBoard.jpg',
+        'img': 'img/default.png',
         'postDate': 1457123570979,
         'description': 'Anyone in Sylvan want to play super smash brothers? I have a setup for melee at my dorm.'
       },
@@ -256,7 +262,7 @@ var initialData = {
         'title': 'Anyone want to jam? (Drummer)',
         'date': '',
         'time': '',
-        'img': 'img/ExampleBoard.jpg',
+        'img': 'img/default.png',
         'postDate': 1457133892466,
         'description': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
       },

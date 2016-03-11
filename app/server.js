@@ -220,14 +220,11 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
 
     emulateServerReturn(thread, cb);
   }
-  export function getUserData(userId){
-      var user = {
-          'username' : readDocument('username', userId),
-          'email' : readDocument('email', userId),
-          'gender' : readDocument('gender', userId),
-          'emailset' : readDocument('emailset',userId),
-          'password': readDocument('password',userId)
+
+  export function getUserData(userId, cb){
+      var user =  readDocument('users', userId);
+      var userData = {
+          users : user
       };
-        writeDocument('user',user);
-        emulateServerReturn(user, userId);
+        emulateServerReturn(userData, cb);
   }

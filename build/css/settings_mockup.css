@@ -14,12 +14,24 @@
 .set-btn{
     background-color: transparent;
     border-color: transparent;
-    color: blue;
+    color: #0d5e5e;
 }
 .shift{
     padding-right: 20px;
 }
 
-.picBorder{
-    margin-bottom: 5px;
+.mainArrow{
+    padding-left: : -15px !important;
+}
+
+.deactivate{
+    background-color: #0d5e5e;
+}
+.browsePic{
+    width: 100%;
+}
+
+.pos button{
+    margin-left: 5px !important;
+    margin-right: 5px !important;
 }

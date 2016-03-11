@@ -20,7 +20,11 @@ class MessagingPage extends React.Component {
     return <Messaging user={1} />;
   }
 }
-
+class AccountSettingsPage extends React.Component {
+    render() {
+      return <AccountSettings user={1} />;
+    }
+}
 class CreateThreadPage extends React.Component {
   render() {
     return <CreateThread user={1} />;
@@ -67,7 +71,7 @@ render(
       <Route path='createthread' component={CreateThreadPage} />
       <Route path='search' component={Search} />
       <Route path='messaging' component={MessagingPage} />
-      <Route path='accountsettings' component={AccountSettings} />
+      <Route path='accountsettings' component={AccountSettingsPage} />
     </Route>
   </Router>,
   document.getElementById('app')
