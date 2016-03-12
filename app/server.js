@@ -225,7 +225,9 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
         'image': image,
         'postDate': new Date().getTime(),
         'description': desc
-      }
+      },
+
+      'replies': []
     };
 
     thread = addDocument('threads', thread);
