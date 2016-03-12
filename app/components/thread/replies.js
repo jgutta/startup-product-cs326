@@ -5,9 +5,9 @@ import { unixTimeToString } from '../../util';
 export default class Replies extends React.Component {
   constructor(props){
     super(props);
-    //console.log(this.props);
+    console.log(this.props);
     this.state = {
-      contents: []
+
      };
     //console.log(this.state);
     //console.log(this.props.rKey);
@@ -22,10 +22,13 @@ export default class Replies extends React.Component {
   }
   //Write a function that recrsively retrieves children info and creates boxes for each
   getChildrenReplies() {
-    if(this.props.data.replies.length < 1){
+  //  console.log(this.state);
+    var childReplies = this.props.data.replies;
+    if(childReplies.length < 1){
       return(<div> </div>)
     }
-    var childReplies = this.props.data.replies;
+     // This is an array. MOVE THROUGH EVERY ELEMENT
+    for (var i=0; i<childReplies.length; i++){
     return(
       <div>
         <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
@@ -39,18 +42,18 @@ export default class Replies extends React.Component {
                 </div>
 
                 <div className="col-md-8 title-head">
-                  <h4><a href = "#">{childReplies.author}</a>   <small> said: </small></h4>
+                  <h4><a href = "#">{childReplies[i].author}</a>   <small> said: </small></h4>
 
                 </div>
                 <br />
                 <br />
-                {childReplies.contents}
+                {childReplies[i].contents}
                 <hr />
-                 {unixTimeToString(childReplies.postDate)}
+                 {unixTimeToString(childReplies[i].postDate)}
 
         </div>
       </div>
-    )
+    ) }
   }
 
   render(){
@@ -82,6 +85,7 @@ export default class Replies extends React.Component {
 
       <div>
         {this.getChildrenReplies()}
+
       </div>
 
       </div>
