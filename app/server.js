@@ -24,6 +24,7 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
+
 //for retrieving children of replies
 function getAllReplies(replies){
   //loop through main replies
@@ -43,15 +44,13 @@ function getAllReplies(replies){
 replies[i].replies = readDocument('replies', replies.replies);
 getAllReplies(replies[i].replies);
 */
-
-function getRepliesSynch(replies) {
-  var mainReplies = readDocument('replies', replies);
-  var  everything = getAllReplies(mainReplies);
-  return everything;
+function getRepliesSynch(replies){
+  var rep = readDocument('replies', replies);
+  return rep;
 }
 
-export function getRepliesData(replyId, cb){
-  var replies = getRepliesSynch(replyId);
+export function getRepliesData(rep, cb){
+  var replies = getRepliesSynch(rep);
   var replyData = {
     contents : replies
   };
