@@ -16,7 +16,10 @@ export default class AccountSettings extends React.Component {
             image: 'img/default_profile_pic.png',
             toggleGender: true,
             toggleEmailSet: true,
-            toggleBlocked: true
+            toggleBlocked: true,
+            editEmail: false,
+            editName: false,
+            editPass: false
         };
     }
 
@@ -55,6 +58,13 @@ export default class AccountSettings extends React.Component {
         this.setState({toggleEmailSet : !this.state.toggleEmailSet});
     }
 
+    handlePassLength(){
+        var passStar = '*';
+        for(var i = 1; i < this.state.user.password.length; i++){
+            passStar = passStar.concat('*');
+        }
+        return passStar;
+    }
 
     render() {
         if(!this.state.user){
@@ -71,10 +81,10 @@ export default class AccountSettings extends React.Component {
                             <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image"  onChange={(e) => this.handleImageChange(e)}></input>
                         </div>
                         <div className = "col-md-8">
-                            <span className ="bold">Email:</span>{this.state.user.email}<span className = "pull-right"> Change</span>
+                            <span className ="bold">Email:</span>{this.state.user.email}<span className = "pull-right">Change</span>
                             <br />
                             <span className ="bold">Password:</span>
-                            <span> *************</span>
+                            <span> {this.handlePassLength()}</span>
                             <span className = "pull-right"> Change</span>
                             <br />
                             <span className = "bold">Display Name: </span>
