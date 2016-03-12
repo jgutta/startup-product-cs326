@@ -192,7 +192,7 @@ var initialData = {
 
       'replies': [
         {
-          'author': 2,
+          'author': 6,
           'postDate': 1456869201,
           'contents': "I can't wait! Does anyone have any ideas of what they're going to do?",
 
