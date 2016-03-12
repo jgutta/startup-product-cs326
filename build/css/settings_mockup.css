@@ -1,33 +1,32 @@
-.bold{
+.bold {
     font-weight: bold;
 }
-.chbx{
+.chbx {
     padding-left: 40px !important;
 }
-.deactivate{
-    padding-right: 20px !important;
-}
-.resze{
+.resze {
     width: 150px !important;
     height: 35px !important;
 }
-.set-btn{
+.set-btn {
     background-color: transparent;
     border-color: transparent;
     color: #0d5e5e;
 }
-.shift{
+.shift {
     padding-right: 20px;
 }
-
-.deactivate{
+.deactivate {
+    padding-right: 20px !important;
     background-color: #0d5e5e;
 }
-.browsePic{
+.changebtn {
+    background-color: #0d5e5e;
+}
+.browsePic {
     width: 100%;
 }
-
-.pos button{
-    margin-left: 5px !important;
-    margin-right: 5px !important;
+.small-btn {
+    width: 50px;
+    height: 20px;
 }
