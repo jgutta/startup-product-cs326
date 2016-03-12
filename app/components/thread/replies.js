@@ -5,30 +5,60 @@ import { unixTimeToString } from '../../util';
 export default class Replies extends React.Component {
   constructor(props){
     super(props);
+    //console.log(this.props);
     this.state = {
       contents: []
      };
+    //console.log(this.state);
     //console.log(this.props.rKey);
     //console.log(this.props.data);
   }
 
   componentDidMount() {
     getRepliesData(this.props.rKey, (replyData) => {
-        //console.log(threadData);
-        console.log(replyData);
       this.setState(replyData);
       this.setState({contents: replyData})
     } );
-      //console.log(this.props.params.id);
+  }
+  //Write a function that recrsively retrieves children info and creates boxes for each
+  getChildrenReplies() {
+    if(this.props.data.replies.length < 1){
+      return(<div> </div>)
+    }
+    var childReplies = this.props.data.replies;
+    return(
+      <div>
+        <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
+         <div className="row col-md-4 rep">
+                    <center>
+                    <img src = "img/default_profile_pic.png" width = "75%" />
+                    <br />
+                     <button type="replyBtn" className="btn btn-primary">
+                      <span> Reply </span>
+                    </button></center>
+                </div>
+
+                <div className="col-md-8 title-head">
+                  <h4><a href = "#">{childReplies.author}</a>   <small> said: </small></h4>
+
+                </div>
+                <br />
+                <br />
+                {childReplies.contents}
+                <hr />
+                 {unixTimeToString(childReplies.postDate)}
+
+        </div>
+      </div>
+    )
   }
 
-  //I NEED A WAY TO RENDER ALL REPLIES....
-
   render(){
-
+    //console.log(this.state);
     return(
       //!!have to eliminate "pull-right"
         //I need to create custom indentation, but when do i hit bedrock?
+        <div>
       <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
        <div className="row col-md-4 rep">
                   <center>
@@ -48,8 +78,14 @@ export default class Replies extends React.Component {
               {this.props.data.contents}
               <hr />
                {unixTimeToString(this.props.data.postDate)}
+      </div>
+
+      <div>
+        {this.getChildrenReplies()}
+      </div>
 
       </div>
+
     )
   }
 

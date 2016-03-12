@@ -24,13 +24,33 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
-function getRepliesSynch(replyId) {
-  var mainReplies = readDocument('replies', replyId);
-  return mainReplies;
+
+//for retrieving children of replies
+function getAllReplies(replies){
+  //loop through main replies
+  var allReplies = replies;
+  if(allReplies.length> 0){
+  for (var i=0; i<=replies.length; i++){
+    //read nested replies[]
+    var thisRep = readDocument('replies', replies.replies );
+    //pass information along
+    allReplies[i].replies = thisRep;
+    //recurse
+    getAllReplies(allReplies[i].replies);
+  }}
+  return allReplies;
+}
+/*
+replies[i].replies = readDocument('replies', replies.replies);
+getAllReplies(replies[i].replies);
+*/
+function getRepliesSynch(replies){
+  var rep = readDocument('replies', replies);
+  return rep;
 }
 
-export function getRepliesData(replyId, cb){
-  var replies = getRepliesSynch(replyId);
+export function getRepliesData(rep, cb){
+  var replies = getRepliesSynch(rep);
   var replyData = {
     contents : replies
   };
