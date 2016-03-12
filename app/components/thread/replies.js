@@ -1,5 +1,5 @@
 import React from 'react';
-import {getRepliesData} from '../../server';
+import {getRepliesData, retrieveNameFromId} from '../../server';
 import { unixTimeToString } from '../../util';
 
 export default class Replies extends React.Component {
@@ -20,6 +20,7 @@ export default class Replies extends React.Component {
       this.setState({contents: replyData})
     } );
   }
+
   //Write a function that recrsively retrieves children info and creates boxes for each
   getChildrenReplies() {
   //  console.log(this.state);
@@ -42,7 +43,7 @@ export default class Replies extends React.Component {
                 </div>
 
                 <div className="col-md-8 title-head">
-                  <h4><a href = "#">{childReplies[i].author}</a>   <small> said: </small></h4>
+                  <h4><a href = "#"> { retrieveNameFromId(childReplies[i].author)}</a>   <small> said: </small></h4>
 
                 </div>
                 <br />
@@ -73,7 +74,7 @@ export default class Replies extends React.Component {
               </div>
 
               <div className="col-md-8 title-head">
-                <h4><a href = "#">{this.props.data.author}</a>   <small> said: </small></h4>
+                <h4><a href = "#"> {retrieveNameFromId(this.props.data.author)} </a>   <small> said: </small></h4>
 
               </div>
               <br />
