@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../maincontent';
-import{getUserData} from '../../server';
+import{getUserData, updateUserData} from '../../server';
 
 export default class AccountSettings extends React.Component {
     constructor(props) {
@@ -19,9 +19,19 @@ export default class AccountSettings extends React.Component {
 
     componentDidMount(){
         getUserData(this.props.user, (userData) =>{
-            this.setState({ username: userData.username });
+            this.setState({
+                user: userData.user,
+                email: userData.email,
+                username: userData.username,
+                gender: userData.gender,
+                password: userData.password,
+                blocked: userData.blocked,
+                emailset: userData.emailset,
+                image: userData.image
+            });
         });
     }
+
 
     handleImageChange(e) {
         e.preventDefault();
@@ -35,6 +45,9 @@ export default class AccountSettings extends React.Component {
     }
 
     render() {
+        if(!this.state.user){
+            return <div />
+        }
         console.log(this.state);
         return (
             <div>
@@ -43,17 +56,18 @@ export default class AccountSettings extends React.Component {
                     <div className = "row">
                         <div className = "col-md-3">
                             <img id = "newImage" src = {this.state.image} width = "100%" />
-                            <input type="file" className="pull-left browsePic" accept="image/*" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
+                            <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
                         </div>
                         <div className = "col-md-8">
-                            <span className ="bold">Email:</span>{this.state.email}<span className = "pull-right"> Change</span>
+                            <span className ="bold">Email:</span>{this.state.user.email}<span className = "pull-right"> Change</span>
+
                             <br />
                             <span className ="bold">Password:</span>
                             <span> *************</span>
                             <span className = "pull-right"> Change</span>
                             <br />
                             <span className = "bold">Display Name: </span>
-                            <span>Tim Richards</span>
+                            <span>{this.state.user.username}</span>
                             <br />
                             <button type = "button" className = "set-btn">
                                 <span className ="glyphicon glyphicon-chevron-down"></span>
@@ -71,7 +85,7 @@ export default class AccountSettings extends React.Component {
                                 </button>
                                 <span className = "bold"> Email Settings:</span>
                                 <div className = "col-md-12 chbx">
-                                    <input type="checkbox" name="Subscribed" value=""/> Subscribed<br />
+                                    <input id = "subscribed" type="checkbox" name="Subscribed" value=""/> Subscribed<br />
 
                                 </div>
                                 <br />
@@ -82,7 +96,7 @@ export default class AccountSettings extends React.Component {
                                 <div className = "col-md-12 ybmove">
                                     <button type = "button" className = "set-btn">
                                         <span className ="glyphicon glyphicon-minus"></span>
-                                    </button> HarryMaybourne
+                                    </button>{this.state.user.blocked}
                                     <br />
 
                                     <button type = "button" className = "set-btn pull-left">
@@ -99,7 +113,7 @@ export default class AccountSettings extends React.Component {
                             <div className = "col-md-3 ">
                             </div>
                             <div className = "col-md-9">
-                                <button type="button" className ="btn btn-primary pull-right deactivate">Deactivate</button>
+                                <button type="button" className ="btn btn-primary pull-right deactivate" >Deactivate</button>
                             </div>
                         </div>
                     </MainContent>

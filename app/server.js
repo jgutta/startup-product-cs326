@@ -118,7 +118,6 @@ export function getBoardsData(cb){
 export function addSubscribeBoard(user, board, cb) {
   var userData = readDocument('users', user);
   userData.subscribedBoards.push(board);
-  userData.subscribedBoards.sort();
   writeDocument('users', userData);
   emulateServerReturn(userData, cb);
 }
@@ -242,9 +241,25 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
   }
 
   export function getUserData(userId, cb){
-      var user =  readDocument('users', userId);
+      var use =  readDocument('users', userId);
       var userData = {
-          users : user
+          user : use
       };
         emulateServerReturn(userData, cb);
   }
+  export function updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb) {
+
+      // read user into userData
+      // update userData with changed properties
+
+      var userData = readDocument('users', userId);
+      userData.username = username;
+      userData.gender = gender;
+      userData.password = password;
+      userData.blocked = blocked;
+      userData.email = email;
+      userData.emailset = emailset;
+      userData.image = image;
+      writeDocument('users', userData);
+      emulateServerReturn(userData, cb);
+    }
