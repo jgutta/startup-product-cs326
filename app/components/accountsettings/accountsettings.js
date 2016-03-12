@@ -23,8 +23,7 @@ export default class AccountSettings extends React.Component {
         };
     }
 
-
-    componentDidMount(){
+    getAgain(){
         getUserData(this.props.user, (userData) =>{
             this.setState({
                 user: userData.user,
@@ -37,6 +36,11 @@ export default class AccountSettings extends React.Component {
                 image: userData.user.image
             });
         });
+    }
+
+
+    componentDidMount(){
+        this.getAgain();
     }
 
 
@@ -64,6 +68,13 @@ export default class AccountSettings extends React.Component {
             passStar = passStar.concat('*');
         }
         return passStar;
+    }
+    handleDeactivate(e){
+        e.preventDefault();
+        updateUserData(this.props.user,'deleted',this.state.gender,'deleted',this.state.blocked,'deleted',2,'img/default_profile_pic.png', () => {
+          this.getAgain();
+        });
+
     }
 
     render() {
@@ -155,7 +166,7 @@ export default class AccountSettings extends React.Component {
                             <div className = "col-md-3 ">
                             </div>
                             <div className = "col-md-9">
-                                <button type="button" className ="btn btn-primary pull-right deactivate" >Deactivate</button>
+                                <button onClick={(e) => this.handleDeactivate(e)} type="button" className ="btn btn-primary pull-right deactivate"  >Deactivate</button>
                             </div>
                         </div>
                     </MainContent>
