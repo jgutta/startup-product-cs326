@@ -27,7 +27,9 @@
     width: 105%;
 }
 
-.pos button{
-    margin-left: 5px !important;
-    margin-right: 5px !important;
+.changebtn{
+    background-color: #0d5e5e;
+}
+.addgap{
+padding-bottom: 50px !important;
 }

@@ -78,6 +78,7 @@ export default class AccountSettings extends React.Component {
     for (var i = 1; i < this.state.user.password.length; i++) {
       passStar = passStar.concat('*');
     }
+    return passStar;
   }
 
     handleDeactivate(e) {
@@ -146,13 +147,12 @@ export default class AccountSettings extends React.Component {
                 <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
               </div>
               <div className="col-md-8">
-                <span className="bold">Email:</span>{this.state.user.email}
-                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn"></button>
-                  <br/>
-                  <span className="bold">Password:</span>
-                  <span>
-                    {this.handlePassLength()}</span>
-                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn"></button>
+                <span className="bold addgap">Email:</span>{this.state.user.email}
+                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn "></button>
+                  <br />
+                  <span className="bold addgap"> Password:</span>
+                  <span>{this.handlePassLength()}</span>
+                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn "></button>
                   <br/>
                   <span className="bold">Display Name:
                   </span>
@@ -218,7 +218,10 @@ export default class AccountSettings extends React.Component {
       <div className="col-md-12 ybmove">
         <button type="button" className="set-btn">
           <span className="glyphicon glyphicon-minus"></span>
-        </button>{this.state.user.blocked}
+        </button>{this.state.user.blocked}<br />
+        <button type="button" className="set-btn">
+          <span className="glyphicon glyphicon-plus"></span>
+        </button>
       </div>
     </div>
     : <div>
