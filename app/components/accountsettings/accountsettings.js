@@ -132,7 +132,6 @@ export default class AccountSettings extends React.Component {
         }
 
         return (
-            <div>
             <MainContent title="Account Settings">
                 <div className="pull-left">
                     <div className="row">
@@ -238,4 +237,6 @@ export default class AccountSettings extends React.Component {
                 </div>
             </div>
         </MainContent>
-         </div>
+    )
+    }
+    }
