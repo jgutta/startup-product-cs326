@@ -28,27 +28,33 @@ var initialData = {
     },
     '3': {
       '_id': 3,
-      'username': 'cinemaloverno7'
+      'username': 'cinemaloverno7',
+      'image': 'img/326-patrick.jpg'
     },
     '4': {
       '_id': 4,
-      'username': 'guitarist78'
+      'username': 'guitarist78',
+      'image': 'img/326-spongebob.jpg'
     },
     '5': {
       '_id': 5,
-      'username': 'ilikemonopoly'
+      'username': 'ilikemonopoly',
+      'image': 'img/default_profile_pic.png'
     },
     '6': {
       '_id': 6,
-      'username': 'pizzzzaparty666'
+      'username': 'pizzzzaparty666',
+      'image': 'img/326-cheeta.jpg'
     },
     '7': {
       '_id': 7,
-      'username': 'concertrocker\\m/'
+      'username': 'concertrocker\\m/',
+      'image': 'img/default_profile_pic.png'
     },
     '8':{
         '_id': 8,
-        'username': 'spambot'
+        'username': 'spambot',
+        'image': 'img/default_profile_pic.png'
     }
   },
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getRepliesData, retrieveNameFromId} from '../../server';
+import {getRepliesData, retrieveNameFromId, retrievePicFromId} from '../../server';
 import { unixTimeToString } from '../../util';
 
 export default class Replies extends React.Component {
@@ -35,7 +35,7 @@ export default class Replies extends React.Component {
         <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
          <div className="row col-md-4 rep">
                     <center>
-                    <img src = "img/default_profile_pic.png" width = "75%" />
+                    <img src = {retrievePicFromId(childReplies[i].author)} width = "75%" />
                     <br />
                      <button type="replyBtn" className="btn btn-primary">
                       <span> Reply </span>
@@ -66,7 +66,7 @@ export default class Replies extends React.Component {
       <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
        <div className="row col-md-4 rep">
                   <center>
-                  <img src = "img/default_profile_pic.png" width = "75%" />
+                  <img src = {retrievePicFromId(this.props.data.author)} width = "75%" />
                   <br />
                    <button type="replyBtn" className="btn btn-primary">
                     <span> Reply </span>
