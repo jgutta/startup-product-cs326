@@ -24,7 +24,7 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
-
+/*
 //for retrieving children of replies
 function getAllReplies(replies){
   //loop through main replies
@@ -40,7 +40,6 @@ function getAllReplies(replies){
   }}
   return allReplies;
 }
-/*
 replies[i].replies = readDocument('replies', replies.replies);
 getAllReplies(replies[i].replies);
 */
@@ -247,6 +246,14 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
       };
         emulateServerReturn(userData, cb);
   }
+
+  export function retrieveNameFromId(id) {
+      var userData = readDocument('users', id);
+      return userData.username;
+    }
+
+
+
   export function updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb) {
 
       // read user into userData
