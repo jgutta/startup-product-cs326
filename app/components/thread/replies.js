@@ -5,6 +5,7 @@ import { unixTimeToString } from '../../util';
 export default class Replies extends React.Component {
   constructor(props){
     super(props);
+    console.log(this.props);
     this.state = {
       //contents: []
      };
@@ -14,13 +15,16 @@ export default class Replies extends React.Component {
 
   componentDidMount() {
     getRepliesData(this.props.rKey, (replyData) => {
-        console.log(replyData);
       this.setState(replyData);
       this.setState({contents: replyData})
     } );
   }
   //Write a function that recrsively retrieves children info and creates boxes for each
   getChildrenReplies() {
+    if(this.props.data.replies.length < 1){
+      return(<div> </div>)
+    }
+    var childReplies = this.props.data.replies;
     return(
       <div>
         <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
@@ -34,14 +38,14 @@ export default class Replies extends React.Component {
                 </div>
 
                 <div className="col-md-8 title-head">
-                  <h4><a href = "#">{this.props.data.author}</a>   <small> said: </small></h4>
+                  <h4><a href = "#">{childReplies.author}</a>   <small> said: </small></h4>
 
                 </div>
                 <br />
                 <br />
-                {this.props.data.contents}
+                {childReplies.contents}
                 <hr />
-                 {unixTimeToString(this.props.data.postDate)}
+                 {unixTimeToString(childReplies.postDate)}
 
         </div>
       </div>
