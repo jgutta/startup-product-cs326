@@ -13,21 +13,25 @@ export default class AccountSettings extends React.Component {
             blocked: '',
             email: '',
             emailset: '',
-            image: 'img/default_profile_pic.png'
+            image: 'img/default_profile_pic.png',
+            toggleGender: true,
+            toggleEmailSet: true,
+            toggleBlocked: true
         };
     }
+
 
     componentDidMount(){
         getUserData(this.props.user, (userData) =>{
             this.setState({
                 user: userData.user,
-                email: userData.email,
-                username: userData.username,
-                gender: userData.gender,
-                password: userData.password,
-                blocked: userData.blocked,
-                emailset: userData.emailset,
-                image: userData.image
+                email: userData.user.email,
+                username: userData.user.username,
+                gender: userData.user.gender,
+                password: userData.user.password,
+                blocked: userData.user.blocked,
+                emailset: userData.user.emailset,
+                image: userData.user.image
             });
         });
     }
@@ -44,11 +48,19 @@ export default class AccountSettings extends React.Component {
         this.setState({ image: e.target.value });
     }
 
+    togglegen(){
+         this.setState({toggleGender : !this.state.toggleGender});
+    }
+    toggleEmSet(){
+        this.setState({toggleEmailSet : !this.state.toggleEmailSet});
+    }
+
+
     render() {
         if(!this.state.user){
             return <div />
         }
-        console.log(this.state);
+
         return (
             <div>
                 <MainContent title="Account Settings">
@@ -56,39 +68,59 @@ export default class AccountSettings extends React.Component {
                     <div className = "row">
                         <div className = "col-md-3">
                             <img id = "newImage" src = {this.state.image} width = "100%" />
-                            <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
+                            <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image"  onChange={(e) => this.handleImageChange(e)}></input>
                         </div>
                         <div className = "col-md-8">
                             <span className ="bold">Email:</span>{this.state.user.email}<span className = "pull-right"> Change</span>
-
                             <br />
                             <span className ="bold">Password:</span>
                             <span> *************</span>
                             <span className = "pull-right"> Change</span>
                             <br />
                             <span className = "bold">Display Name: </span>
-                            <span>{this.state.user.username}</span>
-                            <br />
-                            <button type = "button" className = "set-btn">
-                                <span className ="glyphicon glyphicon-chevron-down"></span>
-                            </button>
-                            <span className = "bold">Gender: </span>
-                            <br />
-                            <div className ="chbx">
-                                <input type="radio" name="gender" value="male"/> Male<br />
-                                <input type="radio" name="gender" value="female"/> Female<br />
-                                <input type="radio" name="gender" value="other"/> Other
-                                    <br />
-                                </div>
-                                <button type = "button" className = "set-btn">
-                                    <span className ="glyphicon glyphicon-chevron-down"></span>
-                                </button>
-                                <span className = "bold"> Email Settings:</span>
+                            <span>{this.state.user.username}</span><span className = "pull-right"> Change</span>
+                            <div className="toggle"></div>
+                                <h1>{this.state.toggleGender}</h1>
+                                {this.state.toggleGender ?
+                                    <div><button onClick={this.togglegen.bind(this)} type = "button" className = "set-btn">
+                                        <span className ="glyphicon glyphicon-chevron-down"></span>
+                                    </button>
+                                    <span className = "bold">Gender: </span>
+                                    <div className ="chbx">
+                                        <input type="radio" name="gender" value="male"/> Male<br />
+                                        <input type="radio" name="gender" value="female"/> Female<br />
+                                        <input type="radio" name="gender" value="other"/> Other
+                                        </div>
+                                    </div>
+                                :
+                                    <div>
+                                        <button  onClick={this.togglegen.bind(this)} type = "button" className = "set-btn">
+                                            <span className ="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                        <span className = "bold">Gender: </span>
+                                    </div>
+
+                                }
+
+                                <h1>{this.state.toggleEmailSet}</h1>
+                                {this.state.toggleEmailSet ?
+                                    <div><button onClick={this.toggleEmSet.bind(this)} type = "button" className = "set-btn">
+                                        <span className ="glyphicon glyphicon-chevron-down"></span>
+                                    </button>
+                                    <span className = "bold"> Email Settings:</span>
                                 <div className = "col-md-12 chbx">
                                     <input id = "subscribed" type="checkbox" name="Subscribed" value=""/> Subscribed<br />
-
                                 </div>
-                                <br />
+                                    </div>
+                                :
+                                    <div>
+                                        <button  onClick={this.toggleEmSet.bind(this)} type = "button" className = "set-btn">
+                                            <span className ="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                        <span className = "bold"> Email Settings:</span>
+                                    </div>
+
+                                }
                                 <button type = "button" className = "set-btn">
                                     <span className ="glyphicon glyphicon-chevron-down"></span>
                                 </button>
@@ -106,9 +138,9 @@ export default class AccountSettings extends React.Component {
                                 </div>
                                 <br />
 
-                                        </div>
-                                    </div>
                                 </div>
+                            </div>
+                        </div>
                         <div className = "row">
                             <div className = "col-md-3 ">
                             </div>
