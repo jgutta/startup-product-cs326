@@ -237,6 +237,7 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
 
   export function getUserData(userId, cb){
       var user =  readDocument('users', userId);
+      user.blockedUsers.map(getBlockedUserSync);
       var userData = {
           user : user
       };
@@ -271,13 +272,28 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     }
 
     function getBlockedUserSync(userId) {
-      var blocked = readDocument('blockedUser',userId);
+      var blocked = readDocument('users',userId);
       return blocked;
     }
+    export function unBlock(user , blockedUser, cb){
+      var userData = readDocument('users', user);
+      var index = getIndex(userData.blockedUsers, blockedUser);
+      userData.blockedUsers.splice(index, 1);
+      writeDocument('users', userData);
+      emulateServerReturn(userData, cb);
+    }
+
+    export function addBlock(user, blockUser, cb) {
+      var userData = readDocument('users', user);
+      userData.blockedUsers.push(blockUser);
+      writeDocument('users', userData);
+      emulateServerReturn(userData, cb);
+    }
+
     export function addPinnedPost(userID, threadID, cb){
       var user = readDocument('users', userID);
       var pinned = readDocument('pinnedPosts', user.pinnedPosts);
       pinned = pinned.push(threadID);
       writeDocument('pinnedPosts', pinned);
-      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page. 
+      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
     }

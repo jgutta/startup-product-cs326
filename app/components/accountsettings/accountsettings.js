@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../maincontent';
-import {getUserData, updateUserData} from '../../server';
+import {getUserData, updateUserData, unBlock, addBlock} from '../../server';
 
 export default class AccountSettings extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ export default class AccountSettings extends React.Component {
       editEmail: false,
       editName: false,
       editPass: false,
+      addBlock: false,
       temp: ''
     };
   }
@@ -95,9 +96,8 @@ export default class AccountSettings extends React.Component {
     } else {
       this.setState({emailset: 1})
     }
-  this.updateAll();
+    this.updateAll();
   }
-
 
   handleGen() {
     var gen = this.state.gender
@@ -105,24 +105,24 @@ export default class AccountSettings extends React.Component {
       case(gen === 1):
         document.getElementById('genMale').checked;
         this.setState({gender: 1});
-        this.updateAll()
+        this.updateAll();
         break;
-      case (gen === 2):
-      document.getElementById('genFem').checked;
-      this.setState({gender: 2});
-      this.updateAll()
-      break;
-      case (gen === 3):
-      document.getElementById('genOth').checked;
-      this.setState({gender: 3});
-      this.updateAll();
-      break;
+      case(gen === 2):
+        document.getElementById('genFem').checked;
+        this.setState({gender: 2});
+        this.updateAll();
+        break;
+      case(gen === 3):
+        document.getElementById('genOth').checked;
+        this.setState({gender: 3});
+        this.updateAll();
+        break;
 
     }
     this.updateAll();
   }
 
-  updateAll(){
+  updateAll() {
     updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
       this.getAgain();
     });
@@ -133,45 +133,45 @@ export default class AccountSettings extends React.Component {
       editEmail: !this.state.editEmail
     });
   }
-  handleEmail(e){
-     this.setState({ email: e.target.value });
+  handleEmail(e) {
+    this.setState({email: e.target.value});
   }
 
   handleKeyUpEmail(e) {
     if (e.key === 'Enter') {
       var email = this.state.email.trim();
-      if (email !== ""){
+      if (email !== "") {
         updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
           this.getAgain();
         });
       }
     }
   }
-  handleUser(e){
-    this.setState({ username: e.target.value });
+  handleUser(e) {
+    this.setState({username: e.target.value});
   }
   handleKeyUpUser(e) {
     if (e.key === 'Enter') {
       var username = this.state.username.trim();
-      if (username !== ""){
+      if (username !== "") {
         updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
           this.getAgain();
         });
       }
     }
   }
-  handlePass(e){
-  this.setState({ password: e.target.value });
+  handlePass(e) {
+    this.setState({password: e.target.value});
   }
 
   handleKeyUpPass(e) {
     if (e.key === 'Enter') {
-    var pass = this.state.password.trim();
-    if (pass !== ""){
-      updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
-    }
+      var pass = this.state.password.trim();
+      if (pass !== "") {
+        updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
+          this.getAgain();
+        });
+      }
     }
   }
   toggleUser() {
@@ -184,7 +184,6 @@ export default class AccountSettings extends React.Component {
       editPass: !this.state.editPass
     });
   }
-
 
   render() {
     if (!this.state.user) {
@@ -204,7 +203,7 @@ export default class AccountSettings extends React.Component {
                     <i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleEmail.bind(this)}></i>
                     <span className="bold addgap">Email:
                     </span>
-                    <input type="text" name="email" onChange = {(e) => this.handleEmail(e)} onKeyUp={(e) => this.handleKeyUpEmail(e)}></input>
+                    <input type="text" name="email" onChange= {(e) => this.handleEmail(e)} onKeyUp={(e) => this.handleKeyUpEmail(e)}></input>
                     <br/>
                   </div>
                 : <div>
@@ -218,7 +217,7 @@ export default class AccountSettings extends React.Component {
                 ? <div>
                     <i type="button" className="fa fa-pencil-square-o clr" onClick={this.togglePass.bind(this)}></i>
                     <span className="bold addgap">Password:</span>
-                    <input type="password" name="pwd" onChange = {(e) => this.handlePass(e)} onKeyUp={(e) => this.handleKeyUpPass(e)}/>
+                    <input type="password" name="pwd" onChange= {(e) => this.handlePass(e)} onKeyUp={(e) => this.handleKeyUpPass(e)}/>
                     <br/>
                   </div>
 
@@ -234,7 +233,7 @@ export default class AccountSettings extends React.Component {
                     <i type="button" className="fa fa-pencil-square-o clr" onClick ={this.toggleUser.bind(this)}></i>
                     <span className="bold">Display Name:
                     </span>
-                    <input type="text" name="user" onChange = {(e) => this.handleUser(e)} onKeyUp={(e) => this.handleKeyUpUser(e)}></input>
+                    <input type="text" name="user" onChange= {(e) => this.handleUser(e)} onKeyUp={(e) => this.handleKeyUpUser(e)}></input>
                   </div>
                 : <div>
                   <i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleUser.bind(this)}></i>
@@ -253,11 +252,11 @@ export default class AccountSettings extends React.Component {
                     </span>
                     <div className="chbx">
                       {this.handleGen}
-                      <input type="radio" name="gender" value="1" id="genMale" onClick={(e) => this.handleGen(e)}/>
+                      <input type="radio" name="gender" value="1" id="genMale" checked= {this.state.gender === this.state.value} onClick={(e) => this.handleGen(e)}/>
                       Male<br/>
                       <input type="radio" name="gender" value="2" id="genFem" onClick={(e) => this.handleGen(e)}/>
                       Female<br/>
-                      <input type="radio" name="gender" value="3" id="genOth" onClick={(e) => this.handleGen(e)} />
+                      <input type="radio" name="gender" value="3" id="genOth" onClick={(e) => this.handleGen(e)}/>
                       Other
                     </div>
                   </div>
@@ -276,55 +275,55 @@ export default class AccountSettings extends React.Component {
                       <span className="glyphicon glyphicon-chevron-down"></span>
                     </button>
                     <span className="bold">
-                      Email Settings:</span>
-                    {(this.state.emailset === 1) ? <div>
-                      <div className="col-md-12 chbx">
-                        <div><input type="checkbox" name="Subscribed" value="1" defaultChecked="true" onChange={(e) => this.handleEmailSet(e)}/>Subscribed</div>
-                      </div>
+                      Email Settings:</span><br/>
+                    <div className="col-md-12 chbx">
+                      <div><input type="checkbox" name="Subscribed" value="1" id="subscribed" checked={this.state.emailset == 1
+                    ? true
+                    : false} onClick={(e) => this.handleEmailSet(e)}/>Subscribed</div><br/>
                     </div>
-                      :
-                      <div>
-                        <div className="col-md-12 chbx">
-                          <div><input type="checkbox" name="Subscribed" value="2" defaultChecked = "false" onChange={(e) => this.handleEmailSet(e)}/>Subscribed</div>
-                        </div>
-                      </div>
-                    }
                   </div>
                 : <div>
                   <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
                     <span className="glyphicon glyphicon-chevron-right"></span>
                   </button>
                   <span className="bold">
-                    Email Settings:</span>
+                    Email Settings:</span><br/>
                 </div>
 }
+
               <div className="toggle"></div>
               <h1>{this.state.toggleBlocked}</h1>
               {this.state.toggleBlocked
                 ? <div>
-                    <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-                      <span className="glyphicon glyphicon-chevron-down"></span>
-                    </button>
-                    <span className="bold">Blocked:
-                    </span>
-                    <div className="col-md-12 ybmove">
-                      <button type="button" className="set-btn">
-                        <span className="glyphicon glyphicon-minus"></span>
-                      </button>{this.state.user.blockedUsers}<br/>
-                      <button type="button" className="set-btn">
-                        <span className="glyphicon glyphicon-plus"></span>
-                      </button>
-                    </div>
-                  </div>
-                : <div>
                   <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-                    <span className="glyphicon glyphicon-chevron-right"></span>
+                    <span className="glyphicon glyphicon-chevron-down"></span>
                   </button>
-                  <span className="bold">
-                    Blocked:
+                  <span className="bold">Blocked:
                   </span>
-                </div>
-}
+                  <div className="col-md-12 ybmove">
+                  </div>
+                      {this.state.blockedUsers.map((user) => {
+                        return (
+                          <div key = {user._id}>
+                          <button type="button" className="set-btn">
+                            <span className="glyphicon glyphicon-minus"></span>
+                          </button>
+                          {user.username} < br /> <button type="button" className="set-btn">
+                            <span className="glyphicon glyphicon-plus" ></span>
+                          </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  :
+                  <div>
+                    <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
+                      <span className="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                    <span className="bold">
+                      Blocked:
+                    </span>
+                  </div>}
 
             </div>
             <div className="row">
