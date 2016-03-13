@@ -88,50 +88,6 @@ export default class AccountSettings extends React.Component {
     });
 
   }
-  handleEmail(e) {
-    e.preventDefault();
-    this.setState({temp: e.target.value});
-    this.updateEmail();
-  }
-
-  handleUsername(e) {
-    e.preventDefault();
-    this.setState({temp: e.target.value});
-    this.updateUsername();
-  }
-  handlePass(e) {
-    e.preventDefault();
-    this.setState({temp: e.target.value});
-    this.updatePass();
-  }
-
-  updateEmail() {
-
-    var email = this.state.temp
-    if (email !== ""){
-      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
-    }
-    }
-  updateUsername() {
-
-    var username = this.state.temp
-    if (username !== ""){
-      updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
-    }
-    }
-  updatePass() {
-
-    var pass = this.state.temp
-    if (pass !== ""){
-      updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
-    }
-    }
 
   handleEmailSet() {
     if (this.state.emailset === 1) {
@@ -177,12 +133,13 @@ export default class AccountSettings extends React.Component {
       editEmail: !this.state.editEmail
     });
   }
+  handleEmail(e){
+     this.setState({ email: e.target.value });
+  }
 
   handleKeyUpEmail(e) {
-    e.preventDefault();
     if (e.key === 'Enter') {
-      this.setState({temp: e.target.value});
-      var email = this.state.temp
+      var email = this.state.email.trim();
       if (email !== ""){
         updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
           this.getAgain();
@@ -190,12 +147,12 @@ export default class AccountSettings extends React.Component {
       }
     }
   }
-
+  handleUser(e){
+    this.setState({ username: e.target.value });
+  }
   handleKeyUpUser(e) {
-    e.preventDefault();
     if (e.key === 'Enter') {
-      this.setState({temp: e.target.value});
-      var username = this.state.temp
+      var username = this.state.username.trim();
       if (username !== ""){
         updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
           this.getAgain();
@@ -203,12 +160,13 @@ export default class AccountSettings extends React.Component {
       }
     }
   }
+  handlePass(e){
+  this.setState({ password: e.target.value });
+  }
 
   handleKeyUpPass(e) {
-    e.preventDefault();
     if (e.key === 'Enter') {
-      this.setState({temp: e.target.value});
-    var pass = this.state.temp
+    var pass = this.state.password.trim();
     if (pass !== ""){
       updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
         this.getAgain();
@@ -246,7 +204,7 @@ export default class AccountSettings extends React.Component {
                     <i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleEmail.bind(this)}></i>
                     <span className="bold addgap">Email:
                     </span>
-                    <input type="text" name="email" onKeyUp={(e) => this.handleKeyUpEmail(e)}></input>
+                    <input type="text" name="email" onChange = {(e) => this.handleEmail(e)} onKeyUp={(e) => this.handleKeyUpEmail(e)}></input>
                     <br/>
                   </div>
                 : <div>
@@ -260,7 +218,7 @@ export default class AccountSettings extends React.Component {
                 ? <div>
                     <i type="button" className="fa fa-pencil-square-o clr" onClick={this.togglePass.bind(this)}></i>
                     <span className="bold addgap">Password:</span>
-                    <input type="password" name="pwd" onKeyUp={(e) => this.handleKeyUpPass(e)}/>
+                    <input type="password" name="pwd" onChange = {(e) => this.handlePass(e)} onKeyUp={(e) => this.handleKeyUpPass(e)}/>
                     <br/>
                   </div>
 
@@ -276,7 +234,7 @@ export default class AccountSettings extends React.Component {
                     <i type="button" className="fa fa-pencil-square-o clr" onClick ={this.toggleUser.bind(this)}></i>
                     <span className="bold">Display Name:
                     </span>
-                    <input type="text" name="user" onKeyUp={(e) => this.handleKeyUpUser(e)}></input>
+                    <input type="text" name="user" onChange = {(e) => this.handleUser(e)} onKeyUp={(e) => this.handleKeyUpUser(e)}></input>
                   </div>
                 : <div>
                   <i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleUser.bind(this)}></i>
