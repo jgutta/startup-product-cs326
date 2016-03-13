@@ -8,23 +8,13 @@
 }
 
 .results {
-  padding-top: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.resultss {
-  padding-top: 50px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
 .bar {
-  width: 96.5%;
-  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-top: 10px;
-}
-
-.schbt {
-  height: 34px !important;
+  padding-bottom: 10px;
 }

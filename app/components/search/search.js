@@ -63,21 +63,22 @@ export default class Search extends React.Component {
       <MainContent title= "UBoard Search">
         <div className="main-content">
           <div className="main-content-body">
-            <div className="bar pull-left">
-              <div className="input-group search-bar">
-                <span className="input-group-btn">
+
+            <div className="bar">
+              <div className="input-group">
                   <input type="text" className="form-control" placeholder="Search UBoard"
                     value={this.state.value} onChange={(e) => this.handleChange(e)}
                     onKeyUp={(e) => this.handleKeyUp(e)} />
-                  <button className="btn btn-default schbt" type="button" onClick={(e) => this.handleSubmit(e)}>
+                  <span className="input-group-btn">
+                  <button className="btn btn-default" onClick={(e) => this.handleSubmit(e)}>
                     <i className="fa fa-search"></i>
                   </button>
                 </span>
               </div>
             </div>
-
-            <div className="resultss"><h4>Search Results for: {this.props.location.query.query}</h4></div>
             <hr />
+            <div className="results"><h4>Search Results for: {this.props.location.query.query}</h4></div>
+
             <div className="results">
               {this.state.contents.map((thread) => {
                  return (
