@@ -139,6 +139,46 @@ export default class AccountSettings extends React.Component {
     } else {
        this.setState({emailset: 1})
     }
+    updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+      this.getAgain();
+    });
+
+  }
+  toggleEmail(){
+    this.setState({
+      editEmail: !this.state.editEmail
+    });
+  }
+
+  handleKeyUpEmail(e) {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      this.handleEmail(e);
+    }
+  }
+
+  handleKeyUpUser(e) {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      this.handleUsername(e);
+    }
+  }
+
+  handleKeyUpPass(e) {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      this.handlePass(e);
+    }
+  }
+  toggleUser(){
+    this.setState({
+      editName: !this.state.editName
+    });
+  }
+  togglePass(){
+    this.setState({
+      editPass: !this.state.editPass
+    });
   }
 
     render() {
@@ -154,19 +194,43 @@ export default class AccountSettings extends React.Component {
                 <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
               </div>
               <div className="col-md-8">
-
-                <i type="button" className="ipic fa fa-pencil-square-o clr"></i>
+                {this.state.editEmail ? <div><i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleEmail.bind(this)}></i>
+              <span className = "bold addgap">Email: </span><input type="text" name="email" onKeyUp={(e) => this.handleKeyUpEmail(e)}></input>
+                  <br />
+                  </div>
+                :
+                <div>
+                <i type="button" className="fa fa-pencil-square-o clr" onClick = {this.toggleEmail.bind(this)}></i>
                 <span className="bold addgap">Email:</span>{this.state.user.email}
                   <br/>
-                  <span className="bold addgap">
-                  <i type="button" className="ipic fa fa-pencil-square-o clr"></i>
-                    Password:</span>
-                  <span>{this.handlePassLength()}</span>
+                  </div>
+                }
+
+                  {this.state.editPass ? <div>
+                    <i type="button" className="fa fa-pencil-square-o clr" onClick = {this.togglePass.bind(this)}></i>
+                    <span className="bold addgap">Password:</span>
+                    <input type="password" name="pwd" onKeyUp={(e) => this.handleKeyUpEmail(e)}/>
+                    <br/>
+                  </div>
+
+                  :
+                  <div>
+                  <i type="button" className="fa fa-pencil-square-o clr" onClick = {this.togglePass.bind(this)}></i>
+                  <span className="bold addgap">Password:</span>{this.handlePassLength()}
                   <br/>
-                  <i type="button" className="ipic fa fa-pencil-square-o clr"></i>
-                  <span className="bold">Display Name:
-                  </span>
-                  <span>{this.state.user.username}</span>
+                </div>
+
+                }
+
+                {this.state.editName ? <div><i type="button" className="fa fa-pencil-square-o clr" onClick ={this.toggleUser.bind(this)}></i>
+              <span className="bold">Display Name: </span><input type="text" name="user" onKeyUp={(e) => this.handleKeyUpUser(e)}></input>
+                </div>
+                :
+                <div>
+                  <i type="button" className="fa fa-pencil-square-o clr" onClick = {this.toggleUser.bind(this)}></i>
+                  <span className="bold">Display Name: </span>{this.state.user.username}
+                </div>
+                }
                   <div className="toggle"></div>
                   <h1>{this.state.toggleGender}</h1>
                   {this.state.toggleGender
