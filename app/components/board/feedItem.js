@@ -1,9 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { unixTimeFromNow } from '../../util';
-import {retrieveNameFromId} from '../../server';
+import {delPinnedPost, addPinnedPost, retrieveNameFromId, getPinned} from '../../server';
 export default class FeedItem extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    // Empty feed.
+    author: '',
+    pinned: []
+    //id: 0
+  };
+  }
+  componentDidMount() {
+    retrieveNameFromId(this.props.data.originalPost.author, (name) => {
+      this.setState({author: name});
+    });
+    getPinned(1, (pinnedNew) =>{
+      this.setState({pinned: pinnedNew})
+    })
+  }
+  isPinned(){
+    var pinned = this.state.pinned;
+    var bool = false;
+    for(var i in pinned){
+      if(pinned[i] === this.props.data._id)
+        bool = true;
+    }
+    return bool;
+  }
+  handlePinClick(clickEvent){
+    clickEvent.preventDefault();
+    if(clickEvent.button === 0){
+
+      if(this.isPinned())
+        delPinnedPost(1, this.props.data._id, (pinn) =>{
+          this.setState({pinned: pinn});
+        });
+      else
+        addPinnedPost(1, this.props.data._id, (pinn) => {
+          this.setState({pinned: pinn});
+        });
+    }
+  }
+
   render() {
+    var pin = 'Pin This Post'
+    if(this.isPinned())
+      pin = 'Unpin This Post'
     var data = this.props.data;
 
     return (
@@ -25,10 +69,10 @@ export default class FeedItem extends React.Component {
                   <Link to={"/threads/" + data._id}> {data.commentsNo} Replies</Link>
                  </div>
                  <div className="col-md-3 reply">
-                  <a href = "#"> Pin this Post</a>
+                  <a href = "#" onClick={(e) => this.handlePinClick(e)}>{pin}</a>
                  </div>
         <div className="col-md-6 result-metadata">
-                  {retrieveNameFromId(data.originalPost.author)} -  Posted {unixTimeFromNow(data.originalPost.postDate)}
+                  {this.state.author} -  Posted {unixTimeFromNow(data.originalPost.postDate)}
                  </div>
         </div>
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import MainContent from '../maincontent';
-//import feedItem from './feedItem'
 import FeedItem from './feedItem.js';
-import { getBoardInfo} from '../../server';
+import {getBoardInfo} from '../../server';
 export default class Board extends React.Component {
   constructor(props){
     super(props);
     this.state = {
     // Empty feed.
-    contents: []
+    contents: [],
+    pinned: []
     //id: 0
   };
   }
@@ -21,6 +21,7 @@ export default class Board extends React.Component {
       this.setState({contents: boardData.threads})
 
   });
+
   }
   componentWillReceiveProps(nextProps){
     getBoardInfo(nextProps.params.id, (boardData) => {
@@ -29,6 +30,20 @@ export default class Board extends React.Component {
       this.setState({contents: boardData.threads})
   });
 }
+/*pinPost(userID,threadID){
+  addPinnedPost(userID,threadID, (pinnedData) => {
+    this.setState({pinned: pinnedData});
+
+    console.log(this.state);
+  });
+}
+unPinPost(userID, threadID){
+  delPinnedPost(userID,threadID, (pinnedData) => {
+    this.setState({pinned: pinnedData});
+
+    console.log(this.state);
+  })
+}*/
 //  console.log(this.state.threads)
   render() {
     return (

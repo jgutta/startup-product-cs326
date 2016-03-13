@@ -243,9 +243,9 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
         emulateServerReturn(userData, cb);
   }
 
-  export function retrieveNameFromId(id) {
+  export function retrieveNameFromId(id ,cb) {
       var userData = readDocument('users', id);
-      return userData.username;
+      emulateServerReturn(userData.username, cb); //edited to include callback. These should have them to emulate server return.
     }
 
     export function retrievePicFromId(id) {
@@ -270,14 +270,27 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
       emulateServerReturn(userData, cb);
     }
 
-    function getBlockedUserSync(userId) {
+  export function getBlockedUserSync(userId) {
       var blocked = readDocument('blockedUser',userId);
       return blocked;
     }
     export function addPinnedPost(userID, threadID, cb){
       var user = readDocument('users', userID);
       var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      pinned = pinned.push(threadID);
+      pinned.contents.push(threadID);
       writeDocument('pinnedPosts', pinned);
-      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page. 
+      emulateServerReturn(pinned.contents,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+    }
+    export function delPinnedPost(userID, threadID, cb){
+      var user = readDocument('users', userID);
+      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
+      var index = getIndex(pinned, threadID);
+      pinned.contents.splice(index, 1);
+      writeDocument('pinnedPosts', pinned);
+      emulateServerReturn(pinned.contents, cb);
+    }
+    export function getPinned(userID, cb){
+      var user = readDocument('users', userID);
+      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
+      emulateServerReturn(pinned.contents, cb)
     }
