@@ -84,7 +84,7 @@ var initialData = {
       'numUsers': 0,
       'numPosts': 0,
       'description': 'This is a general board where posts can be about any topic, or can be questions about the site. All posts are archived here.',
-      'image': 'img/default.png'
+      'image': 'img/general.jpg'
     },
     '2': {
       '_id': 2,
