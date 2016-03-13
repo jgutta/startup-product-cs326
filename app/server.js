@@ -48,6 +48,7 @@ export function getFeedData(user, cb) {
 export function getBoardInfo(boardId, cb){
   var board = readDocument('boards', boardId);
   board.threads = board.threads.map((id) => getThreadSync(id));
+  
   emulateServerReturn(board, cb);
 }
 
