@@ -21,6 +21,7 @@ export default class AccountSettings extends React.Component {
       editName: false,
       editPass: false,
       addBlock: false,
+      tempBlock: '',
       temp: ''
     };
   }
@@ -184,6 +185,32 @@ export default class AccountSettings extends React.Component {
       editPass: !this.state.editPass
     });
   }
+  remove(e, blocked) {
+    e.preventDefault();
+    unBlock(this.props.user, blocked, () => {
+      this.getAgain();
+    });
+  }
+  add(e) {
+    if (e.key === 'Enter') {
+      if(this.state.tempBlock !== ""){
+      addBlock(this.props.user, this.state.tempBlock, () => {
+        this.getAgain();
+
+      });
+    }
+  }
+  }
+  handleBlockUser(e){
+    this.setState({tempBlock: e.target.value.trim()});
+  }
+
+  toggleBlockUser(){
+    this.setState({
+      addBlock: !this.state.addBlock
+    });
+  }
+
 
   render() {
     if (!this.state.user) {
@@ -252,7 +279,7 @@ export default class AccountSettings extends React.Component {
                     </span>
                     <div className="chbx">
                       {this.handleGen}
-                      <input type="radio" name="gender" value="1" id="genMale" checked= {this.state.gender === this.state.value} onClick={(e) => this.handleGen(e)}/>
+                      <input type="radio" name="gender" value="1" id="genMale" onClick={(e) => this.handleGen(e)}/>
                       Male<br/>
                       <input type="radio" name="gender" value="2" id="genFem" onClick={(e) => this.handleGen(e)}/>
                       Female<br/>
@@ -279,7 +306,7 @@ export default class AccountSettings extends React.Component {
                     <div className="col-md-12 chbx">
                       <div><input type="checkbox" name="Subscribed" value="1" id="subscribed" checked={this.state.emailset == 1
                     ? true
-                    : false} onClick={(e) => this.handleEmailSet(e)}/>Subscribed</div><br/>
+                    : false} onChange={(e) => this.handleEmailSet(e)}/>Subscribed</div><br/>
                     </div>
                   </div>
                 : <div>
@@ -306,11 +333,23 @@ export default class AccountSettings extends React.Component {
                         return (
                           <div key = {user._id}>
                           <button type="button" className="set-btn">
-                            <span className="glyphicon glyphicon-minus"></span>
+                            <span className="glyphicon glyphicon-minus" onClick={(e) => this.remove(e, user._id)}></span>
                           </button>
-                          {user.username} < br /> <button type="button" className="set-btn">
-                            <span className="glyphicon glyphicon-plus" ></span>
-                          </button>
+                          {user.username} < br />
+                        {this.state.addblock ?
+                          <div>
+                            <button type="button" className="set-btn ">
+                                <span className="glyphicon glyphicon-plus" onClick = {this.toggleBlockUser.bind(this)}></span>
+                              </button>
+                              <input type="text" name="block" onChange ={(e) => this.handleBlockUser(e)} onKeyUp={(e) => this.add(e)}></input>
+                          </div>
+                          :
+                          <div><button type="button" className="set-btn ">
+                              <span className="glyphicon glyphicon-plus" onClick = {this.toggleBlockUser.bind(this)}></span>
+                            </button>
+
+                          </div>
+                        }
                           </div>
                         );
                       })}
