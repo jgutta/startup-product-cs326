@@ -181,11 +181,11 @@ export default class AccountSettings extends React.Component {
                     <span className="bold">Gender:
                     </span>
                     <div className="chbx">
-                      <input type="radio" name="gender" value="male"/>
+                      <input type="radio" name="gender" value="1"/>
                       Male<br/>
-                    <input type="radio" name="gender" value="female"/>
+                    <input type="radio" name="gender" value="2"/>
                     Female<br/>
-                  <input type="radio" name="gender" value="other"/>
+                  <input type="radio" name="gender" value="3"/>
                   Other
                 </div>
               </div>
@@ -207,8 +207,8 @@ export default class AccountSettings extends React.Component {
             <span className="bold">
               Email Settings:</span>
             <div className="col-md-12 chbx">
-              {(this.state.emailset === 1) ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="" defaultChecked onClick={(e) => this.handleEmail(e)}/> Subscribed</div>
-            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="" onClick={(e) => this.handleEmail(e)}/>
+              {(this.state.emailset === 1) ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="1" onClick={(e) => this.handleEmail(e)}/> Subscribed</div>
+            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="2" onClick={(e) => this.handleEmail(e)}/>
                Subscribed</div>
               }
           </div>
