@@ -215,7 +215,7 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
         'title': title,
         'date': date,
         'time': time,
-        'image': image,
+        'img': image,
         'postDate': new Date().getTime(),
         'description': desc
       },

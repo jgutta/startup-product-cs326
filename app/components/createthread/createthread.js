@@ -12,7 +12,7 @@ export default class CreateThread extends React.Component {
       date: '',
       time: '',
       description: '',
-      image: 'img/default.png',
+      img: 'img/default.png',
       boards: ["1"]
     };
   }
@@ -45,7 +45,7 @@ export default class CreateThread extends React.Component {
       output.src = reader.result;
     };
     reader.readAsDataURL(e.target.files[0]);
-    this.setState({ image: e.target.value });
+    this.setState({ img: e.target.value });
   }
 
   handleBoardChange(e) {
@@ -68,7 +68,7 @@ export default class CreateThread extends React.Component {
     var threadDate = this.state.date.trim();
     var threadTime = this.state.time.trim();
     var threadDescription = this.state.description.trim();
-    var threadImage = this.state.image.trim();
+    var threadImage = this.state.img.trim();
     var threadBoards = this.state.boards;
 
     if(threadTitle === "" || threadDescription === "" || threadBoards.length === 0){
@@ -146,8 +146,8 @@ export default class CreateThread extends React.Component {
                     </div>
 
                     <div className="panel-body picture form-group">
-                      <a><img id="output" src={this.state.image} width="30%"/></a>
-                      <input type="file" className="browse" accept="image/jpeg, image/png" name="image" value={this.state.image} onChange={(e) => this.handleImageChange(e)}></input>
+                      <a><img id="output" src={this.state.img} width="30%"/></a>
+                      <input type="file" className="browse" accept="image/jpeg, image/png" name="image" value={this.state.img} onChange={(e) => this.handleImageChange(e)}></input>
                     </div>
 
                     <div className="panel-body checkboxes form-group box">
