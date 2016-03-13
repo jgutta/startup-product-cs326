@@ -132,17 +132,17 @@ export default class AccountSettings extends React.Component {
     });
 
   }
-  handleEmailSet(e) {
-    e.preventDefault();
-    !document.getElementById('subscribed').check;
+
+  handleEmailSet() {
     if (this.state.emailset === 1) {
       this.setState({emailset: 2})
     } else {
-      this.setState({emailset: 1})
+       this.setState({emailset: 1})
     }
     updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
       this.getAgain();
     });
+
   }
   toggleEmail(){
     this.setState({
@@ -164,10 +164,10 @@ export default class AccountSettings extends React.Component {
     }
   }
 
-  handleKeyUpEmail(e) {
+  handleKeyUpPass(e) {
     e.preventDefault();
     if (e.key === 'Enter') {
-      this.handleEmail(e);
+      this.handlePass(e);
     }
   }
   toggleUser(){
@@ -266,57 +266,51 @@ export default class AccountSettings extends React.Component {
             <span className="bold">
               Email Settings:</span>
             <div className="col-md-12 chbx">
-              {(this.state.emailset === 1)
-                ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="1" defaultChecked onClick={(e) => this.handleEmailSet(e)}/>
-              Subscribed</div>
-            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="2" onClick={(e) => this.handleEmailSet(e)}/>
-          Subscribed</div>
+              <div><input type="checkbox" name="Subscribed" value="1" defaultChecked="true" onChange={(e) => this.handleEmailSet(e)} />Subscribed</div>
+            </div>
+          </div>
+          : <div>
+          <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
+            <span className="glyphicon glyphicon-chevron-right"></span>
+          </button>
+          <span className="bold">
+            Email Settings:</span>
+        </div>
       }
+      <div className="toggle"></div>
+      <h1>{this.state.toggleBlocked}</h1>
+      {this.state.toggleBlocked
+        ? <div>
+        <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
+          <span className="glyphicon glyphicon-chevron-down"></span>
+        </button>
+        <span className="bold">Blocked:
+        </span>
+        <div className="col-md-12 ybmove">
+          <button type="button" className="set-btn">
+            <span className="glyphicon glyphicon-minus"></span>
+          </button>{this.state.user.blocked}<br/>
+          <button type="button" className="set-btn">
+            <span className="glyphicon glyphicon-plus"></span>
+          </button>
+        </div>
+      </div>
+      : <div>
+      <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
+        <span className="glyphicon glyphicon-chevron-right"></span>
+      </button>
+      <span className="bold">
+        Blocked:
+      </span>
     </div>
-  </div>
-  : <div>
-  <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
-    <span className="glyphicon glyphicon-chevron-right"></span>
-  </button>
-  <span className="bold">
-    Email Settings:</span>
-</div>
-}
-<div className="toggle"></div>
-<h1>{this.state.toggleBlocked}</h1>
-{this.state.toggleBlocked
-  ? <div>
-  <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-    <span className="glyphicon glyphicon-chevron-down"></span>
-  </button>
-  <span className="bold">Blocked:
-  </span>
-  <div className="col-md-12 ybmove">
-    <button type="button" className="set-btn">
-      <span className="glyphicon glyphicon-minus"></span>
-    </button>{this.state.user.blocked}<br/>
-    <button type="button" className="set-btn">
-      <span className="glyphicon glyphicon-plus"></span>
-    </button>
-  </div>
-</div>
-: <div>
-<button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-  <span className="glyphicon glyphicon-chevron-right"></span>
-</button>
-<span className="bold">
-  Blocked:
-</span>
-</div>
-}
+  }
 
-
-</div>
-<div className="row">
-  <div className="col-md-3 "></div>
-  <div className="col-md-9">
-    <button onClick={(e) => this.handleDeactivate(e)} type="button" className="btn btn-primary pull-right deactivate">Deactivate</button>
   </div>
+  <div className="row">
+    <div className="col-md-3 "></div>
+      <div className="col-md-9">
+        <button onClick={(e) => this.handleDeactivate(e)} type="button" className="btn btn-primary pull-right deactivate">Deactivate</button>
+      </div>
 </div>
 </div>
 
