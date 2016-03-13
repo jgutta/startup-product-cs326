@@ -141,39 +141,36 @@ export default class AccountSettings extends React.Component {
       this.setState({emailset: 1})
     }
 
+
     updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
       this.getAgain();
     });
   }
 
-  render() {
-    if (!this.state.user) {
-      return <div/>
-    }
-    return (
-      <MainContent title="Account Settings">
-        <div className="pull-left">
-          <div className="row">
-            <div className="col-md-3">
-              <img id="newImage" src={this.state.image} width="100%"/>
-              <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
-            </div>
-            <div className="col-md-8">
-              <div className="col-md-1">
-                <i type="button" className="fa fa-pencil-square-o clr"></i>
-                <br/>
-                <i type="button" className="fa fa-pencil-square-o clr"></i>
-                <br/>
-                <i type="button" className="fa fa-pencil-square-o clr"></i>
-              </div>
-              <div className="col-md-7">
 
+    render() {
+      if (!this.state.user) {
+        return <div/>
+      }
+      return (
+        <MainContent title="Account Settings">
+          <div className="pull-left">
+            <div className="row">
+              <div className="col-md-3">
+                <img id="newImage" src={this.state.image} width="100%"/>
+                <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
+              </div>
+              <div className="col-md-8">
+
+                <i type="button" className="fa fa-pencil-square-o clr"></i>
                 <span className="bold addgap">Email:</span>{this.state.user.email}
                   <br/>
                   <span className="bold addgap">
+                  <i type="button" className="fa fa-pencil-square-o clr"></i>
                     Password:</span>
                   <span>{this.handlePassLength()}</span>
                   <br/>
+                  <i type="button" className="fa fa-pencil-square-o clr"></i>
                   <span className="bold">Display Name:
                   </span>
                   <span>{this.state.user.username}</span>
@@ -256,7 +253,7 @@ export default class AccountSettings extends React.Component {
 </div>
 }
 
-</div>
+
 </div>
 <div className="row">
   <div className="col-md-3 "></div>
