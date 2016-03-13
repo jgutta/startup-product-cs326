@@ -52,9 +52,8 @@ export default class PinnedPosts extends React.Component {
             {this.state.contents.map((thread) => {
                return (
                  <li className="list-group-item" key={thread._id}>
-                   <Link to={"/threads/" + thread._id}>{thread.originalPost.title}
-                     <i className="fa fa-minus-circle pull-right" onClick={(e) => this.handleUnSub(e, thread._id)}></i>
-                   </Link>
+                   <Link to={"/threads/" + thread._id}>{thread.originalPost.title}</Link>
+                   <i className="fa fa-minus-circle pull-right" onClick={(e) => this.handleUnSub(e, thread._id)} />
                  </li>
                );
              })}

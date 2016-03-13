@@ -24,7 +24,7 @@ body {
   background-color: #90b2b2;
 }
 .nav-pills > li > a > i {
-  margin-top: 4px;
+  margin-top: 3px;
   color: dimgray;
 }
 .nav-pills > li > a > i:hover {
@@ -63,6 +63,13 @@ body {
 }
 .list-group > li:hover > hr {
   border-color: lightgray;
+}
+.list-group > li > i {
+  margin-top: 3px;
+  color: dimgray;
+}
+.list-group > li > i:hover {
+  color: black;
 }
 
 /* Dropdown Menu*/
