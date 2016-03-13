@@ -13,19 +13,27 @@ export default class Thread extends React.Component {
      };
   }
 
+  refresh(){
+    getThreadData(this.props.params.id, (threadData) =>{
+      this.setState(threadData);
+      this.setState({contents: threadData});
+    });
+  }
+
   componentDidMount() {
+    //console.log(this.props);
     getThreadData(this.props.params.id, (threadData) => {
         //console.log(threadData);
       this.setState(threadData);
-      this.setState({contents: threadData})
+      this.setState({contents: threadData});
     } );
       //console.log(this.props.params.id);
   }
   componentWillReceiveProps(nextProps){
-    getThreadData(nextProps.params.id, (threadData) => { // currently hardcoded to get board one, in the future this will be a prop.
+    getThreadData(nextProps.params.id, (threadData) => { 
       //console.log(boardData.threads[0])
       this.setState(threadData);
-      this.setState({contents: threadData})
+      this.setState({contents: threadData});
   });
 }
   checkOptionalInfo(){
@@ -49,15 +57,15 @@ export default class Thread extends React.Component {
 
   handleReply(e){
     e.preventDefault();
+    console.log(this.state);
+    console.log(this.props);
     var messageContents = this.state.messageContentsValue.trim();
     if (messageContents !== ''){
-      postReply(this.props.params.id, 'time.richards', this.state.messageContentsValue, () => {
-        this.componentDidMount();
+      postReply(this.props.params.id,retrieveNameFromId(1), this.state.messageContentsValue, () => {
+        this.refresh();
       });
     }
-    this.setState({
-      messageContentsValue: ''
-    });
+
   }
 
   handleContentsChange(e) {
@@ -66,7 +74,7 @@ export default class Thread extends React.Component {
   }
 
   render() {
-    //console.log(this.props.params.id);
+    //console.log(this.props);
       if(!this.state.contents){
         return (
           <div> </div>

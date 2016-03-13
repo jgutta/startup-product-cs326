@@ -172,8 +172,8 @@ export function postMessage(conversationId, author, title, contents, cb) {
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
 
-export function postReply(id, author, contents, cb){
-  var thread = readDocument('threads', id);
+export function postReply(threadId, author, contents, cb){
+  var thread = readDocument('threads', threadId);
   thread.replies.push({
     'author': author,
     'postDate': new Date().getTime(),
@@ -181,7 +181,7 @@ export function postReply(id, author, contents, cb){
     'replies': []
   });
   writeDocument('threads', thread);
-  emulateServerReturn(getThreadSync(author, id), cb);
+  emulateServerReturn(getThreadSync(author, threadId), cb);
 }
 
 export function getSearchData(cb) {
@@ -279,5 +279,5 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
       var pinned = readDocument('pinnedPosts', user.pinnedPosts);
       pinned = pinned.push(threadID);
       writeDocument('pinnedPosts', pinned);
-      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page. 
+      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
     }
