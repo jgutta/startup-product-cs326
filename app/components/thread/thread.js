@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { getThreadData, retrieveNameFromId } from '../../server';
+import { getThreadData, retrieveNameFromId, postReply} from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -47,7 +47,18 @@ export default class Thread extends React.Component {
     e.preventDefault();
   }
 
-  handleReply(){}
+  handleReply(e){
+    e.preventDefault();
+    var messageContents = this.state.messageContentsValue.trim();
+    if (messageContents !== ''){
+      postReply(this.props.params.id, 'time.richards', this.state.messageContentsValue, () => {
+        this.componentDidMount();
+      });
+    }
+    this.setState({
+      messageContentsValue: ''
+    });
+  }
 
   handleContentsChange(e) {
     e.preventDefault();
@@ -89,7 +100,7 @@ export default class Thread extends React.Component {
             </div>
             <div className="replyArea">
             <textarea className="replyArea" rows={1} value={this.state.messageTitleValue} onChange={(e) => this.handleContentsChange(e)} />
-              <button type="replyBtn" className="btn btn-primary">
+              <button type="replyBtn" className="btn btn-primary" onClick={(e) => this.handleReply(e)}>
                 Submit
               </button>
             </div>
