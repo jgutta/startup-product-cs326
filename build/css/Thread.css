@@ -1,6 +1,6 @@
 .replyF {
   margin-top: 20px;
-  
+
 }
 .replyC{
   background-color: #f1f6f6;
@@ -23,10 +23,12 @@
 .pl00f button{
   margin-left: 25px;
   margin-right: 25px;
+  width: 75px;
 }
 
 .rep button{
   margin-top: 7px;
+  width: 75px;
 }
 
 hr{

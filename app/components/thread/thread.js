@@ -9,23 +9,25 @@ export default class Thread extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      messageContentsValue: ''
+      messageContentsValue: '',
+      replying: false
      };
   }
 
-  componentDidMount() {
-    getThreadData(this.props.params.id, (threadData) => {
-        //console.log(threadData);
+  refresh(){
+    getThreadData(this.props.params.id, (threadData) =>{
       this.setState(threadData);
-      this.setState({contents: threadData})
-    } );
-      //console.log(this.props.params.id);
+      this.setState({contents: threadData});
+    });
+  }
+
+  componentDidMount() {
+    this.refresh();
   }
   componentWillReceiveProps(nextProps){
-    getThreadData(nextProps.params.id, (threadData) => { // currently hardcoded to get board one, in the future this will be a prop.
-      //console.log(boardData.threads[0])
+    getThreadData(nextProps.params.id, (threadData) => {
       this.setState(threadData);
-      this.setState({contents: threadData})
+      this.setState({contents: threadData});
   });
 }
   checkOptionalInfo(){
@@ -45,19 +47,20 @@ export default class Thread extends React.Component {
 
   handleClick(e){
     e.preventDefault();
+
   }
 
   handleReply(e){
     e.preventDefault();
+    //console.log(this.state);
+    //console.log(this.props);
     var messageContents = this.state.messageContentsValue.trim();
     if (messageContents !== ''){
-      postReply(this.props.params.id, 'time.richards', this.state.messageContentsValue, () => {
-        this.componentDidMount();
+      postReply(this.props.params.id,retrieveNameFromId(1), this.state.messageContentsValue, () => {
+        this.refresh();
       });
     }
-    this.setState({
-      messageContentsValue: ''
-    });
+
   }
 
   handleContentsChange(e) {
@@ -66,13 +69,12 @@ export default class Thread extends React.Component {
   }
 
   render() {
-    //console.log(this.props.params.id);
+
       if(!this.state.contents){
         return (
           <div> </div>
         )
       }
-      //put date/check time here
 
     return (
       <MainContent title= {this.state.contents.originalPost.title} >
@@ -119,25 +121,3 @@ export default class Thread extends React.Component {
     )
   }
 }
-//getSearchData sets UserName
-/*{this.state.contents.map((i) => {
-   return (
-     //how do i pull paramenters for these objs?
-     <Replies key={i} rKey={i} author={5} contents="floopy d00p fibbity b0p" postDate={1456871392} replies={ [] } />
-   )
- })} */
-
- /*
- if(this.state.contents.originalPost.date){
-   <div className="col-md-8 title-head">
-     <h4><small> this.state.contents.originalPost.date </small></h4>
-   </div>
- }
- */
- /*
- if(this.state.contents.originalPost.date && this.state.contents.originalPost.time){
-   <div className="col-md-8 title-head">
-     <h4><small> {this.state.contents.originalPost.date} </small></h4>
-   </div>
-}
-*/
