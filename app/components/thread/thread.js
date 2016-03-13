@@ -8,7 +8,9 @@ import { getThreadData, retrieveNameFromId } from '../../server';
 export default class Thread extends React.Component {
   constructor(props){
     super(props);
-    this.state = { };
+    this.state = {
+      messageContentsValue: ''
+     };
   }
 
   componentDidMount() {
@@ -41,6 +43,17 @@ export default class Thread extends React.Component {
     }
   }
 
+  handleClick(e){
+    e.preventDefault();
+  }
+
+  handleReply(){}
+
+  handleContentsChange(e) {
+    e.preventDefault();
+    this.setState({ messageContentsValue: e.target.value });
+  }
+
   render() {
     //console.log(this.props.params.id);
       if(!this.state.contents){
@@ -66,7 +79,7 @@ export default class Thread extends React.Component {
           <hr />
             <div className="footer">
               <div className="pull-left pl00f">
-                <button type="replyBtn" className="btn btn-primary">
+                <button type="replyBtn" className="btn btn-primary" >
                   <span> Reply </span>
                 </button>
 
@@ -74,7 +87,12 @@ export default class Thread extends React.Component {
               Posted by <a href = "#"> {retrieveNameFromId(this.state.contents.originalPost.author)}</a>, on {unixTimeToString(this.state.contents.originalPost.postDate)}.
               <br />
             </div>
-
+            <div className="replyArea">
+            <textarea className="replyArea" rows={1} value={this.state.messageTitleValue} onChange={(e) => this.handleContentsChange(e)} />
+              <button type="replyBtn" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
         </div>
         <div className = 'putRepliesHere'>
           {this.state.contents.replies.map((reps, i) => {

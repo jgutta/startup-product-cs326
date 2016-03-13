@@ -5,9 +5,9 @@ import { unixTimeToString } from '../../util';
 export default class Replies extends React.Component {
   constructor(props){
     super(props);
-    console.log(this.props);
+    //console.log(this.props);
     this.state = {
-
+      
      };
     //console.log(this.state);
     //console.log(this.props.rKey);
