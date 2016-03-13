@@ -81,96 +81,101 @@ export default class AccountSettings extends React.Component {
     return passStar;
   }
 
-    handleDeactivate(e) {
-      e.preventDefault();
-      updateUserData(this.props.user, 'deleted', this.state.gender, 'deleted', this.state.blocked, 'deleted', 2, 'img/default_profile_pic.png', () => {
-        this.getAgain();
-      });
+  handleDeactivate(e) {
+    e.preventDefault();
+    updateUserData(this.props.user, 'deleted', this.state.gender, 'deleted', this.state.blocked, 'deleted', 2, 'img/default_profile_pic.png', () => {
+      this.getAgain();
+    });
 
-    }
-    handleEmail(e) {
-      e.preventDefault();
-      this.setState({temp: e.target.value});
-      this.updateEmail();
-    }
+  }
+  handleEmail(e) {
+    e.preventDefault();
+    this.setState({temp: e.target.value});
+    this.updateEmail();
+  }
 
-    handleUsername(e) {
-      e.preventDefault();
-      this.setState({temp: e.target.value});
-      this.updateUsername();
-    }
-    handlePass(e) {
-      e.preventDefault();
-      this.setState({temp: e.target.value});
-      this.updatePass();
-    }
+  handleUsername(e) {
+    e.preventDefault();
+    this.setState({temp: e.target.value});
+    this.updateUsername();
+  }
+  handlePass(e) {
+    e.preventDefault();
+    this.setState({temp: e.target.value});
+    this.updatePass();
+  }
 
-    updateEmail() {
-      var email = this.state.temp
-      if (email !== "")
-      //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
-      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
+  updateEmail() {
+    var email = this.state.temp
+    if (email !== "")
+    //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
+    updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, email, this.state.emailset, this.state.image, () => {
+      this.getAgain();
+    });
 
-    }
-    updateUsername() {
-      var username = this.state.temp
-      if (username !== "")
-      //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
-      updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
+  }
+  updateUsername() {
+    var username = this.state.temp
+    if (username !== "")
+    //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
+    updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+      this.getAgain();
+    });
 
-    }
-    updatePass() {
-      var pass = this.state.temp
-      if (pass !== "")
-      //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
-      updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
+  }
+  updatePass() {
+    var pass = this.state.temp
+    if (pass !== "")
+    //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
+    updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+      this.getAgain();
+    });
 
-    }
-    handleEmailSet(e){
-      e.preventDefault();
-      !document.getElementById('subscribed').check;
-      if(this.state.emailset ===1 ){
-        this.setState({emailset: 2})
-      }else {
-        this.setState({emailset: 1})
-      }
-
-      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
+  }
+  handleEmailSet(e) {
+    e.preventDefault();
+    !document.getElementById('subscribed').check;
+    if (this.state.emailset === 1) {
+      this.setState({emailset: 2})
+    } else {
+      this.setState({emailset: 1})
     }
 
-    render() {
-      if (!this.state.user) {
-        return <div/>
-      }
+    updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+      this.getAgain();
+    });
+  }
 
-      return (
-        <MainContent title="Account Settings">
-          <div className="pull-left">
-            <div className="row">
-              <div className="col-md-3">
-                <img id="newImage" src={this.state.image} width="100%"/>
-                <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
+  render() {
+    if (!this.state.user) {
+      return <div/>
+    }
+    return (
+      <MainContent title="Account Settings">
+        <div className="pull-left">
+          <div className="row">
+            <div className="col-md-3">
+              <img id="newImage" src={this.state.image} width="100%"/>
+              <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
+            </div>
+            <div className="col-md-8">
+              <div className="col-md-1">
+                <i type="button" className="fa fa-pencil-square-o small "></i>
+                <br/>
+                <i type="button" className="fa fa-pencil-square-o small "></i>
+                <br/>
+                <i type="button" className="fa fa-pencil-square-o small "></i>
               </div>
-              <div className="col-md-8">
+              <div className="col-md-7">
                 <span className="bold addgap">Email:</span>{this.state.user.email}
-                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn "></button>
-                  <br />
-                  <span className="bold addgap"> Password:</span>
+                  <br/>
+                  <span className="bold addgap">
+                    Password:</span>
                   <span>{this.handlePassLength()}</span>
-                  <button type="button" className="btn-xs pull-right glyphicon glyphicon-edit setbtn "></button>
                   <br/>
                   <span className="bold">Display Name:
                   </span>
                   <span>{this.state.user.username}</span>
-                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn"></button>
                   <div className="toggle"></div>
                   <h1>{this.state.toggleGender}</h1>
                   {this.state.toggleGender
@@ -197,7 +202,6 @@ export default class AccountSettings extends React.Component {
               </span>
             </div>
           }
-
           <h1>{this.state.toggleEmailSet}</h1>
           {this.state.toggleEmailSet
             ? <div>
@@ -207,48 +211,60 @@ export default class AccountSettings extends React.Component {
             <span className="bold">
               Email Settings:</span>
             <div className="col-md-12 chbx">
-              {(this.state.emailset === 1) ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="1" onClick={(e) => this.handleEmail(e)}/> Subscribed</div>
-            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="2" onClick={(e) => this.handleEmail(e)}/>
-               Subscribed</div>
-              }
-          </div>
-        </div>
-        : <div>
-        <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
-          <span className="glyphicon glyphicon-chevron-right"></span>
-        </button>
-        <span className="bold">
-          Email Settings:</span>
-      </div>
-    }
-    <div className="toggle"></div>
-    <h1>{this.state.toggleBlocked}</h1>
-    {this.state.toggleBlocked
-      ? <div>
-      <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-        <span className="glyphicon glyphicon-chevron-down"></span>
-      </button>
-      <span className="bold">Blocked:
-      </span>
-      <div className="col-md-12 ybmove">
-        <button type="button" className="set-btn">
-          <span className="glyphicon glyphicon-minus"></span>
-        </button>{this.state.user.blocked}<br />
-        <button type="button" className="set-btn">
-          <span className="glyphicon glyphicon-plus"></span>
-        </button>
-      </div>
+              {(this.state.emailset === 1)
+                ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="" defaultChecked onClick={(e) => this.handleEmail(e)}/>
+              Subscribed</div>
+            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="" onClick={(e) => this.handleEmail(e)}/>
+          Subscribed</div>
+      }
     </div>
-    : <div>
-    <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-      <span className="glyphicon glyphicon-chevron-right"></span>
-    </button>
-    <span className="bold">
-      Blocked:
-    </span>
   </div>
+  : <div>
+  <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
+    <span className="glyphicon glyphicon-chevron-right"></span>
+  </button>
+  <span className="bold">
+    Email Settings:</span>
+  <div className="col-md-12 chbx">
+    {(this.state.emailset === 1)
+      ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="1" onClick={(e) => this.handleEmail(e)}/>
+    Subscribed</div>
+  : <div><input id="subscribed" type="checkbox" name="Subscribed" value="2" onClick={(e) => this.handleEmail(e)}/>
+Subscribed</div>
+}
+</div>
+</div>
+}
+<div className="toggle"></div>
+<h1>{this.state.toggleBlocked}</h1>
+{this.state.toggleBlocked
+  ? <div>
+  <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
+    <span className="glyphicon glyphicon-chevron-down"></span>
+  </button>
+  <span className="bold">Blocked:
+  </span>
+  <div className="col-md-12 ybmove">
+    <button type="button" className="set-btn">
+      <span className="glyphicon glyphicon-minus"></span>
+    </button>{this.state.user.blocked}<br/>
+    <button type="button" className="set-btn">
+      <span className="glyphicon glyphicon-plus"></span>
+    </button>
+  </div>
+</div>
+: <div>
+<button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
+  <span className="glyphicon glyphicon-chevron-right"></span>
+</button>
+<span className="bold">
+  Blocked:
+</span>
+</div>
 }
 
+</div>
+</div>
 <div className="row">
   <div className="col-md-3 "></div>
   <div className="col-md-9">
@@ -256,7 +272,7 @@ export default class AccountSettings extends React.Component {
   </div>
 </div>
 </div>
-</div>
+
 </div>
 </MainContent>
 )

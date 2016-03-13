@@ -20,8 +20,10 @@
     padding-right: 20px;
 }
 
+
 .deactivate{
     background-color: #0d5e5e;
+    margin-right: 30px !important;
 }
 .browsePic{
     width: 105%;
@@ -32,4 +34,9 @@
 }
 .addgap{
 padding-bottom: 50px !important;
+}
+
+.small {
+  width: 20px;
+  height: 20px;
 }
