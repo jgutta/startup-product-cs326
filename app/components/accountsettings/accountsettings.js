@@ -106,6 +106,7 @@ export default class AccountSettings extends React.Component {
   }
 
   updateEmail() {
+
     var email = this.state.temp
     if (email !== ""){
       updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
@@ -114,6 +115,7 @@ export default class AccountSettings extends React.Component {
     }
     }
   updateUsername() {
+
     var username = this.state.temp
     if (username !== ""){
       updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
@@ -122,6 +124,7 @@ export default class AccountSettings extends React.Component {
     }
     }
   updatePass() {
+
     var pass = this.state.temp
     if (pass !== ""){
       updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
@@ -178,21 +181,39 @@ export default class AccountSettings extends React.Component {
   handleKeyUpEmail(e) {
     e.preventDefault();
     if (e.key === 'Enter') {
-      this.handleEmail(e);
+      this.setState({temp: e.target.value});
+      var email = this.state.temp
+      if (email !== ""){
+        updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
+          this.getAgain();
+        });
+      }
     }
   }
 
   handleKeyUpUser(e) {
     e.preventDefault();
     if (e.key === 'Enter') {
-      this.handleUsername(e);
+      this.setState({temp: e.target.value});
+      var username = this.state.temp
+      if (username !== ""){
+        updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
+          this.getAgain();
+        });
+      }
     }
   }
 
   handleKeyUpPass(e) {
     e.preventDefault();
     if (e.key === 'Enter') {
-      this.handlePass(e);
+      this.setState({temp: e.target.value});
+    var pass = this.state.temp
+    if (pass !== ""){
+      updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
+        this.getAgain();
+      });
+    }
     }
   }
   toggleUser() {
