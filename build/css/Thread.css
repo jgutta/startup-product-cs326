@@ -1,6 +1,6 @@
 .replyF {
   margin-top: 20px;
-  
+
 }
 .replyC{
   background-color: #f1f6f6;
@@ -16,6 +16,21 @@
   height: 75px;
 }
 
+.replyArea{
+  background-color: #f1f6f6;
+}
+
+.replyArea button{
+  margin-bottom: 50px;
+  margin-right: 7px;
+}
+.replyArea textarea{
+  background-color: white;
+  padding-top: 15px;
+  margin-top: 50px;
+  width: 200px;
+  margin-right: 7px;
+}
 .reply .main-content-body{
   padding-right: 1px;
 }
@@ -23,10 +38,12 @@
 .pl00f button{
   margin-left: 25px;
   margin-right: 25px;
+  width: 75px;
 }
 
 .rep button{
   margin-top: 7px;
+  width: 75px;
 }
 
 hr{

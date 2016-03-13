@@ -55,12 +55,20 @@ export function getBoardInfo(boardId, cb){
 export function getPinnedPostsData(user, cb) {
   var userData = readDocument('users', user);
   var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
-
   pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
-
   emulateServerReturn(pinnedPostsData, cb);
 }
 
+export function deletePinnedPost(pin, thread, cb){
+  var pinnedPostsData = readDocument('pinnedPosts', pin);
+  var index = getIndex(pinnedPostsData.contents, thread);
+  pinnedPostsData.contents.splice(index, 1);
+
+  writeDocument('pinnedPosts', pinnedPostsData);
+
+  emulateServerReturn(pinnedPostsData, cb);
+
+}
 
 function getBoardSync(boardId) {
   var board = readDocument('boards', boardId);
@@ -81,7 +89,6 @@ export function getSubscribedBoardsData(user, cb) {
     contents: []
   };
   subscribedBoardsData.contents = userData.subscribedBoards.map(getBoardSync);
-
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
@@ -172,8 +179,8 @@ export function postMessage(conversationId, author, title, contents, cb) {
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
 
-export function postReply(id, author, contents, cb){
-  var thread = readDocument('threads', id);
+export function postReply(threadId, author, contents, cb){
+  var thread = readDocument('threads', threadId);
   thread.replies.push({
     'author': author,
     'postDate': new Date().getTime(),
@@ -181,7 +188,7 @@ export function postReply(id, author, contents, cb){
     'replies': []
   });
   writeDocument('threads', thread);
-  emulateServerReturn(getThreadSync(author, id), cb);
+  emulateServerReturn(getThreadSync(author, threadId), cb);
 }
 
 export function getSearchData(cb) {
@@ -237,6 +244,7 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
 
   export function getUserData(userId, cb){
       var user =  readDocument('users', userId);
+      user.blockedUsers = user.blockedUsers.map(getBlockedUserSync);
       var userData = {
           user : user
       };
@@ -270,10 +278,28 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
       emulateServerReturn(userData, cb);
     }
 
-  export function getBlockedUserSync(userId) {
-      var blocked = readDocument('blockedUser',userId);
+
+
+    function getBlockedUserSync(userId) {
+      var blocked = readDocument('users',userId);
+
       return blocked;
     }
+    export function unBlock(user , blockedUser, cb){
+      var userData = readDocument('users', user);
+      var index = getIndex(userData.blockedUsers, blockedUser);
+      userData.blockedUsers.splice(index, 1);
+      writeDocument('users', userData);
+      emulateServerReturn(userData, cb);
+    }
+
+    export function addBlock(user, blockUser, cb) {
+      var userData = readDocument('users', user);
+      userData.blockedUsers.push(blockUser);
+      writeDocument('users', userData);
+      emulateServerReturn(userData, cb);
+    }
+
     export function addPinnedPost(userID, threadID, cb){
       var user = readDocument('users', userID);
       var pinned = readDocument('pinnedPosts', user.pinnedPosts);
@@ -292,5 +318,7 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     export function getPinned(userID, cb){
       var user = readDocument('users', userID);
       var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      emulateServerReturn(pinned.contents, cb)
+      emulateServerReturn(pinned.contents, cb);
+      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+
     }
