@@ -16,6 +16,7 @@ export default class Board extends React.Component {
 
     getBoardInfo(this.props.params.id, (boardData) => {
       //console.log(boardData.threads[0])
+      boardData.threads = boardData.threads.reverse();
       this.setState(boardData);
       this.setState({contents: boardData.threads})
 
@@ -42,7 +43,7 @@ export default class Board extends React.Component {
 
                );
              })}
-        
+
       </MainContent>
     )
   }
