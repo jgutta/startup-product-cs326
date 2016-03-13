@@ -132,6 +132,19 @@ export default class AccountSettings extends React.Component {
       });
 
     }
+    handleEmailSet(e){
+      e.preventDefault();
+      !document.getElementById('subscribed').check;
+      if(this.state.emailset ===1 ){
+        this.setState({emailset: 2})
+      }else {
+        this.setState({emailset: 1})
+      }
+
+      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+        this.getAgain();
+      });
+    }
 
     render() {
       if (!this.state.user) {
@@ -152,7 +165,7 @@ export default class AccountSettings extends React.Component {
                   <br />
                   <span className="bold addgap"> Password:</span>
                   <span>{this.handlePassLength()}</span>
-                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn "></button>
+                  <button type="button" className="btn-xs pull-right glyphicon glyphicon-edit setbtn "></button>
                   <br/>
                   <span className="bold">Display Name:
                   </span>
@@ -194,8 +207,10 @@ export default class AccountSettings extends React.Component {
             <span className="bold">
               Email Settings:</span>
             <div className="col-md-12 chbx">
-              <input id="subscribed" type="checkbox" name="Subscribed" value=""/>
-              Subscribed<br/>
+              {(this.state.emailset === 1) ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="" defaultChecked onClick={(e) => this.handleEmail(e)}/> Subscribed</div>
+            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="" onClick={(e) => this.handleEmail(e)}/>
+               Subscribed</div>
+              }
           </div>
         </div>
         : <div>
