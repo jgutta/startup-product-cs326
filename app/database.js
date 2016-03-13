@@ -17,7 +17,7 @@ var initialData = {
       'username': 'tim.richards',
       'gender': 1,
       'password':'badpassword1',
-      'blocked': [ 8 ],
+      'blockedUsers': [ 8 ],
       'email': 'richards@cs.umass.edu',
       'emailset': 1,
       'image': 'img/default_profile_pic.png'

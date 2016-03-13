@@ -10,7 +10,7 @@ export default class AccountSettings extends React.Component {
       username: '',
       gender: '',
       password: '',
-      blocked: '',
+      blockedUsers: '',
       email: '',
       emailset: '',
       image: 'img/default_profile_pic.png',
@@ -32,9 +32,9 @@ export default class AccountSettings extends React.Component {
         username: userData.user.username,
         gender: userData.user.gender,
         password: userData.user.password,
-        blocked: userData.user.blocked,
         emailset: userData.user.emailset,
-        image: userData.user.image
+        image: userData.user.image,
+        blockedUsers: userData.user.blockedUsers
       });
     });
     this.setState({temp: ''});
@@ -83,7 +83,7 @@ export default class AccountSettings extends React.Component {
 
   handleDeactivate(e) {
     e.preventDefault();
-    updateUserData(this.props.user, 'deleted', this.state.gender, 'deleted', this.state.blocked, 'deleted', 2, 'img/default_profile_pic.png', () => {
+    updateUserData(this.props.user, 'deleted', this.state.gender, 'deleted', this.state.blockedUsers, 'deleted', 2, 'img/default_profile_pic.png', () => {
       this.getAgain();
     });
 
@@ -107,30 +107,27 @@ export default class AccountSettings extends React.Component {
 
   updateEmail() {
     var email = this.state.temp
-    if (email !== "")
-      //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
-      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, email, this.state.emailset, this.state.image, () => {
+    if (email !== ""){
+      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
         this.getAgain();
       });
-
+    }
     }
   updateUsername() {
     var username = this.state.temp
-    if (username !== "")
-      //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
-      updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+    if (username !== ""){
+      updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
         this.getAgain();
       });
-
+    }
     }
   updatePass() {
     var pass = this.state.temp
-    if (pass !== "")
-      //updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb)
-      updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+    if (pass !== ""){
+      updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
         this.getAgain();
       });
-
+    }
     }
 
   handleEmailSet() {
@@ -167,7 +164,7 @@ export default class AccountSettings extends React.Component {
   }
 
   updateAll(){
-    updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
+    updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
       this.getAgain();
     });
   }
@@ -334,7 +331,7 @@ export default class AccountSettings extends React.Component {
                     <div className="col-md-12 ybmove">
                       <button type="button" className="set-btn">
                         <span className="glyphicon glyphicon-minus"></span>
-                      </button>{this.state.user.blocked}<br/>
+                      </button>{this.state.user.blockedUsers}<br/>
                       <button type="button" className="set-btn">
                         <span className="glyphicon glyphicon-plus"></span>
                       </button>
