@@ -141,7 +141,6 @@ export default class AccountSettings extends React.Component {
     }
   }
 
-
     render() {
       if (!this.state.user) {
         return <div/>
@@ -156,16 +155,15 @@ export default class AccountSettings extends React.Component {
               </div>
               <div className="col-md-8">
 
-
-                <i type="button" className="fa fa-pencil-square-o clr"></i>
+                <i type="button" className="ipic fa fa-pencil-square-o clr"></i>
                 <span className="bold addgap">Email:</span>{this.state.user.email}
                   <br/>
                   <span className="bold addgap">
-                  <i type="button" className="fa fa-pencil-square-o clr"></i>
+                  <i type="button" className="ipic fa fa-pencil-square-o clr"></i>
                     Password:</span>
                   <span>{this.handlePassLength()}</span>
                   <br/>
-                  <i type="button" className="fa fa-pencil-square-o clr"></i>
+                  <i type="button" className="ipic fa fa-pencil-square-o clr"></i>
                   <span className="bold">Display Name:
                   </span>
                   <span>{this.state.user.username}</span>
