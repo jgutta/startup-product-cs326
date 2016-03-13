@@ -48,7 +48,7 @@ export function getFeedData(user, cb) {
 export function getBoardInfo(boardId, cb){
   var board = readDocument('boards', boardId);
   board.threads = board.threads.map((id) => getThreadSync(id));
-  
+
   emulateServerReturn(board, cb);
 }
 
@@ -274,4 +274,11 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     function getBlockedUserSync(userId) {
       var blocked = readDocument('blockedUser',userId);
       return blocked;
+    }
+    export function addPinnedPost(userID, threadID, cb){
+      var user = readDocument('users', userID);
+      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
+      pinned = pinned.push(threadID);
+      writeDocument('pinnedPosts', pinned);
+      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page. 
     }

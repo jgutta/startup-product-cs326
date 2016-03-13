@@ -10,7 +10,7 @@ export default class FeedItem extends React.Component {
 
         <div className = "board row panel panel-default postContain">
         <div className="board row panel-heading">
-        <h4 align="left"><Link to={"/threads/" + data._id}>{data.originalPost.title}</Link></h4><h5>{data.originalPost.date} {data.originalPost.time}</h5>
+        <h4 align="left"><Link className="links" to={"/threads/" + data._id}>{data.originalPost.title}</Link></h4><h5>{data.originalPost.date} {data.originalPost.time}</h5>
         </div>
         <div className = "board row panel-body post">
           <div className = "col-md-2">
@@ -25,7 +25,7 @@ export default class FeedItem extends React.Component {
                   <Link to={"/threads/" + data._id}> {data.commentsNo} Replies</Link>
                  </div>
                  <div className="col-md-3 reply">
-                   Pin this Post
+                  <a href = "#"> Pin this Post</a>
                  </div>
         <div className="col-md-6 result-metadata">
                   {retrieveNameFromId(data.originalPost.author)} -  Posted {unixTimeFromNow(data.originalPost.postDate)}
