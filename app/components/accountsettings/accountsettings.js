@@ -160,11 +160,11 @@ export default class AccountSettings extends React.Component {
               </div>
               <div className="col-md-8">
                 <div className="col-md-1">
-                <i type="button" className="fa fa-pencil-square-o"></i>
+                <i type="button" className="fa fa-pencil-square-o clr"></i>
                 <br />
-                <i type="button" className="fa fa-pencil-square-o"></i>
+                <i type="button" className="fa fa-pencil-square-o clr"></i>
                 <br />
-                <i type="button" className="fa fa-pencil-square-o"></i>
+                <i type="button" className="fa fa-pencil-square-o clr"></i>
                 </div>
                 <div className="col-md-7">
 

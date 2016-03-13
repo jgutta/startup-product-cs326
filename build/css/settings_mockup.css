@@ -23,7 +23,9 @@
 i:hover{
   color: 	#D8D8D8;
 }
-
+.clr{
+  color: #0d5e5e;
+}
 
 .deactivate{
     background-color: #0d5e5e;
