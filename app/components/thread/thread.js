@@ -100,8 +100,8 @@ export default class Thread extends React.Component {
               Posted by <a href = "#"> {retrieveNameFromId(this.state.contents.originalPost.author)}</a>, on {unixTimeToString(this.state.contents.originalPost.postDate)}.
               <br />
             </div>
-            <div className="replyArea">
-            <textarea className="replyArea" rows={1} value={this.state.messageTitleValue} onChange={(e) => this.handleContentsChange(e)} />
+            <div className="replyArea pull-right">
+            <textarea className="replyArea" rows={2} value={this.state.messageTitleValue} onChange={(e) => this.handleContentsChange(e)} />
               <button type="replyBtn" className="btn btn-primary" onClick={(e) => this.handleReply(e)}>
                 Submit
               </button>

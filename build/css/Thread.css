@@ -16,6 +16,21 @@
   height: 75px;
 }
 
+.replyArea{
+  background-color: #f1f6f6;
+}
+
+.replyArea button{
+  margin-bottom: 50px;
+  margin-right: 7px;
+}
+.replyArea textarea{
+  background-color: white;
+  padding-top: 15px;
+  margin-top: 50px;
+  width: 200px;
+  margin-right: 7px;
+}
 .reply .main-content-body{
   padding-right: 1px;
 }
