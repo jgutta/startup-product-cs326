@@ -212,17 +212,6 @@ export default class AccountSettings extends React.Component {
     });
   }
 
-  getBlockedUsers() {
-    var toBlock = [];
-    var blockedd = this.state.user.blocked;
-    for (var i in blockedd) {
-      getUserData(blockedd[i], (BlockedUsers) => {
-        toBlock[i] = BlockedUsers.user.username;
-      }
-    }
-    return toBlock;
-  }
-
 
   render() {
     if (!this.state.user) {
