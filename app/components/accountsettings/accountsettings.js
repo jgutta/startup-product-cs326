@@ -213,9 +213,9 @@ export default class AccountSettings extends React.Component {
               Email Settings:</span>
             <div className="col-md-12 chbx">
               {(this.state.emailset === 1)
-                ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="" defaultChecked onClick={(e) => this.handleEmail(e)}/>
+                ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="1" defaultChecked onClick={(e) => this.handleEmailSet(e)}/>
               Subscribed</div>
-            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="" onClick={(e) => this.handleEmail(e)}/>
+            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="2" onClick={(e) => this.handleEmailSet(e)}/>
           Subscribed</div>
       }
     </div>
@@ -226,14 +226,6 @@ export default class AccountSettings extends React.Component {
   </button>
   <span className="bold">
     Email Settings:</span>
-  <div className="col-md-12 chbx">
-    {(this.state.emailset === 1)
-      ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="1" onClick={(e) => this.handleEmail(e)}/>
-    Subscribed</div>
-  : <div><input id="subscribed" type="checkbox" name="Subscribed" value="2" onClick={(e) => this.handleEmail(e)}/>
-Subscribed</div>
-}
-</div>
 </div>
 }
 <div className="toggle"></div>
