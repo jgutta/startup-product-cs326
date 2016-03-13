@@ -163,10 +163,7 @@ export default class AccountSettings extends React.Component {
       break;
 
     }
-
-    updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
-      this.getAgain();
-    });
+    this.updateAll();
   }
 
   updateAll(){
@@ -245,7 +242,7 @@ export default class AccountSettings extends React.Component {
                 ? <div>
                     <i type="button" className="fa fa-pencil-square-o clr" onClick={this.togglePass.bind(this)}></i>
                     <span className="bold addgap">Password:</span>
-                    <input type="password" name="pwd" onKeyUp={(e) => this.handleKeyUpEmail(e)}/>
+                    <input type="password" name="pwd" onKeyUp={(e) => this.handleKeyUpPass(e)}/>
                     <br/>
                   </div>
 
