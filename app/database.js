@@ -11,13 +11,13 @@ var initialData = {
     '1': {
       '_id': 1,
       'feed': 1,
-      'pinnedPosts': 1,
+      'pinnedPosts': 1, 
       'subscribedBoards': [ 2, 4, 7, 11 ],
       'conversations': [ 1, 2, 3, 4, 5 ],
       'username': 'tim.richards',
       'gender': 1,
       'password':'badpassword1',
-      'blocked': [ 8 ],
+      'blockedUsers': [ 8 ],
       'email': 'richards@cs.umass.edu',
       'emailset': 1,
       'image': 'img/default_profile_pic.png'
