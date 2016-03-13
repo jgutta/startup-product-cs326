@@ -171,6 +171,18 @@ export function postMessage(conversationId, author, title, contents, cb) {
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
 
+export function postReply(id, author, contents, cb){
+  var thread = readDocument('threads', id);
+  thread.replies.push({
+    'author': author,
+    'postDate': new Date().getTime(),
+    'contents': contents,
+    'replies': []
+  });
+  writeDocument('threads', thread);
+  emulateServerReturn(getThreadSync(author, id), cb);
+}
+
 export function getSearchData(cb) {
   var threads = readCollection('threads');
   var threadData = {
