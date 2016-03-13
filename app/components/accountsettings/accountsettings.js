@@ -160,11 +160,11 @@ export default class AccountSettings extends React.Component {
               </div>
               <div className="col-md-8">
                 <div className="col-md-1">
-                <i type="button" className="fa fa-pencil-square-o small "></i>
+                <i type="button" className="fa fa-pencil-square-o"></i>
                 <br />
-                <i type="button" className="fa fa-pencil-square-o small "></i>
+                <i type="button" className="fa fa-pencil-square-o"></i>
                 <br />
-                <i type="button" className="fa fa-pencil-square-o small "></i>
+                <i type="button" className="fa fa-pencil-square-o"></i>
                 </div>
                 <div className="col-md-7">
                 <span className="bold addgap">Email:</span>{this.state.user.email}
