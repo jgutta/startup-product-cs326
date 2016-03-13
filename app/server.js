@@ -236,9 +236,10 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
   }
 
   export function getUserData(userId, cb){
-      var use =  readDocument('users', userId);
+      var user =  readDocument('users', userId);
+      user.blockedUsers = user.blockedUsers.map(getBlockedUserSync);
       var userData = {
-          user : use
+          user : user
       };
         emulateServerReturn(userData, cb);
   }
@@ -262,10 +263,15 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
       userData.username = username;
       userData.gender = gender;
       userData.password = password;
-      userData.blocked = blocked;
+      userData.blockedUsers = blocked;
       userData.email = email;
       userData.emailset = emailset;
       userData.image = image;
       writeDocument('users', userData);
       emulateServerReturn(userData, cb);
+    }
+
+    function getBlockedUserSync(userId) {
+      var blocked = readDocument('blockedUser',userId);
+      return blocked;
     }
