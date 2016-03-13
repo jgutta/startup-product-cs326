@@ -160,101 +160,107 @@ export default class AccountSettings extends React.Component {
                 <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
               </div>
               <div className="col-md-8">
+                <div className="col-md-7">
                 <span className="bold addgap">Email:</span>{this.state.user.email}
-                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn "></button>
                   <br />
                   <span className="bold addgap"> Password:</span>
                   <span>{this.handlePassLength()}</span>
-                  <button type="button" className="btn-xs pull-right glyphicon glyphicon-edit setbtn "></button>
-                  <br/>
-                  <span className="bold">Display Name:
-                  </span>
-                  <span>{this.state.user.username}</span>
-                  <button type="button" className="btn btn-primary btn-xs pull-right glyphicon glyphicon-edit changebtn"></button>
-                  <div className="toggle"></div>
-                  <h1>{this.state.toggleGender}</h1>
-                  {this.state.toggleGender
-                    ? <div>
-                    <button onClick={this.togglegen.bind(this)} type="button" className="set-btn">
-                      <span className="glyphicon glyphicon-chevron-down"></span>
-                    </button>
-                    <span className="bold">Gender:
+                    <br/>
+                    <span className="bold">Display Name:
                     </span>
-                    <div className="chbx">
-                      <input type="radio" name="gender" value="male"/>
-                      Male<br/>
-                    <input type="radio" name="gender" value="female"/>
-                    Female<br/>
-                  <input type="radio" name="gender" value="other"/>
-                  Other
+                    <span>{this.state.user.username}</span>
+                      <div className="toggle"></div>
+                      <h1>{this.state.toggleGender}</h1>
+                      {this.state.toggleGender
+                        ? <div>
+                        <button onClick={this.togglegen.bind(this)} type="button" className="set-btn">
+                          <span className="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <span className="bold">Gender:
+                        </span>
+                        <div className="chbx">
+                          <input type="radio" name="gender" value="male"/>
+                          Male<br/>
+                        <input type="radio" name="gender" value="female"/>
+                        Female<br/>
+                      <input type="radio" name="gender" value="other"/>
+                      Other
+                    </div>
+                  </div>
+                  : <div>
+                  <button onClick={this.togglegen.bind(this)} type="button" className="set-btn">
+                    <span className="glyphicon glyphicon-chevron-right"></span>
+                  </button>
+                  <span className="bold">Gender:
+                  </span>
                 </div>
+              }
+              <h1>{this.state.toggleEmailSet}</h1>
+              {this.state.toggleEmailSet
+                ? <div>
+                <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
+                  <span className="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                <span className="bold">
+                  Email Settings:</span>
+                <div className="col-md-12 chbx">
+                  {(this.state.emailset === 1) ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="" defaultChecked onClick={(e) => this.handleEmail(e)}/> Subscribed</div>
+                : <div><input id="subscribed" type="checkbox" name="Subscribed" value="" onClick={(e) => this.handleEmail(e)}/>
+                   Subscribed</div>
+                  }
               </div>
-              : <div>
-              <button onClick={this.togglegen.bind(this)} type="button" className="set-btn">
-                <span className="glyphicon glyphicon-chevron-right"></span>
-              </button>
-              <span className="bold">Gender:
-              </span>
             </div>
-          }
-
-          <h1>{this.state.toggleEmailSet}</h1>
-          {this.state.toggleEmailSet
-            ? <div>
+            : <div>
             <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
-              <span className="glyphicon glyphicon-chevron-down"></span>
+              <span className="glyphicon glyphicon-chevron-right"></span>
             </button>
             <span className="bold">
               Email Settings:</span>
-            <div className="col-md-12 chbx">
-              {(this.state.emailset === 1) ? <div><input id="subscribed" type="checkbox" name="Subscribed" value="" defaultChecked onClick={(e) => this.handleEmail(e)}/> Subscribed</div>
-            : <div><input id="subscribed" type="checkbox" name="Subscribed" value="" onClick={(e) => this.handleEmail(e)}/>
-               Subscribed</div>
-              }
+          </div>
+        }
+        <div className="toggle"></div>
+        <h1>{this.state.toggleBlocked}</h1>
+        {this.state.toggleBlocked
+          ? <div>
+          <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
+            <span className="glyphicon glyphicon-chevron-down"></span>
+          </button>
+          <span className="bold">Blocked:
+          </span>
+          <div className="col-md-12 ybmove">
+            <button type="button" className="set-btn">
+              <span className="glyphicon glyphicon-minus"></span>
+            </button>{this.state.user.blocked}<br />
+            <button type="button" className="set-btn">
+              <span className="glyphicon glyphicon-plus"></span>
+            </button>
           </div>
         </div>
         : <div>
-        <button onClick={this.toggleEmSet.bind(this)} type="button" className="set-btn">
+        <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
           <span className="glyphicon glyphicon-chevron-right"></span>
         </button>
         <span className="bold">
-          Email Settings:</span>
+          Blocked:
+        </span>
       </div>
     }
-    <div className="toggle"></div>
-    <h1>{this.state.toggleBlocked}</h1>
-    {this.state.toggleBlocked
-      ? <div>
-      <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-        <span className="glyphicon glyphicon-chevron-down"></span>
-      </button>
-      <span className="bold">Blocked:
-      </span>
-      <div className="col-md-12 ybmove">
-        <button type="button" className="set-btn">
-          <span className="glyphicon glyphicon-minus"></span>
-        </button>{this.state.user.blocked}<br />
-        <button type="button" className="set-btn">
-          <span className="glyphicon glyphicon-plus"></span>
-        </button>
+
+    <div className="row">
+      <div className="col-md-3 "></div>
+      <div className="col-md-9">
+        <button onClick={(e) => this.handleDeactivate(e)} type="button" className="btn btn-primary pull-right deactivate">Deactivate</button>
       </div>
     </div>
-    : <div>
-    <button onClick={this.toggleBlock.bind(this)} type="button" className="set-btn">
-      <span className="glyphicon glyphicon-chevron-right"></span>
-    </button>
-    <span className="bold">
-      Blocked:
-    </span>
-  </div>
-}
+                  </div>
+                  <div className="col-md-1">
+                  <i type="button" className="fa fa-pencil-square-o small "></i>
+                  <br />
+                  <i type="button" className="fa fa-pencil-square-o small "></i>
+                  <br />
+                  <i type="button" className="fa fa-pencil-square-o small "></i>
+                  </div>
 
-<div className="row">
-  <div className="col-md-3 "></div>
-  <div className="col-md-9">
-    <button onClick={(e) => this.handleDeactivate(e)} type="button" className="btn btn-primary pull-right deactivate">Deactivate</button>
-  </div>
-</div>
 </div>
 </div>
 </div>
