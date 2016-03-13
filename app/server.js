@@ -244,7 +244,7 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
 
   export function getUserData(userId, cb){
       var user =  readDocument('users', userId);
-      user.blockedUsers.map(getBlockedUserSync);
+      user.blockedUsers = user.blockedUsers.map(getBlockedUserSync);
       var userData = {
           user : user
       };
