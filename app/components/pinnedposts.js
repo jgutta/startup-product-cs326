@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import { getPinnedPostsData } from '../server';
+import { getPinnedPostsData, deletePinnedPost } from '../server';
 
 export default class PinnedPosts extends React.Component {
   constructor(props) {
@@ -27,7 +27,21 @@ export default class PinnedPosts extends React.Component {
     });
   }
 
+  handleUnSub(e, id) {
+    e.preventDefault();
+    deletePinnedPost(this.state._id, id, () => {
+      this.refresh();
+    });
+  }
+
+  refresh() {
+    getPinnedPostsData(this.props.user, (pinnedPostsData) => {
+      this.setState(pinnedPostsData);
+    });
+  }
+
   render() {
+
     return (
       <div className="panel panel-default content-panel">
         <div className="panel-heading">
@@ -39,6 +53,7 @@ export default class PinnedPosts extends React.Component {
                return (
                  <li className="list-group-item" key={thread._id}>
                    <Link to={"/threads/" + thread._id}>{thread.originalPost.title}</Link>
+                   <i className="fa fa-minus-circle pull-right" onClick={(e) => this.handleUnSub(e, thread._id)} />
                  </li>
                );
              })}
