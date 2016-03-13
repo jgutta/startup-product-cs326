@@ -134,11 +134,11 @@ export default class AccountSettings extends React.Component {
   }
   handleEmailSet(e) {
     e.preventDefault();
-    !document.getElementById('subscribed').check;
-    if (this.state.emailset === 1) {
-      this.setState({emailset: 2})
+    console.log(this.state.emailset);
+    if (document.getElementById('subscribed').check) {
+      this.setState({emailset: "checked"})
     } else {
-      this.setState({emailset: 1})
+      this.setState({emailset: "unChecked"})
     }
 
     updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blocked, this.state.email, this.state.emailset, this.state.image, () => {
@@ -159,21 +159,17 @@ export default class AccountSettings extends React.Component {
                 <input type="file" className="pull-left browsePic" accept="image/jpeg, image/png" name="image" onChange={(e) => this.handleImageChange(e)}></input>
               </div>
               <div className="col-md-8">
-                <div className="col-md-1">
-                <i type="button" className="fa fa-pencil-square-o clr"></i>
-                <br />
-                <i type="button" className="fa fa-pencil-square-o clr"></i>
-                <br />
-                <i type="button" className="fa fa-pencil-square-o clr"></i>
-                </div>
-                <div className="col-md-7">
 
+
+                <i type="button" className="fa fa-pencil-square-o clr"></i>
                 <span className="bold addgap">Email:</span>{this.state.user.email}
                   <br/>
                   <span className="bold addgap">
+                  <i type="button" className="fa fa-pencil-square-o clr"></i>
                     Password:</span>
                   <span>{this.handlePassLength()}</span>
                   <br/>
+                  <i type="button" className="fa fa-pencil-square-o clr"></i>
                   <span className="bold">Display Name:
                   </span>
                   <span>{this.state.user.username}</span>
@@ -256,7 +252,7 @@ export default class AccountSettings extends React.Component {
 </div>
 }
 
-</div>
+
 </div>
 <div className="row">
   <div className="col-md-3 "></div>
