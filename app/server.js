@@ -55,12 +55,20 @@ export function getBoardInfo(boardId, cb){
 export function getPinnedPostsData(user, cb) {
   var userData = readDocument('users', user);
   var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
-
   pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
-
   emulateServerReturn(pinnedPostsData, cb);
 }
 
+export function deletePinnedPost(pin, thread, cb){
+  var pinnedPostsData = readDocument('pinnedPosts', pin);
+  var index = getIndex(pinnedPostsData.contents, thread);
+  pinnedPostsData.contents.splice(index, 1);
+
+  writeDocument('pinnedPosts', pinnedPostsData);
+
+  emulateServerReturn(pinnedPostsData, cb);
+
+}
 
 function getBoardSync(boardId) {
   var board = readDocument('boards', boardId);
@@ -81,7 +89,6 @@ export function getSubscribedBoardsData(user, cb) {
     contents: []
   };
   subscribedBoardsData.contents = userData.subscribedBoards.map(getBoardSync);
-
   emulateServerReturn(subscribedBoardsData, cb);
 }
 
