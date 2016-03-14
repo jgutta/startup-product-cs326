@@ -196,30 +196,7 @@ var initialData = {
         'description': 'Hackathon friday at the Campus Center. Come hack!'
       },
 
-      'replies': [
-        {
-          'author': 6,
-          'postDate': 1456869201,
-          'contents': "I can't wait! Does anyone have any ideas of what they're going to do?",
-
-          'replies': [
-            {
-              'author': 4,
-              'postDate': 1456871392,
-              'contents': "Yeah, I was thinking of doing something involving a FitBit. PM me if you're interested.",
-
-              'replies': []
-            }
-          ]
-        },
-        {
-          'author': 3,
-          'postDate': 1456878392,
-          'contents': 'lol nerds',
-
-          'replies': []
-        }
-      ]
+      'replies': [ 1, 3 ]
     },
     '2': {
       '_id': 2,
@@ -273,6 +250,30 @@ var initialData = {
         'description': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
       },
 
+      'replies': []
+    }
+  },
+
+  'replies': {
+    '1': {
+      '_id': 1,
+      'author': 6,
+      'postDate': 1456869201,
+      'contents': "I can't wait! Does anyone have any ideas of what they're going to do?",
+      'replies': [ 2 ]
+    },
+    '2': {
+      '_id': 2,
+      'author': 4,
+      'postDate': 1456871392,
+      'contents': "Yeah, I was thinking of doing something involving a FitBit. PM me if you're interested.",
+      'replies': []
+    },
+    '3': {
+      '_id': 3,
+      'author': 3,
+      'postDate': 1456878392,
+      'contents': 'lol nerds',
       'replies': []
     }
   },
