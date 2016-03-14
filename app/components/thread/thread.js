@@ -18,6 +18,20 @@ export default class Thread extends React.Component {
     });
   }
 
+  commas(array) {
+    var str = '';
+    for(var i = 0; i < array.length; i++) {
+      if(i != array.length - 1) {
+        str = str + array[i].name + ', ';
+      }
+      else {
+        str = str + array[i].name;
+      }
+    }
+
+    return(str);
+  }
+
   render() {
     if(!this.state.contents){
       return (
@@ -25,8 +39,9 @@ export default class Thread extends React.Component {
       )
     }
 
+    var thread = this.state.contents
     return (
-      <MainContent title= {this.state.contents.originalPost.title} >
+      <MainContent title={thread.originalPost.title} info={this.commas(thread.boards)} >
         
       </MainContent>
     )

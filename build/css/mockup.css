@@ -95,6 +95,10 @@ body {
   margin-top: 0;
   margin-bottom: 0;
 }
+.content-info {
+  margin-top: .125em;
+  font-size: .875em;
+}
 .content-title-separator {
   border-top: 3px double #62a4a4;
   margin-top: 10px;
