@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { } from '../../server';
+import { getFullThreadData } from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -13,7 +13,9 @@ export default class Thread extends React.Component {
   }
 
   componentDidMount() {
-
+    getFullThreadData(this.props.params.id, (threadData) => {
+      this.setState(threadData);
+    });
   }
 
   render() {

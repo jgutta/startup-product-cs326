@@ -24,17 +24,12 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
-function getRepliesSynch(replies){
-  var rep = readDocument('replies', replies);
-  return rep;
-}
-
-export function getRepliesData(rep, cb){
-  var replies = getRepliesSynch(rep);
-  var replyData = {
-    contents : replies
+export function getFullThreadData(threadId, cb) {
+  var thread = readDocument('threads', threadId);
+  var threadData = {
+    contents: thread
   };
-  emulateServerReturn(replyData, cb);
+  emulateServerReturn(threadData, cb);
 }
 
 export function getFeedData(user, cb) {
