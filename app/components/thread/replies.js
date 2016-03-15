@@ -11,10 +11,16 @@ export default class Replies extends React.Component {
            return (
              <li className="media" key={reply._id}>
                <div className="media-left">
-                 <img className="media-object" src={reply.authorImage} />
+                 <img className="media-object img-rounded" src={reply.authorImage} />
                </div>
                <div className="media-body">
-                 <div>{reply.contents}</div>
+                 {reply.contents}
+
+                 <hr />
+
+                 <p className="reply-data">
+                   Posted by {reply.authorUsername} on {unixTimeToString(reply.postDate)}
+                 </p>
 
                  <Replies data={reply.replies} />
                </div>

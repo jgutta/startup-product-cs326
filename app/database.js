@@ -287,7 +287,7 @@ var initialData = {
       '_id': 5,
       'author': 5,
       'postDate': 1458016441928,
-      'contents': "I really wan't to do something with an oculus rift.",
+      'contents': 'I really want to do something with an oculus rift.',
       'replies': []
     }
   },

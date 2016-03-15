@@ -17,7 +17,7 @@
   bottom: 0;
   left: 0;
 }
-.thread-data > hr {
+.original-post hr {
   border-color: lightgray;
 }
 .thread-data > div {
@@ -33,13 +33,20 @@
   width: 32px;
   height: 32px;
 }
-.reply-list > .media > .media-body > div {
-  min-height: 32px;
-}
 .reply-list > .media {
   border: 1px solid #aaa;
   border-radius: 5px;
   padding: 10px;
+}
+.reply-list hr {
+  border-color: lightgray;
+  margin-bottom: 0;
+}
+.reply-data {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: gray;
+  font-size: .85em;
 }
 
 .replyF {
