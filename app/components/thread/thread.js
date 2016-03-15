@@ -12,10 +12,18 @@ export default class Thread extends React.Component {
      };
   }
 
-  componentDidMount() {
-    getFullThreadData(this.props.params.id, (threadData) => {
+  refresh(props) {
+    getFullThreadData(props.params.id, (threadData) => {
       this.setState(threadData);
     });
+  }
+
+  componentDidMount() {
+    this.refresh(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.refresh(nextProps);
   }
 
   commas(array) {
@@ -42,7 +50,26 @@ export default class Thread extends React.Component {
     var thread = this.state.contents
     return (
       <MainContent title={thread.originalPost.title} info={this.commas(thread.boards)} >
-        
+        <div className="media original-post">
+          <div className="media-left">
+            <img className="media-object" src={thread.originalPost.img} />
+          </div>
+          <div className="media-body">
+            {thread.originalPost.description}
+
+            <div className="thread-data">
+              <hr />
+
+              <div className="col-sm-6">
+                Posted by {thread.originalPost.authorUsername} on {unixTimeToString(thread.originalPost.postDate)}
+              </div>
+              <div className="col-sm-6 thread-comment-count">
+                {thread.commentsNo} comments, {thread.viewsNo} views
+              </div>
+            </div>
+          </div>
+        </div>
+
       </MainContent>
     )
   }
