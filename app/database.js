@@ -29,22 +29,22 @@ var initialData = {
     '3': {
       '_id': 3,
       'username': 'cinemaloverno7',
-      'image': 'img/326-patrick.jpg'
+      'image': 'img/326-patrick.JPG'
     },
     '4': {
       '_id': 4,
       'username': 'guitarist78',
-      'image': 'img/326-spongebob.jpg'
+      'image': 'img/326-spongebob.JPG'
     },
     '5': {
       '_id': 5,
       'username': 'ilikemonopoly',
-      'image': 'img/default_profile_pic.png'
+      'image': 'img/326-thatkid.JPG'
     },
     '6': {
       '_id': 6,
       'username': 'pizzzzaparty666',
-      'image': 'img/326-cheeta.jpg'
+      'image': 'img/326-cheeta.JPG'
     },
     '7': {
       '_id': 7,
@@ -258,22 +258,36 @@ var initialData = {
     '1': {
       '_id': 1,
       'author': 6,
-      'postDate': 1456869201,
+      'postDate': 1456869201382,
       'contents': "I can't wait! Does anyone have any ideas of what they're going to do?",
-      'replies': [ 2 ]
+      'replies': [ 2, 5 ]
     },
     '2': {
       '_id': 2,
       'author': 4,
-      'postDate': 1456871392,
+      'postDate': 1456871392938,
       'contents': "Yeah, I was thinking of doing something involving a FitBit. PM me if you're interested.",
-      'replies': []
+      'replies': [ 4 ]
     },
     '3': {
       '_id': 3,
       'author': 3,
-      'postDate': 1456878392,
+      'postDate': 1456878392398,
       'contents': 'lol nerds',
+      'replies': []
+    },
+    '4': {
+      '_id': 4,
+      'author': 6,
+      'postDate': 1458016175839,
+      'contents': 'Sounds awesome! PM me?',
+      'replies': []
+    },
+    '5': {
+      '_id': 5,
+      'author': 5,
+      'postDate': 1458016441928,
+      'contents': "I really wan't to do something with an oculus rift.",
       'replies': []
     }
   },

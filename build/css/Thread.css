@@ -36,6 +36,11 @@
 .reply-list > .media > .media-body > div {
   min-height: 32px;
 }
+.reply-list > .media {
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 10px;
+}
 
 .replyF {
   margin-top: 20px;
