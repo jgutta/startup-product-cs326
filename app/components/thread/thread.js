@@ -72,6 +72,8 @@ export default class Thread extends React.Component {
 
         <hr className="content-title-separator" />
 
+        <Replies data={thread.replies}/>
+
         <ul className="media-list">
 
           <li className="media">
