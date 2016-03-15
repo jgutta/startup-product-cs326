@@ -6,13 +6,23 @@ export default class Replies extends React.Component {
     var data = this.props.data;
 
     return(
-      <div>
+      <ul className="media-list reply-list">
         {data.map((reply) => {
            return (
-             <Replies key={reply._id} data={reply.replies} />
+             <li className="media" key={reply._id}>
+               <div className="media-left">
+                 {/* <img className="media-object" src={reply.authorImage} /> */}
+                 <img className="media-object" src="img/default.png" />
+               </div>
+               <div className="media-body">
+                 <div>{reply.contents}</div>
+
+                 <Replies data={reply.replies} />
+               </div>
+             </li>
            );
          })}
-      </div>
+      </ul>
     )
   }
 }

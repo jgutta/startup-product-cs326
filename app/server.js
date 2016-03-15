@@ -26,7 +26,13 @@ export function getThreadData(threadId, cb){
 
 function getReplySync(replyId) {
   var reply = readDocument('replies', replyId);
+
+  var user = readDocument('users', reply.author);
+  reply.authorUsername = user.username;
+  reply.authorImage = user.image;
+
   reply.replies = reply.replies.map(getReplySync);
+
   return reply;
 }
 

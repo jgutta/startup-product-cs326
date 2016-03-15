@@ -29,6 +29,14 @@
   text-align: right;
 }
 
+.reply-list > .media > .media-left > .media-object {
+  width: 32px;
+  height: 32px;
+}
+.reply-list > .media > .media-body > div {
+  min-height: 32px;
+}
+
 .replyF {
   margin-top: 20px;
 
