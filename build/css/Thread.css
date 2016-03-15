@@ -34,9 +34,8 @@
   height: 32px;
 }
 .reply-list > .media {
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  padding: 10px;
+  padding: 0;
+  padding-top: 10px;
 }
 .reply-list hr {
   border-color: lightgray;
