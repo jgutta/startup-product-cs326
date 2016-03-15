@@ -24,6 +24,17 @@
   text-align: right;
 }
 
+.reply-box {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px;
+  width: 40%;
+}
+.submit-btn {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
 .reply-list {
   margin-top: 5px;
 }
