@@ -49,7 +49,7 @@ var initialData = {
     '7': {
       '_id': 7,
       'username': 'concertrocker\\m/',
-      'image': 'img/default_profile_pic.png'
+      'image': 'img/326-tmnt.JPG'
     },
     '8':{
         '_id': 8,
@@ -182,7 +182,7 @@ var initialData = {
     '1': {
       '_id': 1,
       'boards': [ 1, 4 ],
-      'commentsNo': 3,
+      'commentsNo': 8,
       'viewsNo': 10,
 
 
@@ -196,7 +196,7 @@ var initialData = {
         'description': 'Hackathon friday at the Campus Center. Come hack!'
       },
 
-      'replies': [ 1, 3 ]
+      'replies': [ 1, 3, 6 ]
     },
     '2': {
       '_id': 2,
@@ -280,7 +280,7 @@ var initialData = {
       '_id': 4,
       'author': 6,
       'postDate': 1458016175839,
-      'contents': 'Sounds awesome! PM me?',
+      'contents': 'Sounds awesome!',
       'replies': []
     },
     '5': {
@@ -288,6 +288,27 @@ var initialData = {
       'author': 5,
       'postDate': 1458016441928,
       'contents': 'I really want to do something with an oculus rift.',
+      'replies': []
+    },
+    '6': {
+      '_id': 6,
+      'author': 7,
+      'postDate': 1458055210397,
+      'contents': "Can someone post the hackathon website? What's the deadline for signing up? What are these things like, I've never been to one before.",
+      'replies': [ 7, 8 ]
+    },
+    '7': {
+      '_id': 7,
+      'author': 1,
+      'postDate': 1458056664561,
+      'contents': 'The website is hackumass.com',
+      'replies': []
+    },
+    '8': {
+      '_id': 6,
+      'author': 5,
+      'postDate': 1458072751982,
+      'contents': "They're awesome, man. I went to my first one last year at UMass. Do you need a team?",
       'replies': []
     }
   },
