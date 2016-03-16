@@ -2,6 +2,12 @@
   margin: 0 !important;
 }
 
+.conversation-img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
 .conversation {
   border: 1px solid #aaa;
   border-top: 0;

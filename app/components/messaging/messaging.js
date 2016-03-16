@@ -58,7 +58,10 @@ export default class Messaging extends React.Component {
             <TabList className="messaging-tab-list">
               {this.state.contents.map((conversation) => {
                  return (
-                   <Tab key={conversation._id}>{conversation.user}</Tab>
+                   <Tab key={conversation._id}>
+                     <img className="img-rounded conversation-img" src={conversation.user.image} />
+                     {conversation.user.username}
+                   </Tab>
                  );
                })}
             </TabList>

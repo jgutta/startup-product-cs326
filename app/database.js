@@ -29,12 +29,12 @@ var initialData = {
     '3': {
       '_id': 3,
       'username': 'cinemaloverno7',
-      'image': 'img/326-patrick.jpg'
+      'image': 'img/326-patrick.JPG'
     },
     '4': {
       '_id': 4,
       'username': 'guitarist78',
-      'image': 'img/326-spongebob.jpg'
+      'image': 'img/326-spongebob.JPG'
     },
     '5': {
       '_id': 5,
@@ -44,7 +44,7 @@ var initialData = {
     '6': {
       '_id': 6,
       'username': 'pizzzzaparty666',
-      'image': 'img/326-cheeta.jpg'
+      'image': 'img/326-cheeta.JPG'
     },
     '7': {
       '_id': 7,

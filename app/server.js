@@ -142,7 +142,7 @@ function getConversationSync(user, conversationId) {
       conversation.users.splice(i, 1);
     }
   }
-  conversation.user = readDocument('users', conversation.users[0]).username;
+  conversation.user = readDocument('users', conversation.users[0]);
 
   return conversation;
 }
