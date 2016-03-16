@@ -74,7 +74,7 @@ export default class Thread extends React.Component {
 
         <textarea className="reply-box" rows="3" placeholder={'Reply to ' + thread.originalPost.title} />
         <br />
-        <button type="button" className="btn btn-default submit-btn">Submit</button>
+        <button type="button" className="btn btn-primary submit-btn">Submit</button>
 
         <Replies data={thread.replies}/>
       </MainContent>
