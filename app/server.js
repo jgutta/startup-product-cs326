@@ -147,12 +147,23 @@ function getConversationSync(user, conversationId) {
   return conversation;
 }
 
+function compareConversations(convA, convB) {
+  // If there are no messages in the conversation, set the time of that conversation to 0.
+  var timeA = convA.messages.length < 1 ? 0 : convA.messages[convA.messages.length - 1].postDate;
+  var timeB = convB.messages.length < 1 ? 0 : convB.messages[convB.messages.length - 1].postDate;
+
+  return timeB - timeA;
+}
+
 export function getConversationsData(user, cb) {
   var userData = readDocument('users', user);
+
   var conversationsData = {
     contents: []
   };
   conversationsData.contents = userData.conversations.map((conversation) => getConversationSync(user, conversation));
+
+  conversationsData.contents.sort(compareConversations);
 
   emulateServerReturn(conversationsData, cb);
 }

@@ -35,12 +35,19 @@ export default class Messaging extends React.Component {
     });
   }
 
-  compareConversations(convA, convB) {
-    // If there are no messages in the conversation, set the time of that conversation to 0.
-    var timeA = convA.messages.length < 1 ? 0 : convA.messages[convA.messages.length - 1].postDate;
-    var timeB = convB.messages.length < 1 ? 0 : convB.messages[convB.messages.length - 1].postDate;
 
-    return timeB - timeA;
+  dropdownHandler(e, i, maxConversations) {
+    e.preventDefault();
+
+    var contents = this.state.contents;
+    var conversation = contents[i + maxConversations];
+    contents.splice(i + maxConversations, 1);
+    contents.unshift(conversation);
+
+    var conversationsData = {
+      contents: contents
+    };
+    this.setState(conversationsData);
   }
 
   render() {
@@ -50,8 +57,6 @@ export default class Messaging extends React.Component {
       )
     }
     else {
-      this.state.contents.sort(this.compareConversations);
-
       var maxConversations = 5;
       var conversations = this.state.contents;
       var leftovers;
@@ -80,9 +85,13 @@ export default class Messaging extends React.Component {
                         <span className="caret"></span>
                       </button>
                       <ul className="dropdown-menu">
-                        {leftovers.map((conversation) => {
+                        {leftovers.map((conversation, i) => {
                            return (
-                             <li key={conversation._id}><a href="#">{conversation.user.username}</a></li>
+                             <li key={conversation._id}>
+                               <a href="#" onClick={(e) => this.dropdownHandler(e, i, maxConversations)}>
+                                 {conversation.user.username}
+                               </a>
+                             </li>
                            );
                          })}
                       </ul>
