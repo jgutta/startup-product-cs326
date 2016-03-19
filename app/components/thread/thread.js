@@ -19,16 +19,15 @@ export default class Thread extends React.Component {
       this.setState(threadData);
       this.setState({contents: threadData});
     });
+
+    window.scrollTo(0, 0);
   }
 
   componentDidMount() {
     this.refresh();
   }
   componentWillReceiveProps(nextProps){
-    getThreadData(nextProps.params.id, (threadData) => {
-      this.setState(threadData);
-      this.setState({contents: threadData});
-  });
+    this.refresh();
 }
   checkOptionalInfo(){
     var op = this.state.contents.originalPost;

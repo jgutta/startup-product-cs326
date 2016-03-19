@@ -18,17 +18,19 @@ export default class Board extends React.Component {
       //console.log(boardData.threads[0])
       boardData.threads = boardData.threads.reverse();
       this.setState(boardData);
-      this.setState({contents: boardData.threads})
-
+      this.setState({contents: boardData.threads});
   });
 
+    window.scrollTo(0, 0);
   }
   componentWillReceiveProps(nextProps){
     getBoardInfo(nextProps.params.id, (boardData) => {
       //console.log(boardData.threads[0])
       this.setState(boardData);
-      this.setState({contents: boardData.threads})
-  });
+      this.setState({contents: boardData.threads});
+    });
+
+    window.scrollTo(0, 0);
 }
 /*pinPost(userID,threadID){
   addPinnedPost(userID,threadID, (pinnedData) => {
