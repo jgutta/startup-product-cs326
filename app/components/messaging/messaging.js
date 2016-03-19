@@ -52,11 +52,19 @@ export default class Messaging extends React.Component {
     else {
       this.state.contents.sort(this.compareConversations);
 
+      var maxConversations = 5;
+      var conversations = this.state.contents;
+      var leftovers;
+      if (this.state.contents.length > maxConversations) {
+        conversations = this.state.contents.slice(0, maxConversations);
+        leftovers = this.state.contents.slice(maxConversations);
+      }
+
       return (
         <MainContent title="UBoard Messaging">
           <Tabs selectedIndex={0}>
             <TabList className="messaging-tab-list">
-              {this.state.contents.map((conversation) => {
+              {conversations.map((conversation) => {
                  return (
                    <Tab key={conversation._id}>
                      <img className="img-rounded conversation-img" src={conversation.user.image} />
@@ -64,9 +72,26 @@ export default class Messaging extends React.Component {
                    </Tab>
                  );
                })}
+
+                   {this.state.contents.length > maxConversations ?
+                    <span className="dropdown messaging-dropdown">
+                      <button className="btn btn-default dropdown-toggle messaging-dropdown-btn"
+                              type="button" data-toggle="dropdown">
+                        <span className="caret"></span>
+                      </button>
+                      <ul className="dropdown-menu">
+                        {leftovers.map((conversation) => {
+                           return (
+                             <li key={conversation._id}><a href="#">{conversation.user.username}</a></li>
+                           );
+                         })}
+                      </ul>
+                    </span>
+                    : <div />}
+
             </TabList>
 
-            {this.state.contents.map((conversation) => {
+            {conversations.map((conversation) => {
                return (
                  <TabPanel key={conversation._id}>
                    <Conversation data={conversation} user={this.props.user} conversationId={conversation._id} />

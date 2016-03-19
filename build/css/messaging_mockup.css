@@ -2,6 +2,11 @@
   margin: 0 !important;
 }
 
+.messaging-dropdown-btn {
+  margin-left: 5px;
+  border: 0;
+}
+
 .conversation-img {
   width: 24px;
   height: 24px;

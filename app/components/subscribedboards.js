@@ -112,10 +112,8 @@ export default class SubscribedBoards extends React.Component {
 
 
           <div className="dropdown">
-
             <button className={drop} type="button" id="addBoardsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Add Board
-              <span className="caret"></span>
+              Add Board <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="addBoardsMenu">
               {nosub.map((board) => {
