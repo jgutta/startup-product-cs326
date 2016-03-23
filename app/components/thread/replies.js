@@ -35,6 +35,7 @@ export default class Replies extends React.Component {
         <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
          <div className="row col-md-4 rep">
                     <center>
+                      console.log(childReplies[i].author);
                     <img src = {retrievePicFromId(childReplies[i].author)} width = "75%" />
                     <br />
                      <button type="replyBtn" className="btn btn-primary">
