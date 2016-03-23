@@ -1,6 +1,6 @@
 .original-post > .media-left > .media-object {
-  width: 112px;
-    height: 112px;
+  width: 130px;
+  height: 130px;
   }
   .original-post > .media-body {
     font-size: 1.1em;
@@ -9,11 +9,12 @@
   .reply-box {
    border: 1px solid #aaa;
     padding: 5px;
-    width: 40%;
+    width: 100%;
   }
  .submit-btn {
    padding: 5px;
    margin-bottom: 10px;
+   width: 200px;
  }
 
  .reply-list {

@@ -87,21 +87,19 @@ export default class Thread extends React.Component {
              <div className="thread-data">
                <hr />
 
-               <div className="col-sm-6">
+               <div >
                  Posted by {thread.originalPost.authorUsername} on {unixTimeToString(thread.originalPost.postDate)}
                </div>
-               <div className="col-sm-6 thread-comment-count">
-                 {thread.commentsNo} comments, {thread.viewsNo} views
-               </div>
+
              </div>
            </div>
          </div>
 
          <hr className="content-title-separator" />
 
-          <textarea className="reply-box" rows="3" placeholder={'Reply to ' + thread.originalPost.title} />
+          <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} />
           <br />
-        <button type="button" className="btn btn-primary submit-btn">Submit</button>
+        <button type="button" className="btn btn-primary submit-btn pull-right">Submit</button>
 
 
         </MainContent>
