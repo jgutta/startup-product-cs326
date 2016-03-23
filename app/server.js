@@ -42,19 +42,6 @@ export function getFullThreadData(threadId, cb) {
     emulateServerReturn(threadData, cb);
   }
 
-function getRepliesSynch(replies){
-  var rep = readDocument('replies', replies);
-  return rep;
-}
-
-export function getRepliesData(rep, cb){
-  var replies = getRepliesSynch(rep);
-  var replyData = {
-    contents : replies
-  };
-  emulateServerReturn(replyData, cb);
-}
-
 export function getFeedData(user, cb) {
   var userData = readDocument('users', user);
   var feedData = readDocument('feeds', userData.feed);
