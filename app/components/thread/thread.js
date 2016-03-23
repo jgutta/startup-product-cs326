@@ -74,19 +74,20 @@ export default class Thread extends React.Component {
         )
       }
 
+    var thread = this.state.contents;
     return (
-      <MainContent title= {this.state.contents.originalPost.title} >
+      <MainContent title= {thread.originalPost.title} >
         <div>
           <div className="panel-body">
             <div className="row col-md-4">
-            <img src={this.state.contents.originalPost.img} width="90%" />
+            <img src={thread.originalPost.img} width="90%" />
 
         </div>
         {this.checkOptionalInfo()}
 
         <div className = "main-content-body">
 
-          {this.state.contents.originalPost.description}
+          {thread.originalPost.description}
           <hr />
             <div className="footer">
               <div className="pull-left pl00f">
@@ -95,7 +96,7 @@ export default class Thread extends React.Component {
                 </button>
 
               </div>
-              Posted by <a href = "#"> {retrieveNameFromId(this.state.contents.originalPost.author)}</a>, on {unixTimeToString(this.state.contents.originalPost.postDate)}.
+              Posted by <a href = "#"> {retrieveNameFromId(thread.originalPost.author)}</a>, on {unixTimeToString(thread.originalPost.postDate)}.
               <br />
             </div>
             <div className="replyArea pull-right">
