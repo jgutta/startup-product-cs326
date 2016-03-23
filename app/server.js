@@ -24,6 +24,17 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
+export function getFullThreadData(threadId, cb) {
+   var thread = readDocument('threads', threadId);
+   var user = readDocument('users', thread.originalPost.author);
+   thread.originalPost.authorUsername = user.username;
+   thread.boards = thread.boards.map(getBoardSync);
+   var threadData = {
+     contents: thread
+   };
+    emulateServerReturn(threadData, cb);
+  }
+
 function getRepliesSynch(replies){
   var rep = readDocument('replies', replies);
   return rep;

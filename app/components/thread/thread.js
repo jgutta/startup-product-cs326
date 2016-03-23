@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../maincontent';
-import Replies from './replies';
+//import Replies from './replies';
 import { unixTimeToString } from '../../util';
 import { getThreadData, retrieveNameFromId, postReply} from '../../server';
 
@@ -9,8 +9,7 @@ export default class Thread extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      messageContentsValue: '',
-      replying: false
+      messageContentsValue: ''
      };
   }
 
@@ -111,13 +110,7 @@ export default class Thread extends React.Component {
               </button>
             </div>
         </div>
-        <div className = 'putRepliesHere'>
-          {this.state.contents.replies.map((reps, i) => {
-            return(
-              <Replies key={i} rKey={i} data={reps} currUser='tim.richards'  />
-            )
-          })}
-        </div>
+        //replies
       </div>
 
         </div>
@@ -125,3 +118,12 @@ export default class Thread extends React.Component {
     )
   }
 }
+/*
+<div className = 'putRepliesHere'>
+  {this.state.contents.replies.map((reps, i) => {
+    return(
+      <Replies key={i} rKey={i} data={reps} currUser='tim.richards'  />
+    )
+  })}
+</div>
+*/
