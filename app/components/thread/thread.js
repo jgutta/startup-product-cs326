@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 //import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { getThreadData, retrieveNameFromId, postReply} from '../../server';
+import { getFullThreadData, retrieveNameFromId, postReply} from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -13,26 +13,21 @@ export default class Thread extends React.Component {
      };
   }
 
-  refresh(){
-    getThreadData(this.props.params.id, (threadData) =>{
+  refresh(props){
+    getFullThreadData(props.params.id, (threadData) =>{
       this.setState(threadData);
       this.setState({contents: threadData});
     });
-
     window.scrollTo(0, 0);
   }
 
   componentDidMount() {
-    this.refresh();
+    this.refresh(this.props);
   }
   componentWillReceiveProps(nextProps){
-    getThreadData(nextProps.params.id, (threadData) => {
-      this.setState(threadData);
-      this.setState({contents: threadData});
-    });
-
-    window.scrollTo(0, 0);
+    this.refresh(nextProps);
 }
+
   checkOptionalInfo(){
     var op = this.state.contents.originalPost;
     if((op.date !== '') && (op.time !== '')){
