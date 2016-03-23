@@ -1,51 +1,33 @@
-.replyF {
-  margin-top: 20px;
+.original-post > .media-left > .media-object {
+  width: 112px;
+    height: 112px;
+  }
+  .original-post > .media-body {
+    font-size: 1.1em;
+  }
 
-}
-.replyC{
-  background-color: #f1f6f6;
-  padding-bottom: 15px;
-}
+  .reply-box {
+   border: 1px solid #aaa;
+    padding: 5px;
+    width: 40%;
+  }
+ .submit-btn {
+   padding: 5px;
+   margin-bottom: 10px;
+ }
 
-.reply img{
-  padding-top: 7px;
-}
-
-.rep img{
-  width: 75px;
-  height: 75px;
-}
-
-.replyArea{
-  background-color: #f1f6f6;
-}
-
-.replyArea button{
-  margin-bottom: 50px;
-  margin-right: 7px;
-}
-.replyArea textarea{
-  background-color: white;
-  padding-top: 15px;
-  margin-top: 50px;
-  width: 200px;
-  margin-right: 7px;
-}
-.reply .main-content-body{
-  padding-right: 1px;
-}
-
-.pl00f button{
-  margin-left: 25px;
-  margin-right: 25px;
-  width: 75px;
-}
-
-.rep button{
-  margin-top: 7px;
-  width: 75px;
-}
-
-hr{
-  margin: 7px;
-}
+ .reply-list {
+   margin-top: 5px;
+ }
+ .reply-list > .media > .media-left > .media-object {
+   width: 32px;
+   height: 32px;
+ }
+ .reply-list > .media {
+   padding: 0;
+   margin: 0;
+ }
+ .reply-list hr {
+   border-color: lightgray;
+   margin-bottom: 0;
+ }

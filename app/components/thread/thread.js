@@ -76,44 +76,40 @@ export default class Thread extends React.Component {
 
     var thread = this.state.contents;
     return (
-      <MainContent title= {thread.originalPost.title} >
-        <div>
-          <div className="panel-body">
-            <div className="row col-md-4">
-            <img src={thread.originalPost.img} width="90%" />
+      <MainContent title={thread.originalPost.title} >
+         <div className="media original-post">
+           <div className="media-left">
+             <img className="media-object" src={thread.originalPost.img} />
+           </div>
+           <div className="media-body">
+             {thread.originalPost.description}
 
-        </div>
-        {this.checkOptionalInfo()}
+             <div className="thread-data">
+               <hr />
 
-        <div className = "main-content-body">
+               <div className="col-sm-6">
+                 Posted by {thread.originalPost.authorUsername} on {unixTimeToString(thread.originalPost.postDate)}
+               </div>
+               <div className="col-sm-6 thread-comment-count">
+                 {thread.commentsNo} comments, {thread.viewsNo} views
+               </div>
+             </div>
+           </div>
+         </div>
 
-          {thread.originalPost.description}
-          <hr />
-            <div className="footer">
-              <div className="pull-left pl00f">
-                <button type="replyBtn" className="btn btn-primary" >
-                  <span> Reply </span>
-                </button>
+         <hr className="content-title-separator" />
 
-              </div>
-              Posted by <a href = "#"> {retrieveNameFromId(thread.originalPost.author)}</a>, on {unixTimeToString(thread.originalPost.postDate)}.
-              <br />
-            </div>
-            <div className="replyArea pull-right">
-            <textarea className="replyArea" rows={2} value={this.state.messageTitleValue} onChange={(e) => this.handleContentsChange(e)} />
-              <button type="replyBtn" className="btn btn-primary" onClick={(e) => this.handleReply(e)}>
-                Submit
-              </button>
-            </div>
-        </div>
-        //replies
-      </div>
+          <textarea className="reply-box" rows="3" placeholder={'Reply to ' + thread.originalPost.title} />
+          <br />
+        <button type="button" className="btn btn-primary submit-btn">Submit</button>
 
-        </div>
-      </MainContent>
+
+        </MainContent>
     )
   }
 }
+// <hr className="content-title-separator" />
+
 /*
 <div className = 'putRepliesHere'>
   {this.state.contents.replies.map((reps, i) => {
