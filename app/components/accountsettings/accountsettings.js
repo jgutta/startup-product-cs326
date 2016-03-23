@@ -103,27 +103,24 @@ export default class AccountSettings extends React.Component {
     }
   }
 
-  handleGen() {
-    var gen = this.state.gender
-    switch (gen) {
-      case(gen === 1):
-      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
+  handleGen1() {
+      updateUserData(this.props.user, this.state.username, 1, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
         this.getAgain();
       });
-        break;
-      case(gen === 2):
-      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
-        break;
-      case(gen === 3):
-      updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
-        this.getAgain();
-      });
-        break;
-
-    }
   }
+
+  handleGen2() {
+      updateUserData(this.props.user, this.state.username, 2, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
+        this.getAgain();
+      });
+  }
+  handleGen3() {
+      updateUserData(this.props.user, this.state.username, 3, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
+        this.getAgain();
+      });
+  }
+
+
 
   updateAll() {
     updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
@@ -283,15 +280,15 @@ export default class AccountSettings extends React.Component {
                       {this.handleGen}
                       <input type="radio" name="gender" value="1" id="genMale" checked = {this.state.gender == 1
                     ? "checked"
-                    : ""} onClick={(e) => this.handleGen(e)}/>
+                    : ""} onChange={(e) => this.handleGen1(e)}/>
                       Male<br/>
                     <input type="radio" name="gender" value="2" id="genFem" checked = {this.state.gender == 2
                     ? "checked"
-                    : ""} onClick={(e) => this.handleGen(e)}/>
+                    : ""} onChange={(e) => this.handleGen2(e)}/>
                       Female<br/>
                     <input type="radio" name="gender" value="3" id="genOth" checked = {this.state.gender == 3
                     ? "checked"
-                    : ""} onClick={(e) => this.handleGen(e)}/>
+                    : ""} onChange={(e) => this.handleGen3(e)}/>
                       Other
                     </div>
                   </div>
