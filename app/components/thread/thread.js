@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../maincontent';
-//import Replies from './replies';
+import Replies from './replies';
 import { unixTimeToString } from '../../util';
 import { getFullThreadData, retrieveNameFromId, postReply} from '../../server';
 
@@ -100,13 +100,15 @@ export default class Thread extends React.Component {
           <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} />
           <br />
         <button type="button" className="btn btn-primary submit-btn pull-right">Submit</button>
-
+        <br />
+        <br />
+        <Replies data={thread.replies}/>
 
         </MainContent>
     )
   }
 }
-// <hr className="content-title-separator" />
+//<Replies data={thread.replies}/>
 
 /*
 <div className = 'putRepliesHere'>

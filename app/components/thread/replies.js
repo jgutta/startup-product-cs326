@@ -7,7 +7,7 @@ export default class Replies extends React.Component {
     super(props);
     //console.log(this.props);
     this.state = {
-      
+
      };
     //console.log(this.state);
     //console.log(this.props.rKey);
@@ -57,41 +57,34 @@ export default class Replies extends React.Component {
     ) }
   }
 
-  render(){
-    //console.log(this.state);
-    return(
-      //!!have to eliminate "pull-right"
-        //I need to create custom indentation, but when do i hit bedrock?
-        <div>
-      <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
-       <div className="row col-md-4 rep">
-                  <center>
-                  <img src = {retrievePicFromId(this.props.data.author)} width = "75%" />
-                  <br />
-                   <button type="replyBtn" className="btn btn-primary">
-                    <span> Reply </span>
-                  </button></center>
-              </div>
+  render() {
+     var data = this.props.data;
 
-              <div className="col-md-8 title-head">
-                <h4><a href = "#"> {retrieveNameFromId(this.props.data.author)} </a>   <small> said: </small></h4>
+     return(
+       <ul className="media-list reply-list">
+         {data.map((reply) => {
+             return (
+               <li className="media" key={reply._id}>
+                 <div className="media-left">
+                  <img className="media-object img-rounded" src={reply.authorImage} />
+                 </div>
+                 <div className="media-body">
 
-              </div>
-              <br />
-              <br />
-              {this.props.data.contents}
-              <hr />
-               {unixTimeToString(this.props.data.postDate)}
-      </div>
+                  {reply.contents}
 
-      <div>
-        {this.getChildrenReplies()}
+                  <hr />
 
-      </div>
+                  <p className="reply-data">
+                    Posted by {reply.authorUsername} on {unixTimeToString(reply.postDate)}
+                  </p>
 
-      </div>
-
-    )
-  }
+                   <Replies data={reply.replies} />
+                 </div>
+              </li>
+            );
+          })}
+       </ul>
+     )
+   }
 
 }
