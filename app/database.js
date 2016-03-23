@@ -29,27 +29,27 @@ var initialData = {
     '3': {
       '_id': 3,
       'username': 'cinemaloverno7',
-      'image': 'img/326-patrick.jpg'
+      'image': 'img/326-patrick.JPG'
     },
     '4': {
       '_id': 4,
       'username': 'guitarist78',
-      'image': 'img/326-spongebob.jpg'
+      'image': 'img/326-spongebob.JPG'
     },
     '5': {
       '_id': 5,
       'username': 'ilikemonopoly',
-      'image': 'img/default_profile_pic.png'
+      'image': 'img/326-thatkid.JPG'
     },
     '6': {
       '_id': 6,
       'username': 'pizzzzaparty666',
-      'image': 'img/326-cheeta.jpg'
+      'image': 'img/326-cheeta.JPG'
     },
     '7': {
       '_id': 7,
       'username': 'concertrocker\\m/',
-      'image': 'img/default_profile_pic.png'
+      'image': 'img/326-tmnt.JPG'
     },
     '8':{
         '_id': 8,
@@ -182,7 +182,7 @@ var initialData = {
     '1': {
       '_id': 1,
       'boards': [ 1, 4 ],
-      'commentsNo': 3,
+      'commentsNo': 8,
       'viewsNo': 10,
 
 
@@ -196,30 +196,7 @@ var initialData = {
         'description': 'Hackathon friday at the Campus Center. Come hack!'
       },
 
-      'replies': [
-        {
-          'author': 6,
-          'postDate': 1456869201,
-          'contents': "I can't wait! Does anyone have any ideas of what they're going to do?",
-
-          'replies': [
-            {
-              'author': 4,
-              'postDate': 1456871392,
-              'contents': "Yeah, I was thinking of doing something involving a FitBit. PM me if you're interested.",
-
-              'replies': []
-            }
-          ]
-        },
-        {
-          'author': 3,
-          'postDate': 1456878392,
-          'contents': 'lol nerds',
-
-          'replies': []
-        }
-      ]
+      'replies': [ 1, 3, 6 ]
     },
     '2': {
       '_id': 2,
@@ -273,6 +250,65 @@ var initialData = {
         'description': 'Drummer looking for someone to jam with. I like classic rock and jazz fusion.'
       },
 
+      'replies': []
+    }
+  },
+
+  'replies': {
+    '1': {
+      '_id': 1,
+      'author': 6,
+      'postDate': 1456869201382,
+      'contents': "I can't wait! Does anyone have any ideas of what they're going to do?",
+      'replies': [ 2, 5 ]
+    },
+    '2': {
+      '_id': 2,
+      'author': 4,
+      'postDate': 1456871392938,
+      'contents': "Yeah, I was thinking of doing something involving a FitBit. PM me if you're interested.",
+      'replies': [ 4 ]
+    },
+    '3': {
+      '_id': 3,
+      'author': 3,
+      'postDate': 1456878392398,
+      'contents': 'lol nerds',
+      'replies': []
+    },
+    '4': {
+      '_id': 4,
+      'author': 6,
+      'postDate': 1458016175839,
+      'contents': 'Sounds awesome!',
+      'replies': []
+    },
+    '5': {
+      '_id': 5,
+      'author': 5,
+      'postDate': 1458016441928,
+      'contents': 'I really want to do something with an oculus rift.',
+      'replies': []
+    },
+    '6': {
+      '_id': 6,
+      'author': 7,
+      'postDate': 1458055210397,
+      'contents': "Can someone post the hackathon website? What's the deadline for signing up? What are these things like, I've never been to one before.",
+      'replies': [ 7, 8 ]
+    },
+    '7': {
+      '_id': 7,
+      'author': 1,
+      'postDate': 1458056664561,
+      'contents': 'The website is hackumass.com',
+      'replies': []
+    },
+    '8': {
+      '_id': 6,
+      'author': 5,
+      'postDate': 1458072751982,
+      'contents': "They're awesome, man. I went to my first one last year at UMass. Do you need a team?",
       'replies': []
     }
   },

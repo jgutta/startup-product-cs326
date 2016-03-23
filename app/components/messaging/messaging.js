@@ -35,12 +35,19 @@ export default class Messaging extends React.Component {
     });
   }
 
-  compareConversations(convA, convB) {
-    // If there are no messages in the conversation, set the time of that conversation to 0.
-    var timeA = convA.messages.length < 1 ? 0 : convA.messages[convA.messages.length - 1].postDate;
-    var timeB = convB.messages.length < 1 ? 0 : convB.messages[convB.messages.length - 1].postDate;
 
-    return timeB - timeA;
+  dropdownHandler(e, i, maxConversations) {
+    e.preventDefault();
+
+    var contents = this.state.contents;
+    var conversation = contents[i + maxConversations];
+    contents.splice(i + maxConversations, 1);
+    contents.unshift(conversation);
+
+    var conversationsData = {
+      contents: contents
+    };
+    this.setState(conversationsData);
   }
 
   render() {
@@ -50,20 +57,50 @@ export default class Messaging extends React.Component {
       )
     }
     else {
-      this.state.contents.sort(this.compareConversations);
+      var maxConversations = 5;
+      var conversations = this.state.contents;
+      var leftovers;
+      if (this.state.contents.length > maxConversations) {
+        conversations = this.state.contents.slice(0, maxConversations);
+        leftovers = this.state.contents.slice(maxConversations);
+      }
 
       return (
         <MainContent title="UBoard Messaging">
           <Tabs selectedIndex={0}>
             <TabList className="messaging-tab-list">
-              {this.state.contents.map((conversation) => {
+              {conversations.map((conversation) => {
                  return (
-                   <Tab key={conversation._id}>{conversation.user}</Tab>
+                   <Tab key={conversation._id}>
+                     <img className="img-rounded conversation-img" src={conversation.user.image} />
+                     {conversation.user.username}
+                   </Tab>
                  );
                })}
+
+                   {this.state.contents.length > maxConversations ?
+                    <span className="dropdown messaging-dropdown">
+                      <button className="btn btn-default dropdown-toggle messaging-dropdown-btn"
+                              type="button" data-toggle="dropdown">
+                        <span className="caret"></span>
+                      </button>
+                      <ul className="dropdown-menu">
+                        {leftovers.map((conversation, i) => {
+                           return (
+                             <li key={conversation._id}>
+                               <a href="#" onClick={(e) => this.dropdownHandler(e, i, maxConversations)}>
+                                 {conversation.user.username}
+                               </a>
+                             </li>
+                           );
+                         })}
+                      </ul>
+                    </span>
+                    : <div />}
+
             </TabList>
 
-            {this.state.contents.map((conversation) => {
+            {conversations.map((conversation) => {
                return (
                  <TabPanel key={conversation._id}>
                    <Conversation data={conversation} user={this.props.user} conversationId={conversation._id} />
