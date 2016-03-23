@@ -39,7 +39,7 @@ export default class AccountSettings extends React.Component {
         blockedUsers: userData.user.blockedUsers
       });
     });
-    this.setState({temp: ''});
+    this.setState({editEmail: false});
   }
 
   componentDidMount() {
@@ -138,7 +138,9 @@ export default class AccountSettings extends React.Component {
   }
 
   handleKeyUpEmail(e) {
+  console.log("keyupemail");
     if (e.key === 'Enter') {
+        console.log("I hit eneter");
       var email = this.state.email.trim();
       if (email !== "") {
         updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
@@ -367,7 +369,8 @@ export default class AccountSettings extends React.Component {
                     <span className="bold">
                       Blocked:
                     </span>
-                  </div>}
+                  </div>
+                }
 
             </div>
             <div className="row">
