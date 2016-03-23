@@ -82,6 +82,8 @@ export default class Thread extends React.Component {
              <img className="media-object" src={thread.originalPost.img} />
            </div>
            <div className="media-body">
+
+            {this.checkOptionalInfo()}
              {thread.originalPost.description}
 
              <div className="thread-data">
