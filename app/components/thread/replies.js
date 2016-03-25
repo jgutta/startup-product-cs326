@@ -14,12 +14,17 @@ export default class Replies extends React.Component {
     //console.log(this.props.data);
   }
 
-  componentDidMount() {
-    getRepliesData(this.props.rKey, (replyData) => {
-      this.setState(replyData);
-      this.setState({contents: replyData})
-    } );
+  refresh() {
+    //this is the problem
+    getRepliesData();
   }
+
+  componentDidMount() {
+    this.refresh(this.props);
+  }
+  componentWillReceiveProps(nextProps){
+    this.refresh(nextProps);
+}
 
   //Write a function that recrsively retrieves children info and creates boxes for each
   getChildrenReplies() {

@@ -24,6 +24,14 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
+export function getRepliesData(replyId, cb){
+  var reply = readDocument('replies', replyId);
+  var replyData = {
+    contents : reply
+  }
+  emulateServerReturn(replyData, cb);
+}
+
 function getReplySync(replyId) {
     var reply = readDocument('replies', replyId);
 
