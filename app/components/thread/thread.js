@@ -99,7 +99,8 @@ export default class Thread extends React.Component {
 
          <hr className="content-title-separator" />
 
-          <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} />
+          <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} onChange={(e) => this.handleContentsChange(e)} />
+
           <br />
         <button type="button" className="btn btn-primary submit-btn pull-right">Submit</button>
         <br />

@@ -198,17 +198,20 @@ export function postMessage(conversationId, author, title, contents, cb) {
 
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
-
+//fix this patrick you fucking tard
 export function postReply(threadId, author, contents, cb){
   var thread = readDocument('threads', threadId);
-  thread.replies.push({
+  var rep = {
     'author': author,
     'postDate': new Date().getTime(),
     'contents': contents,
     'replies': []
-  });
-  writeDocument('threads', thread);
-  emulateServerReturn(getThreadSync(author, threadId), cb);
+  }
+  addDocument('replies', rep);
+  //push current replyId to thread.replies
+  thread.replies.push(rep._id);
+  //emulateServerReturn
+  emulateServerReturn(getReplySync(rep._id), cb);
 }
 
 export function getSearchData(cb) {
