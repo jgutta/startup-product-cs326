@@ -198,7 +198,7 @@ export function postMessage(conversationId, author, title, contents, cb) {
 
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
-//fix this patrick you fucking tard
+//!!!
 export function postReply(threadId, author, contents, cb){
   var thread = readDocument('threads', threadId);
   var rep = {
@@ -207,11 +207,11 @@ export function postReply(threadId, author, contents, cb){
     'contents': contents,
     'replies': []
   }
-  addDocument('replies', rep);
+   rep = addDocument('replies', rep);
   //push current replyId to thread.replies
   thread.replies.push(rep._id);
   //emulateServerReturn
-  emulateServerReturn(getReplySync(rep._id), cb);
+  emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
 }
 
 export function getSearchData(cb) {
