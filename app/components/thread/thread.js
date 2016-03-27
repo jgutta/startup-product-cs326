@@ -14,15 +14,18 @@ export default class Thread extends React.Component {
   }
 
   refresh(props){
-    getFullThreadData(props.params.id, (threadData) =>{
+    console.log(this.props);
+    console.log(this.state);
+    getFullThreadData(this.props.params.id, (threadData) =>{
       this.setState(threadData);
-      this.setState({contents: threadData});
+      this.setState({ contents: threadData });
     });
     window.scrollTo(0, 0);
   }
 
   componentDidMount() {
     this.refresh(this.props);
+
   }
   componentWillReceiveProps(nextProps){
     this.refresh(nextProps);
