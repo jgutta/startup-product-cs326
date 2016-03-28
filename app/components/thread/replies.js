@@ -23,6 +23,17 @@ export default class Replies extends React.Component {
     this.refresh(nextProps);
 }
 
+makeTextArea(e){
+  e.preventDefault();
+  return(
+    <div>
+    <br />
+    <textarea className="reply-box" rows="2" placeholder={'Reply to this post'}  />
+    <button type="button" className="btn btn-primary rep-btn"> Submit </button>
+    </div>
+  )
+}
+
   render() {
      var data = this.props.data;
 
@@ -42,7 +53,7 @@ export default class Replies extends React.Component {
 
                   <p className="reply-data">
                     Posted by {reply.authorUsername} on {unixTimeToString(reply.postDate)}
-                    <button type="button" className="btn btn-primary reply-btn" onClick={(e) => this.handleReply(e)}>           Reply</button>
+                    <button type="button" className="btn btn-primary reply-btn" onClick={(e) => this.makeTextArea(e)}> Reply </button>
                   </p>
 
                    <Replies data={reply.replies} />
