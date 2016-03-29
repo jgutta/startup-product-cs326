@@ -26,6 +26,10 @@ export default class AccountSettings extends React.Component {
     };
   }
 
+  fakemethod(){
+    this.getAgain();
+  }
+
   getAgain() {
     getUserData(this.props.user, (userData) => {
       this.setState({
