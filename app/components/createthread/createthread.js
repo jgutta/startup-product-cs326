@@ -3,6 +3,8 @@ import MainContent from '../maincontent';
 import { createThread } from '../../server';
 import { hashHistory } from 'react-router';
 
+var moment = require('moment');
+
 export default class CreateThread extends React.Component {
   constructor(props) {
     super(props);
@@ -112,7 +114,7 @@ export default class CreateThread extends React.Component {
                           <center>Date</center>
                           <div className="form-group">
                             <div className="input-group date" id="datetimepicker1">
-                              <input type='text' className="form-control p" placeholder="e.g. 2/9/16" name="date" value={this.state.date} onChange={(e) => this.handleDateChange(e)}/>
+                              <input type='text' className="form-control p" placeholder={moment().format('l')} name="date" value={this.state.date} onChange={(e) => this.handleDateChange(e)}/>
                               <span className="input-group-addon">
                                 <span className="glyphicon glyphicon-calendar"></span>
                               </span>
@@ -123,7 +125,7 @@ export default class CreateThread extends React.Component {
                           <center>Time</center>
                           <div className="form-group">
                             <div className="input-group date" id="datetimepicker3">
-                              <input type='text' className="form-control p" placeholder="e.g. 7:00 PM" name="time" value={this.state.time} onChange={(e) => this.handleTimeChange(e)}/>
+                              <input type='text' className="form-control p" placeholder={moment().format('LT')} name="time" value={this.state.time} onChange={(e) => this.handleTimeChange(e)}/>
                               <span className="input-group-addon">
                                 <span className="glyphicon glyphicon-time"></span>
                               </span>
