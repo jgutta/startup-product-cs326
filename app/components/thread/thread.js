@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { getFullThreadData, retrieveNameFromId, postReply} from '../../server';
+import { getFullThreadData, postReply} from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -14,15 +14,18 @@ export default class Thread extends React.Component {
   }
 
   refresh(props){
+    //console.log(this.props);
+    //console.log(this.state);
     getFullThreadData(props.params.id, (threadData) =>{
       this.setState(threadData);
-      this.setState({contents: threadData});
+      this.setState({ contents: threadData });
     });
     window.scrollTo(0, 0);
   }
 
   componentDidMount() {
     this.refresh(this.props);
+
   }
   componentWillReceiveProps(nextProps){
     this.refresh(nextProps);
@@ -43,20 +46,17 @@ export default class Thread extends React.Component {
     }
   }
 
-  handleClick(e){
-    e.preventDefault();
-
-  }
-
   handleReply(e){
     e.preventDefault();
     //console.log(this.state);
     //console.log(this.props);
     var messageContents = this.state.messageContentsValue.trim();
     if (messageContents !== ''){
-      postReply(this.props.params.id,retrieveNameFromId(1), this.state.messageContentsValue, () => {
-        this.refresh();
+      var thread = this.state.contents;
+      postReply(thread._id, 1, this.state.messageContentsValue, () => {
+        this.refresh(this.props);
       });
+      this.setState({ messageContentsValue: '' });
     }
 
   }
@@ -99,9 +99,10 @@ export default class Thread extends React.Component {
 
          <hr className="content-title-separator" />
 
-          <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} />
+          <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} onChange={(e) => this.handleContentsChange(e)} />
+
           <br />
-        <button type="button" className="btn btn-primary submit-btn pull-right">Submit</button>
+        <button type="button" className="btn btn-primary submit-btn pull-right" onClick={(e) => this.handleReply(e)}> Submit </button>
         <br />
         <br />
         <Replies data={thread.replies}/>

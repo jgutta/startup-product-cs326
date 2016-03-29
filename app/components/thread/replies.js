@@ -1,62 +1,38 @@
 import React from 'react';
-import {getRepliesData, retrieveNameFromId, retrievePicFromId} from '../../server';
+import {getRepliesData} from '../../server';
 import { unixTimeToString } from '../../util';
 
 export default class Replies extends React.Component {
   constructor(props){
     super(props);
-    //console.log(this.props);
     this.state = {
 
      };
-    //console.log(this.state);
-    //console.log(this.props.rKey);
-    //console.log(this.props.data);
+  }
+
+  refresh() {
+    //
   }
 
   componentDidMount() {
-    getRepliesData(this.props.rKey, (replyData) => {
-      this.setState(replyData);
-      this.setState({contents: replyData})
-    } );
+    //console.log(this.props);
+    this.refresh(this.props);
+    //console.log(this.props);
   }
+  componentWillReceiveProps(nextProps){
+    this.refresh(nextProps);
+}
 
-  //Write a function that recrsively retrieves children info and creates boxes for each
-  getChildrenReplies() {
-  //  console.log(this.state);
-    var childReplies = this.props.data.replies;
-    if(childReplies.length < 1){
-      return(<div> </div>)
-    }
-     // This is an array. MOVE THROUGH EVERY ELEMENT
-    for (var i=0; i<childReplies.length; i++){
-    return(
-      <div>
-        <div className="replyF reply panel panel-default replyC col-md-9 pull-right">
-         <div className="row col-md-4 rep">
-                    <center>
-                      console.log(childReplies[i].author);
-                    <img src = {retrievePicFromId(childReplies[i].author)} width = "75%" />
-                    <br />
-                     <button type="replyBtn" className="btn btn-primary">
-                      <span> Reply </span>
-                    </button></center>
-                </div>
-
-                <div className="col-md-8 title-head">
-                  <h4><a href = "#"> { retrieveNameFromId(childReplies[i].author)}</a>   <small> said: </small></h4>
-
-                </div>
-                <br />
-                <br />
-                {childReplies[i].contents}
-                <hr />
-                 {unixTimeToString(childReplies[i].postDate)}
-
-        </div>
-      </div>
-    ) }
-  }
+makeTextArea(e){
+  e.preventDefault();
+  return(
+    <div>
+    <br />
+    <textarea className="reply-box" rows="2" placeholder={'Reply to this post'}  />
+    <button type="button" className="btn btn-primary rep-btn"> Submit </button>
+    </div>
+  )
+}
 
   render() {
      var data = this.props.data;
@@ -77,6 +53,7 @@ export default class Replies extends React.Component {
 
                   <p className="reply-data">
                     Posted by {reply.authorUsername} on {unixTimeToString(reply.postDate)}
+                    <button type="button" className="btn btn-primary reply-btn" onClick={(e) => this.makeTextArea(e)}> Reply </button>
                   </p>
 
                    <Replies data={reply.replies} />

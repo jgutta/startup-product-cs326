@@ -24,6 +24,14 @@ export function getThreadData(threadId, cb){
    emulateServerReturn(threadData, cb);
 }
 
+export function getRepliesData(replyId, cb){
+  var reply = readDocument('replies', replyId);
+  var replyData = {
+    contents : reply
+  }
+  emulateServerReturn(replyData, cb);
+}
+
 function getReplySync(replyId) {
     var reply = readDocument('replies', replyId);
 
@@ -198,17 +206,20 @@ export function postMessage(conversationId, author, title, contents, cb) {
 
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
-
+//!!!
 export function postReply(threadId, author, contents, cb){
   var thread = readDocument('threads', threadId);
-  thread.replies.push({
+  var rep = {
     'author': author,
     'postDate': new Date().getTime(),
     'contents': contents,
     'replies': []
-  });
-  writeDocument('threads', thread);
-  emulateServerReturn(getThreadSync(author, threadId), cb);
+  }
+   rep = addDocument('replies', rep);
+  //push current replyId to thread.replies
+  thread.replies.push(rep._id);
+  //emulateServerReturn
+  emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
 }
 
 export function getSearchData(cb) {
