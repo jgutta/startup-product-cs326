@@ -229,14 +229,14 @@ export default class AccountSettings extends React.Component {
               {this.state.editEmail
                 ? <div>
                     <i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleEmail.bind(this)}></i>
-                    <span className="bold addgap">Email:
+                    <span className="bold addgap marg">Email:
                     </span>
-                    <input type="text" name="email" onChange= {(e) => this.handleEmail(e)} onKeyUp={(e) => this.handleKeyUpEmail(e)}></input>
+                    <input type="email" name="email" onChange= {(e) => this.handleEmail(e)} onKeyUp={(e) => this.handleKeyUpEmail(e)}></input>
                     <br/>
                   </div>
                 : <div>
                   <i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleEmail.bind(this)}></i>
-                  <span className="bold addgap">Email:</span>{this.state.user.email}
+                  <span className="bold addgap marg">Email:</span>{this.state.user.email}
                   <br/>
                 </div>
 }
@@ -244,14 +244,14 @@ export default class AccountSettings extends React.Component {
               {this.state.editPass
                 ? <div>
                     <i type="button" className="fa fa-pencil-square-o clr" onClick={this.togglePass.bind(this)}></i>
-                    <span className="bold addgap">Password:</span>
+                    <span className="bold addgap marg">Password:</span>
                     <input type="password" name="pwd" onChange= {(e) => this.handlePass(e)} onKeyUp={(e) => this.handleKeyUpPass(e)}/>
                     <br/>
                   </div>
 
                 : <div>
                   <i type="button" className="fa fa-pencil-square-o clr" onClick={this.togglePass.bind(this)}></i>
-                  <span className="bold addgap">Password:</span>{this.handlePassLength()}
+                  <span className="bold addgap marg">Password:</span>{this.handlePassLength()}
                   <br/>
                 </div>
 }
@@ -259,13 +259,13 @@ export default class AccountSettings extends React.Component {
               {this.state.editName
                 ? <div>
                     <i type="button" className="fa fa-pencil-square-o clr" onClick ={this.toggleUser.bind(this)}></i>
-                    <span className="bold">Display Name:
+                    <span className="bold marg">Display Name:
                     </span>
                     <input type="text" name="user" onChange= {(e) => this.handleUser(e)} onKeyUp={(e) => this.handleKeyUpUser(e)}></input>
                   </div>
                 : <div>
                   <i type="button" className="fa fa-pencil-square-o clr" onClick={this.toggleUser.bind(this)}></i>
-                  <span className="bold">Display Name:
+                  <span className="bold marg">Display Name:
                   </span>{this.state.user.username}
                 </div>
 }
@@ -343,20 +343,6 @@ export default class AccountSettings extends React.Component {
                             <span className="glyphicon glyphicon-minus" onClick={(e) => this.remove(e, user._id)}></span>
                           </button>
                           {user.username} < br />
-                        {this.state.addblock ?
-                          <div>
-                            <button type="button" className="set-btn ">
-                                <span className="glyphicon glyphicon-plus" onClick = {this.toggleBlockUser.bind(this)}></span>
-                              </button>
-                              <input type="text" name="block" onChange ={(e) => this.handleBlockUser(e)} onKeyUp={(e) => this.add(e)}></input>
-                          </div>
-                          :
-                          <div><button type="button" className="set-btn ">
-                              <span className="glyphicon glyphicon-plus" onClick = {this.toggleBlockUser.bind(this)}></span>
-                            </button>
-
-                          </div>
-                        }
                           </div>
                         );
                       })}
