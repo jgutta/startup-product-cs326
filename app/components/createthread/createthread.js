@@ -66,7 +66,10 @@ export default class CreateThread extends React.Component {
     e.preventDefault();
 
     var threadTitle = this.state.title.trim();
-    var threadDate = this.state.date.format("l");
+    if(this.state.date!==null)
+      var threadDate = this.state.date.format("l");
+    else
+      var threadDate = ''
     var threadTime = this.state.time.trim();
     var threadDescription = this.state.description.trim();
     var threadImage = this.state.img.trim();
