@@ -2,8 +2,8 @@ import React from 'react';
 import MainContent from '../maincontent';
 import { createThread } from '../../server';
 import { hashHistory } from 'react-router';
-
-var moment = require('moment');
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
 
 export default class CreateThread extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class CreateThread extends React.Component {
 
     this.state = {
       title: '',
-      date: '',
+      date: null,
       time: '',
       description: '',
       img: 'img/default.png',
@@ -24,9 +24,8 @@ export default class CreateThread extends React.Component {
     this.setState({ title: e.target.value });
   }
 
-  handleDateChange(e) {
-    e.preventDefault();
-    this.setState({ date: e.target.value });
+  handleDateChange(d) {
+    this.setState({ date: d });
   }
 
   handleTimeChange(e) {
@@ -67,7 +66,7 @@ export default class CreateThread extends React.Component {
     e.preventDefault();
 
     var threadTitle = this.state.title.trim();
-    var threadDate = this.state.date.trim();
+    var threadDate = this.state.date.format("l");
     var threadTime = this.state.time.trim();
     var threadDescription = this.state.description.trim();
     var threadImage = this.state.img.trim();
@@ -113,12 +112,9 @@ export default class CreateThread extends React.Component {
                         <div className="col-md-6">
                           <center>Date</center>
                           <div className="form-group">
-                            <div className="input-group date" id="datetimepicker1">
-                              <input type='text' className="form-control p" placeholder={moment().format('l')} name="date" value={this.state.date} onChange={(e) => this.handleDateChange(e)}/>
-                              <span className="input-group-addon">
-                                <span className="glyphicon glyphicon-calendar"></span>
-                              </span>
-                            </div>
+                            <center>
+                            <DatePicker placeholderText={moment().format("l")} minDate={moment()} selected={this.state.date} onChange={this.handleDateChange.bind(this)} />
+                            </center>
                           </div>
                         </div>
                         <div className="col-md-6">
