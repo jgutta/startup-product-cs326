@@ -65,22 +65,24 @@ export default class CreateThread extends React.Component {
   handleNewThread(e) {
     e.preventDefault();
 
+    var threadDate = '';
+
     var threadTitle = this.state.title.trim();
     if(this.state.date!==null)
-      var threadDate = this.state.date.format("l");
-    else
-      var threadDate = ''
+        threadDate = this.state.date.format("l");
     var threadTime = this.state.time.trim();
     var threadDescription = this.state.description.trim();
     var threadImage = this.state.img.trim();
     var threadBoards = this.state.boards;
 
-    if(threadTitle === "" || threadDescription === "" || threadBoards.length === 0){
-      alert("Something required is empty!");
-    }
-    else if(threadBoards.length >= 5){
+    if(threadTitle === "")
+      alert("Missing thread title!");
+    else if(threadDescription === "")
+      alert("Missing thread description!")
+    else if(threadBoards.length === 0)
+      alert("You need to select at least one board!")
+    else if(threadBoards.length >= 5)
       alert("The max limit of boards is 4!")
-    }
     else{
       createThread(this.props.user, threadTitle, threadDate, threadTime, threadDescription, threadImage, threadBoards, (thread) => {
           scrollTo(0,0);
@@ -116,7 +118,7 @@ export default class CreateThread extends React.Component {
                           <center>Date</center>
                           <div className="form-group">
                             <center>
-                            <DatePicker placeholderText={moment().format("l")} minDate={moment()} selected={this.state.date} onChange={this.handleDateChange.bind(this)} />
+                              <DatePicker placeholderText={moment().format("l")} todayButton="Today" minDate={moment()} selected={this.state.date} onChange={this.handleDateChange.bind(this)} />
                             </center>
                           </div>
                         </div>
