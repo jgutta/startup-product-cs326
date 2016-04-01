@@ -39,7 +39,9 @@ export default class PinnedPosts extends React.Component {
     e.preventDefault();
 
     var maxPinnedPosts = this.state.maxPinnedPosts + 5;
-    this.setState({ maxPinnedPosts: maxPinnedPosts });
+    this.setState({
+      maxPinnedPosts: maxPinnedPosts
+    });
   }
 
   refresh() {
@@ -71,9 +73,7 @@ export default class PinnedPosts extends React.Component {
           {this.state.contents.length > maxPinnedPosts ?
            <nav>
              <ul className="pager">
-               <li>
-                 <a href="#" onClick={(e) => this.pagerHandler(e)}>More...</a>
-               </li>
+               <li><a href="#" onClick={(e) => this.pagerHandler(e)}>More...</a></li>
              </ul>
            </nav> :
            <div />

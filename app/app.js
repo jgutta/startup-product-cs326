@@ -50,8 +50,8 @@ class App extends React.Component {
 
             <div className="col-sm-3 right-sidebar">
               <div id="my-feed"></div>
-              <Feed title="My Feed" user={1} />
-              <Feed title="Community Feed" user={2} />
+              <Feed title="My Feed" user={1} maxFeedPosts={4} />
+              <Feed title="Community Feed" user={2} maxFeedPosts={2} />
             </div>
           </div>
         </div>

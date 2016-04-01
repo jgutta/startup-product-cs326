@@ -15,7 +15,8 @@ export default class Feed extends React.Component {
     // program will have bugs.
     this.state = {
       // Empty feed.
-      contents: []
+      contents: [],
+      maxFeedPosts: this.props.maxFeedPosts
     };
   }
 
@@ -27,8 +28,19 @@ export default class Feed extends React.Component {
       this.setState(feedData);
     });
   }
+
+  pagerHandler(e) {
+    e.preventDefault();
+
+    var maxFeedPosts = this.state.maxFeedPosts + 3;
+    this.setState({
+      maxFeedPosts: maxFeedPosts
+    });
+  }
   
   render() {
+    var maxFeedPosts = this.state.maxFeedPosts;
+
     return (
       <div className="panel panel-default content-panel">
         <div className="panel-heading">
@@ -36,17 +48,21 @@ export default class Feed extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="list-group">
-            {this.state.contents.map((thread) => {
+            {this.state.contents.slice(0, maxFeedPosts).map((thread) => {
                return (
                  <FeedPost key={thread._id} data={thread} />
                );
              })}
           </ul>
-          <nav>
-            <ul className="pager">
-              <li><a href="#">More...</a></li>
-            </ul>
-          </nav>
+
+          {this.state.contents.length > maxFeedPosts ?
+           <nav>
+             <ul className="pager">
+               <li><a href="#" onClick={(e) => this.pagerHandler(e)}>More...</a></li>
+             </ul>
+           </nav> :
+           <div />
+          }
         </div>
       </div>
     )
