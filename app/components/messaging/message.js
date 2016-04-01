@@ -20,7 +20,13 @@ export default class Message extends React.Component {
         </div>
         <div className="panel-body">
           <div className="row">
-            <div className="col-md-12">{data.contents}</div>
+            <div className="col-md-12">
+              {data.contents.split('\n').map((line) => {
+                 return (
+                   <p>{line}</p>
+                 );
+               })}
+            </div>
           </div>
           <hr />
           <div className="row">
