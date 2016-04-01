@@ -14,7 +14,8 @@ export default class PinnedPosts extends React.Component {
     // program will have bugs.
     this.state = {
       // Empty feed.
-      contents: []
+      contents: [],
+      maxPinnedPosts: 8
     };
   }
 
@@ -34,6 +35,13 @@ export default class PinnedPosts extends React.Component {
     });
   }
 
+  pagerHandler(e) {
+    e.preventDefault();
+
+    var maxPinnedPosts = this.state.maxPinnedPosts + 5;
+    this.setState({ maxPinnedPosts: maxPinnedPosts });
+  }
+
   refresh() {
     getPinnedPostsData(this.props.user, (pinnedPostsData) => {
       this.setState(pinnedPostsData);
@@ -41,6 +49,7 @@ export default class PinnedPosts extends React.Component {
   }
 
   render() {
+    var maxPinnedPosts = this.state.maxPinnedPosts;
 
     return (
       <div className="panel panel-default content-panel">
@@ -49,7 +58,7 @@ export default class PinnedPosts extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="list-group">
-            {this.state.contents.map((thread) => {
+            {this.state.contents.slice(0, maxPinnedPosts).map((thread) => {
                return (
                  <li className="list-group-item" key={thread._id}>
                    <Link to={"/threads/" + thread._id}>{thread.originalPost.title}</Link>
@@ -58,11 +67,17 @@ export default class PinnedPosts extends React.Component {
                );
              })}
           </ul>
-          <nav>
-            <ul className="pager">
-              <li><a href="#">More...</a></li>
-            </ul>
-          </nav>
+
+          {this.state.contents.length > maxPinnedPosts ?
+           <nav>
+             <ul className="pager">
+               <li>
+                 <a href="#" onClick={(e) => this.pagerHandler(e)}>More...</a>
+               </li>
+             </ul>
+           </nav> :
+           <div />
+          }
         </div>
       </div>
     )
