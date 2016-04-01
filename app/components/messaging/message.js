@@ -21,9 +21,9 @@ export default class Message extends React.Component {
         <div className="panel-body">
           <div className="row">
             <div className="col-md-12">
-              {data.contents.split('\n').map((line) => {
+              {data.contents.split("\n").map((line, i) => {
                  return (
-                   <p>{line}</p>
+                   <p key={"line" + i}>{line}</p>
                  );
                })}
             </div>
