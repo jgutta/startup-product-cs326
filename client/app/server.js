@@ -1,5 +1,32 @@
 import { readDocument, writeDocument, addDocument, readCollection } from './database.js';
 
+var token = 'eyJpZCI6MX0='; // <-- Put your base64'd JSON token here
+/**
+ * Properly configure+send an XMLHttpRequest with error handling, authorization token,
+ * and other needed properties.
+ */
+function sendXHR(verb, resource, body, cb) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(verb, resource);
+  xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+  // The below comment tells ESLint that FacebookError is a global.
+  // Otherwise, ESLint would complain about it! (See what happens in Atom if
+  // you remove the comment...)
+
+  // Response received from server. It could be a failure, though!
+  xhr.addEventListener('load', function() {
+    var statusCode = xhr.status;
+    var statusText = xhr.statusText;
+    if (statusCode >= 200 && statusCode < 300) {
+      // Success: Status code is in the [200, 300) range.
+      // Call the callback with the final XHR object.
+      cb(xhr);
+    }
+  })
+}
+
+
 /**
  * Emulates how a REST call is *asynchronous* -- it calls your function back
  * some time in the future with data.
