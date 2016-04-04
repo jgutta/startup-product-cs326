@@ -1,5 +1,5 @@
 import React from 'react';
-import {getRepliesData} from '../../server';
+import {getFullThreadData} from '../../server';
 import { unixTimeToString } from '../../util';
 
 export default class Replies extends React.Component {
@@ -10,8 +10,13 @@ export default class Replies extends React.Component {
      };
   }
 
-  refresh() {
-    //
+  refresh(props) {
+    console.log(this.props);
+    console.log(this.state);
+    getFullThreadData(props.threadId, (threadData) =>{
+      this.setState(threadData);
+      this.setState({ contents: threadData });
+    });
   }
 
   componentDidMount() {

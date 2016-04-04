@@ -105,7 +105,7 @@ export default class Thread extends React.Component {
         <button type="button" className="btn btn-primary submit-btn pull-right" onClick={(e) => this.handleReply(e)}> Submit </button>
         <br />
         <br />
-        <Replies data={thread.replies}/>
+        <Replies data={thread.replies} threadId={this.props.params.id}/>
 
         </MainContent>
     )
