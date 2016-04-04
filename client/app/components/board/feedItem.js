@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { unixTimeFromNow } from '../../util';
-import {delPinnedPost, addPinnedPost, retrieveNameFromId, getPinned} from '../../server';
+import {deletePinnedPost, addPinnedPost, retrieveNameFromId, getPinned} from '../../server';
 export default class FeedItem extends React.Component {
   constructor(props){
     super(props);
@@ -19,9 +19,10 @@ export default class FeedItem extends React.Component {
     getPinned(1, (pinnedNew) =>{
       this.setState({pinned: pinnedNew})
     })
+
   }
   isPinned(){
-    var pinned = this.state.pinned;
+    var pinned = this.state.pinned.contents;
     var bool = false;
     for(var i in pinned){
       if(pinned[i] === this.props.data._id)
@@ -34,7 +35,7 @@ export default class FeedItem extends React.Component {
     if(clickEvent.button === 0){
 
       if(this.isPinned())
-        delPinnedPost(1, this.props.data._id, (pinn) =>{
+        deletePinnedPost(1, this.props.data._id, (pinn) =>{
           this.setState({pinned: pinn});
         });
       else
