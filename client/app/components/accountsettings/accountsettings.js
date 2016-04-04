@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../maincontent';
-import {getUserData, updateUserData, unBlock, addBlock} from '../../server';
+import {getUserData, updateUserData, unBlock} from '../../server';
 
 export default class AccountSettings extends React.Component {
   constructor(props) {
@@ -24,10 +24,6 @@ export default class AccountSettings extends React.Component {
       tempBlock: '',
       temp: ''
     };
-  }
-
-  fakemethod(){
-    this.getAgain();
   }
 
   getAgain() {
@@ -91,18 +87,24 @@ export default class AccountSettings extends React.Component {
 
   handleDeactivate(e) {
     e.preventDefault();
+    var r = confirm("Are you sure you want to deactivate your account?");
+    if (r == true) {
     updateUserData(this.props.user, 'deleted', this.state.gender, 'deleted', this.state.blockedUsers, 'deleted', 2, 'img/default_profile_pic.png', () => {
       this.getAgain();
     });
-
+  } else {
+      return false;
+    }
   }
 
   handleEmailSet() {
     if (this.state.emailset === 1) {
+      alert("Changes saved!");
       updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, 2, this.state.image, () => {
         this.getAgain();
       });
     } else {
+      alert("Changes saved!");
       updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, 1, this.state.image, () => {
         this.getAgain();
       });
@@ -110,17 +112,20 @@ export default class AccountSettings extends React.Component {
   }
 
   handleGen1() {
+      alert("Changes saved!");
       updateUserData(this.props.user, this.state.username, 1, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
         this.getAgain();
       });
   }
 
   handleGen2() {
+      alert("Changes saved!");
       updateUserData(this.props.user, this.state.username, 2, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
         this.getAgain();
       });
   }
   handleGen3() {
+      alert("Changes saved!");
       updateUserData(this.props.user, this.state.username, 3, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
         this.getAgain();
       });
@@ -147,6 +152,7 @@ export default class AccountSettings extends React.Component {
     if (e.key === 'Enter') {
       var email = this.state.email.trim();
       if (email !== "") {
+        alert("Changes saved!");
         updateUserData(this.props.user, this.state.username, this.state.gender, this.state.password, this.state.blockedUsers, email, this.state.emailset, this.state.image, () => {
           this.getAgain();
         });
@@ -160,6 +166,7 @@ export default class AccountSettings extends React.Component {
     if (e.key === 'Enter') {
       var username = this.state.username.trim();
       if (username !== "") {
+        alert("Changes saved!");
         updateUserData(this.props.user, username, this.state.gender, this.state.password, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
           this.getAgain();
         });
@@ -174,6 +181,7 @@ export default class AccountSettings extends React.Component {
     if (e.key === 'Enter') {
       var pass = this.state.password.trim();
       if (pass !== "") {
+        alert("Changes saved!");
         updateUserData(this.props.user, this.state.username, this.state.gender, pass, this.state.blockedUsers, this.state.email, this.state.emailset, this.state.image, () => {
           this.getAgain();
         });
@@ -192,29 +200,15 @@ export default class AccountSettings extends React.Component {
   }
   remove(e, blocked) {
     e.preventDefault();
+    var r = confirm("Are you sure you want to unblock this user?");
+    if (r == true) {
     unBlock(this.props.user, blocked, () => {
       this.getAgain();
     });
+  }else{
+    return false;
   }
-  add(e) {
-    if (e.key === 'Enter') {
-      if(this.state.tempBlock !== ""){
-      addBlock(this.props.user, this.state.tempBlock, () => {
-        this.getAgain();
-
-      });
-    }
-  }
-  }
-  handleBlockUser(e){
-    this.setState({tempBlock: e.target.value.trim()});
-  }
-
-  toggleBlockUser(){
-    this.setState({
-      addBlock: !this.state.addBlock
-    });
-  }
+}
 
 
   render() {
