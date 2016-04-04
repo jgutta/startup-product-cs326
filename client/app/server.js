@@ -363,20 +363,12 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
       var pinned = readDocument('pinnedPosts', user.pinnedPosts);
       pinned.contents.push(threadID);
       writeDocument('pinnedPosts', pinned);
-      emulateServerReturn(pinned.contents,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
     }
-    export function delPinnedPost(userID, threadID, cb){
-      var user = readDocument('users', userID);
-      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      var index = getIndex(pinned, threadID);
-      pinned.contents.splice(index, 1);
-      writeDocument('pinnedPosts', pinned);
-      emulateServerReturn(pinned.contents, cb);
-    }
+
     export function getPinned(userID, cb){
       var user = readDocument('users', userID);
       var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      emulateServerReturn(pinned.contents, cb);
-      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+      emulateServerReturn(pinned, cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
 
     }
