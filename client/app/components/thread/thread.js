@@ -58,7 +58,7 @@ export default class Thread extends React.Component {
       });
       this.setState({ messageContentsValue: '' });
     }
-
+    this.refresh(this.props);
   }
 
   handleContentsChange(e) {

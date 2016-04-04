@@ -242,10 +242,10 @@ export function postReply(threadId, author, contents, cb){
     'contents': contents,
     'replies': []
   }
-   rep = addDocument('replies', rep);
+  rep = addDocument('replies', rep);
   //push current replyId to thread.replies
   thread.replies.push(rep._id);
-  //emulateServerReturn
+  writeDocument('threads', thread);
   emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
 }
 
