@@ -15,7 +15,7 @@ export default class CreateThread extends React.Component {
       time: '',
       description: '',
       img: 'img/default.png',
-      boards: ["1"]
+      boards: []
     };
   }
 
@@ -141,7 +141,7 @@ export default class CreateThread extends React.Component {
           <div className="col-md-12">
             <div className="input-box-title">Boards to post to<font color="red">*</font></div>
             <ul className="checkbox-grid" onChange={(e) => this.handleBoardChange(e)}>
-              <li><input type="checkbox" name="board" value="1" defaultChecked/>
+              <li><input type="checkbox" name="board" value="1"/>
                 General</li>
               <li><input type="checkbox" name="board" value="2"/>
                 Concerts</li>
