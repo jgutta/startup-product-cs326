@@ -3,28 +3,46 @@
   "id": "/",
   "type": "object",
   "properties": {
-    "author": {
-      "id": "author",
-      "type": "integer"
-    },
-    "title": {
-      "id": "title",
-      "type": "string"
-    },
-    "description": {
-      "id": "description",
-      "type": "string"
-    },
     "boards": {
       "id": "boards",
       "type": "array",
       "items": []
+    },
+    "originalPost": {
+      "id": "originalPost",
+      "type": "object",
+      "properties": {
+        "author": {
+          "id": "author",
+          "type": "integer"
+        },
+        "title": {
+          "id": "title",
+          "type": "string"
+        },
+        "date": {
+          "id": "date",
+          "type": "string"
+        },
+        "time": {
+          "id": "time",
+          "type": "string"
+        },
+        "img": {
+          "id": "img",
+          "type": "string"
+        },
+        "description": {
+          "id": "description",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
     }
   },
+  "additionalProperties": false,
   "required": [
-    "author",
-    "title",
-    "description",
-    "boards"
+    "boards",
+    "originalPost"
   ]
 }
