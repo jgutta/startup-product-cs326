@@ -269,6 +269,12 @@ export function getConversationsDataOld(user, cb) {
 }
 
 export function getConversationData(user, conversationId, cb) {
+  sendXHR('GET', '/user/' + user + '/conversation/' + conversationId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function getConversationDataOld(user, conversationId, cb) {
   var conversationData = {};
   conversationData.conversation = getConversationSync(user, conversationId);
 

@@ -107,6 +107,20 @@ app.get('/user/:userid/conversation', function(req, res) {
   }
 });
 
+app.get('/user/:userid/conversation/:conversationid', function(req, res) {
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  // Convert params from string to number.
+  var conversationId = parseInt(req.params.conversationid, 10);
+  var userId = parseInt(req.params.userid, 10);
+  if (fromUser === userId) {
+    var conversationData = {};
+    conversationData.conversation = getConversationData(userId, conversationId);
+    res.send(conversationData)
+  } else {
+    res.status(401).end();
+  }
+});
+
 // ====================
 // /thread/
 // ====================
