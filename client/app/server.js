@@ -255,30 +255,10 @@ export function getConversationsData(user, cb) {
   });
 }
 
-export function getConversationsDataOld(user, cb) {
-  var userData = readDocument('users', user);
-
-  var conversationsData = {
-    contents: []
-  };
-  conversationsData.contents = userData.conversations.map((conversation) => getConversationSync(user, conversation));
-
-  conversationsData.contents.sort(compareConversations);
-
-  emulateServerReturn(conversationsData, cb);
-}
-
 export function getConversationData(user, conversationId, cb) {
   sendXHR('GET', '/user/' + user + '/conversation/' + conversationId, undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
   });
-}
-
-export function getConversationDataOld(user, conversationId, cb) {
-  var conversationData = {};
-  conversationData.conversation = getConversationSync(user, conversationId);
-
-  emulateServerReturn(conversationData, cb);
 }
 
 export function postMessage(conversationId, author, title, contents, cb) {
@@ -292,19 +272,8 @@ export function postMessage(conversationId, author, title, contents, cb) {
   });
 }
 
-export function postMessageOld(conversationId, author, title, contents, cb) {
-  var conversation = readDocument('conversations', conversationId);
-  conversation.messages.push({
-    'author': author,
-    'title': title,
-    'postDate': new Date().getTime(),
-    'contents': contents
-  });
 
-  writeDocument('conversations', conversation);
 
-  emulateServerReturn(getConversationSync(author, conversationId), cb);
-}
 
 export function postReply(threadId, author, contents, cb){
   var thread = readDocument('threads', threadId);

@@ -1,3 +1,7 @@
+var MessageSchema = require('../schemas/message.json');
+
+var validate = require('express-jsonschema').validate;
+
 exports.setApp = function(app,
                           getUserIdFromToken,
                           readDocument, writeDocument)
@@ -63,6 +67,36 @@ exports.setApp = function(app,
       var conversationData = {};
       conversationData.conversation = getConversationData(userId, conversationId);
       res.send(conversationData)
+    } else {
+      res.status(401).end();
+    }
+  });
+
+  function postMessage(conversationId, author, title, contents) {
+    var conversation = readDocument('conversations', conversationId);
+    conversation.messages.push({
+      'author': author,
+      'title': title,
+      'postDate': new Date().getTime(),
+      'contents': contents
+    });
+
+    writeDocument('conversations', conversation);
+
+    return getConversationData(author, conversationId);
+  }
+
+  app.post('/user/:userid/conversation/:conversationid', validate({ body: MessageSchema }), function(req, res) {
+    var body = req.body;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+
+    var userId = parseInt(req.params.userid, 10);
+    var conversationId = parseInt(req.params.conversationid, 10);
+
+    if (fromUser === body.author && fromUser === userId) {
+      var newMessage = postMessage(conversationId, body.author, body.title, body.contents);
+      res.status(201);
+      res.send(newMessage);
     } else {
       res.status(401).end();
     }

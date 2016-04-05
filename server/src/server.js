@@ -10,10 +10,12 @@ var database = require('./database');
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
+
 var bodyParser = require('body-parser');
+app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 var CreateThread = require('./schemas/createthread.json');
-var MessageSchema = require('./schemas/message.json');
 
 var validate = require('express-jsonschema').validate;
 
@@ -69,6 +71,17 @@ require('./routes/messaging.js').
 // ==========
 // /thread
 // ==========
+
+
+// Reset database.
+app.post('/resetdb', function(req, res) {
+  console.log("Resetting database...");
+  // This is a debug route, so don't do any validation.
+  database.resetDatabase();
+  // res.send() sends an empty response with status code 200
+  res.send();
+});
+
 
 // Starts the server on port 3000!
 app.listen(3000, function () {

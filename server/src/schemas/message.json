@@ -3,8 +3,8 @@
   "id": "/",
   "type": "object",
   "properties": {
-    "userId": {
-      "id": "userId",
+    "author": {
+      "id": "author",
       "type": "integer"
     },
     "title": {
@@ -18,7 +18,7 @@
   },
   "additionalProperties": false,
   "required": [
-    "userId",
+    "author",
     "title",
     "contents"
   ]
