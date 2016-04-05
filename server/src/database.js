@@ -1,4 +1,4 @@
-// Your startup's initial mock objects go here
+// Data goes here.
 var initialData = {
   'users': {
     '1': {
@@ -45,9 +45,9 @@ var initialData = {
       'image': 'img/326-tmnt.JPG'
     },
     '8':{
-        '_id': 8,
-        'username': 'spambot',
-        'image': 'img/default_profile_pic.png'
+      '_id': 8,
+      'username': 'spambot',
+      'image': 'img/default_profile_pic.png'
     }
   },
 
@@ -372,7 +372,7 @@ var data;
 var updated = false;
 // Pull in Node's file system and path modules.
 var fs = require('fs'),
-  path = require('path');
+    path = require('path');
 
 try {
   // ./database.json may be missing. The comment below prevents ESLint from
