@@ -8,6 +8,8 @@ var app = express();
 
 var database = require('./database');
 var readDocument = database.readDocument;
+var writeDocument = database.writeDocument;
+var addDocument = database.addDocument;
 
 app.use(express.static('../client/build'));
 
@@ -54,6 +56,14 @@ app.get('/user/:userid/conversation', function(req, res) {
   var fromUser = getUserIdFromToken(req.get('Authroization'));
   var useridNumber = parseInt(userid, 10);
 });
+
+// ====================
+// /thread/
+// ====================
+
+// ==========
+// /thread
+// ==========
 
 // Starts the server on port 3000!
 app.listen(3000, function () {
