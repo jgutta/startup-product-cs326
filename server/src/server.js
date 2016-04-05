@@ -51,7 +51,8 @@ app.get('/', function (req, res) {
 
 app.get('/user/:userid/conversation', function(req, res) {
   var userid = req.params.userid;
-  
+  var fromUser = getUserIdFromToken(req.get('Authroization'));
+  var useridNumber = parseInt(userid, 10);
 });
 
 // Starts the server on port 3000!

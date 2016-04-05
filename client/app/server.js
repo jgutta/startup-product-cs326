@@ -199,7 +199,17 @@ function compareConversations(convA, convB) {
   return timeB - timeA;
 }
 
+// ====================
+// Conversation functions
+// ====================
+
 export function getConversationsData(user, cb) {
+  sendXHR('GET', '/user/' + user + '/conversation', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function getConversationsDataOld(user, cb) {
   var userData = readDocument('users', user);
 
   var conversationsData = {
