@@ -1,42 +1,48 @@
 .original-post > .media-left > .media-object {
   width: 130px;
   height: 130px;
-  }
-  .original-post > .media-body {
-    font-size: 1.1em;
-  }
+}
+.original-post > .media-body {
+  font-size: 1.1em;
+}
 
-  .reply-box {
-   border: 1px solid #aaa;
-    padding: 5px;
-    width: 100%;
-  }
- .submit-btn {
-   padding: 5px;
-   margin-bottom: 10px;
-   width: 200px;
- }
+.reply-box {
+  border: 1px solid #aaa;
+  padding: 5px;
+  width: 100%;
+}
+.submit-btn {
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 200px;
+}
 
- .reply-btn {
-   padding: 5px;
-   margin-bottom: 10px;
-   margin-left: 25px;
-   margin-top: 3px;
-   width: 50px;
- }
+.reply-btn {
+  padding: 5px;
+  margin-bottom: 0;
+  margin-left: 25px;
+  margin-top: 3px;
+  width: 50px;
+}
 
- .reply-list {
-   margin-top: 5px;
- }
- .reply-list > .media > .media-left > .media-object {
-   width: 32px;
-   height: 32px;
- }
- .reply-list > .media {
-   padding: 0;
-   margin: 0;
- }
- .reply-list hr {
-   border-color: lightgray;
-   margin-bottom: 0;
- }
+.reply-list {
+  margin-top: 5px;
+}
+.reply-list > .media > .media-left > .media-object {
+  width: 32px;
+  height: 32px;
+}
+.reply-list > .media {
+  padding: 0;
+  margin: 0;
+}
+.reply-list hr {
+  border-color: lightgray;
+  margin-bottom: 0;
+}
+.reply-data {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: gray;
+  font-size: .85em;
+}
