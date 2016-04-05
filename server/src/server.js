@@ -51,10 +51,43 @@ app.get('/', function (req, res) {
 // /user/:userid/conversation
 // ==========
 
+function getConversationData(user, conversationId) {
+  var conversation = readDocument('conversations', conversationId);
+
+  conversation.messages = conversation.messages.map(getMessageSync);
+
+  for(var i = conversation.users.length - 1; i >= 0; i--) {
+    if(conversation.users[i] === user) {
+      conversation.users.splice(i, 1);
+    }
+  }
+  conversation.user = readDocument('users', conversation.users[0]);
+
+  return conversation;
+}
+
+function getConversations(user) {
+  var userData = readDocument('users', user);
+
+  var conversationsData = {
+    contents: []
+  };
+  conversationsData.contents = userData.conversations.map((conversation) => getConversationData(user, conversation));
+
+  conversationsData.contents.sort(compareConversations);
+
+  return conversationData
+}
+
 app.get('/user/:userid/conversation', function(req, res) {
   var userid = req.params.userid;
   var fromUser = getUserIdFromToken(req.get('Authroization'));
   var useridNumber = parseInt(userid, 10);
+  if (fromUser === useridNumber) {
+    res.send(getConversations(userid));
+  } else {
+    res.status(401).end();
+  }
 });
 
 // ====================
