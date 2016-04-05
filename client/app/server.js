@@ -13,7 +13,6 @@ function sendXHR(verb, resource, body, cb) {
   // The below comment tells ESLint that FacebookError is a global.
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global FacebookError */
 
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
@@ -79,7 +78,22 @@ function emulateServerReturn(data, cb) {
 // ====================
 // Thread functions
 // ====================
+export function createThread(author, title, date, time, desc, image, boards, cb) {
+    sendXHR('POST', '/thread', {
+      boards: boards,
 
+      originalPost: {
+        author: author,
+        title: title,
+        date: date,
+        time: time,
+        img: image,
+        description: desc
+      }
+    }, (xhr) => {
+       cb(JSON.parse(xhr.responseText));
+     });
+  }
 // ====================
 // User functions
 // ====================
@@ -325,36 +339,6 @@ export function getSearchData(cb) {
 
   emulateServerReturn(threadData, cb);
 }
-
-export function createThread(author, title, date, time, desc, image, boards, cb) {
-    var thread = {
-      'boards': boards,
-      'commentsNo': 0,
-      'viewsNo': 0,
-
-      'originalPost': {
-        'author': author,
-        'title': title,
-        'date': date,
-        'time': time,
-        'img': image,
-        'postDate': new Date().getTime(),
-        'description': desc
-      },
-
-      'replies': []
-    };
-
-    thread = addDocument('threads', thread);
-
-    for(var i in boards){
-        var board = readDocument('boards', boards[i]);
-        board.threads.push(thread._id);
-        writeDocument('boards', board);
-    }
-
-    emulateServerReturn(thread, cb);
-  }
 
   export function getUserData(userId, cb){
       var user =  readDocument('users', userId);
