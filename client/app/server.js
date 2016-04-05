@@ -281,8 +281,18 @@ export function getConversationDataOld(user, conversationId, cb) {
   emulateServerReturn(conversationData, cb);
 }
 
-
 export function postMessage(conversationId, author, title, contents, cb) {
+  sendXHR('POST', '/user/' + author + '/conversation/' + conversationId, {
+    author: author,
+    title: title,
+    contents: contents
+  }, (xhr) => {
+    // Return the new status update.
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function postMessageOld(conversationId, author, title, contents, cb) {
   var conversation = readDocument('conversations', conversationId);
   conversation.messages.push({
     'author': author,
