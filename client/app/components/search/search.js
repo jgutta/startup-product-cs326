@@ -21,7 +21,7 @@ export default class Search extends React.Component {
   }
 
   componentDidMount() {
-    getSearchData((threads) => {
+    getSearchData(this.props.location.query.query, (threads) => {
       // Note: setState does a *shallow merge* of the current state and the new
       // state. If state was currently set to {foo: 3}, and we setState({bar: 5}),
       // state would then be {foo: 3, bar: 5}. This won't be a problem here.

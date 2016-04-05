@@ -65,6 +65,39 @@ app.get('/user/:userid/conversation', function(req, res) {
 // /thread
 // ==========
 
+// ==========
+// /search
+// ==========
+
+app.post('/search', function(req, res) {
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  console.log(fromUser);
+  var user = readDocument('users', fromUser);
+  if (typeof(req.body) === 'string') {
+    // trim() removes whitespace before and after the query.
+    // toLowerCase() makes the query lowercase.
+    var queryText = req.body.trim().toLowerCase();
+    // Search the user's feed.
+    var feedItemIDs = readDocument('feeds', user.feed).contents;
+    // "filter" is like "map" in that it is a magic method for
+    // arrays. It takes an anonymous function, which it calls
+    // with each item in the array. If that function returns 'true',
+    // it will include the item in a return array. Otherwise, it will
+    // not.
+    // Here, we use filter to return only feedItems that contain the
+    // query text.
+    // Since the array contains feed item IDs, we later map the filtered
+    // IDs to actual feed item objects.
+    res.send(feedItemIDs.filter((feedItemID) => {
+      var feedItem = readDocument('feedItems', feedItemID);
+      return feedItem.contents.contents.toLowerCase().indexOf(queryText) !== -1;
+    }).map(getFeedItemSync));
+  } else {
+    // 400: Bad Request.
+    res.status(400).end();
+  }
+});
+
 // Starts the server on port 3000!
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
