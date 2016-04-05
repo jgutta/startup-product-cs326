@@ -51,9 +51,35 @@ app.get('/', function (req, res) {
   res.send('Welcome to UBoard!');
 });
 
+function getBoardData(boardId) {
+  var board = readDocument('boards', boardId);
+  return board;
+}
+
 // ====================
 // /user/
 // ====================
+
+// ==========
+// /user/:userid/subscribedboards
+// ==========
+
+app.get('/user/:userid/subscribedBoards', function(req, res) {
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  // Convert params from string to number.
+  var userId = parseInt(req.params.userid, 10);
+  if (fromUser === userId) {
+    var userData = readDocument('users', userId);
+    var subscribedBoards = {
+      contents: []
+    };
+    subscribedBoards.contents = userData.subscribedBoards.map(getBoardData);
+
+    res.send(subscribedBoards);
+  } else {
+    res.status(401).end();
+  }
+});
 
 // ==========
 // /user/:userid/conversation

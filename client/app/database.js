@@ -429,12 +429,21 @@ export function addDocument(collectionName, newDoc) {
 }
 
 /**
+ * Reset our browser-local database.
+ */
+export function resetDatabase() {
+  localStorage.setItem(startupName, JSON.stringify(initialData));
+  data = JSONClone(initialData);
+}
+
+/**
  * Reset database button.
  */
 export class ResetDatabase extends React.Component {
   render() {
     return (
       <button className="btn btn-default" type="button" onClick={() => {
+          resetDatabase();
           var xhr = new XMLHttpRequest();
           xhr.open('POST', '/resetdb');
           xhr.addEventListener('load', function() {

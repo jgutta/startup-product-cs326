@@ -188,12 +188,9 @@ export function getAllBoards(cb){
 }
 
 export function getSubscribedBoardsData(user, cb) {
-  var userData = readDocument('users', user);
-  var subscribedBoardsData = {
-    contents: []
-  };
-  subscribedBoardsData.contents = userData.subscribedBoards.map(getBoardSync);
-  emulateServerReturn(subscribedBoardsData, cb);
+  sendXHR('GET', '/user/' + user + '/subscribedboards', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getBoardsData(cb){
