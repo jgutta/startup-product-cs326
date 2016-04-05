@@ -6,13 +6,11 @@ export default class Replies extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-
+      editReply: false
      };
   }
 
   refresh(props) {
-    console.log(this.props);
-    console.log(this.state);
     getFullThreadData(props.threadId, (threadData) =>{
       this.setState(threadData);
       this.setState({ contents: threadData });
@@ -20,23 +18,15 @@ export default class Replies extends React.Component {
   }
 
   componentDidMount() {
-    //console.log(this.props);
     this.refresh(this.props);
-    //console.log(this.props);
   }
+
   componentWillReceiveProps(nextProps){
     this.refresh(nextProps);
 }
 
-makeTextArea(e){
-  e.preventDefault();
-  return(
-    <div>
-    <br />
-    <textarea className="reply-box" rows="2" placeholder={'Reply to this post'}  />
-    <button type="button" className="btn btn-primary rep-btn"> Submit </button>
-    </div>
-  )
+toggleReply(){
+  this.setState({editReply: !this.state.editReply});
 }
 
   render() {
@@ -55,11 +45,17 @@ makeTextArea(e){
                   {reply.contents}
 
                   <hr />
+                  Posted by {reply.authorUsername} on {unixTimeToString(reply.postDate)}
+                  <button type="button" className="btn btn-primary reply-btn" onClick={this.toggleReply.bind(this)}> Reply </button>
+                  {this.state.editReply
+                    ? <div>
+                      <br />
+                      <textarea className="reply-box" rows="2" placeholder={'Reply to this post'}  />
+                      <button type="button" className="btn btn-primary rep-btn"> Submit </button>
+                      </div>
 
-                  <p className="reply-data">
-                    Posted by {reply.authorUsername} on {unixTimeToString(reply.postDate)}
-                    <button type="button" className="btn btn-primary reply-btn" onClick={(e) => this.makeTextArea(e)}> Reply </button>
-                  </p>
+                    : <div> </div>
+                  }
 
                    <Replies data={reply.replies} />
                  </div>

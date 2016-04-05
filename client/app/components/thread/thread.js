@@ -13,22 +13,23 @@ export default class Thread extends React.Component {
      };
   }
 
-  refresh(props){
-    //console.log(this.props);
-    //console.log(this.state);
-    getFullThreadData(props.params.id, (threadData) =>{
+  refresh(){
+    getFullThreadData(this.props.params.id, (threadData) =>{
       this.setState(threadData);
-      this.setState({ contents: threadData });
+      //this.setState({ contents: threadData });
     });
     window.scrollTo(0, 0);
   }
 
   componentDidMount() {
-    this.refresh(this.props);
-
+    this.refresh();
   }
+
   componentWillReceiveProps(nextProps){
-    this.refresh(nextProps);
+    getFullThreadData(nextProps.params.id, (threadData) =>{
+      this.setState(threadData);
+      //this.setState({ contents: threadData });
+    });
 }
 
   checkOptionalInfo(){
@@ -54,11 +55,10 @@ export default class Thread extends React.Component {
     if (messageContents !== ''){
       var thread = this.state.contents;
       postReply(thread._id, 1, this.state.messageContentsValue, () => {
-        this.refresh(this.props);
+        this.setState({ messageContentsValue: '' });
+        this.refresh();
       });
-      this.setState({ messageContentsValue: '' });
     }
-    this.refresh(this.props);
   }
 
   handleContentsChange(e) {
