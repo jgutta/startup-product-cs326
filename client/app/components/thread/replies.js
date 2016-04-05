@@ -1,5 +1,4 @@
 import React from 'react';
-import {getFullThreadData} from '../../server';
 import { unixTimeToString } from '../../util';
 
 export default class Replies extends React.Component {
@@ -11,21 +10,6 @@ export default class Replies extends React.Component {
     };
   }
 
-  refresh(props) {
-    getFullThreadData(props.threadId, (threadData) =>{
-      this.setState(threadData);
-      this.setState({ contents: threadData });
-    });
-  }
-
-  componentDidMount() {
-    this.refresh(this.props);
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.refresh(nextProps);
-  }
-
   toggleReply(){
     this.setState({editReply: !this.state.editReply});
   }
@@ -35,10 +19,11 @@ export default class Replies extends React.Component {
     this.setState({ messageContentsValue: e.target.value });
   }
 
+  /*
   handleReply(e){
-    e.preventDefault();
-    //worry about the rest later, there are problems to fix
-  }
+    //toggle/clear stuff
+    this.props.replyFunction(messageContentsValue);
+  } */
 
   render() {
     var data = this.props.data;
@@ -64,7 +49,6 @@ export default class Replies extends React.Component {
 
                  <div className="toggleReplyArea">
 
-                   {this.state.togglReply}
                    {this.state.editReply
                     ? <div>
                      <br />

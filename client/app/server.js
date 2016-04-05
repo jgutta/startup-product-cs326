@@ -70,6 +70,7 @@ function sendXHR(verb, resource, body, cb) {
  * some time in the future with data.
  */
 function emulateServerReturn(data, cb) {
+  console.log(cb);
   setTimeout(() => {
     cb(data);
   }, 4);
@@ -129,12 +130,17 @@ function getReplySync(replyId) {
     return reply;
   }
 
+function getFullThreadSync(threadId){
+  var thread = readDocument('threads', threadId);
+  var user = readDocument('users', thread.originalPost.author);
+  thread.originalPost.authorUsername = user.username;
+  thread.boards = thread.boards.map(getBoardSync);
+  thread.replies = thread.replies.map(getReplySync);
+  return thread;
+}
+
 export function getFullThreadData(threadId, cb) {
-   var thread = readDocument('threads', threadId);
-   var user = readDocument('users', thread.originalPost.author);
-   thread.originalPost.authorUsername = user.username;
-   thread.boards = thread.boards.map(getBoardSync);
-   thread.replies = thread.replies.map(getReplySync);
+  var thread = getFullThreadSync(threadId);
    var threadData = {
      contents: thread
    };
@@ -284,7 +290,9 @@ export function postMessage(conversationId, author, title, contents, cb) {
 }
 
 
-
+// ====================
+// Thread functions
+// ====================
 
 export function postReply(threadId, author, contents, cb){
   var thread = readDocument('threads', threadId);
@@ -298,7 +306,13 @@ export function postReply(threadId, author, contents, cb){
   //push current replyId to thread.replies
   thread.replies.push(rep._id);
   writeDocument('threads', thread);
-  emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
+  var fullThread = getFullThreadSync(threadId);
+     var threadData = {
+       contents: fullThread
+     };
+
+  //console.log(threadData);
+  emulateServerReturn(threadData, cb);
 }
 
 export function postReplyToReply(threadId, replyId, author, contents, cb){

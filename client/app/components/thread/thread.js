@@ -14,11 +14,11 @@ export default class Thread extends React.Component {
   }
 
   refresh(){
+    //console.log("refresh called");
     getFullThreadData(this.props.params.id, (threadData) =>{
-      this.setState(threadData);
-      //this.setState({ contents: threadData });
+      console.log(threadData);
+      this.setState( threadData );
     });
-    window.scrollTo(0, 0);
   }
 
   componentDidMount() {
@@ -49,14 +49,20 @@ export default class Thread extends React.Component {
 
   handleReply(e){
     e.preventDefault();
+    console.log(this.state);
     var messageContents = this.state.messageContentsValue.trim();
     if (messageContents !== ''){
       var thread = this.state.contents;
-      postReply(thread._id, 1, this.state.messageContentsValue, () => {
+      postReply(thread._id, 1, this.state.messageContentsValue, (threadData) => {
         this.setState({ messageContentsValue: '' });
-        this.refresh();
+        console.log(this.state);
+        this.setState(threadData);
       });
     }
+  }
+
+  handleReplyToReply(){
+    //stuff
   }
 
   handleContentsChange(e) {
@@ -97,13 +103,14 @@ export default class Thread extends React.Component {
 
          <hr className="content-title-separator" />
 
-          <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} onChange={(e) => this.handleContentsChange(e)} />
+          <textarea className="reply-box" rows="2" placeholder={'Reply to ' + thread.originalPost.title} value={this.state.messageContentsValue} onChange={(e) => this.handleContentsChange(e)} />
 
           <br />
         <button type="button" className="btn btn-primary submit-btn pull-right" onClick={(e) => this.handleReply(e)}> Submit </button>
         <br />
         <br />
-        <Replies data={thread.replies} threadId={this.props.params.id}/>
+
+        <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
 
         </MainContent>
     )
