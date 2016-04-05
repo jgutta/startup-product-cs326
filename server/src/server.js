@@ -10,6 +10,10 @@ var database = require('./database');
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
+var bodyParser = require('body-parser');
+
+var CreateThread = require('./schemas/createthread.json')
+var validate = require('express-jsonschema').validate;
 
 app.use(express.static('../client/build'));
 
