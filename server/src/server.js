@@ -41,6 +41,19 @@ app.get('/', function (req, res) {
   res.send('Welcome to UBoard!');
 });
 
+// ====================
+// /user/
+// ====================
+
+// ==========
+// /user/:userid/conversation
+// ==========
+
+app.get('/user/:userid/conversation', function(req, res) {
+  var userid = req.params.userid;
+  
+});
+
 // Starts the server on port 3000!
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
