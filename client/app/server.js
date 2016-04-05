@@ -205,10 +205,9 @@ export function getBoardsData(cb){
 }
 
 export function addSubscribeBoard(user, board, cb) {
-  var userData = readDocument('users', user);
-  userData.subscribedBoards.push(board);
-  writeDocument('users', userData);
-  emulateServerReturn(userData, cb);
+  sendXHR('PUT', '/user/' + user + '/subscribedboards/' + board, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 function getIndex(array, element) {
@@ -220,11 +219,9 @@ function getIndex(array, element) {
 }
 
 export function deleteSubscribeBoard(user, board, cb) {
-  var userData = readDocument('users', user);
-  var index = getIndex(userData.subscribedBoards, board);
-  userData.subscribedBoards.splice(index, 1);
-  writeDocument('users', userData);
-  emulateServerReturn(userData, cb);
+  sendXHR('DELETE', '/user/' + user + '/subscribedboards/' + board, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 
