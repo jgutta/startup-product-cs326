@@ -233,7 +233,7 @@ export function postMessage(conversationId, author, title, contents, cb) {
 
   emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
-//!!!
+
 export function postReply(threadId, author, contents, cb){
   var thread = readDocument('threads', threadId);
   var rep = {
@@ -245,6 +245,21 @@ export function postReply(threadId, author, contents, cb){
   rep = addDocument('replies', rep);
   //push current replyId to thread.replies
   thread.replies.push(rep._id);
+  writeDocument('threads', thread);
+  emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
+}
+
+export function postReplyToReply(threadId, replyId, author, contents, cb){
+  var thread = readDocument('threads', threadId);
+  var reply = readDocument('replies', replyId);
+  var rep = {
+    'author': author,
+    'postDate': new Date().getTime(),
+    'contents': contents,
+    'replies': []
+  }
+  rep = addDocument('replies', rep);
+  reply.replies.push(rep._id);
   writeDocument('threads', thread);
   emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
 }
