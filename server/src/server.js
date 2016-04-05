@@ -12,7 +12,9 @@ var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
 var bodyParser = require('body-parser');
 
-var CreateThread = require('./schemas/createthread.json')
+var CreateThread = require('./schemas/createthread.json');
+var MessageSchema = require('./schemas/message.json');
+
 var validate = require('express-jsonschema').validate;
 
 app.use(express.static('../client/build'));
@@ -55,71 +57,10 @@ app.get('/', function (req, res) {
 // /user/:userid/conversation
 // ==========
 
-function getMessageData(message) {
-  message.authorUsername = readDocument('users', message.author).username;
-  return message;
-}
-
-function getConversationData(user, conversationId) {
-  var conversation = readDocument('conversations', conversationId);
-
-  conversation.messages = conversation.messages.map(getMessageData);
-
-  for(var i = conversation.users.length - 1; i >= 0; i--) {
-    if(conversation.users[i] === user) {
-      conversation.users.splice(i, 1);
-    }
-  }
-  conversation.user = readDocument('users', conversation.users[0]);
-
-  return conversation;
-}
-
-function compareConversations(convA, convB) {
-  // If there are no messages in the conversation, set the time of that conversation to 0.
-  var timeA = convA.messages.length < 1 ? 0 : convA.messages[convA.messages.length - 1].postDate;
-  var timeB = convB.messages.length < 1 ? 0 : convB.messages[convB.messages.length - 1].postDate;
-
-  return timeB - timeA;
-}
-
-function getConversations(user) {
-  var userData = readDocument('users', user);
-
-  var conversationsData = {
-    contents: []
-  };
-  conversationsData.contents = userData.conversations.map((conversation) => getConversationData(user, conversation));
-
-  conversationsData.contents.sort(compareConversations);
-
-  return conversationsData;
-}
-
-app.get('/user/:userid/conversation', function(req, res) {
-  var userid = req.params.userid;
-  var fromUser = getUserIdFromToken(req.get('Authorization'));
-  var useridNumber = parseInt(userid, 10);
-  if (fromUser === useridNumber) {
-    res.send(getConversations(useridNumber));
-  } else {
-    res.status(401).end();
-  }
-});
-
-app.get('/user/:userid/conversation/:conversationid', function(req, res) {
-  var fromUser = getUserIdFromToken(req.get('Authorization'));
-  // Convert params from string to number.
-  var conversationId = parseInt(req.params.conversationid, 10);
-  var userId = parseInt(req.params.userid, 10);
-  if (fromUser === userId) {
-    var conversationData = {};
-    conversationData.conversation = getConversationData(userId, conversationId);
-    res.send(conversationData)
-  } else {
-    res.status(401).end();
-  }
-});
+require('./routes/messaging.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument);
 
 // ====================
 // /thread/
