@@ -94,12 +94,13 @@ export default class CreateThread extends React.Component {
   render() {
     return (
       <MainContent title="Create Thread">
+        <p><font className="red" color="red">The feilds marked with an asterix (*) are required</font></p>
         <div className="row create-thread-row">
           <div className="col-md-6">
-            <div className="input-box-title">Title</div>
+            <div className="input-box-title">Title<font color="red">*</font></div>
             <input type="text" className="form-control create-thread-input" name="title" value={this.state.title} onChange={(e) => this.handleTitleChange(e)} required></input>
           </div>
-          
+
           <div className="col-md-3">
             <div className="input-box-title">Date</div>
             <div className="input-group date-input">
@@ -109,7 +110,7 @@ export default class CreateThread extends React.Component {
               </span>
             </div>
           </div>
-          
+
           <div className="col-md-3">
             <div className="input-box-title">Time</div>
             <div className="input-group time-input">
@@ -120,27 +121,27 @@ export default class CreateThread extends React.Component {
             </div>
           </div>
         </div>
-        
+
         <div className="row create-thread-row">
           <div className="col-md-6">
-            <div className="input-box-title">Description</div>
+            <div className="input-box-title">Description<font color="red">*</font></div>
             <textarea className="form-control description-input" rows="5" name="description" value={this.state.description} onChange={(e) => this.handleDescriptionChange(e)} required></textarea>
           </div>
-          
+
           <div className="col-md-1" />
-          
+
           <div className="col-md-5">
             <div className="input-box-title">Image</div>
             <img className="image-input" id="output" src={this.state.img} />
             <input type="file" className="browse" accept="image/jpeg, image/png" name="image" value={this.state.img} onChange={(e) => this.handleImageChange(e)} />
           </div>
         </div>
-        
+
         <div className="row create-thread-row">
           <div className="col-md-12">
-            <div className="input-box-title">Boards to post to</div>
+            <div className="input-box-title">Boards to post to<font color="red">*</font></div>
             <ul className="checkbox-grid" onChange={(e) => this.handleBoardChange(e)}>
-              <li><input type="checkbox" name="board" value="1"/>
+              <li><input type="checkbox" name="board" value="1" defaultChecked/>
                 General</li>
               <li><input type="checkbox" name="board" value="2"/>
                 Concerts</li>
@@ -165,7 +166,7 @@ export default class CreateThread extends React.Component {
             </ul>
           </div>
         </div>
-        
+
         <div className="create-thread-center">
           <button type="submit" className="btn btn-primary" onClick={(e) => this.handleNewThread(e)}>Submit</button>
         </div>
