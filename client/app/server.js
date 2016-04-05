@@ -37,6 +37,13 @@ function emulateServerReturn(data, cb) {
   }, 4);
 }
 
+// ====================
+// Thread functions
+// ====================
+
+// ====================
+// User functions
+// ====================
 
 function getThreadSync(threadId) {
   var thread = readDocument('threads', threadId);
