@@ -52,8 +52,15 @@ function getBoardData(boardId) {
   return board;
 }
 
+
 // ====================
 // /user/
+require('./routes/accountsettings.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument);
+
+
 // ====================
 
 // ==========
