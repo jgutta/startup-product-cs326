@@ -6,32 +6,21 @@ import { getSearchData } from '../../server';
 
 export default class Search extends React.Component {
   constructor(props) {
-    // super() calls the parent class constructor -- e.g. React.Component's constructor.
     super(props);
-    // Set state's initial value.
-    // Note that the constructor is the ONLY place you should EVER set state directly!
-    // In all other places, use the `setState` method instead.
-    // Setting `state` directly in other places will not trigger `render()` to run, so your
-    // program will have bugs.
     this.state = {
-      // Empty feed.
       contents: [],
       value: this.props.location.query.query
     };
   }
 
   componentDidMount() {
-    getSearchData((threads) => {
-      // Note: setState does a *shallow merge* of the current state and the new
-      // state. If state was currently set to {foo: 3}, and we setState({bar: 5}),
-      // state would then be {foo: 3, bar: 5}. This won't be a problem here.
+    getSearchData(this.props.location.query.query, (threads) => {
       this.setState(threads);
     });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({value: nextProps.location.query.query});
-
   }
 
   handleChange(e) {
