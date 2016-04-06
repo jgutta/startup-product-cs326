@@ -10,10 +10,10 @@ var database = require('./database');
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
-var bodyParser = require('body-parser');
 
-var CreateThread = require('./schemas/createthread.json')
-var validate = require('express-jsonschema').validate;
+var bodyParser = require('body-parser');
+app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 app.use(express.static('../client/build'));
 
@@ -47,69 +47,42 @@ app.get('/', function (req, res) {
   res.send('Welcome to UBoard!');
 });
 
+function getBoardData(boardId) {
+  var board = readDocument('boards', boardId);
+  return board;
+}
+
 // ====================
 // /user/
 // ====================
 
 // ==========
+// /user/:userid/subscribedboards
+// ==========
+
+require('./routes/subscribedboards.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument,
+                 getBoardData);
+
+// ==========
 // /user/:userid/conversation
 // ==========
 
-function getMessageData(message) {
-  message.authorUsername = readDocument('users', message.author).username;
-  return message;
-}
-
-function getConversationData(user, conversationId) {
-  var conversation = readDocument('conversations', conversationId);
-
-  conversation.messages = conversation.messages.map(getMessageData);
-
-  for(var i = conversation.users.length - 1; i >= 0; i--) {
-    if(conversation.users[i] === user) {
-      conversation.users.splice(i, 1);
-    }
-  }
-  conversation.user = readDocument('users', conversation.users[0]);
-
-  return conversation;
-}
-
-function compareConversations(convA, convB) {
-  // If there are no messages in the conversation, set the time of that conversation to 0.
-  var timeA = convA.messages.length < 1 ? 0 : convA.messages[convA.messages.length - 1].postDate;
-  var timeB = convB.messages.length < 1 ? 0 : convB.messages[convB.messages.length - 1].postDate;
-
-  return timeB - timeA;
-}
-
-function getConversations(user) {
-  var userData = readDocument('users', user);
-
-  var conversationsData = {
-    contents: []
-  };
-  conversationsData.contents = userData.conversations.map((conversation) => getConversationData(user, conversation));
-
-  conversationsData.contents.sort(compareConversations);
-
-  return conversationsData;
-}
-
-app.get('/user/:userid/conversation', function(req, res) {
-  var userid = req.params.userid;
-  var fromUser = getUserIdFromToken(req.get('Authorization'));
-  var useridNumber = parseInt(userid, 10);
-  if (fromUser === useridNumber) {
-    res.send(getConversations(useridNumber));
-  } else {
-    res.status(401).end();
-  }
-});
+require('./routes/messaging.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument);
 
 // ====================
 // /thread/
 // ====================
+
+require('./routes/createthread.js').
+          setApp(app,
+                getUserIdFromToken,
+                addDocument, readDocument, writeDocument);
 
 // ==========
 // /thread
@@ -147,6 +120,17 @@ app.post('/search', function(req, res) {
     res.status(400).end();
   }
 });
+
+
+// Reset database.
+app.post('/resetdb', function(req, res) {
+  console.log("Resetting database...");
+  // This is a debug route, so don't do any validation.
+  database.resetDatabase();
+  // res.send() sends an empty response with status code 200
+  res.send();
+});
+
 
 // Starts the server on port 3000!
 app.listen(3000, function () {

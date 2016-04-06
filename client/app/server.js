@@ -13,7 +13,6 @@ function sendXHR(verb, resource, body, cb) {
   // The below comment tells ESLint that FacebookError is a global.
   // Otherwise, ESLint would complain about it! (See what happens in Atom if
   // you remove the comment...)
-  /* global FacebookError */
 
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
@@ -71,6 +70,7 @@ function sendXHR(verb, resource, body, cb) {
  * some time in the future with data.
  */
 function emulateServerReturn(data, cb) {
+  console.log(cb);
   setTimeout(() => {
     cb(data);
   }, 4);
@@ -79,7 +79,22 @@ function emulateServerReturn(data, cb) {
 // ====================
 // Thread functions
 // ====================
+export function createThread(author, title, date, time, desc, image, boards, cb) {
+    sendXHR('POST', '/thread', {
+      boards: boards,
 
+      originalPost: {
+        author: author,
+        title: title,
+        date: date,
+        time: time,
+        img: image,
+        description: desc
+      }
+    }, (xhr) => {
+       cb(JSON.parse(xhr.responseText));
+     });
+  }
 // ====================
 // User functions
 // ====================
@@ -115,12 +130,17 @@ function getReplySync(replyId) {
     return reply;
   }
 
+function getFullThreadSync(threadId){
+  var thread = readDocument('threads', threadId);
+  var user = readDocument('users', thread.originalPost.author);
+  thread.originalPost.authorUsername = user.username;
+  thread.boards = thread.boards.map(getBoardSync);
+  thread.replies = thread.replies.map(getReplySync);
+  return thread;
+}
+
 export function getFullThreadData(threadId, cb) {
-   var thread = readDocument('threads', threadId);
-   var user = readDocument('users', thread.originalPost.author);
-   thread.originalPost.authorUsername = user.username;
-   thread.boards = thread.boards.map(getBoardSync);
-   thread.replies = thread.replies.map(getReplySync);
+  var thread = getFullThreadSync(threadId);
    var threadData = {
      contents: thread
    };
@@ -174,12 +194,9 @@ export function getAllBoards(cb){
 }
 
 export function getSubscribedBoardsData(user, cb) {
-  var userData = readDocument('users', user);
-  var subscribedBoardsData = {
-    contents: []
-  };
-  subscribedBoardsData.contents = userData.subscribedBoards.map(getBoardSync);
-  emulateServerReturn(subscribedBoardsData, cb);
+  sendXHR('GET', '/user/' + user + '/subscribedboards', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getBoardsData(cb){
@@ -194,10 +211,9 @@ export function getBoardsData(cb){
 }
 
 export function addSubscribeBoard(user, board, cb) {
-  var userData = readDocument('users', user);
-  userData.subscribedBoards.push(board);
-  writeDocument('users', userData);
-  emulateServerReturn(userData, cb);
+  sendXHR('PUT', '/user/' + user + '/subscribedboards/' + board, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 function getIndex(array, element) {
@@ -209,11 +225,9 @@ function getIndex(array, element) {
 }
 
 export function deleteSubscribeBoard(user, board, cb) {
-  var userData = readDocument('users', user);
-  var index = getIndex(userData.subscribedBoards, board);
-  userData.subscribedBoards.splice(index, 1);
-  writeDocument('users', userData);
-  emulateServerReturn(userData, cb);
+  sendXHR('DELETE', '/user/' + user + '/subscribedboards/' + board, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 
@@ -255,40 +269,27 @@ export function getConversationsData(user, cb) {
   });
 }
 
-export function getConversationsDataOld(user, cb) {
-  var userData = readDocument('users', user);
-
-  var conversationsData = {
-    contents: []
-  };
-  conversationsData.contents = userData.conversations.map((conversation) => getConversationSync(user, conversation));
-
-  conversationsData.contents.sort(compareConversations);
-
-  emulateServerReturn(conversationsData, cb);
-}
-
 export function getConversationData(user, conversationId, cb) {
-  var conversationData = {};
-  conversationData.conversation = getConversationSync(user, conversationId);
-
-  emulateServerReturn(conversationData, cb);
+  sendXHR('GET', '/user/' + user + '/conversation/' + conversationId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
-
 
 export function postMessage(conversationId, author, title, contents, cb) {
-  var conversation = readDocument('conversations', conversationId);
-  conversation.messages.push({
-    'author': author,
-    'title': title,
-    'postDate': new Date().getTime(),
-    'contents': contents
+  sendXHR('POST', '/user/' + author + '/conversation/' + conversationId, {
+    author: author,
+    title: title,
+    contents: contents
+  }, (xhr) => {
+    // Return the new status update.
+    cb(JSON.parse(xhr.responseText));
   });
-
-  writeDocument('conversations', conversation);
-
-  emulateServerReturn(getConversationSync(author, conversationId), cb);
 }
+
+
+// ====================
+// Thread functions
+// ====================
 
 export function postReply(threadId, author, contents, cb){
   var thread = readDocument('threads', threadId);
@@ -302,7 +303,11 @@ export function postReply(threadId, author, contents, cb){
   //push current replyId to thread.replies
   thread.replies.push(rep._id);
   writeDocument('threads', thread);
-  emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
+  var fullThread = getFullThreadSync(threadId);
+     var threadData = {
+       contents: fullThread
+     };
+  emulateServerReturn(threadData, cb);
 }
 
 export function postReplyToReply(threadId, replyId, author, contents, cb){
@@ -316,8 +321,13 @@ export function postReplyToReply(threadId, replyId, author, contents, cb){
   }
   rep = addDocument('replies', rep);
   reply.replies.push(rep._id);
+  writeDocument('replies', reply);
   writeDocument('threads', thread);
-  emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
+  var fullThread = getFullThreadSync(threadId);
+  var threadData = {
+    contents: fullThread
+  };
+  emulateServerReturn(threadData, cb);
 }
 
 // ====================
@@ -351,36 +361,6 @@ export function getSearchDataOld(cb) {
 
   emulateServerReturn(threadData, cb);
 }
-
-export function createThread(author, title, date, time, desc, image, boards, cb) {
-    var thread = {
-      'boards': boards,
-      'commentsNo': 0,
-      'viewsNo': 0,
-
-      'originalPost': {
-        'author': author,
-        'title': title,
-        'date': date,
-        'time': time,
-        'img': image,
-        'postDate': new Date().getTime(),
-        'description': desc
-      },
-
-      'replies': []
-    };
-
-    thread = addDocument('threads', thread);
-
-    for(var i in boards){
-        var board = readDocument('boards', boards[i]);
-        board.threads.push(thread._id);
-        writeDocument('boards', board);
-    }
-
-    emulateServerReturn(thread, cb);
-  }
 
   export function getUserData(userId, cb){
       var user =  readDocument('users', userId);

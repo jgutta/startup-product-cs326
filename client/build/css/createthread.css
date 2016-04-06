@@ -1,72 +1,44 @@
-.title {
-  font-size: 15px;
+.create-thread-row {
+  margin-bottom: 15px;
 }
 
-textarea {
+.input-box-title {
+  font-size: 1.2em;
+  margin-left: 10px;
+  margin-bottom: 3px;
+}
+
+.create-thread-input {
+  height: 30px;
+}
+
+.date-input {
+  width: 1px;
+}
+
+.time-input {
+  width: 125px;
+}
+
+.description-input {
   resize: none;
-  /* Needs to be !important, since Bootstrap sets this elsewhere. */
-  box-shadow: none !important;
-  border: none;
 }
 
-.checkboxes {
-  font-size: 12px;
-}
-
-.checkbox-grid{
-  padding-left: 65px;
-}
-
-.submit {
-  padding-bottom: 5px;
-}
-
-.date {
-  padding-top: 0px;
-}
-
-.description {
-  padding-top: 0px;
-}
-
-.submit {
-  text-align: center;
-  padding-top: 15px;
-}
-
-.red {
-  color: red;
-  font-size: 12px;
-  padding-left: 15px;
+.image-input {
+  height: 100px;
 }
 
 .checkbox-grid li {
-    display: block;
-    float: left;
-    width: 25%;
-    vertical-align: middle;
+  display: block;
+  float: left;
+  width: 25%;
 }
 
-.box {
-  margin: auto;
-}
-
-.picture {
+.create-thread-center {
+  margin-top: 50px;
   text-align: center;
-  padding-top: 0px;
-  padding-bottom: 0px;
 }
 
-.browse{
-  margin: auto;
-  width: 36%;
-}
-
-.date {
-  padding-bottom: 0px;
-}
-
-.p{
-  margin: auto;
-  border: 1px solid #aaa;
+.red{
+  font-size: 12px;
 }
