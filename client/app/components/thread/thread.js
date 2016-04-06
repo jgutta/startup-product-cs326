@@ -47,6 +47,7 @@ export default class Thread extends React.Component {
 
   handleReply(e){
     e.preventDefault();
+    console.log(this.state);
     var messageContents = this.state.messageContentsValue.trim();
     if (messageContents !== ''){
       var thread = this.state.contents;
@@ -112,9 +113,12 @@ export default class Thread extends React.Component {
         <br />
         <br />
 
-        <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
+          <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
 
         </MainContent>
     )
   }
 }
+//{this.state.contents.replies.map((i) => {
+//rKey={i}
+//})}
