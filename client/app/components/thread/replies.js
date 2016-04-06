@@ -25,8 +25,9 @@ export default class Replies extends React.Component {
     console.log(this.props.data);
     console.log(this.state);
     //how do i access id? data is array...
-    this.props.replyFunction(this.state.messageContentsValue, this.props.threadId, replyId);
+    var msg = this.state.messageContentsValue;
     this.setState({ messageContentsValue: '' });
+    this.props.replyFunction(msg, this.props.threadId, replyId);
   }
 
   render() {
@@ -56,7 +57,7 @@ export default class Replies extends React.Component {
                    {this.state.editReply
                     ? <div>
                      <br />
-                     <textarea className="reply-box" rows="2" placeholder={'Reply to this post'} value={this.state.messageContentsValue}  onChange={(e) => this.handleContentsChange(e)} />
+                     <textarea className="reply-box" rows="2" placeholder={'Reply to this post'} onChange={(e) => this.handleContentsChange(e)} />
                      <button type="button" className="btn btn-primary rep-btn" onClick={(e) => this.handleReply(e, reply._id)}> Submit </button>
                     </div>
 
@@ -74,4 +75,6 @@ export default class Replies extends React.Component {
   }
 
 }
-//adding "value" to textarera lets you edit all at once....x
+//adding "value" to textarera lets you edit all at once....
+//not necessary to post
+//value={this.state.messageContentsValue}

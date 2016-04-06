@@ -325,7 +325,18 @@ export function postReplyToReply(threadId, replyId, author, contents, cb){
   emulateServerReturn(threadData, cb);
 }
 
-export function getSearchData(cb) {
+// ====================
+// Search functions
+// ====================
+
+export function getSearchData(queryText, cb) {
+  // userID is not needed; it's included in the JSON web token.
+  sendXHR('POST', '/search', queryText, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function getSearchDataOld(cb) {
   var threads = readCollection('threads');
   var threadData = {
     contents: []
