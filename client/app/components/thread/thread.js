@@ -33,14 +33,14 @@ export default class Thread extends React.Component {
   checkOptionalInfo(){
     var op = this.state.contents.originalPost;
     if((op.date !== '') && (op.time !== '')){
-      return(<div>  Date:  {op.date}, Time:  {op.time} <hr /> </div> )
+      return(<div className="minor-OP-info">  Date:  {op.date}, Time:  {op.time} <hr /> </div> )
     }
     else{
       if(op.date !== ''){
-        return(<div>  Date:  {op.date} <hr /> </div>)
+        return(<div className="minor-OP-info">  Date:  {op.date} <hr /> </div>)
       }
       if(op.time !== ''){
-        return(<div>  Time:  {op.time} <hr /> </div>)
+        return(<div className="minor-OP-info">  Time:  {op.time} <hr /> </div>)
       }
     }
   }
@@ -62,7 +62,7 @@ export default class Thread extends React.Component {
     var messageContents = msg.trim();
     if(messageContents !== ''){
       postReplyToReply(threadId, replyId, 1, messageContents, (threadData) => {
-        this.setState({ msg: '' });
+        //this.setState({ msg: '' });
         this.setState(threadData);
       });
     }
@@ -96,7 +96,7 @@ export default class Thread extends React.Component {
              <div className="thread-data">
                <hr />
 
-               <div >
+               <div className="minor-OP-info">
                  Posted by {thread.originalPost.authorUsername} on {unixTimeToString(thread.originalPost.postDate)}
                </div>
 
