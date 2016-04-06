@@ -53,6 +53,15 @@ function getBoardData(boardId) {
   return board;
 }
 
+// ===================
+// /board/
+// ===================
+require('./routes/boards.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 getCollection);
+
+
 // ====================
 // /user/
 // ====================
