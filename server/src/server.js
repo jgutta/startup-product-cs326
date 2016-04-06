@@ -16,7 +16,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
-app.use(express.static('../client/build'));
+app.use(express.static('../client/build/'));
 
 /**
  * Get the user ID from a token. Returns -1 (an invalid ID) if it fails.
@@ -43,10 +43,6 @@ function getUserIdFromToken(authorizationLine) {
   }
 }
 
-// Defines what happens when it receives the `GET /` request
-app.get('/', function (req, res) {
-  res.send('Welcome to UBoard!');
-});
 
 function getBoardData(boardId) {
   var board = readDocument('boards', boardId);

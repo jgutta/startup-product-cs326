@@ -10,10 +10,6 @@ function sendXHR(verb, resource, body, cb) {
   xhr.open(verb, resource);
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
-  // The below comment tells ESLint that FacebookError is a global.
-  // Otherwise, ESLint would complain about it! (See what happens in Atom if
-  // you remove the comment...)
-
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
     var statusCode = xhr.status;
@@ -95,6 +91,17 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
        cb(JSON.parse(xhr.responseText));
      });
   }
+
+
+// ====================
+// Board Data Functions
+//=====================
+export function getBoardsData(cb){
+  sendXHR('GET', '/boards/', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
 // ====================
 // User functions
 // ====================
@@ -185,22 +192,8 @@ function getBoardSync(boardId) {
   return board;
 }
 
-export function getAllBoards(cb){
-  var boardList =[];
- for (var i=1; i<=11; i++){
-   boardList.push(readDocument('boards', i));
- }
-  emulateServerReturn(boardList, cb);
-}
-
 export function getSubscribedBoardsData(user, cb) {
   sendXHR('GET', '/user/' + user + '/subscribedboards', undefined, (xhr) => {
-    cb(JSON.parse(xhr.responseText));
-  });
-}
-
-export function getBoardsData(cb){
-  sendXHR('GET', '/boards/', undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
   });
 }
