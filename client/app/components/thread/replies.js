@@ -22,6 +22,7 @@ export default class Replies extends React.Component {
   handleReply(e, i){
     //toggle/clear stuff
     e.preventDefault();
+    console.log(i);
     this.props.replyFunction(this.state.messageContentsValue, this.props.threadId, i);
   }
 
@@ -60,7 +61,7 @@ export default class Replies extends React.Component {
                    }
                  </div>
 
-                 <Replies data={reply.replies} />
+                 <Replies data={reply.replies} threadId={this.props.threadId} replyFunction={this.props.replyFunction} />
                </div>
              </li>
            );
