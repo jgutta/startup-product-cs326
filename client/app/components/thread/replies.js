@@ -19,11 +19,13 @@ export default class Replies extends React.Component {
     this.setState({ messageContentsValue: e.target.value });
   }
 
-  handleReply(e, i){
+  handleReply(e, replyId){
     //toggle/clear stuff
     e.preventDefault();
-    console.log(i);
-    this.props.replyFunction(this.state.messageContentsValue, this.props.threadId, i);
+    console.log(this.props.data);
+    console.log(this.state);
+    //how do i access id? data is array...
+    this.props.replyFunction(this.state.messageContentsValue, this.props.threadId, replyId);
   }
 
   render() {
@@ -31,7 +33,7 @@ export default class Replies extends React.Component {
 
     return(
       <ul className="media-list reply-list">
-        {data.map((reply, i) => {
+        {data.map((reply) => {
            return (
              <li className="media" key={reply._id}>
                <div className="media-left">
@@ -54,7 +56,7 @@ export default class Replies extends React.Component {
                     ? <div>
                      <br />
                      <textarea className="reply-box" rows="2" placeholder={'Reply to this post'} value={this.state.messageContentsValue}  onChange={(e) => this.handleContentsChange(e)} />
-                     <button type="button" className="btn btn-primary rep-btn" onClick={(e) => this.handleReply(e, i)}> Submit </button>
+                     <button type="button" className="btn btn-primary rep-btn" onClick={(e) => this.handleReply(e, reply._id)}> Submit </button>
                     </div>
 
                     : <div> </div>

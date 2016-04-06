@@ -321,6 +321,7 @@ export function postReplyToReply(threadId, replyId, author, contents, cb){
   }
   rep = addDocument('replies', rep);
   reply.replies.push(rep._id);
+  writeDocument('replies', reply);
   writeDocument('threads', thread);
   var fullThread = getFullThreadSync(threadId);
   var threadData = {

@@ -119,6 +119,3 @@ export default class Thread extends React.Component {
     )
   }
 }
-//{this.state.contents.replies.map((i) => {
-//rKey={i}
-//})}
