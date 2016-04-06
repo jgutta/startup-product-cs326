@@ -200,14 +200,9 @@ export function getSubscribedBoardsData(user, cb) {
 }
 
 export function getBoardsData(cb){
-  var boards = readCollection('boards');
-  var boardsData = {
-    boardsList: []
-  };
-  for(var i in boards)
-    boardsData.boardsList.push(boards[i]);
-
-  emulateServerReturn(boardsData, cb);
+  sendXHR('GET', '/boards/', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function addSubscribeBoard(user, board, cb) {

@@ -10,6 +10,7 @@ var database = require('./database');
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
+var getCollection = database.getCollection;
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.text());
@@ -51,6 +52,15 @@ function getBoardData(boardId) {
   var board = readDocument('boards', boardId);
   return board;
 }
+
+// ===================
+// /board/
+// ===================
+require('./routes/boards.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 getCollection);
+
 
 // ====================
 // /user/
