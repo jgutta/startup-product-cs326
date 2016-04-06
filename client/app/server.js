@@ -351,12 +351,9 @@ export function getSearchDataOld(cb) {
 }
 
   export function getUserData(userId, cb){
-      var user =  readDocument('users', userId);
-      user.blockedUsers = user.blockedUsers.map(getBlockedUserSync);
-      var userData = {
-          user : user
-      };
-        emulateServerReturn(userData, cb);
+    sendXHR('GET', '/user/' + userId, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
   }
 
   export function retrieveNameFromId(id ,cb) {
@@ -370,35 +367,26 @@ export function getSearchDataOld(cb) {
       }
 
   export function updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb) {
-
-      // read user into userData
-      // update userData with changed properties
-
-      var userData = readDocument('users', userId);
-      userData.username = username;
-      userData.gender = gender;
-      userData.password = password;
-      userData.blocked = blocked;
-      userData.email = email;
-      userData.emailset = emailset;
-      userData.image = image;
-      writeDocument('users', userData);
-      emulateServerReturn(userData, cb);
+    sendXHR('PUT', '/user/' + userId, {
+      username:username,
+      gender:gender,
+      password:password,
+      blocked:blocked,
+      email:email,
+      emailset:emailset,
+      image:image
+    }, (xhr) => {
+      // Return the updated user.
+      cb(JSON.parse(xhr.responseText));
+    });
     }
 
 
 
-    function getBlockedUserSync(userId) {
-      var blocked = readDocument('users',userId);
-
-      return blocked;
-    }
-    export function unBlock(user , blockedUser, cb){
-      var userData = readDocument('users', user);
-      var index = getIndex(userData.blockedUsers, blockedUser);
-      userData.blockedUsers.splice(index, 1);
-      writeDocument('users', userData);
-      emulateServerReturn(userData, cb);
+    export function unBlock(user , blockedUserId, cb){
+      sendXHR('DELETE', '/user/' + user + '/blockedUsers/' + blockedUserId, undefined, () => {
+        cb();
+      });
     }
 
     export function addBlock(user, blockUser, cb) {

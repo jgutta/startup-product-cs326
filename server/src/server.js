@@ -49,6 +49,7 @@ function getBoardData(boardId) {
   return board;
 }
 
+
 // ===================
 // /board/
 // ===================
@@ -58,8 +59,15 @@ require('./routes/boards.js').
                  getCollection);
 
 
+
 // ====================
 // /user/
+require('./routes/accountsettings.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument);
+
+
 // ====================
 
 // ==========
@@ -98,16 +106,26 @@ require('./routes/createthread.js').
 // /search
 // ==========
 
+// Search for feed item
 app.post('/search', function(req, res) {
-  var fromUser = getUserIdFromToken(req.get('Authorization'));
-  console.log(fromUser);
-  var user = readDocument('users', fromUser);
   if (typeof(req.body) === 'string') {
     // trim() removes whitespace before and after the query.
     // toLowerCase() makes the query lowercase.
     var queryText = req.body.trim().toLowerCase();
     // Search the user's feed.
-    var feedItemIDs = readDocument('feeds', user.feed).contents;
+
+    var threads = getCollection('threads');
+
+    var threadsData = [];
+
+    for(var i in threads) {
+      var th = threads[i];
+      th.boards = th.boards.map(getBoardData);
+      var userData = readDocument('users', th.originalPost.author);
+      th.originalPost.authorName = userData.username;
+      threadsData.push(th);
+    }
+
     // "filter" is like "map" in that it is a magic method for
     // arrays. It takes an anonymous function, which it calls
     // with each item in the array. If that function returns 'true',
@@ -117,10 +135,16 @@ app.post('/search', function(req, res) {
     // query text.
     // Since the array contains feed item IDs, we later map the filtered
     // IDs to actual feed item objects.
-    res.send(feedItemIDs.filter((feedItemID) => {
-      var feedItem = readDocument('feedItems', feedItemID);
-      return feedItem.contents.contents.toLowerCase().indexOf(queryText) !== -1;
-    }).map(getFeedItemSync));
+    var searchResults = {
+      contents: []
+    };
+
+    searchResults.contents = threadsData.filter((thread) => {
+      var threadDescription = thread.originalPost.description;
+      return threadDescription.toLowerCase().indexOf(queryText) !== -1;
+    });
+
+    res.send(searchResults);
   } else {
     // 400: Bad Request.
     res.status(400).end();

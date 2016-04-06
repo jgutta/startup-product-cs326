@@ -20,8 +20,6 @@ export default class AccountSettings extends React.Component {
       editEmail: false,
       editName: false,
       editPass: false,
-      addBlock: false,
-      tempBlock: '',
       temp: ''
     };
   }
