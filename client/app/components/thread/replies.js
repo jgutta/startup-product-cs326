@@ -19,11 +19,11 @@ export default class Replies extends React.Component {
     this.setState({ messageContentsValue: e.target.value });
   }
 
-  /*
   handleReply(e){
     //toggle/clear stuff
-    this.props.replyFunction(messageContentsValue);
-  } */
+    e.preventDefault();
+    this.props.replyFunction(this.state.messageContentsValue, this.props.threadId, /*replyId?*/);
+  }
 
   render() {
     var data = this.props.data;
@@ -52,7 +52,7 @@ export default class Replies extends React.Component {
                    {this.state.editReply
                     ? <div>
                      <br />
-                     <textarea className="reply-box" rows="2" placeholder={'Reply to this post'}  onChange={(e) => this.handleContentsChange(e)} />
+                     <textarea className="reply-box" rows="2" placeholder={'Reply to this post'} value={this.state.messageContentsValue}  onChange={(e) => this.handleContentsChange(e)} />
                      <button type="button" className="btn btn-primary rep-btn" onClick={(e) => this.handleReply(e)}> Submit </button>
                     </div>
 
@@ -70,3 +70,4 @@ export default class Replies extends React.Component {
   }
 
 }
+//adding "value" to textarera lets you edit all at once....x

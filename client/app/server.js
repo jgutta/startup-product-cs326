@@ -307,8 +307,6 @@ export function postReply(threadId, author, contents, cb){
      var threadData = {
        contents: fullThread
      };
-
-  //console.log(threadData);
   emulateServerReturn(threadData, cb);
 }
 
@@ -324,7 +322,11 @@ export function postReplyToReply(threadId, replyId, author, contents, cb){
   rep = addDocument('replies', rep);
   reply.replies.push(rep._id);
   writeDocument('threads', thread);
-  emulateServerReturn(getFullThreadData(threadId, getReplySync(rep._id)), cb);
+  var fullThread = getFullThreadSync(threadId);
+  var threadData = {
+    contents: fullThread
+  };
+  emulateServerReturn(threadData, cb);
 }
 
 export function getSearchData(cb) {

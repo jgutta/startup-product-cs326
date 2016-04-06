@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { getFullThreadData, postReply} from '../../server';
+import { getFullThreadData, postReply, postReplyToReply} from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -14,9 +14,8 @@ export default class Thread extends React.Component {
   }
 
   refresh(){
-    //console.log("refresh called");
     getFullThreadData(this.props.params.id, (threadData) =>{
-      console.log(threadData);
+      //console.log(threadData);
       this.setState( threadData );
     });
   }
@@ -28,7 +27,6 @@ export default class Thread extends React.Component {
   componentWillReceiveProps(nextProps){
     getFullThreadData(nextProps.params.id, (threadData) =>{
       this.setState(threadData);
-      //this.setState({ contents: threadData });
     });
 }
 
@@ -49,20 +47,24 @@ export default class Thread extends React.Component {
 
   handleReply(e){
     e.preventDefault();
-    console.log(this.state);
     var messageContents = this.state.messageContentsValue.trim();
     if (messageContents !== ''){
       var thread = this.state.contents;
       postReply(thread._id, 1, this.state.messageContentsValue, (threadData) => {
         this.setState({ messageContentsValue: '' });
-        console.log(this.state);
         this.setState(threadData);
       });
     }
   }
 
-  handleReplyToReply(){
-    //stuff
+  handleReplyToReply(msg, threadId, replyId){
+    var messageContents = msg.trim();
+    if(messageContents !== ''){
+      postReplyToReply(threadId, replyId, 1, messageContents, (threadData) => {
+        this.setState({ messageContents: '' });
+        this.setState(threadData);
+      });
+    }
   }
 
   handleContentsChange(e) {
