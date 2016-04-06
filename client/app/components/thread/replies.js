@@ -26,6 +26,7 @@ export default class Replies extends React.Component {
     console.log(this.state);
     //how do i access id? data is array...
     this.props.replyFunction(this.state.messageContentsValue, this.props.threadId, replyId);
+    this.setState({ messageContentsValue: '' });
   }
 
   render() {
