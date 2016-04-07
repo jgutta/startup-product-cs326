@@ -73,6 +73,20 @@ export default class Thread extends React.Component {
     this.setState({ messageContentsValue: e.target.value });
   }
 
+  commas(array) {
+     var str = '';
+     for(var i = 0; i < array.length; i++) {
+       if(i != array.length - 1) {
+         str = str + array[i].name + ', ';
+       }
+       else {
+         str = str + array[i].name;
+       }
+     }
+
+     return(str);
+   }
+
   render() {
 
       if(!this.state.contents){
@@ -114,7 +128,15 @@ export default class Thread extends React.Component {
         <br />
 
           <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
-
+          <hr className="content-title-separator" />
+          <div>
+          <div className="footer minor-OP-info pull-left">
+            {thread.commentsNo} comments, {thread.viewsNo} views
+          </div>
+          <div className="footer pull-right">
+            Posted to: {this.commas(thread.boards)}
+          </div>
+          </div>
         </MainContent>
     )
   }
