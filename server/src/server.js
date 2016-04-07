@@ -67,6 +67,15 @@ require('./routes/subscribedboards.js').
                  getBoardData);
 
 // ==========
+// /user/:userid/pinnedposts
+// ==========
+
+require('./routes/pinnedposts.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument);
+
+// ==========
 // /user/:userid/conversation
 // ==========
 
