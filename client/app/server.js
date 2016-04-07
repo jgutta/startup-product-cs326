@@ -168,25 +168,6 @@ export function getFeedData(user, cb) {
   emulateServerReturn(feedData, cb);
 }
 
-
-export function getPinnedPostsData(user, cb) {
-  var userData = readDocument('users', user);
-  var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
-  pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
-  emulateServerReturn(pinnedPostsData, cb);
-}
-
-export function deletePinnedPost(pin, thread, cb){
-  var pinnedPostsData = readDocument('pinnedPosts', pin);
-  var index = getIndex(pinnedPostsData.contents, thread);
-  pinnedPostsData.contents.splice(index, 1);
-
-  writeDocument('pinnedPosts', pinnedPostsData);
-
-  emulateServerReturn(pinnedPostsData, cb);
-
-}
-
 function getBoardSync(boardId) {
   var board = readDocument('boards', boardId);
   return board;
@@ -383,30 +364,70 @@ export function getSearchDataOld(cb) {
 
 
 
-    export function unBlock(user , blockedUserId, cb){
-      sendXHR('DELETE', '/user/' + user + '/blockedUsers/' + blockedUserId, undefined, () => {
-        cb();
-      });
-    }
+export function unBlock(user , blockedUserId, cb){
+    sendXHR('DELETE', '/user/' + user + '/blockedUsers/' + blockedUserId, undefined, () => {
+      cb();
+    });
+}
 
-    export function addBlock(user, blockUser, cb) {
-      var userData = readDocument('users', user);
-      userData.blockedUsers.push(blockUser);
-      writeDocument('users', userData);
-      emulateServerReturn(userData, cb);
-    }
+export function addBlock(user, blockUser, cb) {
+  var userData = readDocument('users', user);
+  userData.blockedUsers.push(blockUser);
+  writeDocument('users', userData);
+  emulateServerReturn(userData, cb);
+}
 
-    export function addPinnedPost(userID, threadID, cb){
-      var user = readDocument('users', userID);
-      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      pinned.contents.push(threadID);
-      writeDocument('pinnedPosts', pinned);
-      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
-    }
+// ====================
+// Pinned Post functions
+// ====================
 
-    export function getPinned(userID, cb){
-      var user = readDocument('users', userID);
-      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      emulateServerReturn(pinned, cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+//For thread -returns just the content
+export function getPinned(userID, cb){
+  var user = readDocument('users', userID);
+  var pinned = readDocument('pinnedPosts', user.pinnedPosts);
+  emulateServerReturn(pinned, cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+}
 
-    }
+//For pinned post -returns all thread data
+export function getPinnedPostsDataOld(user, cb) {
+  var userData = readDocument('users', user);
+  var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
+  pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
+  emulateServerReturn(pinnedPostsData, cb);
+}
+
+export function deletePinnedPostOld(user, pin, thread, cb){
+  var pinnedPostsData = readDocument('pinnedPosts', pin);
+  var index = getIndex(pinnedPostsData.contents, thread);
+  pinnedPostsData.contents.splice(index, 1);
+
+  writeDocument('pinnedPosts', pinnedPostsData);
+
+  emulateServerReturn(pinnedPostsData, cb);
+}
+
+export function addPinnedPostOld(userID, threadID, cb){
+  var user = readDocument('users', userID);
+  var pinned = readDocument('pinnedPosts', user.pinnedPosts);
+  pinned.contents.push(threadID);
+  writeDocument('pinnedPosts', pinned);
+  emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+}
+
+export function addPinnedPost(user, threadID, cb) {
+  sendXHR('PUT', '/user/' + user + '/pinnedposts/' + threadID, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function deletePinnedPost(user, threadID, cb) {
+  sendXHR('DELETE', '/user/' + user + '/pinnedposts/' + threadID, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function getPinnedPostsData(user, cb) {
+  sendXHR('GET', '/user/' + user + '/pinnedposts', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
