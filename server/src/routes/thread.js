@@ -76,7 +76,66 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
     }
 
   });
+
+  app.post('/thread/:threadId/replyto/:replyId', validate({ body: replySchema }), function(req, res){
+    var body = req.body;
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    if (fromUser === body.author) {
+      if(typeof(body.contents) !== 'string'){
+        // 400: Bad request.
+        res.status(400).end();
+        return;
+      }
+      var threadId = req.params.threadId;
+      var replyId = req.params.replyId;
+      var thread = readDocument('threads', threadId);
+      var reply = readDocument('replies', replyId);
+      var rep = {
+        'author': body.author,
+        'postDate': body.postDate,
+        'contents': body.contents,
+        'replies': []
+      };
+      rep = addDocument('replies', rep);
+      reply.replies.push(rep._id);
+      writeDocument('replies', reply);
+      writeDocument('threads', thread);
+      var fullThread = getFullThreadSync(threadId);
+      var threadData = {
+        contents: fullThread
+      };
+      res.status(201);
+      res.send(threadData);
+    }
+
+    else {
+      // 401: Unauthorized.
+      res.status(401).end();
+    }
+
+  });
 };
+
+/*
+var thread = readDocument('threads', threadId);
+var reply = readDocument('replies', replyId);
+var rep = {
+  'author': author,
+  'postDate': new Date().getTime(),
+  'contents': contents,
+  'replies': []
+}
+rep = addDocument('replies', rep);
+reply.replies.push(rep._id);
+writeDocument('replies', reply);
+writeDocument('threads', thread);
+var fullThread = getFullThreadSync(threadId);
+var threadData = {
+  contents: fullThread
+};
+emulateServerReturn(threadData, cb);
+*/
+
 /*var thread = readDocument('threads', threadId);
 var rep = {
   'author': author,
