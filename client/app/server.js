@@ -1,5 +1,3 @@
-import { readDocument, writeDocument, addDocument, readCollection } from './database.js';
-
 var token = 'eyJpZCI6MX0='; // <-- Put your base64'd JSON token here
 /**
  * Properly configure+send an XMLHttpRequest with error handling, authorization token,
