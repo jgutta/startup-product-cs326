@@ -60,6 +60,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       rep = addDocument('replies', rep);
       //push current replyId to thread.replies
       thread.replies.push(rep._id);
+      thread.commentsNo = thread.commentsNo + 1;
       writeDocument('threads', thread);
       var fullThread = getFullThreadSync(threadId);
          var threadData = {
@@ -101,6 +102,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       rep = addDocument('replies', rep);
       reply.replies.push(rep._id);
       writeDocument('replies', reply);
+      thread.commentsNo = thread.commentsNo + 1;
       writeDocument('threads', thread);
       var fullThread = getFullThreadSync(threadId);
       var threadData = {
