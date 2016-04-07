@@ -98,7 +98,7 @@ require('./routes/subscribedboards.js').
 require('./routes/pinnedposts.js').
           setApp(app,
                  getUserIdFromToken,
-                 readDocument, writeDocument);
+                 readDocument, writeDocument, getThreadSync);
 
 // ==========
 // /user/:userid/conversation
@@ -132,8 +132,6 @@ require('./routes/thread.js').
 // ==========
 // /search
 // ==========
-
-// Search for feed item
 app.post('/search', function(req, res) {
   if (typeof(req.body) === 'string') {
     // trim() removes whitespace before and after the query.
