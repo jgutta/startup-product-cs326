@@ -47,7 +47,6 @@ function getUserIdFromToken(authorizationLine) {
 
 // ===================
 // /board/
-// ===================
 app.get('/board/:boardId', function(req, res){
   var board = readDocument('boards', req.params.boardId);
   //var fromUser = getUserIdFromToken(req.get('Authorization')); Dont think I need this here. What is there to validate by user?
@@ -69,6 +68,8 @@ function getBoardData(boardId) {
    var board = readDocument('boards', boardId);
    return board;
 }
+// ===================
+
 
 // ====================
 // /user/
