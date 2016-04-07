@@ -10,6 +10,11 @@ function sendXHR(verb, resource, body, cb) {
   xhr.open(verb, resource);
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
+  // The below comment tells ESLint that FacebookError is a global.
+  // Otherwise, ESLint would complain about it! (See what happens in Atom if
+  // you remove the comment...)
+  /* global UBoardError */
+
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
     var statusCode = xhr.status;
@@ -23,7 +28,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      console.log('Could not ' + verb + " " + resource + ": Received " + statusCode + " " + statusText + ": " + responseText);
+      UBoardError('Could not ' + verb + " " + resource + ": Received " + statusCode + " " + statusText + ": " + responseText);
     }
   });
 
@@ -32,12 +37,12 @@ function sendXHR(verb, resource, body, cb) {
 
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    console.log('Could not ' + verb + " " + resource + ": Could not connect to the server.");
+    UBoardError('Could not ' + verb + " " + resource + ": Could not connect to the server.");
   });
 
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    console.log('Could not ' + verb + " " + resource + ": Request timed out.");
+    UBoardError('Could not ' + verb + " " + resource + ": Request timed out.");
   });
 
   switch (typeof(body)) {
@@ -89,6 +94,64 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     }, (xhr) => {
        cb(JSON.parse(xhr.responseText));
      });
+  }
+
+
+  export function postReply(threadId, author, contents, cb){
+    sendXHR('POST', '/thread/' + threadId + '/replyto/', {
+      author: author,
+      postDate: new Date().getTime(),
+      contents: contents,
+      replies: []
+    }, (xhr) =>{
+      cb(JSON.parse(xhr.responseText));
+    });
+    /*
+    var thread = readDocument('threads', threadId);
+    var rep = {
+      'author': author,
+      'postDate': new Date().getTime(),
+      'contents': contents,
+      'replies': []
+    }
+    rep = addDocument('replies', rep);
+    //push current replyId to thread.replies
+    thread.replies.push(rep._id);
+    writeDocument('threads', thread);
+    var fullThread = getFullThreadSync(threadId);
+       var threadData = {
+         contents: fullThread
+       };
+    emulateServerReturn(threadData, cb); */
+  }
+
+  export function postReplyToReply(threadId, replyId, author, contents, cb){
+    /*
+    sendXHR('POST', '/thread/' + threadId, {
+      author: author,
+      postDate: new Date().getTime(),
+      contents: contents,
+      replies: []
+    }, (xhr) =>{
+      cb(JSON.parse(xhr.responseText));
+    }); */
+    var thread = readDocument('threads', threadId);
+    var reply = readDocument('replies', replyId);
+    var rep = {
+      'author': author,
+      'postDate': new Date().getTime(),
+      'contents': contents,
+      'replies': []
+    }
+    rep = addDocument('replies', rep);
+    reply.replies.push(rep._id);
+    writeDocument('replies', reply);
+    writeDocument('threads', thread);
+    var fullThread = getFullThreadSync(threadId);
+    var threadData = {
+      contents: fullThread
+    };
+    emulateServerReturn(threadData, cb);
   }
 
 
@@ -253,50 +316,6 @@ export function postMessage(conversationId, author, title, contents, cb) {
     // Return the new status update.
     cb(JSON.parse(xhr.responseText));
   });
-}
-
-
-// ====================
-// Thread functions
-// ====================
-
-export function postReply(threadId, author, contents, cb){
-  var thread = readDocument('threads', threadId);
-  var rep = {
-    'author': author,
-    'postDate': new Date().getTime(),
-    'contents': contents,
-    'replies': []
-  }
-  rep = addDocument('replies', rep);
-  //push current replyId to thread.replies
-  thread.replies.push(rep._id);
-  writeDocument('threads', thread);
-  var fullThread = getFullThreadSync(threadId);
-     var threadData = {
-       contents: fullThread
-     };
-  emulateServerReturn(threadData, cb);
-}
-
-export function postReplyToReply(threadId, replyId, author, contents, cb){
-  var thread = readDocument('threads', threadId);
-  var reply = readDocument('replies', replyId);
-  var rep = {
-    'author': author,
-    'postDate': new Date().getTime(),
-    'contents': contents,
-    'replies': []
-  }
-  rep = addDocument('replies', rep);
-  reply.replies.push(rep._id);
-  writeDocument('replies', reply);
-  writeDocument('threads', thread);
-  var fullThread = getFullThreadSync(threadId);
-  var threadData = {
-    contents: fullThread
-  };
-  emulateServerReturn(threadData, cb);
 }
 
 // ====================

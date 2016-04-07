@@ -15,6 +15,8 @@ import Search from './components/search/search';
 import Messaging from './components/messaging/messaging';
 import AccountSettings from './components/accountsettings/accountsettings';
 
+import ErrorBanner from './components/errorbanner';
+
 class MessagingPage extends React.Component {
   render() {
     return <Messaging user={1} />;
@@ -36,6 +38,10 @@ class App extends React.Component {
     return (
       <div>
         <Navbar />
+
+        <div className="col-md-12">
+          <ErrorBanner />
+        </div>
 
         <div className="container-fluid">
           <div className="row">

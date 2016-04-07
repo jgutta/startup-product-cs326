@@ -82,7 +82,7 @@ var initialData = {
       'name': 'General',
       'threads': [ 1, 2, 3],
       'numUsers': 0,
-      'numPosts': 0,
+      'numPosts': 3,
       'description': 'This is a general board where posts can be about any topic, or can be questions about the site. All posts are archived here.',
       'image': 'img/general.jpg'
     },
@@ -90,8 +90,8 @@ var initialData = {
       '_id': 2,
       'name': 'Concerts',
       'threads': [ 2 ],
-      'numUsers': 0,
-      'numPosts': 0,
+      'numUsers': 1,
+      'numPosts': 1,
       'description': 'Find friends to attend a concert with. You can also find info on upcoming concerts or supply info for your upcoming concerts!',
       'image': 'img/concert.jpg'
     },
@@ -108,8 +108,8 @@ var initialData = {
       '_id': 4,
       'name': 'Local Events',
       'threads': [ 1 ],
-      'numUsers': 0,
-      'numPosts': 0,
+      'numUsers': 1,
+      'numPosts': 1,
       'description': 'Find out about what is happening in your community, commit to attending local events, or look for people to attend your events.',
       'image': 'img/localevent.jpg'
     },
@@ -118,7 +118,7 @@ var initialData = {
       'name': 'Music',
       'threads': [ 4 ],
       'numUsers': 0,
-      'numPosts': 0,
+      'numPosts': 1,
       'description': 'Share music with people, give and get suggestions based on your tastes, find jam buddies, and discuss anything else music.',
       'image': 'img/music.jpg'
     },
@@ -135,7 +135,7 @@ var initialData = {
       '_id': 7,
       'name': 'RSOs',
       'threads': [],
-      'numUsers': 0,
+      'numUsers': 1,
       'numPosts': 0,
       'description': 'Connect with your RSO and get all the information about upcoming events, or find other people to get an RSO running.',
       'image': 'img/rso.jpg'
@@ -171,8 +171,8 @@ var initialData = {
       '_id': 11,
       'name': 'Videogames',
       'threads': [ 3 ],
-      'numUsers': 0,
-      'numPosts': 0,
+      'numUsers': 1,
+      'numPosts': 1,
       'description': 'Find friends to host a lan party or an online party. Discuss old games, new games, and awaited releases. Everything games!',
       'image': 'img/videogames.jpg'
     }
