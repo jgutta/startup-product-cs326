@@ -390,11 +390,6 @@ export function unBlock(user , blockedUserId, cb){
 // ====================
 
 //For thread -returns just the content
-export function getPinned(userID, cb){
-  var user = readDocument('users', userID);
-  var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-  emulateServerReturn(pinned, cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
-}
 
 //For pinned post -returns all thread data
 export function getPinnedPostsDataOld(user, cb) {
