@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "author": {
+      "id": "author",
+      "type": "integer"
+    },
+    "postDate": {
+      "id": "postDate",
+      "type": "integer"
+    },
+    "contents": {
+      "id": "contents",
+      "type": "string"
+    },
+    "replies": {
+      "id": "replies",
+      "type": "array",
+      "items": []
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "author",
+    "postDate",
+    "contents",
+    "replies"
+  ]
+}

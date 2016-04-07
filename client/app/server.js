@@ -10,6 +10,11 @@ function sendXHR(verb, resource, body, cb) {
   xhr.open(verb, resource);
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
+  // The below comment tells ESLint that FacebookError is a global.
+  // Otherwise, ESLint would complain about it! (See what happens in Atom if
+  // you remove the comment...)
+  /* global UBoardError */
+
   // Response received from server. It could be a failure, though!
   xhr.addEventListener('load', function() {
     var statusCode = xhr.status;
@@ -23,7 +28,7 @@ function sendXHR(verb, resource, body, cb) {
       // The server may have included some response text with details concerning
       // the error.
       var responseText = xhr.responseText;
-      console.log('Could not ' + verb + " " + resource + ": Received " + statusCode + " " + statusText + ": " + responseText);
+      UBoardError('Could not ' + verb + " " + resource + ": Received " + statusCode + " " + statusText + ": " + responseText);
     }
   });
 
@@ -32,12 +37,12 @@ function sendXHR(verb, resource, body, cb) {
 
   // Network failure: Could not connect to server.
   xhr.addEventListener('error', function() {
-    console.log('Could not ' + verb + " " + resource + ": Could not connect to the server.");
+    UBoardError('Could not ' + verb + " " + resource + ": Could not connect to the server.");
   });
 
   // Network failure: request took too long to complete.
   xhr.addEventListener('timeout', function() {
-    console.log('Could not ' + verb + " " + resource + ": Request timed out.");
+    UBoardError('Could not ' + verb + " " + resource + ": Request timed out.");
   });
 
   switch (typeof(body)) {
@@ -66,7 +71,6 @@ function sendXHR(verb, resource, body, cb) {
  * some time in the future with data.
  */
 function emulateServerReturn(data, cb) {
-  console.log(cb);
   setTimeout(() => {
     cb(data);
   }, 4);
@@ -93,9 +97,49 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
   }
 
 
+  export function postReply(threadId, author, contents, cb){
+    sendXHR('POST', '/thread/' + threadId + '/replyto/', {
+      author: author,
+      postDate: new Date().getTime(),
+      contents: contents,
+      replies: []
+    }, (xhr) =>{
+      cb(JSON.parse(xhr.responseText));
+    });
+  }
+
+  export function postReplyToReply(threadId, replyId, author, contents, cb){
+    sendXHR('POST', '/thread/' + threadId + '/replyto/' + replyId, {
+      author: author,
+      postDate: new Date().getTime(),
+      contents: contents,
+      replies: []
+    }, (xhr) =>{
+      cb(JSON.parse(xhr.responseText));
+    });
+    /*
+    var thread = readDocument('threads', threadId);
+    var reply = readDocument('replies', replyId);
+    var rep = {
+      'author': author,
+      'postDate': new Date().getTime(),
+      'contents': contents,
+      'replies': []
+    }
+    rep = addDocument('replies', rep);
+    reply.replies.push(rep._id);
+    writeDocument('replies', reply);
+    writeDocument('threads', thread);
+    var fullThread = getFullThreadSync(threadId);
+    var threadData = {
+      contents: fullThread
+    };
+    emulateServerReturn(threadData, cb); */
+  }
+
+
 // ====================
 // Board Data Functions
-//=====================
 export function getBoardsData(cb){
   sendXHR('GET', '/boards/', undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
@@ -107,6 +151,7 @@ export function getBoardContent(boardId, cb){
     cb(JSON.parse(xhr.responseText));
   })
 }
+//=====================
 
 // ====================
 // User functions
@@ -153,11 +198,16 @@ function getFullThreadSync(threadId){
 }
 
 export function getFullThreadData(threadId, cb) {
-  var thread = getFullThreadSync(threadId);
-   var threadData = {
-     contents: thread
-   };
-    emulateServerReturn(threadData, cb);
+    sendXHR('GET', '/thread/' + threadId, undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
+    /*
+    var thread = getFullThreadSync(threadId);
+     var threadData = {
+       contents: thread
+     };
+      emulateServerReturn(threadData, cb);
+    */
   }
 
 export function getFeedData(user, cb) {
@@ -167,25 +217,6 @@ export function getFeedData(user, cb) {
   feedData.contents = feedData.contents.map(getThreadSync);
 
   emulateServerReturn(feedData, cb);
-}
-
-
-export function getPinnedPostsData(user, cb) {
-  var userData = readDocument('users', user);
-  var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
-  pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
-  emulateServerReturn(pinnedPostsData, cb);
-}
-
-export function deletePinnedPost(pin, thread, cb){
-  var pinnedPostsData = readDocument('pinnedPosts', pin);
-  var index = getIndex(pinnedPostsData.contents, thread);
-  pinnedPostsData.contents.splice(index, 1);
-
-  writeDocument('pinnedPosts', pinnedPostsData);
-
-  emulateServerReturn(pinnedPostsData, cb);
-
 }
 
 function getBoardSync(boardId) {
@@ -275,50 +306,6 @@ export function postMessage(conversationId, author, title, contents, cb) {
   });
 }
 
-
-// ====================
-// Thread functions
-// ====================
-
-export function postReply(threadId, author, contents, cb){
-  var thread = readDocument('threads', threadId);
-  var rep = {
-    'author': author,
-    'postDate': new Date().getTime(),
-    'contents': contents,
-    'replies': []
-  }
-  rep = addDocument('replies', rep);
-  //push current replyId to thread.replies
-  thread.replies.push(rep._id);
-  writeDocument('threads', thread);
-  var fullThread = getFullThreadSync(threadId);
-     var threadData = {
-       contents: fullThread
-     };
-  emulateServerReturn(threadData, cb);
-}
-
-export function postReplyToReply(threadId, replyId, author, contents, cb){
-  var thread = readDocument('threads', threadId);
-  var reply = readDocument('replies', replyId);
-  var rep = {
-    'author': author,
-    'postDate': new Date().getTime(),
-    'contents': contents,
-    'replies': []
-  }
-  rep = addDocument('replies', rep);
-  reply.replies.push(rep._id);
-  writeDocument('replies', reply);
-  writeDocument('threads', thread);
-  var fullThread = getFullThreadSync(threadId);
-  var threadData = {
-    contents: fullThread
-  };
-  emulateServerReturn(threadData, cb);
-}
-
 // ====================
 // Search functions
 // ====================
@@ -384,11 +371,11 @@ export function getSearchDataOld(cb) {
 
 
 
-    export function unBlock(user , blockedUserId, cb){
-      sendXHR('DELETE', '/user/' + user + '/blockedUsers/' + blockedUserId, undefined, () => {
-        cb();
-      });
-    }
+export function unBlock(user , blockedUserId, cb){
+    sendXHR('DELETE', '/user/' + user + '/blockedUsers/' + blockedUserId, undefined, () => {
+      cb();
+    });
+}
 
    function addBlock(user, blockUser) {
       var userData = readDocument('users', user);
@@ -397,17 +384,64 @@ export function getSearchDataOld(cb) {
       return userData;
     }
 
-    export function addPinnedPost(userID, threadID, cb){
-      var user = readDocument('users', userID);
-      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      pinned.contents.push(threadID);
-      writeDocument('pinnedPosts', pinned);
-      emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
-    }
 
-    export function getPinned(userID, cb){
-      var user = readDocument('users', userID);
-      var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-      emulateServerReturn(pinned, cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+// ====================
+// Pinned Post functions
+// ====================
 
-    }
+//For thread -returns just the content
+export function getPinned(userID, cb){
+  var user = readDocument('users', userID);
+  var pinned = readDocument('pinnedPosts', user.pinnedPosts);
+  emulateServerReturn(pinned, cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+}
+
+//For pinned post -returns all thread data
+export function getPinnedPostsDataOld(user, cb) {
+  var userData = readDocument('users', user);
+  var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
+  pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
+  emulateServerReturn(pinnedPostsData, cb);
+}
+
+export function deletePinnedPostOld(user, pin, thread, cb){
+  var pinnedPostsData = readDocument('pinnedPosts', pin);
+  var index = getIndex(pinnedPostsData.contents, thread);
+  pinnedPostsData.contents.splice(index, 1);
+
+  writeDocument('pinnedPosts', pinnedPostsData);
+
+  emulateServerReturn(pinnedPostsData, cb);
+}
+
+export function addPinnedPostOld(userID, threadID, cb){
+  var user = readDocument('users', userID);
+  var pinned = readDocument('pinnedPosts', user.pinnedPosts);
+  pinned.contents.push(threadID);
+  writeDocument('pinnedPosts', pinned);
+  emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
+}
+
+export function addPinnedPost(user, threadID, cb) {
+  sendXHR('PUT', '/user/' + user + '/pinnedposts/' + threadID, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function deletePinnedPost(user, threadID, cb) {
+  sendXHR('DELETE', '/user/' + user + '/pinnedposts/' + threadID, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function getPinnedPostsData(user, cb) {
+  sendXHR('GET', '/user/' + user + '/pinnedposts', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function getPinned(user, cb) {
+  sendXHR('GET', '/user/' + user + '/pinnedposts2', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}

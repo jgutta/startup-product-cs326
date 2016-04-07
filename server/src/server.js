@@ -47,7 +47,6 @@ function getUserIdFromToken(authorizationLine) {
 
 // ===================
 // /board/
-// ===================
 app.get('/board/:boardId', function(req, res){
   var board = readDocument('boards', req.params.boardId);
   //var fromUser = getUserIdFromToken(req.get('Authorization')); Dont think I need this here. What is there to validate by user?
@@ -69,6 +68,8 @@ function getBoardData(boardId) {
    var board = readDocument('boards', boardId);
    return board;
 }
+// ===================
+
 
 // ====================
 // /user/
@@ -95,7 +96,7 @@ require('./routes/subscribedboards.js').
 require('./routes/pinnedposts.js').
           setApp(app,
                  getUserIdFromToken,
-                 readDocument, writeDocument);
+                 readDocument, writeDocument, getThreadSync);
 
 // ==========
 // /user/:userid/conversation
@@ -115,6 +116,13 @@ require('./routes/createthread.js').
                 getUserIdFromToken,
                 addDocument, readDocument, writeDocument);
 
+require('./routes/thread.js').
+          setApp(app,
+                getUserIdFromToken,
+                addDocument, readDocument, writeDocument);
+
+
+
 // ==========
 // /thread
 // ==========
@@ -122,8 +130,6 @@ require('./routes/createthread.js').
 // ==========
 // /search
 // ==========
-
-// Search for feed item
 app.post('/search', function(req, res) {
   if (typeof(req.body) === 'string') {
     // trim() removes whitespace before and after the query.

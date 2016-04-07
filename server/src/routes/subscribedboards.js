@@ -31,6 +31,10 @@ exports.setApp = function(app,
       userData.subscribedBoards.push(boardId);
       writeDocument('users', userData);
 
+      var board = readDocument('boards', req.params.boardid);
+      board.numUsers++;
+      writeDocument('boards', board);
+
       res.send(userData);
     } else {
       res.status(401).end();
@@ -56,6 +60,10 @@ exports.setApp = function(app,
       var index = getIndex(userData.subscribedBoards, boardId);
       userData.subscribedBoards.splice(index, 1);
       writeDocument('users', userData);
+
+      var board = readDocument('boards', req.params.boardid);
+      board.numUsers--;
+      writeDocument('boards', board);
 
       res.send(userData);
     } else {

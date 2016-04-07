@@ -1,6 +1,6 @@
 exports.setApp = function(app,
                           getUserIdFromToken,
-                          readDocument, writeDocument)
+                          readDocument, writeDocument, getThreadSync)
 {
   app.get('/user/:userid/pinnedposts', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
@@ -8,12 +8,25 @@ exports.setApp = function(app,
     var userId = parseInt(req.params.userid, 10);
     if (fromUser === userId) {
       var userData = readDocument('users', userId);
-      var subscribedBoards = {
-        contents: []
-      };
-      subscribedBoards.contents = userData.subscribedBoards.map(getBoardData);
+      var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
 
-      res.send(subscribedBoards);
+      pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
+
+      res.send(pinnedPostsData);
+    } else {
+      res.status(401).end();
+    }
+  });
+
+    app.get('/user/:userid/pinnedposts2', function(req, res) {
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    // Convert params from string to number.
+    var userId = parseInt(req.params.userid, 10);
+    if (fromUser === userId) {
+      var userData = readDocument('users', userId);
+      var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
+
+      res.send(pinnedPostsData);
     } else {
       res.status(401).end();
     }
@@ -23,40 +36,35 @@ exports.setApp = function(app,
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 
     var userId = parseInt(req.params.userid, 10);
-    var boardId = parseInt(req.params.boardid, 10);
+    var threadId = parseInt(req.params.threadid, 10);
 
     if (fromUser === userId) {
       var userData = readDocument('users', userId);
-      userData.subscribedBoards.push(boardId);
-      writeDocument('users', userData);
+      var pinned = readDocument('pinnedPosts', userData.pinnedPosts);
+      pinned.contents.push(threadId);
+      writeDocument('pinnedPosts', pinned);
 
-      res.send(userData);
+      res.send(pinned);
     } else {
       res.status(401).end();
     }
   });
 
-  function getIndex(array, element) {
-    for(var i =0; i<array.length; i++){
-      if(array[i] == element){
-        return i;
-      }
-    }
-  }
-
   app.delete('/user/:userid/pinnedposts/:threadid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 
     var userId = parseInt(req.params.userid, 10);
-    var boardId = parseInt(req.params.boardid, 10);
+    var threadId = parseInt(req.params.boardid, 10);
 
     if (fromUser === userId) {
       var userData = readDocument('users', userId);
-      var index = getIndex(userData.subscribedBoards, boardId);
-      userData.subscribedBoards.splice(index, 1);
-      writeDocument('users', userData);
+      var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
+      var index = pinnedPostsData.contents.indexOf(threadId);
+      console.log(index);
+      pinnedPostsData.contents.splice(index, 1);
+      writeDocument('pinnedPosts', pinnedPostsData);
 
-      res.send(userData);
+      res.send(pinnedPostsData);
     } else {
       res.status(401).end();
     }
