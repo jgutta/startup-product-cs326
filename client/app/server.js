@@ -198,11 +198,16 @@ function getFullThreadSync(threadId){
 }
 
 export function getFullThreadData(threadId, cb) {
-  var thread = getFullThreadSync(threadId);
-   var threadData = {
-     contents: thread
-   };
-    emulateServerReturn(threadData, cb);
+    sendXHR('GET', '/thread/' + threadId, undefined, (xhr) => {
+      cb(JSON.parse(xhr.responseText));
+    });
+    /*
+    var thread = getFullThreadSync(threadId);
+     var threadData = {
+       contents: thread
+     };
+      emulateServerReturn(threadData, cb);
+    */
   }
 
 export function getFeedData(user, cb) {

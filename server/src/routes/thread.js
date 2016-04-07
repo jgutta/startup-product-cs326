@@ -28,6 +28,17 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
     return thread;
   }
 
+  //getThreadData
+  app.get('/thread/:threadId', function(req, res){
+    var threadId = req.params.threadId;
+    var thread = getFullThreadSync(threadId);
+     var threadData = {
+       contents: thread
+     };
+     res.status(201);
+     res.send(threadData);
+  });
+
   app.post('/thread/:threadId/replyto', validate({ body: replySchema }), function(req, res){
     var body = req.body;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
