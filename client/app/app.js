@@ -16,6 +16,7 @@ import Messaging from './components/messaging/messaging';
 import AccountSettings from './components/accountsettings/accountsettings';
 
 import ErrorBanner from './components/errorbanner';
+import ResetDatabase from './components/resetdatabase';
 
 class MessagingPage extends React.Component {
   render() {
@@ -41,6 +42,7 @@ class App extends React.Component {
 
         <div className="col-md-12">
           <ErrorBanner />
+          <ResetDatabase />
         </div>
 
         <div className="container-fluid">

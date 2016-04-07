@@ -128,6 +128,26 @@ require('./routes/thread.js').
 // ==========
 
 // ==========
+// /feed
+// ==========
+
+app.get('/feed/:userid/', function(req, res) {
+  var fromUser = getUserIdFromToken(req.get('Authorization'));
+  // Convert params from string to number.
+  var userId = parseInt(req.params.userid, 10);
+  if (fromUser === userId || userId === 2) {
+    var userData = readDocument('users', userId);
+    var feedData = readDocument('feeds', userData.feed);
+
+    feedData.contents = feedData.contents.map(getThreadSync);
+
+    res.send(feedData)
+  } else {
+    res.status(401).end();
+  }
+});
+
+// ==========
 // /search
 // ==========
 app.post('/search', function(req, res) {
@@ -174,6 +194,18 @@ app.post('/search', function(req, res) {
   }
 });
 
+/**
+ * Translate JSON Schema Validation failures into error 400s.
+ */
+app.use(function(err, req, res, next) {
+  if (err.name === 'JsonSchemaValidation') {
+    // Set a bad request http response status
+    res.status(400).end();
+  } else {
+    // It's some other sort of error; pass it to next error middleware handler
+    next(err);
+  }
+});
 
 // Reset database.
 app.post('/resetdb', function(req, res) {

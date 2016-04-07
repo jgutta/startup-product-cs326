@@ -1,5 +1,3 @@
-import { readDocument, writeDocument, addDocument, readCollection } from './database.js';
-
 var token = 'eyJpZCI6MX0='; // <-- Put your base64'd JSON token here
 /**
  * Properly configure+send an XMLHttpRequest with error handling, authorization token,
@@ -109,7 +107,7 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
   }
 
   export function postReplyToReply(threadId, replyId, author, contents, cb){
-    sendXHR('POST', '/thread/' + threadId + '/replyto/' + replyId, {
+    sendXHR('POST', '/thread/' + threadId + '/replyto/' + replyId + '/sub/', {
       author: author,
       postDate: new Date().getTime(),
       contents: contents,
@@ -117,24 +115,6 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     }, (xhr) =>{
       cb(JSON.parse(xhr.responseText));
     });
-    /*
-    var thread = readDocument('threads', threadId);
-    var reply = readDocument('replies', replyId);
-    var rep = {
-      'author': author,
-      'postDate': new Date().getTime(),
-      'contents': contents,
-      'replies': []
-    }
-    rep = addDocument('replies', rep);
-    reply.replies.push(rep._id);
-    writeDocument('replies', reply);
-    writeDocument('threads', thread);
-    var fullThread = getFullThreadSync(threadId);
-    var threadData = {
-      contents: fullThread
-    };
-    emulateServerReturn(threadData, cb); */
   }
 
 
@@ -210,13 +190,10 @@ export function getFullThreadData(threadId, cb) {
     */
   }
 
-export function getFeedData(user, cb) {
-  var userData = readDocument('users', user);
-  var feedData = readDocument('feeds', userData.feed);
-
-  feedData.contents = feedData.contents.map(getThreadSync);
-
-  emulateServerReturn(feedData, cb);
+export function getFeedData(userId, cb) {
+  sendXHR('GET', '/feed/' + userId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 function getBoardSync(boardId) {
