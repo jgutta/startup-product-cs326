@@ -20,7 +20,7 @@ export default class BoardTab extends React.Component {
         </div>
         <hr />
         <div className= "board-footer">
-          Users: {this.props.numUsers} - Posts: {this.props.numPosts}
+          Followers: {this.props.numUsers} - Posts: {this.props.numPosts}
         </div>
       </div>
     )
