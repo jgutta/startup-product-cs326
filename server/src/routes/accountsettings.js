@@ -29,27 +29,30 @@ exports.setApp = function(app,
       return blocked;
     }
 
-    function updateUserData(userId,username, gender, password, blocked, email, emailset, image){
-
+    function updateUserData(userId,user, username, gender, password, blocked, email, emailset, image){
       var userData = readDocument('users', userId);
       userData.username = username;
       userData.gender = gender;
       userData.password = password;
-      userData.blocked = blocked;
+      userData.blockedUsers = blocked;
       userData.email = email;
       userData.emailset = emailset;
       userData.image = image;
       writeDocument('users', userData);
       return userData;
     }
+
     app.put('/user/:userid/', function(req, res) {
-      var body = req.body;
+      console.log(req);
+      var userid = req.params.userid;
       var fromUser = getUserIdFromToken(req.get('Authorization'));
-      var userId = parseInt(req.params.userid, 10);
-      if (fromUser === userId) {
-        var updatedData = updateUserData(userId, body.username, body.gender, body.password, body.blocked, body.email, body.emailset, body.image);
-        res.status(201);
-        res.send(updatedData);
+      var useridNumber = parseInt(userid, 10);
+      if (fromUser === useridNumber) {
+        var userData = req.params;
+        console.log(userData);
+        var ret = updateUserData(useridNumber, userData.username, userData.gender, userData.password, userData.blockedUsers, userData.email, userData.emailset, userData.image);
+        console.log(ret);
+        res.send(ret);
       } else {
         res.status(401).end();
       }

@@ -37,9 +37,9 @@ export default class AccountSettings extends React.Component {
         blockedUsers: userData.user.blockedUsers
       });
     });
-    this.setState({editEmail: false});
-    this.setState({editName: false});
-    this.setState({editPass: false});
+    this.setState({editEmail: false,
+                   editName: false,
+                   editPass: false});
   }
 
   componentDidMount() {

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "username": {
+      "id": "username",
+      "type": "string"
+    },
+    "gender": {
+      "id": "gender",
+      "type": "integer"
+    },
+    "password": {
+      "id": "password",
+      "type": "string"
+    },
+    "blockedUsers": {
+      "id": "blockedUsers",
+      "type": "array",
+      "items": []
+    },
+    "email": {
+      "id": "email",
+      "type": "string"
+    },
+    "emailset": {
+      "id": "emailset",
+      "type": "integer"
+    },
+    "image": {
+      "id": "image",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "username",
+    "gender",
+    "password",
+    "blockedUsers",
+    "email",
+    "emailset",
+    "image"
+  ]
+}

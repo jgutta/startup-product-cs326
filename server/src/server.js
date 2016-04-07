@@ -72,13 +72,11 @@ function getBoardData(boardId) {
 
 // ====================
 // /user/
+// ====================
 require('./routes/accountsettings.js').
           setApp(app,
                  getUserIdFromToken,
                  readDocument, writeDocument);
-
-
-// ====================
 
 // ==========
 // /user/:userid/subscribedboards

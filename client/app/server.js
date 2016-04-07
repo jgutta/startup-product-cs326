@@ -390,11 +390,11 @@ export function getSearchDataOld(cb) {
       });
     }
 
-    export function addBlock(user, blockUser, cb) {
+   function addBlock(user, blockUser) {
       var userData = readDocument('users', user);
       userData.blockedUsers.push(blockUser);
       writeDocument('users', userData);
-      emulateServerReturn(userData, cb);
+      return userData;
     }
 
     export function addPinnedPost(userID, threadID, cb){
