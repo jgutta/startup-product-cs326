@@ -357,7 +357,7 @@ export function getSearchDataOld(cb) {
 }
 
   export function getUserData(userId, cb){
-    sendXHR('GET', '/user/' + userId, (xhr) => {
+    sendXHR('GET', '/user/' + userId, undefined, (xhr) => {
       cb(JSON.parse(xhr.responseText));
     });
   }
