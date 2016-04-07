@@ -15,7 +15,6 @@ export default class Thread extends React.Component {
 
   refresh(){
     getFullThreadData(this.props.params.id, (threadData) =>{
-      //console.log(threadData);
       this.setState( threadData );
     });
   }
@@ -52,7 +51,7 @@ export default class Thread extends React.Component {
     if (messageContents !== ''){
       var thread = this.state.contents;
       postReply(thread._id, 1, this.state.messageContentsValue, (threadData) => {
-        //this.setState({ messageContentsValue: '' });
+        this.setState({ messageContentsValue: '' });
         this.setState(threadData);
       });
     }
@@ -62,7 +61,6 @@ export default class Thread extends React.Component {
     var messageContents = msg.trim();
     if(messageContents !== ''){
       postReplyToReply(threadId, replyId, 1, messageContents, (threadData) => {
-        //this.setState({ msg: '' });
         this.setState(threadData);
       });
     }

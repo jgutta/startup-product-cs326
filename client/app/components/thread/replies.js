@@ -22,8 +22,6 @@ export default class Replies extends React.Component {
   handleReply(e, replyId){
     //toggle/clear stuff
     e.preventDefault();
-    console.log(this.props.data);
-    console.log(this.state);
     //how do i access id? data is array...
     var msg = this.state.messageContentsValue;
     this.setState({ messageContentsValue: '' });
