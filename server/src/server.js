@@ -194,6 +194,18 @@ app.post('/search', function(req, res) {
   }
 });
 
+/**
+ * Translate JSON Schema Validation failures into error 400s.
+ */
+app.use(function(err, req, res, next) {
+  if (err.name === 'JsonSchemaValidation') {
+    // Set a bad request http response status
+    res.status(400).end();
+  } else {
+    // It's some other sort of error; pass it to next error middleware handler
+    next(err);
+  }
+});
 
 // Reset database.
 app.post('/resetdb', function(req, res) {
