@@ -37,6 +37,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       for(var i in body.boards){
           var board = readDocument('boards', body.boards[i]);
           board.threads.push(thread._id);
+          board.numPosts++;
           writeDocument('boards', board);
       }
 
