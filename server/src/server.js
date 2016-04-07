@@ -16,7 +16,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
-app.use(express.static('../client/build'));
+app.use(express.static('../client/build/'));
 
 /**
  * Get the user ID from a token. Returns -1 (an invalid ID) if it fails.
@@ -43,26 +43,32 @@ function getUserIdFromToken(authorizationLine) {
   }
 }
 
-// Defines what happens when it receives the `GET /` request
-app.get('/', function (req, res) {
-  res.send('Welcome to UBoard!');
-});
-
-function getBoardData(boardId) {
-  var board = readDocument('boards', boardId);
-  return board;
-}
 
 
 // ===================
 // /board/
 // ===================
+app.get('/board/:boardId', function(req, res){
+  var board = readDocument('boards', req.params.boardId);
+  //var fromUser = getUserIdFromToken(req.get('Authorization')); Dont think I need this here. What is there to validate by user?
+  board.threads = board.threads.map((id) => getThreadSync(id));
+  res.send(board);
+});
+
+function getThreadSync(threadId) {
+  var thread = readDocument('threads', threadId);
+  return thread;
+}
+
 require('./routes/boards.js').
           setApp(app,
                  getUserIdFromToken,
                  getCollection);
 
-
+function getBoardData(boardId) {
+   var board = readDocument('boards', boardId);
+   return board;
+}
 
 // ====================
 // /user/
@@ -83,6 +89,15 @@ require('./routes/subscribedboards.js').
                  getUserIdFromToken,
                  readDocument, writeDocument,
                  getBoardData);
+
+// ==========
+// /user/:userid/pinnedposts
+// ==========
+
+require('./routes/pinnedposts.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument);
 
 // ==========
 // /user/:userid/conversation
