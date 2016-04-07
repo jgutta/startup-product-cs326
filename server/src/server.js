@@ -118,6 +118,13 @@ require('./routes/createthread.js').
                 getUserIdFromToken,
                 addDocument, readDocument, writeDocument);
 
+require('./routes/thread.js').
+          setApp(app,
+                getUserIdFromToken,
+                addDocument, readDocument, writeDocument);
+
+
+
 // ==========
 // /thread
 // ==========

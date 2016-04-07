@@ -106,23 +106,6 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     }, (xhr) =>{
       cb(JSON.parse(xhr.responseText));
     });
-    /*
-    var thread = readDocument('threads', threadId);
-    var rep = {
-      'author': author,
-      'postDate': new Date().getTime(),
-      'contents': contents,
-      'replies': []
-    }
-    rep = addDocument('replies', rep);
-    //push current replyId to thread.replies
-    thread.replies.push(rep._id);
-    writeDocument('threads', thread);
-    var fullThread = getFullThreadSync(threadId);
-       var threadData = {
-         contents: fullThread
-       };
-    emulateServerReturn(threadData, cb); */
   }
 
   export function postReplyToReply(threadId, replyId, author, contents, cb){
