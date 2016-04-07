@@ -14,13 +14,18 @@ export default class Search extends React.Component {
   }
 
   componentDidMount() {
-    getSearchData(this.props.location.query.query, (threads) => {
-      this.setState(threads);
-    });
+    this.refresh(this.props.location.query.query);
   }
 
   componentWillReceiveProps(nextProps) {
+  	this.refresh(nextProps.location.query.query);
     this.setState({value: nextProps.location.query.query});
+  }
+
+  refresh(query) {
+    getSearchData(query, (threads) => {
+      this.setState(threads);
+    });
   }
 
   handleChange(e) {
