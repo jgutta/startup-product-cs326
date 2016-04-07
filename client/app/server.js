@@ -355,11 +355,12 @@ export function getSearchDataOld(cb) {
       }
 
   export function updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb) {
+    
     sendXHR('PUT', '/user/' + userId, {
       username:username,
       gender:gender,
       password:password,
-      blocked:blocked,
+      blockedUsers:blocked,
       email:email,
       emailset:emailset,
       image:image

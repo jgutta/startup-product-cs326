@@ -3,18 +3,6 @@
   "id": "/",
   "type": "object",
   "properties": {
-    "username": {
-      "id": "username",
-      "type": "string"
-    },
-    "gender": {
-      "id": "gender",
-      "type": "integer"
-    },
-    "password": {
-      "id": "password",
-      "type": "string"
-    },
     "blockedUsers": {
       "id": "blockedUsers",
       "type": "array",
@@ -28,19 +16,31 @@
       "id": "emailset",
       "type": "integer"
     },
+    "gender": {
+      "id": "gender",
+      "type": "integer"
+    },
     "image": {
       "id": "image",
+      "type": "string"
+    },
+    "password": {
+      "id": "password",
+      "type": "string"
+    },
+    "username": {
+      "id": "username",
       "type": "string"
     }
   },
   "additionalProperties": false,
   "required": [
-    "username",
-    "gender",
-    "password",
     "blockedUsers",
     "email",
     "emailset",
-    "image"
+    "gender",
+    "image",
+    "password",
+    "username"
   ]
 }
