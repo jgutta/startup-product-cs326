@@ -66,7 +66,6 @@ function sendXHR(verb, resource, body, cb) {
  * some time in the future with data.
  */
 function emulateServerReturn(data, cb) {
-  console.log(cb);
   setTimeout(() => {
     cb(data);
   }, 4);
@@ -95,7 +94,6 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
 
 // ====================
 // Board Data Functions
-//=====================
 export function getBoardsData(cb){
   sendXHR('GET', '/boards/', undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
@@ -107,6 +105,7 @@ export function getBoardContent(boardId, cb){
     cb(JSON.parse(xhr.responseText));
   })
 }
+//=====================
 
 // ====================
 // User functions
