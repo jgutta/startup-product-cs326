@@ -44,21 +44,31 @@ function getUserIdFromToken(authorizationLine) {
 }
 
 
-function getBoardData(boardId) {
-  var board = readDocument('boards', boardId);
-  return board;
-}
-
 
 // ===================
 // /board/
 // ===================
+app.get('/board/:boardId', function(req, res){
+  var board = readDocument('boards', req.params.boardId);
+  //var fromUser = getUserIdFromToken(req.get('Authorization')); Dont think I need this here. What is there to validate by user?
+  board.threads = board.threads.map((id) => getThreadSync(id));
+  res.send(board);
+});
+
+function getThreadSync(threadId) {
+  var thread = readDocument('threads', threadId);
+  return thread;
+}
+
 require('./routes/boards.js').
           setApp(app,
                  getUserIdFromToken,
                  getCollection);
 
-
+function getBoardData(boardId) {
+   var board = readDocument('boards', boardId);
+   return board;
+}
 
 // ====================
 // /user/

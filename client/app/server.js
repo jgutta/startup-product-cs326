@@ -102,6 +102,17 @@ export function getBoardsData(cb){
   });
 }
 
+export function getBoardContent(boardId, cb){
+
+  /*sendXHR('GET', '/board/' + boardId, undefined, (xhr) => { // This is the new stuff, untested. Commented out for now
+    cb(JSON.parse(xhr.responseText));
+  })*/
+  var board = readDocument('boards', boardId);
+  board.threads = board.threads.map((id) => getThreadSync(id));
+
+  emulateServerReturn(board, cb);
+}
+
 // ====================
 // User functions
 // ====================
@@ -162,12 +173,7 @@ export function getFeedData(user, cb) {
 
   emulateServerReturn(feedData, cb);
 }
-export function getBoardInfo(boardId, cb){
-  var board = readDocument('boards', boardId);
-  board.threads = board.threads.map((id) => getThreadSync(id));
 
-  emulateServerReturn(board, cb);
-}
 
 export function getPinnedPostsData(user, cb) {
   var userData = readDocument('users', user);

@@ -1,7 +1,7 @@
 import React from 'react';
 import MainContent from '../maincontent';
 import FeedItem from './feedItem.js';
-import {getBoardInfo} from '../../server';
+import {getBoardContent} from '../../server';
 export default class Board extends React.Component {
   constructor(props){
     super(props);
@@ -14,7 +14,7 @@ export default class Board extends React.Component {
   }
   componentDidMount() {
 
-    getBoardInfo(this.props.params.id, (boardData) => {
+    getBoardContent(this.props.params.id, (boardData) => {
       //console.log(boardData.threads[0])
       boardData.threads = boardData.threads.reverse();
       this.setState(boardData);
@@ -24,7 +24,7 @@ export default class Board extends React.Component {
     window.scrollTo(0, 0);
   }
   componentWillReceiveProps(nextProps){
-    getBoardInfo(nextProps.params.id, (boardData) => {
+    getBoardContent(nextProps.params.id, (boardData) => {
       //console.log(boardData.threads[0])
       this.setState(boardData);
       this.setState({contents: boardData.threads});
