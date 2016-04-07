@@ -18,6 +18,20 @@ exports.setApp = function(app,
     }
   });
 
+    app.get('/user/:userid/pinnedposts2', function(req, res) {
+    var fromUser = getUserIdFromToken(req.get('Authorization'));
+    // Convert params from string to number.
+    var userId = parseInt(req.params.userid, 10);
+    if (fromUser === userId) {
+      var userData = readDocument('users', userId);
+      var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
+
+      res.send(pinnedPostsData);
+    } else {
+      res.status(401).end();
+    }
+  });
+
   app.put('/user/:userid/pinnedposts/:threadid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 

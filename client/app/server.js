@@ -450,3 +450,9 @@ export function getPinnedPostsData(user, cb) {
     cb(JSON.parse(xhr.responseText));
   });
 }
+
+export function getPinned(user, cb) {
+  sendXHR('GET', '/user/' + user + '/pinnedposts2', undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
