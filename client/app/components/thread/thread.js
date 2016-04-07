@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { getFullThreadData, postReply} from '../../server';
+import { getFullThreadData, postReply, postReplyToReply} from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -14,9 +14,8 @@ export default class Thread extends React.Component {
   }
 
   refresh(){
-    //console.log("refresh called");
     getFullThreadData(this.props.params.id, (threadData) =>{
-      console.log(threadData);
+      //console.log(threadData);
       this.setState( threadData );
     });
   }
@@ -28,41 +27,45 @@ export default class Thread extends React.Component {
   componentWillReceiveProps(nextProps){
     getFullThreadData(nextProps.params.id, (threadData) =>{
       this.setState(threadData);
-      //this.setState({ contents: threadData });
     });
 }
 
   checkOptionalInfo(){
     var op = this.state.contents.originalPost;
     if((op.date !== '') && (op.time !== '')){
-      return(<div>  Date:  {op.date}, Time:  {op.time} <hr /> </div> )
+      return(<div className="minor-OP-info">  Date:  {op.date}, Time:  {op.time} <hr /> </div> )
     }
     else{
       if(op.date !== ''){
-        return(<div>  Date:  {op.date} <hr /> </div>)
+        return(<div className="minor-OP-info">  Date:  {op.date} <hr /> </div>)
       }
       if(op.time !== ''){
-        return(<div>  Time:  {op.time} <hr /> </div>)
+        return(<div className="minor-OP-info">  Time:  {op.time} <hr /> </div>)
       }
     }
   }
 
   handleReply(e){
     e.preventDefault();
-    console.log(this.state);
+    //console.log(this.state);
     var messageContents = this.state.messageContentsValue.trim();
     if (messageContents !== ''){
       var thread = this.state.contents;
       postReply(thread._id, 1, this.state.messageContentsValue, (threadData) => {
-        this.setState({ messageContentsValue: '' });
-        console.log(this.state);
+        //this.setState({ messageContentsValue: '' });
         this.setState(threadData);
       });
     }
   }
 
-  handleReplyToReply(){
-    //stuff
+  handleReplyToReply(msg, threadId, replyId){
+    var messageContents = msg.trim();
+    if(messageContents !== ''){
+      postReplyToReply(threadId, replyId, 1, messageContents, (threadData) => {
+        //this.setState({ msg: '' });
+        this.setState(threadData);
+      });
+    }
   }
 
   handleContentsChange(e) {
@@ -93,7 +96,7 @@ export default class Thread extends React.Component {
              <div className="thread-data">
                <hr />
 
-               <div >
+               <div className="minor-OP-info">
                  Posted by {thread.originalPost.authorUsername} on {unixTimeToString(thread.originalPost.postDate)}
                </div>
 
@@ -110,7 +113,7 @@ export default class Thread extends React.Component {
         <br />
         <br />
 
-        <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
+          <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
 
         </MainContent>
     )

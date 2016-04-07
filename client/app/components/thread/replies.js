@@ -19,11 +19,16 @@ export default class Replies extends React.Component {
     this.setState({ messageContentsValue: e.target.value });
   }
 
-  /*
-  handleReply(e){
+  handleReply(e, replyId){
     //toggle/clear stuff
-    this.props.replyFunction(messageContentsValue);
-  } */
+    e.preventDefault();
+    console.log(this.props.data);
+    console.log(this.state);
+    //how do i access id? data is array...
+    var msg = this.state.messageContentsValue;
+    this.setState({ messageContentsValue: '' });
+    this.props.replyFunction(msg, this.props.threadId, replyId);
+  }
 
   render() {
     var data = this.props.data;
@@ -52,15 +57,15 @@ export default class Replies extends React.Component {
                    {this.state.editReply
                     ? <div>
                      <br />
-                     <textarea className="reply-box" rows="2" placeholder={'Reply to this post'}  onChange={(e) => this.handleContentsChange(e)} />
-                     <button type="button" className="btn btn-primary rep-btn" onClick={(e) => this.handleReply(e)}> Submit </button>
+                     <textarea className="reply-box" rows="2" placeholder={'Reply to this post'} onChange={(e) => this.handleContentsChange(e)} />
+                     <button type="button" className="btn btn-primary rep-btn" onClick={(e) => this.handleReply(e, reply._id)}> Submit </button>
                     </div>
 
                     : <div> </div>
                    }
                  </div>
 
-                 <Replies data={reply.replies} />
+                 <Replies data={reply.replies} threadId={this.props.threadId} replyFunction={this.props.replyFunction} />
                </div>
              </li>
            );
@@ -70,3 +75,6 @@ export default class Replies extends React.Component {
   }
 
 }
+//adding "value" to textarera lets you edit all at once....
+//not necessary to post
+//value={this.state.messageContentsValue}

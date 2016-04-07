@@ -10,12 +10,13 @@ var database = require('./database');
 var readDocument = database.readDocument;
 var writeDocument = database.writeDocument;
 var addDocument = database.addDocument;
+var getCollection = database.getCollection;
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
-app.use(express.static('../client/build'));
+app.use(express.static('../client/build/'));
 
 /**
  * Get the user ID from a token. Returns -1 (an invalid ID) if it fails.
@@ -42,18 +43,41 @@ function getUserIdFromToken(authorizationLine) {
   }
 }
 
-// Defines what happens when it receives the `GET /` request
-app.get('/', function (req, res) {
-  res.send('Welcome to UBoard!');
+
+
+// ===================
+// /board/
+// ===================
+app.get('/board/:boardId', function(req, res){
+  var board = readDocument('boards', req.params.boardId);
+  //var fromUser = getUserIdFromToken(req.get('Authorization')); Dont think I need this here. What is there to validate by user?
+  board.threads = board.threads.map((id) => getThreadSync(id));
+  res.send(board);
 });
 
+function getThreadSync(threadId) {
+  var thread = readDocument('threads', threadId);
+  return thread;
+}
+
+require('./routes/boards.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 getCollection);
+
 function getBoardData(boardId) {
-  var board = readDocument('boards', boardId);
-  return board;
+   var board = readDocument('boards', boardId);
+   return board;
 }
 
 // ====================
 // /user/
+require('./routes/accountsettings.js').
+          setApp(app,
+                 getUserIdFromToken,
+                 readDocument, writeDocument);
+
+
 // ====================
 
 // ==========
@@ -96,6 +120,55 @@ require('./routes/createthread.js').
 // ==========
 // /thread
 // ==========
+
+// ==========
+// /search
+// ==========
+
+// Search for feed item
+app.post('/search', function(req, res) {
+  if (typeof(req.body) === 'string') {
+    // trim() removes whitespace before and after the query.
+    // toLowerCase() makes the query lowercase.
+    var queryText = req.body.trim().toLowerCase();
+    // Search the user's feed.
+
+    var threads = getCollection('threads');
+
+    var threadsData = [];
+
+    for(var i in threads) {
+      var th = threads[i];
+      th.boards = th.boards.map(getBoardData);
+      var userData = readDocument('users', th.originalPost.author);
+      th.originalPost.authorName = userData.username;
+      threadsData.push(th);
+    }
+
+    // "filter" is like "map" in that it is a magic method for
+    // arrays. It takes an anonymous function, which it calls
+    // with each item in the array. If that function returns 'true',
+    // it will include the item in a return array. Otherwise, it will
+    // not.
+    // Here, we use filter to return only feedItems that contain the
+    // query text.
+    // Since the array contains feed item IDs, we later map the filtered
+    // IDs to actual feed item objects.
+    var searchResults = {
+      contents: []
+    };
+
+    searchResults.contents = threadsData.filter((thread) => {
+      var threadDescription = thread.originalPost.description;
+      return threadDescription.toLowerCase().indexOf(queryText) !== -1;
+    });
+
+    res.send(searchResults);
+  } else {
+    // 400: Bad Request.
+    res.status(400).end();
+  }
+});
 
 
 // Reset database.
