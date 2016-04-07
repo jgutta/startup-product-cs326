@@ -103,14 +103,9 @@ export function getBoardsData(cb){
 }
 
 export function getBoardContent(boardId, cb){
-
-  /*sendXHR('GET', '/board/' + boardId, undefined, (xhr) => { // This is the new stuff, untested. Commented out for now
+  sendXHR('GET', '/board/' + boardId, undefined, (xhr) => { // This is the new stuff, untested. Commented out for now
     cb(JSON.parse(xhr.responseText));
-  })*/
-  var board = readDocument('boards', boardId);
-  board.threads = board.threads.map((id) => getThreadSync(id));
-
-  emulateServerReturn(board, cb);
+  })
 }
 
 // ====================
