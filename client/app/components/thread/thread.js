@@ -11,6 +11,7 @@ export default class Thread extends React.Component {
     this.state = {
       messageContentsValue: ''
      };
+     this.setState = this.setState.bind(this);
   }
 
   refresh(){
@@ -59,9 +60,10 @@ export default class Thread extends React.Component {
 
   handleReplyToReply(msg, threadId, replyId){
     var messageContents = msg.trim();
+    var _this = this;
     if(messageContents !== ''){
       postReplyToReply(threadId, replyId, 1, messageContents, (threadData) => {
-        this.setState(threadData);
+        _this.setState(threadData);
       });
     }
   }
