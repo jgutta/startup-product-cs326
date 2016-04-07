@@ -28,7 +28,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
     return thread;
   }
 
-  //getThreadData
+  //getFullThreadData
   app.get('/thread/:threadId', function(req, res){
     var threadId = req.params.threadId;
     var thread = getFullThreadSync(threadId);
@@ -39,6 +39,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
      res.send(threadData);
   });
 
+  //for posting replies to OP
   app.post('/thread/:threadId/replyto', validate({ body: replySchema }), function(req, res){
     var body = req.body;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
@@ -77,7 +78,8 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
 
   });
 
-  app.post('/thread/:threadId/replyto/:replyId', validate({ body: replySchema }), function(req, res){
+  //for posting replies to replies
+  app.post('/thread/:threadId/replyto/:replyId/sub', validate({ body: replySchema }), function(req, res){
     var body = req.body;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     if (fromUser === body.author) {

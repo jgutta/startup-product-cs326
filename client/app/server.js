@@ -110,7 +110,7 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
   }
 
   export function postReplyToReply(threadId, replyId, author, contents, cb){
-    sendXHR('POST', '/thread/' + threadId + '/replyto/' + replyId, {
+    sendXHR('POST', '/thread/' + threadId + '/replyto/' + replyId + '/sub/', {
       author: author,
       postDate: new Date().getTime(),
       contents: contents,
@@ -118,24 +118,6 @@ export function createThread(author, title, date, time, desc, image, boards, cb)
     }, (xhr) =>{
       cb(JSON.parse(xhr.responseText));
     });
-    /*
-    var thread = readDocument('threads', threadId);
-    var reply = readDocument('replies', replyId);
-    var rep = {
-      'author': author,
-      'postDate': new Date().getTime(),
-      'contents': contents,
-      'replies': []
-    }
-    rep = addDocument('replies', rep);
-    reply.replies.push(rep._id);
-    writeDocument('replies', reply);
-    writeDocument('threads', thread);
-    var fullThread = getFullThreadSync(threadId);
-    var threadData = {
-      contents: fullThread
-    };
-    emulateServerReturn(threadData, cb); */
   }
 
 
