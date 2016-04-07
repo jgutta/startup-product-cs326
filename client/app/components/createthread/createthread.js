@@ -166,6 +166,8 @@ export default class CreateThread extends React.Component {
             </ul>
           </div>
         </div>
+        
+        <hr/>
 
         <div className="create-thread-center">
           <button type="submit" className="btn btn-primary" onClick={(e) => this.handleNewThread(e)}>Submit</button>

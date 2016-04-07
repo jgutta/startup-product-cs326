@@ -8,13 +8,6 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
     var body = req.body;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     if (fromUser === body.originalPost.author) {
-      /*console.log(body.boards);
-      console.log(body.originalPost.author);
-      console.log(body.originalPost.title);
-      console.log(body.originalPost.date);
-      console.log(body.originalPost.time);
-      console.log(body.originalPost.img);
-      console.log(body.originalPost.description);*/
       if (typeof(body.originalPost.title) !== 'string' || typeof(body.originalPost.description) !== 'string') {
         // 400: Bad request.
         res.status(400).end();
@@ -44,11 +37,11 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       for(var i in body.boards){
           var board = readDocument('boards', body.boards[i]);
           board.threads.push(thread._id);
+          board.numPosts++;
           writeDocument('boards', board);
       }
 
       res.status(201);
-      //console.log(threadData);
       res.set('Location', '/threads/' + thread._id);
       res.send(thread);
     }
