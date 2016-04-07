@@ -190,13 +190,10 @@ export function getFullThreadData(threadId, cb) {
     */
   }
 
-export function getFeedData(user, cb) {
-  var userData = readDocument('users', user);
-  var feedData = readDocument('feeds', userData.feed);
-
-  feedData.contents = feedData.contents.map(getThreadSync);
-
-  emulateServerReturn(feedData, cb);
+export function getFeedData(userId, cb) {
+  sendXHR('GET', '/feed/' + userId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 function getBoardSync(boardId) {
