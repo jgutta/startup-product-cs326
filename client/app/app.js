@@ -24,9 +24,9 @@ class MessagingPage extends React.Component {
   }
 }
 class AccountSettingsPage extends React.Component {
-    render() {
-      return <AccountSettings user={1} />;
-    }
+  render() {
+    return <AccountSettings user={1} />;
+  }
 }
 class CreateThreadPage extends React.Component {
   render() {
@@ -42,7 +42,6 @@ class App extends React.Component {
 
         <div className="col-md-12">
           <ErrorBanner />
-          <ResetDatabase />
         </div>
 
         <div className="container-fluid">
@@ -50,6 +49,7 @@ class App extends React.Component {
             <div className="col-sm-2 left-sidebar">
               <SubscribedBoards user={1} />
               <PinnedPosts user={1} />
+              <ResetDatabase />
             </div>
 
             <div className="col-sm-7">
