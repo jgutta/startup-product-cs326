@@ -94,7 +94,7 @@ export default class CreateThread extends React.Component {
   render() {
     return (
       <MainContent title="Create Thread">
-        <p><font className="red" color="red">The feilds marked with an asterix (*) are required</font></p>
+        <p><font className="red" color="red">The fields marked with an asterix (*) are required</font></p>
         <div className="row create-thread-row">
           <div className="col-md-6">
             <div className="input-box-title">Title<font color="red">*</font></div>
