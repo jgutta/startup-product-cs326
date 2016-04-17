@@ -50,9 +50,8 @@ exports.setApp = function(app,
   app.get('/user/:userid/conversation', function(req, res) {
     var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    var useridNumber = parseInt(userid, 10);
-    if (fromUser === useridNumber) {
-      res.send(getConversations(useridNumber));
+    if (fromUser === userid) {
+      res.send(getConversations(userid));
     } else {
       res.status(401).end();
     }
@@ -60,9 +59,8 @@ exports.setApp = function(app,
 
   app.get('/user/:userid/conversation/:conversationid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
-    // Convert params from string to number.
-    var conversationId = parseInt(req.params.conversationid, 10);
-    var userId = parseInt(req.params.userid, 10);
+    var conversationId = req.params.conversationid;
+    var userId = req.params.userid;
     if (fromUser === userId) {
       var conversationData = {};
       conversationData.conversation = getConversationData(userId, conversationId);
@@ -90,8 +88,8 @@ exports.setApp = function(app,
     var body = req.body;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 
-    var userId = parseInt(req.params.userid, 10);
-    var conversationId = parseInt(req.params.conversationid, 10);
+    var userId = req.params.userid;
+    var conversationId = req.params.conversationid;
 
     if (fromUser === body.author && fromUser === userId) {
       var newMessage = postMessage(conversationId, body.author, body.title, body.contents);

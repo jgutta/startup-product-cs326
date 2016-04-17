@@ -30,12 +30,12 @@ function getUserIdFromToken(authorizationLine) {
     // Convert the UTF-8 string into a JavaScript object.
     var tokenObj = JSON.parse(regularString);
     var id = tokenObj['id'];
-    // Check that id is a number.
-    if (typeof id === 'number') {
+    // Check that id is a string.
+    if (typeof id === 'string') {
       return id;
     } else {
-      // Not a number. Return -1, an invalid ID.
-      return -1;
+      // Not a number. Return "", an invalid ID.
+      return "";
     }
   } catch (e) {
     // Return an invalid ID.
@@ -134,7 +134,7 @@ require('./routes/thread.js').
 app.get('/feed/:userid/', function(req, res) {
   var fromUser = getUserIdFromToken(req.get('Authorization'));
   // Convert params from string to number.
-  var userId = parseInt(req.params.userid, 10);
+  var userId = req.params.userid;
   if (fromUser === userId || userId === 2) {
     var userData = readDocument('users', userId);
     var feedData = readDocument('feeds', userData.feed);
