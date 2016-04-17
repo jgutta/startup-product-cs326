@@ -135,7 +135,7 @@ app.get('/feed/:userid/', function(req, res) {
   var fromUser = getUserIdFromToken(req.get('Authorization'));
   // Convert params from string to number.
   var userId = req.params.userid;
-  if (fromUser === userId || userId === 2) {
+  if (fromUser === userId || userId === '000000000000000000000002') {
     var userData = readDocument('users', userId);
     var feedData = readDocument('feeds', userData.feed);
 
