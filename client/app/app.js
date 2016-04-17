@@ -32,7 +32,11 @@ class CreateThreadPage extends React.Component {
     return <CreateThread user={"000000000000000000000001"} />;
   }
 }
-
+class BoardsPage extends React.Component {
+  render() {
+    return <CreateThread user={"000000000000000000000001"} />;
+  }
+}
 class App extends React.Component {
   render() {
     return (
