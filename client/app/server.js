@@ -1,4 +1,5 @@
-var token = 'eyJpZCI6MX0='; // <-- Put your base64'd JSON token here
+var token = 'eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSJ9'
+
 /**
  * Properly configure+send an XMLHttpRequest with error handling, authorization token,
  * and other needed properties.
