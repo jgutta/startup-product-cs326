@@ -1,12 +1,14 @@
 import React from 'react';
 import { unixTimeToString } from '../../util';
+import { postReplyToReply, getFullThreadData } from '../../server';
 
 export default class Replies extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       editReply: false,
-      messageContentsValue: ''
+      messageContentsValue: '',
+      data: this.props.data
     };
   }
 
@@ -25,11 +27,16 @@ export default class Replies extends React.Component {
     //how do i access id? data is array...
     var msg = this.state.messageContentsValue;
     this.setState({ messageContentsValue: '' });
-    this.props.replyFunction(msg, this.props.threadId, replyId);
+    var messageContents = msg.trim();
+    if(messageContents !== ''){
+      postReplyToReply(this.props.threadId, replyId, 1, messageContents, (replyData) => {
+        this.setState(replyData);
+      });
+    }
   }
 
   render() {
-    var data = this.props.data;
+    var data = this.state.data;
 
     return(
       <ul className="media-list reply-list">
@@ -63,7 +70,7 @@ export default class Replies extends React.Component {
                    }
                  </div>
 
-                 <Replies data={reply.replies} threadId={this.props.threadId} replyFunction={this.props.replyFunction} />
+                 <Replies data={reply.replies} threadId={this.props.threadId} replyFunction={(msg, threadId, replyId) => this.handleReplyToReply(msg, threadId, replyId)} />
                </div>
              </li>
            );

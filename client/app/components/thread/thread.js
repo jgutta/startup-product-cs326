@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { getFullThreadData, postReply, postReplyToReply} from '../../server';
+import { getFullThreadData, postReply } from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -11,7 +11,6 @@ export default class Thread extends React.Component {
     this.state = {
       messageContentsValue: ''
      };
-     this.setState = this.setState.bind(this);
   }
 
   refresh(){
@@ -54,16 +53,6 @@ export default class Thread extends React.Component {
       postReply(thread._id, 1, this.state.messageContentsValue, (threadData) => {
         this.setState({ messageContentsValue: '' });
         this.setState(threadData);
-      });
-    }
-  }
-
-  handleReplyToReply(msg, threadId, replyId){
-    var messageContents = msg.trim();
-    var _this = this;
-    if(messageContents !== ''){
-      postReplyToReply(threadId, replyId, 1, messageContents, (threadData) => {
-        _this.setState(threadData);
       });
     }
   }
@@ -127,7 +116,8 @@ export default class Thread extends React.Component {
         <br />
         <br />
 
-          <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
+          <Replies data={thread.replies} threadId={this.props.params.id} />
+
           <hr className="content-title-separator" />
           <div>
           <div className="footer minor-OP-info pull-left">

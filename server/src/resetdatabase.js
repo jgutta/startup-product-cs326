@@ -6,50 +6,50 @@ var databaseName = UBoard;
 var initialData = {
   'users': {
     '1': {
-      '_id': 1,
-      'feed': 1,
-      'pinnedPosts': 1,
-      'subscribedBoards': [ 2, 4, 7, 11 ],
-      'conversations': [ 1, 2, 3, 4, 5 ],
+      '_id': new ObjectID("000000000000000000000001"),
+      'feed': new ObjectID("000000000000000000000001"),
+      'pinnedPosts': new ObjectID("000000000000000000000001"),
+      'subscribedBoards': [ new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000004"), new ObjectID("000000000000000000000007"), new ObjectID("000000000000000000000011") ],
+      'conversations': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003"), new ObjectID("000000000000000000000004"), new ObjectID("000000000000000000000005") ],
       'username': 'tim.richards',
       'gender': 1,
       'password':'badpassword1',
-      'blockedUsers': [ 8 ],
+      'blockedUsers': [ new ObjectID("000000000000000000000008") ],
       'email': 'richards@cs.umass.edu',
       'emailset': 1,
       'image': 'img/default_profile_pic.png'
     },
     '2': {
-      '_id': 2,
-      'feed': 2
+      '_id': new ObjectID("000000000000000000000002"),
+      'feed': new ObjectID("000000000000000000000002")
     },
     '3': {
-      '_id': 3,
+      '_id': new ObjectID("000000000000000000000003"),
       'username': 'cinemaloverno7',
       'image': 'img/326-patrick.JPG'
     },
     '4': {
-      '_id': 4,
+      '_id': new ObjectID("000000000000000000000004"),
       'username': 'guitarist78',
       'image': 'img/326-spongebob.JPG'
     },
     '5': {
-      '_id': 5,
+      '_id': new ObjectID("000000000000000000000005"),
       'username': 'ilikemonopoly',
       'image': 'img/326-thatkid.JPG'
     },
     '6': {
-      '_id': 6,
+      '_id': new ObjectID("000000000000000000000006"),
       'username': 'pizzzzaparty666',
       'image': 'img/326-cheeta.JPG'
     },
     '7': {
-      '_id': 7,
+      '_id': new ObjectID("000000000000000000000007"),
       'username': 'concertrocker\\m/',
       'image': 'img/326-tmnt.JPG'
     },
     '8':{
-      '_id': 8,
+      '_id': new ObjectID("000000000000000000000008"),
       'username': 'spambot',
       'image': 'img/default_profile_pic.png'
     }
@@ -57,43 +57,43 @@ var initialData = {
 
   'feeds': {
     '1': {
-      '_id': 1,
-      'contents': [ 1, 2, 3, 4 ]
+      '_id': new ObjectID("000000000000000000000001"),
+      'contents': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003"), new ObjectID("000000000000000000000004") ]
     },
     '2': {
-      'id': 2,
-      'contents': [ 1, 4 ]
+      'id': new ObjectID("000000000000000000000002"),
+      'contents': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000004") ]
     }
   },
 
   'pinnedPosts': {
     '1': {
-      '_id': 1,
-      'contents': [ 2, 3 ]
+      '_id': new ObjectID("000000000000000000000001"),
+      'contents': [ new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003") ]
     }
   },
 
   'boards': {
     '1': {
-      '_id': 1,
+      '_id': new ObjectID("000000000000000000000001"),
       'name': 'General',
-      'threads': [ 1, 2, 3],
+      'threads': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003")],
       'numUsers': 0,
       'numPosts': 3,
       'description': 'This is a general board where posts can be about any topic, or can be questions about the site. All posts are archived here.',
       'image': 'img/general.jpg'
     },
     '2': {
-      '_id': 2,
+      '_id': new ObjectID("000000000000000000000002"),
       'name': 'Concerts',
-      'threads': [ 2 ],
+      'threads': [ new ObjectID("000000000000000000000002") ],
       'numUsers': 1,
       'numPosts': 1,
       'description': 'Find friends to attend a concert with. You can also find info on upcoming concerts or supply info for your upcoming concerts!',
       'image': 'img/concert.jpg'
     },
     '3': {
-      '_id': 3,
+      '_id': new ObjectID("000000000000000000000003"),
       'name': 'Games',
       'threads': [],
       'numUsers': 0,
@@ -102,25 +102,25 @@ var initialData = {
       'image': 'img/games.jpg'
     },
     '4': {
-      '_id': 4,
+      '_id': new ObjectID("000000000000000000000004"),
       'name': 'Local Events',
-      'threads': [ 1 ],
+      'threads': [ new ObjectID("000000000000000000000001") ],
       'numUsers': 1,
       'numPosts': 1,
       'description': 'Find out about what is happening in your community, commit to attending local events, or look for people to attend your events.',
       'image': 'img/localevent.jpg'
     },
     '5': {
-      '_id': 5,
+      '_id': new ObjectID("000000000000000000000005"),
       'name': 'Music',
-      'threads': [ 4 ],
+      'threads': [ new ObjectID("000000000000000000000004") ],
       'numUsers': 0,
       'numPosts': 1,
       'description': 'Share music with people, give and get suggestions based on your tastes, find jam buddies, and discuss anything else music.',
       'image': 'img/music.jpg'
     },
     '6': {
-      '_id': 6,
+      '_id': new ObjectID("000000000000000000000006"),
       'name': 'Note/Textbook Exchange',
       'threads': [],
       'numUsers': 0,
@@ -129,7 +129,7 @@ var initialData = {
       'image': 'img/textbook.jpg'
     },
     '7': {
-      '_id': 7,
+      '_id': new ObjectID("000000000000000000000007"),
       'name': 'RSOs',
       'threads': [],
       'numUsers': 1,
@@ -138,7 +138,7 @@ var initialData = {
       'image': 'img/rso.jpg'
     },
     '8': {
-      '_id': 8,
+      '_id': new ObjectID("000000000000000000000008"),
       'name': 'Sports',
       'threads': [],
       'numUsers': 0,
@@ -147,7 +147,7 @@ var initialData = {
       'image': 'img/sport.jpg'
     },
     '9': {
-      '_id': 9,
+      '_id': new ObjectID("000000000000000000000009"),
       'name': 'Studying',
       'threads': [],
       'numUsers': 0,
@@ -156,7 +156,7 @@ var initialData = {
       'image': 'img/studying.jpg'
     },
     '10': {
-      '_id': 10,
+      '_id': new ObjectID("000000000000000000000010"),
       'name': 'TV/Movies',
       'threads': [],
       'numUsers': 0,
@@ -165,9 +165,9 @@ var initialData = {
       'image': 'img/tv.jpg'
     },
     '11': {
-      '_id': 11,
+      '_id': new ObjectID("000000000000000000000011"),
       'name': 'Videogames',
-      'threads': [ 3 ],
+      'threads': [ new ObjectID("000000000000000000000003") ],
       'numUsers': 1,
       'numPosts': 1,
       'description': 'Find friends to host a lan party or an online party. Discuss old games, new games, and awaited releases. Everything games!',
@@ -177,14 +177,14 @@ var initialData = {
 
   'threads': {
     '1': {
-      '_id': 1,
-      'boards': [ 1, 4 ],
+      '_id': new ObjectID("000000000000000000000001"),
+      'boards': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000004") ],
       'commentsNo': 8,
       'viewsNo': 10,
 
 
       'originalPost': {
-        'author': 1,
+        'author': new ObjectID("000000000000000000000001"),
         'title': 'UMass Hackathon',
         'date': '3/11/16',
         'time': '7:00PM',
@@ -193,16 +193,16 @@ var initialData = {
         'description': 'Hackathon friday at the Campus Center. Come hack!'
       },
 
-      'replies': [ 1, 3, 6 ]
+      'replies': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000003"), new ObjectID("000000000000000000000006") ]
     },
     '2': {
-      '_id': 2,
-      'boards': [ 1, 2 ],
+      '_id': new ObjectID("000000000000000000000002"),
+      'boards': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002") ],
       'commentsNo': 0,
       'viewsNo': 37,
 
       'originalPost': {
-        'author': 1,
+        'author': new ObjectID("000000000000000000000001"),
         'title': 'Concert at Herter',
         'date': '3/9/16',
         'time': '6:30PM',
@@ -214,13 +214,13 @@ var initialData = {
       'replies': []
     },
     '3': {
-      '_id': 3,
-      'boards': [ 1, 11 ],
+      '_id': new ObjectID("000000000000000000000003"),
+      'boards': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000011") ],
       'commentsNo': 0,
       'viewsNo': 30,
 
       'originalPost': {
-        'author': 1,
+        'author': new ObjectID("000000000000000000000001"),
         'title': 'Smash at Sylvan',
         'date': '',
         'time': '',
@@ -232,13 +232,13 @@ var initialData = {
       'replies': []
     },
     '4': {
-      '_id': 4,
-      'boards': [ 5 ],
+      '_id': new ObjectID("000000000000000000000004"),
+      'boards': [ new ObjectID("000000000000000000000005") ],
       'commentsNo': 0,
       'viewsNo': 30,
 
       'originalPost': {
-        'author': 1,
+        'author': new ObjectID("000000000000000000000001"),
         'title': 'Anyone want to jam? (Drummer)',
         'date': '',
         'time': '',
@@ -253,57 +253,57 @@ var initialData = {
 
   'replies': {
     '1': {
-      '_id': 1,
-      'author': 6,
+      '_id': new ObjectID("000000000000000000000001"),
+      'author': new ObjectID("000000000000000000000006"),
       'postDate': 1456869201382,
       'contents': "I can't wait! Does anyone have any ideas of what they're going to do?",
-      'replies': [ 2, 5 ]
+      'replies': [ new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000005") ]
     },
     '2': {
-      '_id': 2,
-      'author': 4,
+      '_id': new ObjectID("000000000000000000000002"),
+      'author': new ObjectID("000000000000000000000004"),
       'postDate': 1456871392938,
       'contents': "Yeah, I was thinking of doing something involving a FitBit. PM me if you're interested.",
-      'replies': [ 4 ]
+      'replies': [ new ObjectID("000000000000000000000004") ]
     },
     '3': {
-      '_id': 3,
-      'author': 3,
+      '_id': new ObjectID("000000000000000000000003"),
+      'author': new ObjectID("000000000000000000000003"),
       'postDate': 1456878392398,
       'contents': 'lol nerds',
       'replies': []
     },
     '4': {
-      '_id': 4,
-      'author': 6,
+      '_id': new ObjectID("000000000000000000000004"),
+      'author': new ObjectID("000000000000000000000006"),
       'postDate': 1458016175839,
       'contents': 'Sounds awesome!',
       'replies': []
     },
     '5': {
-      '_id': 5,
-      'author': 5,
+      '_id': new ObjectID("000000000000000000000005"),
+      'author': new ObjectID("000000000000000000000005"),
       'postDate': 1458016441928,
       'contents': 'I really want to do something with an oculus rift.',
       'replies': []
     },
     '6': {
-      '_id': 6,
-      'author': 7,
+      '_id': new ObjectID("000000000000000000000006"),
+      'author': new ObjectID("000000000000000000000007"),
       'postDate': 1458055210397,
       'contents': "Can someone post the hackathon website? What's the deadline for signing up? What are these things like, I've never been to one before.",
-      'replies': [ 7, 8 ]
+      'replies': [ new ObjectID("000000000000000000000007"), new ObjectID("000000000000000000000008") ]
     },
     '7': {
-      '_id': 7,
-      'author': 1,
+      '_id': new ObjectID("000000000000000000000007"),
+      'author': new ObjectID("000000000000000000000001"),
       'postDate': 1458056664561,
       'contents': 'The website is hackumass.com',
       'replies': []
     },
     '8': {
-      '_id': 6,
-      'author': 5,
+      '_id': new ObjectID("000000000000000000000006"),
+      'author': new ObjectID("000000000000000000000005"),
       'postDate': 1458072751982,
       'contents': "They're awesome, man. I went to my first one last year at UMass. Do you need a team?",
       'replies': []
@@ -312,24 +312,24 @@ var initialData = {
 
   'conversations': {
     '1': {
-      '_id': 1,
-      'users': [ 1, 3 ],
+      '_id': new ObjectID("000000000000000000000001"),
+      'users': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000003") ],
 
       'messages': [
         {
-          'author': 1,
+          'author': new ObjectID("000000000000000000000001"),
           'title': 'Re: The Projectionist',
           'postDate': 1457135847180,
           'contents': "Yeah, I'll definitely be able to bring the movie."
         },
         {
-          'author': 3,
+          'author': new ObjectID("000000000000000000000003"),
           'title': 'Re: The Projectionist',
           'postDate': 1457136164289,
           'contents': "Awesome! I think I'll be bringing a group of ~5 with me."
         },
         {
-          'author': 3,
+          'author': new ObjectID("000000000000000000000003"),
           'title': 'Re: The Projectionist',
           'postDate': 1457136262123,
           'contents': 'Oh, btw, any word on Rene?'
@@ -337,12 +337,12 @@ var initialData = {
       ]
     },
     '2': {
-      '_id': 2,
-      'users': [ 1, 4 ],
+      '_id': new ObjectID("000000000000000000000002"),
+      'users': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000004") ],
 
       'messages': [
         {
-          'author': 1,
+          'author': new ObjectID("000000000000000000000001"),
           'title': 'Re: Band',
           'postDate': 1456885425431,
           'contents': "Can I get an audition? I'm a really good guitarist."
@@ -350,20 +350,20 @@ var initialData = {
       ]
     },
     '3': {
-      '_id': 3,
-      'users': [ 1, 5 ],
+      '_id': new ObjectID("000000000000000000000003"),
+      'users': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000005") ],
 
       'messages': []
     },
     '4': {
-      '_id': 4,
-      'users': [ 1, 6 ],
+      '_id': new ObjectID("000000000000000000000004"),
+      'users': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000006") ],
 
       'messages': []
     },
     '5': {
-      '_id': 5,
-      'users': [ 1, 7 ],
+      '_id': new ObjectID("000000000000000000000005"),
+      'users': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000007") ],
 
       'messages': []
     }
@@ -395,7 +395,7 @@ function resetDatabase(db, cb) {
   // "for" loop over asynchronous operations.
   var collections = Object.keys(initialData);
   var i = 0;
-  
+
   // Processes the next collection in the collections array.
   // If we have finished processing all of the collections,
   // it triggers the callback.
@@ -409,7 +409,7 @@ function resetDatabase(db, cb) {
       cb();
     }
   }
-  
+
   // Start processing the first collection!
   processNextCollection();
 }
