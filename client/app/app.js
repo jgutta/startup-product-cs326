@@ -6,7 +6,6 @@ import Navbar from './components/navbar';
 import SubscribedBoards from './components/subscribedboards';
 import PinnedPosts from './components/pinnedposts';
 import Feed from './components/feed';
-
 import MainPage from './components/mainpage/mainpage';
 import Board from './components/board/board';
 import Thread from './components/thread/thread';
@@ -20,17 +19,17 @@ import ResetDatabase from './components/resetdatabase';
 
 class MessagingPage extends React.Component {
   render() {
-    return <Messaging user={1} />;
+    return <Messaging user={"000000000000000000000001"} />;
   }
 }
 class AccountSettingsPage extends React.Component {
   render() {
-    return <AccountSettings user={1} />;
+    return <AccountSettings user={"000000000000000000000001"} />;
   }
 }
 class CreateThreadPage extends React.Component {
   render() {
-    return <CreateThread user={1} />;
+    return <CreateThread user={"000000000000000000000001"} />;
   }
 }
 
@@ -47,8 +46,8 @@ class App extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-2 left-sidebar">
-              <SubscribedBoards user={1} />
-              <PinnedPosts user={1} />
+              <SubscribedBoards user={"000000000000000000000001"} />
+              <PinnedPosts user={"000000000000000000000001"} />
               <ResetDatabase />
             </div>
 
@@ -58,8 +57,8 @@ class App extends React.Component {
 
             <div className="col-sm-3 right-sidebar">
               <div id="my-feed"></div>
-              <Feed title="My Feed" user={1} maxFeedPosts={4} />
-              <Feed title="Community Feed" user={2} maxFeedPosts={2} />
+              <Feed title="My Feed" user={"000000000000000000000001"} maxFeedPosts={4} />
+              <Feed title="Community Feed" user={"000000000000000000000002"} maxFeedPosts={2} />
             </div>
           </div>
         </div>
