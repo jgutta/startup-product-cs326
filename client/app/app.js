@@ -34,7 +34,7 @@ class CreateThreadPage extends React.Component {
 }
 class BoardsPage extends React.Component {
   render() {
-    return <CreateThread user={"000000000000000000000001"} />;
+    return <Board user={"000000000000000000000001"} />;
   }
 }
 class App extends React.Component {
