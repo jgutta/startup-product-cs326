@@ -35,11 +35,11 @@ export default class FeedItem extends React.Component {
     if(clickEvent.button === 0){
 
       if(this.isPinned())
-        deletePinnedPost(1, this.props.data._id, (pinn) =>{
+        deletePinnedPost(this.props.user, this.props.data._id, (pinn) =>{
           this.setState({pinned: pinn});
         });
       else
-        addPinnedPost(1, this.props.data._id, (pinn) => {
+        addPinnedPost(this.props.user, this.props.data._id, (pinn) => {
           this.setState({pinned: pinn});
         });
     }

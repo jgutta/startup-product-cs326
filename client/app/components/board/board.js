@@ -56,7 +56,7 @@ unPinPost(userID, threadID){
                return (
 
                    //console.log(obj);
-                   <FeedItem key={i} data= {thread}/>
+                   <FeedItem user = {this.props.user} key={i} data= {thread}/>
 
                );
              })}
