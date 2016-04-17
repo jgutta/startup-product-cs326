@@ -21,7 +21,7 @@ var mongo_express_config = require('mongo-express/config.default.js');
 var MongoDB = require('mongodb');
 var MongoClient = MongoDB.MongoClient;
 var ObjectID = MongoDB.ObjectID;
-var url = 'mongodb://localhost:27017/uboard';
+var url = 'mongodb://localhost:27017/UBoard';
 
 MongoClient.connect(url, function(err, db) {
   app.use(bodyParser.text());
