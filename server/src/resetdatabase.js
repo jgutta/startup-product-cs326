@@ -61,7 +61,7 @@ var initialData = {
       'contents': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003"), new ObjectID("000000000000000000000004") ]
     },
     '2': {
-      'id': new ObjectID("000000000000000000000002"),
+      '_id': new ObjectID("000000000000000000000002"),
       'contents': [ new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000004") ]
     }
   },
