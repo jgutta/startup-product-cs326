@@ -2,7 +2,7 @@ var ThreadSchema = require('../schemas/thread.json');
 
 var validate = require('express-jsonschema').validate;
 
-exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument)
+exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument, db)
 {
   app.post('/thread', validate({ body: ThreadSchema }), function(req, res) {
     var body = req.body;
@@ -32,22 +32,59 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
         'replies': []
       };
 
-      thread = addDocument('threads', thread);
+      db.collection('threads').insertOne(thread, function(err, result) {
+        if (err){
+          sendDatabaseError(res, err);
+        }
 
-      for(var i in body.boards){
-          var board = readDocument('boards', body.boards[i]);
-          board.threads.push(thread._id);
-          board.numPosts++;
-          writeDocument('boards', board);
-      }
+        console.log(result.insertedId);
 
-      res.status(201);
-      res.set('Location', '/threads/' + thread._id);
-      res.send(thread);
+        thread._id = result.insertedId;
+
+        // or for(var i in body.boards)
+        //   db.collection('boards').update({ _id: body.boards[i] })
+        db.collection('boards').updateMany({ _id: body.boards},
+          {
+            $push: {
+              threads: {
+                $each: [thread._id]
+              }
+            }
+          },
+          function(err) {
+            if (err){
+              sendDatabaseError(res, err);
+            }
+            
+            console.log(body.boards._id);
+            body.boards.numPosts++;
+            res.status(201);
+            res.set('Location', '/threads/' + thread._id);
+            res.send(thread);
+          }
+        );
+      });
+
+      // thread = addDocument('threads', thread);
+      //
+      // for(var i in body.boards){
+      //     var board = readDocument('boards', body.boards[i]);
+      //     board.threads.push(thread._id);
+      //     board.numPosts++;
+      //     writeDocument('boards', board);
+      // }
+
+      // res.status(201);
+      // res.set('Location', '/threads/' + thread._id);
+      // res.send(thread);
     }
     else {
       // 401: Unauthorized.
       res.status(401).end();
     }
   });
+
+  function sendDatabaseError(res, err) {
+    res.status(500).send("A database error occurred: " + err);
+  }
 };

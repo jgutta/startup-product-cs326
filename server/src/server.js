@@ -14,6 +14,8 @@ var getCollection = database.getCollection;
 
 var bodyParser = require('body-parser');
 
+var ResetDatabase = require('./resetdatabase');
+
 var mongo_express = require('mongo-express/lib/middleware');
 // Import the default Mongo Express configuration
 var mongo_express_config = require('mongo-express/config.default.js');
@@ -128,7 +130,8 @@ app.get('/board/:boardId', function(req, res){
   require('./routes/createthread.js').
             setApp(app,
                    getUserIdFromToken,
-                   addDocument, readDocument, writeDocument);
+                   addDocument, readDocument, writeDocument,
+                   db);
 
   require('./routes/thread.js').
             setApp(app,
@@ -221,13 +224,12 @@ app.get('/board/:boardId', function(req, res){
     }
   });
 
-  // Reset database.
+  // Reset the database.
   app.post('/resetdb', function(req, res) {
     console.log("Resetting database...");
-    // This is a debug route, so don't do any validation.
-    database.resetDatabase();
-    // res.send() sends an empty response with status code 200
-    res.send();
+    ResetDatabase(db, function() {
+      res.send();
+    });
   });
 
 
