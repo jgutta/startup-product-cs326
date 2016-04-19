@@ -32,21 +32,6 @@ export default class Board extends React.Component {
 
     window.scrollTo(0, 0);
 }
-/*pinPost(userID,threadID){
-  addPinnedPost(userID,threadID, (pinnedData) => {
-    this.setState({pinned: pinnedData});
-
-    console.log(this.state);
-  });
-}
-unPinPost(userID, threadID){
-  delPinnedPost(userID,threadID, (pinnedData) => {
-    this.setState({pinned: pinnedData});
-
-    console.log(this.state);
-  })
-}*/
-//  console.log(this.state.threads)
   render() {
     return (
       <MainContent title={this.state.name}>
