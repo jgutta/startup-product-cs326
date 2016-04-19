@@ -100,8 +100,7 @@ app.get('/board/:boardId', function(req, res){
   require('./routes/subscribedboards.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument,
-                   getBoardData);
+                   db, ObjectID);
 
   // ==========
   // /user/:userid/pinnedposts
