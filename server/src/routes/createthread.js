@@ -2,7 +2,7 @@ var ThreadSchema = require('../schemas/thread.json');
 
 var validate = require('express-jsonschema').validate;
 
-exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument, db)
+exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument, db, ObjectID)
 {
   app.post('/thread', validate({ body: ThreadSchema }), function(req, res) {
     var body = req.body;
@@ -12,6 +12,11 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
         // 400: Bad request.
         res.status(400).end();
         return;
+      }
+
+      for(var i in body.boards){
+        var x = body.boards[i];
+        body.boards[i] = new ObjectID(x);
       }
 
       var thread = {
@@ -37,8 +42,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
           sendDatabaseError(res, err);
         }
 
-        console.log(result.insertedId);
-
+        //console.log(result.insertedId)
         thread._id = result.insertedId;
 
         // or for(var i in body.boards)
@@ -55,8 +59,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
             if (err){
               sendDatabaseError(res, err);
             }
-            
-            console.log(body.boards._id);
+
             body.boards.numPosts++;
             res.status(201);
             res.set('Location', '/threads/' + thread._id);
