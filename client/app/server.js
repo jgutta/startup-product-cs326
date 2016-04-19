@@ -1,6 +1,5 @@
-import { readDocument, writeDocument, addDocument, readCollection } from './database.js';
+var token = 'eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSJ9'
 
-var token = 'eyJpZCI6MX0='; // <-- Put your base64'd JSON token here
 /**
  * Properly configure+send an XMLHttpRequest with error handling, authorization token,
  * and other needed properties.
@@ -66,76 +65,48 @@ function sendXHR(verb, resource, body, cb) {
   }
 }
 
-/**
- * Emulates how a REST call is *asynchronous* -- it calls your function back
- * some time in the future with data.
- */
-function emulateServerReturn(data, cb) {
-  setTimeout(() => {
-    cb(data);
-  }, 4);
-}
-
 // ====================
 // Thread functions
 // ====================
 export function createThread(author, title, date, time, desc, image, boards, cb) {
-    sendXHR('POST', '/thread', {
-      boards: boards,
+  sendXHR('POST', '/thread', {
+    boards: boards,
 
-      originalPost: {
-        author: author,
-        title: title,
-        date: date,
-        time: time,
-        img: image,
-        description: desc
-      }
-    }, (xhr) => {
-       cb(JSON.parse(xhr.responseText));
-     });
-  }
-
-
-  export function postReply(threadId, author, contents, cb){
-    sendXHR('POST', '/thread/' + threadId + '/replyto/', {
+    originalPost: {
       author: author,
-      postDate: new Date().getTime(),
-      contents: contents,
-      replies: []
-    }, (xhr) =>{
-      cb(JSON.parse(xhr.responseText));
-    });
-  }
-
-  export function postReplyToReply(threadId, replyId, author, contents, cb){
-    sendXHR('POST', '/thread/' + threadId + '/replyto/' + replyId, {
-      author: author,
-      postDate: new Date().getTime(),
-      contents: contents,
-      replies: []
-    }, (xhr) =>{
-      cb(JSON.parse(xhr.responseText));
-    });
-    /*
-    var thread = readDocument('threads', threadId);
-    var reply = readDocument('replies', replyId);
-    var rep = {
-      'author': author,
-      'postDate': new Date().getTime(),
-      'contents': contents,
-      'replies': []
+      title: title,
+      date: date,
+      time: time,
+      img: image,
+      description: desc
     }
-    rep = addDocument('replies', rep);
-    reply.replies.push(rep._id);
-    writeDocument('replies', reply);
-    writeDocument('threads', thread);
-    var fullThread = getFullThreadSync(threadId);
-    var threadData = {
-      contents: fullThread
-    };
-    emulateServerReturn(threadData, cb); */
-  }
+  }, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+
+export function postReply(threadId, author, contents, cb){
+  sendXHR('POST', '/thread/' + threadId + '/replyto/', {
+    author: author,
+    postDate: new Date().getTime(),
+    contents: contents,
+    replies: []
+  }, (xhr) =>{
+    cb(JSON.parse(xhr.responseText));
+  });
+}
+
+export function postReplyToReply(threadId, replyId, author, contents, cb){
+  sendXHR('POST', '/thread/' + threadId + '/replyto/' + replyId + '/sub/', {
+    author: author,
+    postDate: new Date().getTime(),
+    contents: contents,
+    replies: []
+  }, (xhr) =>{
+    cb(JSON.parse(xhr.responseText));
+  });
+}
 
 
 // ====================
@@ -157,71 +128,24 @@ export function getBoardContent(boardId, cb){
 // User functions
 // ====================
 
-function getThreadSync(threadId) {
-  var thread = readDocument('threads', threadId);
-  return thread;
-}
-
-export function getThreadData(threadId, cb){
-  var thread = readDocument('threads', threadId);
-  var threadData = {
-     contents : thread
-   };
-   emulateServerReturn(threadData, cb);
-}
-
-export function getRepliesData(replyId, cb){
-  var reply = readDocument('replies', replyId);
-  var replyData = {
-    contents : reply
-  }
-  emulateServerReturn(replyData, cb);
-}
-
-function getReplySync(replyId) {
-    var reply = readDocument('replies', replyId);
-
-   var user = readDocument('users', reply.author);
-   reply.authorUsername = user.username;
-   reply.authorImage = user.image;
-    reply.replies = reply.replies.map(getReplySync);
-    return reply;
-  }
-
-function getFullThreadSync(threadId){
-  var thread = readDocument('threads', threadId);
-  var user = readDocument('users', thread.originalPost.author);
-  thread.originalPost.authorUsername = user.username;
-  thread.boards = thread.boards.map(getBoardSync);
-  thread.replies = thread.replies.map(getReplySync);
-  return thread;
-}
 
 export function getFullThreadData(threadId, cb) {
-    sendXHR('GET', '/thread/' + threadId, undefined, (xhr) => {
-      cb(JSON.parse(xhr.responseText));
-    });
-    /*
-    var thread = getFullThreadSync(threadId);
+  sendXHR('GET', '/thread/' + threadId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
+  /*
+     var thread = getFullThreadSync(threadId);
      var threadData = {
-       contents: thread
+     contents: thread
      };
-      emulateServerReturn(threadData, cb);
-    */
-  }
-
-export function getFeedData(user, cb) {
-  var userData = readDocument('users', user);
-  var feedData = readDocument('feeds', userData.feed);
-
-  feedData.contents = feedData.contents.map(getThreadSync);
-
-  emulateServerReturn(feedData, cb);
+     emulateServerReturn(threadData, cb);
+   */
 }
 
-function getBoardSync(boardId) {
-  var board = readDocument('boards', boardId);
-  return board;
+export function getFeedData(userId, cb) {
+  sendXHR('GET', '/feed/' + userId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
 export function getSubscribedBoardsData(user, cb) {
@@ -236,48 +160,12 @@ export function addSubscribeBoard(user, board, cb) {
   });
 }
 
-function getIndex(array, element) {
-  for(var i =0; i<array.length; i++){
-    if(array[i] == element){
-      return i;
-    }
-  }
-}
-
 export function deleteSubscribeBoard(user, board, cb) {
   sendXHR('DELETE', '/user/' + user + '/subscribedboards/' + board, undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
   });
 }
 
-
-function getMessageSync(message) {
-  message.authorUsername = readDocument('users', message.author).username;
-  return message;
-}
-
-function getConversationSync(user, conversationId) {
-  var conversation = readDocument('conversations', conversationId);
-
-  conversation.messages = conversation.messages.map(getMessageSync);
-
-  for(var i = conversation.users.length - 1; i >= 0; i--) {
-    if(conversation.users[i] === user) {
-      conversation.users.splice(i, 1);
-    }
-  }
-  conversation.user = readDocument('users', conversation.users[0]);
-
-  return conversation;
-}
-
-function compareConversations(convA, convB) {
-  // If there are no messages in the conversation, set the time of that conversation to 0.
-  var timeA = convA.messages.length < 1 ? 0 : convA.messages[convA.messages.length - 1].postDate;
-  var timeB = convB.messages.length < 1 ? 0 : convB.messages[convB.messages.length - 1].postDate;
-
-  return timeB - timeA;
-}
 
 // ====================
 // Conversation functions
@@ -317,72 +205,35 @@ export function getSearchData(queryText, cb) {
   });
 }
 
-export function getSearchDataOld(cb) {
-  var threads = readCollection('threads');
-  var threadData = {
-    contents: []
-  };
-
-  for(var i in threads){
-    var th = threads[i];
-
-    th.boards = th.boards.map(getBoardSync);
-
-    var userData = readDocument('users', th.originalPost.author);
-    th.originalPost.authorName = userData.username;
-
-    threadData.contents.push(th);
-  }
-
-
-  emulateServerReturn(threadData, cb);
+export function getUserData(userId, cb){
+  sendXHR('GET', '/user/' + userId, undefined, (xhr) => {
+    cb(JSON.parse(xhr.responseText));
+  });
 }
 
-  export function getUserData(userId, cb){
-    sendXHR('GET', '/user/' + userId, undefined, (xhr) => {
-      cb(JSON.parse(xhr.responseText));
-    });
-  }
-
-  export function retrieveNameFromId(id ,cb) {
-      var userData = readDocument('users', id);
-      emulateServerReturn(userData.username, cb); //edited to include callback. These should have them to emulate server return.
-    }
-
-    export function retrievePicFromId(id) {
-        var userData = readDocument('users', id);
-        return userData.image;
-      }
-
-  export function updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb) {
-    sendXHR('PUT', '/user/' + userId, {
-      username:username,
-      gender:gender,
-      password:password,
-      blocked:blocked,
-      email:email,
-      emailset:emailset,
-      image:image
-    }, (xhr) => {
-      // Return the updated user.
-      cb(JSON.parse(xhr.responseText));
-    });
-    }
+export function updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb) {
+  
+  sendXHR('PUT', '/user/' + userId, {
+    username:username,
+    gender:gender,
+    password:password,
+    blockedUsers:blocked,
+    email:email,
+    emailset:emailset,
+    image:image
+  }, (xhr) => {
+    // Return the updated user.
+    cb(JSON.parse(xhr.responseText));
+  });
+}
 
 
 
 export function unBlock(user , blockedUserId, cb){
-    sendXHR('DELETE', '/user/' + user + '/blockedUsers/' + blockedUserId, undefined, () => {
-      cb();
-    });
+  sendXHR('DELETE', '/user/' + user + '/blockedUsers/' + blockedUserId, undefined, () => {
+    cb();
+  });
 }
-
-   function addBlock(user, blockUser) {
-      var userData = readDocument('users', user);
-      userData.blockedUsers.push(blockUser);
-      writeDocument('users', userData);
-      return userData;
-    }
 
 
 // ====================
@@ -391,31 +242,6 @@ export function unBlock(user , blockedUserId, cb){
 
 //For thread -returns just the content
 
-//For pinned post -returns all thread data
-export function getPinnedPostsDataOld(user, cb) {
-  var userData = readDocument('users', user);
-  var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
-  pinnedPostsData.contents = pinnedPostsData.contents.map(getThreadSync);
-  emulateServerReturn(pinnedPostsData, cb);
-}
-
-export function deletePinnedPostOld(user, pin, thread, cb){
-  var pinnedPostsData = readDocument('pinnedPosts', pin);
-  var index = getIndex(pinnedPostsData.contents, thread);
-  pinnedPostsData.contents.splice(index, 1);
-
-  writeDocument('pinnedPosts', pinnedPostsData);
-
-  emulateServerReturn(pinnedPostsData, cb);
-}
-
-export function addPinnedPostOld(userID, threadID, cb){
-  var user = readDocument('users', userID);
-  var pinned = readDocument('pinnedPosts', user.pinnedPosts);
-  pinned.contents.push(threadID);
-  writeDocument('pinnedPosts', pinned);
-  emulateServerReturn(pinned,cb); //Calls back with pinned array. Mostly for the sake of updating anything that needs to be changed on the page.
-}
 
 export function addPinnedPost(user, threadID, cb) {
   sendXHR('PUT', '/user/' + user + '/pinnedposts/' + threadID, undefined, (xhr) => {

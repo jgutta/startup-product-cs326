@@ -2,7 +2,7 @@ import React from 'react';
 import MainContent from '../maincontent';
 import Replies from './replies';
 import { unixTimeToString } from '../../util';
-import { getFullThreadData, postReply, postReplyToReply} from '../../server';
+import { getFullThreadData, postReply } from '../../server';
 
 
 export default class Thread extends React.Component {
@@ -11,7 +11,6 @@ export default class Thread extends React.Component {
     this.state = {
       messageContentsValue: ''
      };
-     this.setState = this.setState.bind(this);
   }
 
   refresh(){
@@ -58,20 +57,24 @@ export default class Thread extends React.Component {
     }
   }
 
-  handleReplyToReply(msg, threadId, replyId){
-    var messageContents = msg.trim();
-    var _this = this;
-    if(messageContents !== ''){
-      postReplyToReply(threadId, replyId, 1, messageContents, (threadData) => {
-        _this.setState(threadData);
-      });
-    }
-  }
-
   handleContentsChange(e) {
     e.preventDefault();
     this.setState({ messageContentsValue: e.target.value });
   }
+
+  commas(array) {
+     var str = '';
+     for(var i = 0; i < array.length; i++) {
+       if(i != array.length - 1) {
+         str = str + array[i].name + ', ';
+       }
+       else {
+         str = str + array[i].name;
+       }
+     }
+
+     return(str);
+   }
 
   render() {
 
@@ -113,8 +116,17 @@ export default class Thread extends React.Component {
         <br />
         <br />
 
-          <Replies data={thread.replies} threadId={this.props.params.id} replyFunction={this.handleReplyToReply} />
+          <Replies data={thread.replies} threadId={this.props.params.id} />
 
+          <hr className="content-title-separator" />
+          <div>
+          <div className="footer minor-OP-info pull-left">
+            {thread.commentsNo} comments, {thread.viewsNo} views
+          </div>
+          <div className="footer pull-right">
+            Posted to: {this.commas(thread.boards)}
+          </div>
+          </div>
         </MainContent>
     )
   }

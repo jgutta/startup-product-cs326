@@ -94,7 +94,7 @@ export default class CreateThread extends React.Component {
   render() {
     return (
       <MainContent title="Create Thread">
-        <p><font className="red" color="red">The feilds marked with an asterix (*) are required</font></p>
+        <p><font className="red" color="red">The fields marked with an asterix (*) are required</font></p>
         <div className="row create-thread-row">
           <div className="col-md-6">
             <div className="input-box-title">Title<font color="red">*</font></div>
@@ -128,9 +128,7 @@ export default class CreateThread extends React.Component {
             <textarea className="form-control description-input" rows="5" name="description" value={this.state.description} onChange={(e) => this.handleDescriptionChange(e)} required></textarea>
           </div>
 
-          <div className="col-md-1" />
-
-          <div className="col-md-5">
+          <div className="col-md-6">
             <div className="input-box-title">Image</div>
             <img className="image-input" id="output" src={this.state.img} />
             <input type="file" className="browse" accept="image/jpeg, image/png" name="image" value={this.state.img} onChange={(e) => this.handleImageChange(e)} />
@@ -166,7 +164,7 @@ export default class CreateThread extends React.Component {
             </ul>
           </div>
         </div>
-        
+
         <hr/>
 
         <div className="create-thread-center">

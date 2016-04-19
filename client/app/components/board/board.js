@@ -41,7 +41,7 @@ export default class Board extends React.Component {
                return (
 
                    //console.log(obj);
-                   <FeedItem key={i} data= {thread}/>
+                   <FeedItem user = {this.props.user} key={i} data= {thread}/>
 
                );
              })}
