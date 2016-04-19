@@ -16,7 +16,7 @@ export default class FeedItem extends React.Component {
     retrieveNameFromId(this.props.data.originalPost.author, (name) => {
       this.setState({author: name});
     });
-    getPinned(1, (pinnedNew) =>{
+    getPinned(this.props.user, (pinnedNew) =>{
       this.setState({pinned: pinnedNew})
     })
 

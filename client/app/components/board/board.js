@@ -13,7 +13,6 @@ export default class Board extends React.Component {
   };
   }
   componentDidMount() {
-
     getBoardContent(this.props.params.id, (boardData) => {
       //console.log(boardData.threads[0])
       boardData.threads = boardData.threads.reverse();
@@ -41,7 +40,7 @@ export default class Board extends React.Component {
                return (
 
                    //console.log(obj);
-                   <FeedItem user = {this.props.user} key={i} data= {thread}/>
+                   <FeedItem user = {this.props.route.user} key={i} data= {thread}/>
 
                );
              })}

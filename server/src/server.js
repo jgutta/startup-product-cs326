@@ -138,7 +138,7 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/pinnedposts.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument, getThreadSync);
+                   readDocument, writeDocument, getThread);
 
   // ==========
   // /user/:userid/conversation
@@ -232,7 +232,12 @@ MongoClient.connect(url, function(err, db) {
     if (fromUser === userId || userId === '000000000000000000000002') {
       getUser(new ObjectID(userId), function(err, user) {
         getFeedData(user.feed, function(err, feedData) {
+          if(err){
+            res.status(500).end();
+          }
+          else{
           res.send(feedData);
+        }
         });
       });
     } else {

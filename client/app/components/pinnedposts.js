@@ -26,6 +26,7 @@ export default class PinnedPosts extends React.Component {
       // state would then be {foo: 3, bar: 5}. This won't be a problem here.
       this.setState(pinnedPostsData);
     });
+
   }
 
   handleUnSub(e, id) {
