@@ -139,18 +139,27 @@ exports.setApp = function(app,
     }
   });
 
-  function postMessage(conversationId, author, title, contents) {
-    var conversation = readDocument('conversations', conversationId);
-    conversation.messages.push({
+  function postMessage(conversationId, author, title, contents, callback) {
+    var newMessage = {
       'author': author,
       'title': title,
       'postDate': new Date().getTime(),
       'contents': contents
-    });
+    };
 
-    writeDocument('conversations', conversation);
+    db.collection('conversations').updateOne(
+      { _id: conversationId },
+      { $push: { messages: newMessage }},
+      function(err, result) {
+        if (err) {
+          return callback(err);
+        }
 
-    return getConversationData(author, conversationId);
+        getConversation(conversationId, author, function(err, conversation) {
+          callback(null, conversation)
+        });
+      }
+    );
   }
 
   app.post('/user/:userid/conversation/:conversationid', validate({ body: MessageSchema }), function(req, res) {
@@ -161,9 +170,10 @@ exports.setApp = function(app,
     var conversationId = req.params.conversationid;
 
     if (fromUser === body.author && fromUser === userId) {
-      var newMessage = postMessage(conversationId, body.author, body.title, body.contents);
-      res.status(201);
-      res.send(newMessage);
+      postMessage(new ObjectID(conversationId), new ObjectID(body.author), body.title, body.contents, function(err, conversation) {
+        res.status(201);
+        res.send(conversation);
+      });
     } else {
       res.status(401).end();
     }
