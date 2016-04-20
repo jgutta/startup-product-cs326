@@ -62,13 +62,47 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
         });
     }
 
-  function getFullThreadSync(threadId){
+  function getFullThreadSync(threadId, callback){
+    /*
     var thread = readDocument('threads', threadId);
     var user = readDocument('users', thread.originalPost.author);
     thread.originalPost.authorUsername = user.username;
     thread.boards = thread.boards.map(getBoardSync);
     thread.replies = thread.replies.map(getReplySync);
-    return thread;
+    return thread; */
+    db.collection('threads').findOne({
+      _id: threadId
+    }, function(err, thread) {
+      if (err) {
+        return callback(err);
+      } else if (thread === null) {
+        return callback(null, null);
+      }
+      db.collection('users').findOne({
+        _id: thread.originalPost.author
+      }, function(err, user) {
+        if (err) {
+          return callback(err);
+        } else if (user === null) {
+          return callback(null, null);
+        }
+        db.collection('threads').updateOne(
+          { _id: threadId },
+          { $set: { originalPost: {authorUsername: user.username} } },
+          { $set: {boards: thread.boards.map(getBoardSync)} },
+          { $set: {replies: thread.replies.map(getReplySync)} },
+          function(err, thread) {
+            if (err) {
+              return callback(err);
+            } else if (thread === null) {
+              return callback(null, null);
+            }
+            callback(null, thread);
+          }
+        );
+        });
+    }
+    );
   }
 
   //getFullThreadData
