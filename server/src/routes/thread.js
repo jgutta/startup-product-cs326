@@ -18,14 +18,48 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
     });
   }
 
-  function getReplySync(replyId) {
-      var reply = readDocument('replies', replyId);
-
+  function getReplySync(replyId, callback) {
+     /*
+     var reply = readDocument('replies', replyId);
      var user = readDocument('users', reply.author);
-     reply.authorUsername = user.username;
+     reply.authorUsername: = user.username;
      reply.authorImage = user.image;
       reply.replies = reply.replies.map(getReplySync);
-      return reply;
+      return reply; */
+      db.collection('replies').findOne({
+        _id: replyId
+      }, function(err, reply) {
+        if (err) {
+          return callback(err);
+        } else if (reply === null) {
+          return callback(null, null);
+        }
+        db.collection('users').findOne({
+          _id: reply.author
+        }, function(err, user) {
+          if (err) {
+            return callback(err);
+          } else if (user === null) {
+            return callback(null, null);
+          }
+          db.collection('replies').updateOne(
+            { _id: replyId },
+            { $set: { authorUsername: user.username } },
+            { $set: { authorImage: user.image } },
+            { $set: { replies: reply.replies.map(getReplySync) } },
+            function(err, result) {
+              if (err) {
+                return callback(err);
+              } else if (result === null) {
+                return callback(null, null);
+              }
+              callback(null, result);
+            }
+          );
+
+          });
+
+        });
     }
 
   function getFullThreadSync(threadId){
