@@ -67,7 +67,6 @@ MongoClient.connect(url, function(err, db) {
       } else if (user === null) {
         return callback(null, null);
       }
-
       callback(null, user)
     });
   }
@@ -101,15 +100,55 @@ MongoClient.connect(url, function(err, db) {
     });
   }
 
+  function getBoardData(boardId, callback) {
+    db.collection('boards').findOne( {_id: boardId},
+      function(err, boardData){
+        if(err){
+          return callback(err);
+        }
+        else if(boardData === null){
+          return callback(null, null);
+        }
+        callback(null, boardData);
+    });
+  }
+  function getResolvedSubscribedBoards(subscribedBoardsArray, callback){
+    var subscribedBoards = {
+      contents: []
+    }
+
+    function processNextBoard(i){
+      getBoardData(subscribedBoardsArray[i], function(err, board) {
+        if (err) {
+          // Pass an error to the callback.
+          callback(err);
+        } else {
+          // Success!
+          subscribedBoards.contents.push(board);
+          if (subscribedBoards.contents.length === subscribedBoardsArray.length) {
+            // I am the final feed item; all others are resolved.
+            // Pass the resolved feed document back to the callback.
+            callback(null, subscribedBoards);
+          } else {
+            // Process the next feed item.
+            processNextBoard(i + 1);
+          }
+        }
+      });
+    }
+    // Special case: board array is empty.
+    if (subscribedBoardsArray.length === 0) {
+      callback(null, subscribedBoardsArray);
+    } else {
+      processNextBoard(0);
+    }
+  }
+
   require('./routes/boards.js').
             setApp(app,
                    getUserIdFromToken,
                    getCollection);
 
-  function getBoardData(boardId) {
-    var board = readDocument('boards', boardId);
-    return board;
-  }
   // ===================
 
 
@@ -128,7 +167,8 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/subscribedboards.js').
             setApp(app,
                    getUserIdFromToken,
-                   db, ObjectID);
+                   getUser, getResolvedSubscribedBoards,
+                   ObjectID);
 
   // ==========
   // /user/:userid/pinnedposts

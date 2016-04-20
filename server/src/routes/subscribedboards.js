@@ -1,13 +1,14 @@
 exports.setApp = function(app,
                           getUserIdFromToken,
-                          db, ObjectID)
+                          getUser, getResolvedSubscribedBoards,
+                          ObjectID)
 {
   app.get('/user/:userid/subscribedBoards', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     // Convert params from string to number.
     var userId = new ObjectID(req.params.userid);
     if (fromUser == userId) {
-      getUserData(userId, function(err, userData){
+      getUser(userId, function(err, userData){
         if(err){
           //internal error
           res.status(500).send("Database error: "+err);
@@ -18,7 +19,17 @@ exports.setApp = function(app,
         }
         else{
           //success -- send data
-          res.send(userData);
+          getResolvedSubscribedBoards(userData.subscribedBoards, function(err, resolvedBoards){
+            if(err){
+              res.status(500).send("Database error: "+err);
+            }
+            else if(resolvedBoards === null){
+              res.status(400).send("Subscribed boards error, can't find: "+ err);
+            }
+            console.log(resolvedBoards);
+            res.send(resolvedBoards);
+          });
+
         }
       });
     } else {
@@ -26,35 +37,7 @@ exports.setApp = function(app,
       res.status(401).end();
     }
   });
-  function getUserData(userId, callback){
-    db.collection('users').findOne({_id: userId},
-      function(err, userData){
-        console.log("userData =========================================================================== "+ userData );
-        if(err){
-          //error report
-          callback(err);
-        }
-        else if(userData === null){
-          //User not found
-          callback(null,null);
-        }
-        else{
-          //user found -- send back user data in js object
-          var subscribedBoards = {
-            contents: []
-          };
-          subscribedBoards.contents = userData.subscribedBoards.map(getBoardData);
-          callback(null, subscribedBoards);
-        }
-    });
-  }
 
-  function getBoardData(boardId){
-    db.collection('boards').findOne( {_id: boardId},
-      function(err, boardData){
-        return boardData;
-    });
-  }
 /*
   app.put('/user/:userid/subscribedBoards/:boardid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
