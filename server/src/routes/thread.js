@@ -29,6 +29,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       return reply; */
       console.log(getReplySync);
       console.log(replyId);
+      console.log(callback);
       db.collection('replies').findOne({
         _id: replyId
       }, function(err, reply) {
@@ -80,6 +81,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
     thread.boards = thread.boards.map(getBoardSync);
     thread.replies = thread.replies.map(getReplySync);
     return thread; */
+    console.log(callback);
     db.collection('threads').findOne({
       _id: threadId
     }, function(err, thread) {
@@ -106,7 +108,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
         db.collection('threads').updateOne(
           { _id: threadId },
           { $set: { originalPost: {authorUsername: user.username} } },
-          { $set: {boards: thread.boards.map(getBoardSync)} },
+          { $set: { boards: thread.boards.map(getBoardSync) } },
           { $set: {replies: thread.replies.map(getReplySync)} },
           function(err, thread) {
             console.log("flag !");
@@ -220,40 +222,3 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
 
   });
 };
-
-/*
-var thread = readDocument('threads', threadId);
-var reply = readDocument('replies', replyId);
-var rep = {
-  'author': author,
-  'postDate': new Date().getTime(),
-  'contents': contents,
-  'replies': []
-}
-rep = addDocument('replies', rep);
-reply.replies.push(rep._id);
-writeDocument('replies', reply);
-writeDocument('threads', thread);
-var fullThread = getFullThreadSync(threadId);
-var threadData = {
-  contents: fullThread
-};
-emulateServerReturn(threadData, cb);
-*/
-
-/*var thread = readDocument('threads', threadId);
-var rep = {
-  'author': author,
-  'postDate': new Date().getTime(),
-  'contents': contents,
-  'replies': []
-}
-rep = addDocument('replies', rep);
-//push current replyId to thread.replies
-thread.replies.push(rep._id);
-writeDocument('threads', thread);
-var fullThread = getFullThreadSync(threadId);
-   var threadData = {
-     contents: fullThread
-   };
-emulateServerReturn(threadData, cb); */
