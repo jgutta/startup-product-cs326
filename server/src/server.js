@@ -175,37 +175,6 @@ MongoClient.connect(url, function(err, db) {
         callback(null, boardData);
     });
   }
-  function getResolvedSubscribedBoards(subscribedBoardsArray, callback){
-    var subscribedBoards = {
-      contents: []
-    }
-
-    function processNextBoard(i){
-      getBoardData(subscribedBoardsArray[i], function(err, board) {
-        if (err) {
-          // Pass an error to the callback.
-          callback(err);
-        } else {
-          // Success!
-          subscribedBoards.contents.push(board);
-          if (subscribedBoards.contents.length === subscribedBoardsArray.length) {
-            // I am the final feed item; all others are resolved.
-            // Pass the resolved feed document back to the callback.
-            callback(null, subscribedBoards);
-          } else {
-            // Process the next feed item.
-            processNextBoard(i + 1);
-          }
-        }
-      });
-    }
-    // Special case: board array is empty.
-    if (subscribedBoardsArray.length === 0) {
-      callback(null, subscribedBoardsArray);
-    } else {
-      processNextBoard(0);
-    }
-  }
 
   function getAllBoards(callback){
     var boardsData = {
@@ -257,8 +226,8 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/subscribedboards.js').
             setApp(app,
                    getUserIdFromToken,
-                   getUser, getResolvedSubscribedBoards,
-                   ObjectID);
+                   getUser, getBoardData,
+                   ObjectID, db);
 
   // ==========
   // /user/:userid/pinnedposts
