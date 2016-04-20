@@ -207,10 +207,37 @@ MongoClient.connect(url, function(err, db) {
     }
   }
 
+  function getAllBoards(callback){
+    var boardsData = {
+      boardsList: [new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003"),
+                  new ObjectID("000000000000000000000004"), new ObjectID("000000000000000000000005"), new ObjectID("000000000000000000000006"),
+                  new ObjectID("000000000000000000000007"), new ObjectID("000000000000000000000008"), new ObjectID("000000000000000000000009"),
+                  new ObjectID("000000000000000000000010"), new ObjectID("000000000000000000000011")]
+    };
+    function createArrayOfBoards(i){
+      getBoardData(boardsData.boardsList[i], function(err, board){
+        if(err){
+          //error
+          return callback(err);
+        }else{
+          //success -- add board to array
+          boardsData.boardsList[i] = board;
+          if(i === 10){
+            //last board was just added, send complete array back
+            callback(null, boardsData);
+          }else{
+            createArrayOfBoards(i+1);
+          }
+        }
+      });
+    }
+    //1 is the first board id
+    createArrayOfBoards(0);
+
+  }
+
   require('./routes/boards.js').
-            setApp(app,
-                   getUserIdFromToken,
-                   getCollection);
+            setApp(app, getAllBoards);
 
   // ===================
 

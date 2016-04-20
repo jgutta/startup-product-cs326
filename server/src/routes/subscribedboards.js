@@ -26,7 +26,6 @@ exports.setApp = function(app,
             else if(resolvedBoards === null){
               res.status(400).send("Subscribed boards error, can't find: "+ err);
             }
-            console.log(resolvedBoards);
             res.send(resolvedBoards);
           });
 
