@@ -177,7 +177,7 @@ MongoClient.connect(url, function(err, db) {
   }
 
   function getAllBoards(callback){
-    var boardsData = {
+    var boardsData = {// We chose to hardcode the board ids, because only the admins(us) have the ability to create new boards.
       boardsList: [new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003"),
                   new ObjectID("000000000000000000000004"), new ObjectID("000000000000000000000005"), new ObjectID("000000000000000000000006"),
                   new ObjectID("000000000000000000000007"), new ObjectID("000000000000000000000008"), new ObjectID("000000000000000000000009"),

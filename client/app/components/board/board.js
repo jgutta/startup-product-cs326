@@ -35,7 +35,6 @@ export default class Board extends React.Component {
   render() {
     return (
       <MainContent title={this.state.name}>
-      <Link to={"/boards/" + "000000000000000000000001"}>Dummy link here, Edit my ID for other boards</Link>
             {this.state.contents.map((thread,i) => {
               // console.log(thread, i)
                return (
