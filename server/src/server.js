@@ -67,7 +67,6 @@ MongoClient.connect(url, function(err, db) {
       } else if (user === null) {
         return callback(null, null);
       }
-
       callback(null, user)
     });
   }
@@ -76,17 +75,80 @@ MongoClient.connect(url, function(err, db) {
   // ===================
   // /board/
   app.get('/board/:boardId', function(req, res){
-    var board = readDocument('boards', req.params.boardId);
-    board.threads = board.threads.map((id) => getThreadSync(id));
-    //  board.threads.originalPost.author = board.threads.originalPost.author.map((id) => readDocument('users', id)); Needs Testing
-    res.send(board);
+    gatherBoardData(req.params.boardId, function(err, boardData){
+      if(err){
+         res.status(500).send("Database Boards error: " + err);
+      }else if (boardData === null) {
+         res.status(400).send("Could not look up board " + req.params.boardId);
+      } else {
+        res.send(boardData);
+      }
+
+    });
   });
 
-  function getThreadSync(threadId) {
-    var thread = readDocument('threads', threadId);
-    return thread;
-  }
+  function gatherBoardData(boardID, callback) {
+    db.collection('boards').findOne({
+      _id: new ObjectID(boardID)
+    }, function(err, boardData) {
+      if (err) {
+        return callback(err);
+      } else if (boardData === null) {
+        return callback(null, null);
+      }
+      var threadHolder = [];
+      function amalgomate(i){
+        getThreadAuth(boardData.threads[i], function(err, fullThread){
+          if(err){
+            return callback(err);
+          }
+          else if(fullThread === null){
+            return callback(null, boardData)
+          }
+          else{
+            threadHolder.push(fullThread);
+            if(threadHolder.length === boardData.threads.length){
+              boardData.threads = threadHolder;
+              callback(null, boardData);
+            }
+            else{
+              amalgomate(i + 1);
+            }
+          }
+        });
+      }
+      if (boardData.threads.length === 0) {
+        callback(null, boardData);
+      } else {
+        amalgomate(0);
+      }
 
+    });
+    }
+
+    function getThreadAuth(threadId, callback) {
+      db.collection('threads').findOne({
+        _id: threadId
+      }, function(err, thread) {
+        if (err) {
+          return callback(err);
+        } else if (thread === null) {
+          return callback(null, null);
+        }
+        getUser(thread.originalPost.author, function(err, userData){
+          if(err){
+            return callback(err);
+          }
+          else if(userData === null){
+            return callback(null,null);
+          }
+          else{
+            thread.originalPost.author = userData;
+            callback(null,thread);
+          }
+        });
+      });
+    }
   function getThread(threadId, callback) {
     db.collection('threads').findOne({
       _id: threadId
@@ -101,15 +163,55 @@ MongoClient.connect(url, function(err, db) {
     });
   }
 
+  function getBoardData(boardId, callback) {
+    db.collection('boards').findOne( {_id: boardId},
+      function(err, boardData){
+        if(err){
+          return callback(err);
+        }
+        else if(boardData === null){
+          return callback(null, null);
+        }
+        callback(null, boardData);
+    });
+  }
+  function getResolvedSubscribedBoards(subscribedBoardsArray, callback){
+    var subscribedBoards = {
+      contents: []
+    }
+
+    function processNextBoard(i){
+      getBoardData(subscribedBoardsArray[i], function(err, board) {
+        if (err) {
+          // Pass an error to the callback.
+          callback(err);
+        } else {
+          // Success!
+          subscribedBoards.contents.push(board);
+          if (subscribedBoards.contents.length === subscribedBoardsArray.length) {
+            // I am the final feed item; all others are resolved.
+            // Pass the resolved feed document back to the callback.
+            callback(null, subscribedBoards);
+          } else {
+            // Process the next feed item.
+            processNextBoard(i + 1);
+          }
+        }
+      });
+    }
+    // Special case: board array is empty.
+    if (subscribedBoardsArray.length === 0) {
+      callback(null, subscribedBoardsArray);
+    } else {
+      processNextBoard(0);
+    }
+  }
+
   require('./routes/boards.js').
             setApp(app,
                    getUserIdFromToken,
                    getCollection);
 
-  function getBoardData(boardId) {
-    var board = readDocument('boards', boardId);
-    return board;
-  }
   // ===================
 
 
@@ -128,8 +230,8 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/subscribedboards.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument,
-                   getBoardData);
+                   getUser, getResolvedSubscribedBoards,
+                   ObjectID);
 
   // ==========
   // /user/:userid/pinnedposts

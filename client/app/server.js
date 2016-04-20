@@ -118,7 +118,7 @@ export function getBoardsData(cb){
 }
 
 export function getBoardContent(boardId, cb){
-  sendXHR('GET', '/board/' + boardId, undefined, (xhr) => { // This is the new stuff, untested. Commented out for now
+  sendXHR('GET', '/board/' + boardId, undefined, (xhr) => {
     cb(JSON.parse(xhr.responseText));
   })
 }
@@ -212,7 +212,7 @@ export function getUserData(userId, cb){
 }
 
 export function updateUserData(userId,username, gender, password, blocked, email, emailset, image, cb) {
-  
+
   sendXHR('PUT', '/user/' + userId, {
     username:username,
     gender:gender,

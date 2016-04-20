@@ -1,25 +1,44 @@
 exports.setApp = function(app,
                           getUserIdFromToken,
-                          readDocument, writeDocument,
-                          getBoardData)
+                          getUser, getResolvedSubscribedBoards,
+                          ObjectID)
 {
   app.get('/user/:userid/subscribedBoards', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     // Convert params from string to number.
-    var userId = parseInt(req.params.userid, 10);
-    if (fromUser === userId) {
-      var userData = readDocument('users', userId);
-      var subscribedBoards = {
-        contents: []
-      };
-      subscribedBoards.contents = userData.subscribedBoards.map(getBoardData);
+    var userId = new ObjectID(req.params.userid);
+    if (fromUser == userId) {
+      getUser(userId, function(err, userData){
+        if(err){
+          //internal error
+          res.status(500).send("Database error: "+err);
+        }
+        else if(userData === null){
+          // user not in db
+          res.status(400).send("Could not find user data for user: "+ userId);
+        }
+        else{
+          //success -- send data
+          getResolvedSubscribedBoards(userData.subscribedBoards, function(err, resolvedBoards){
+            if(err){
+              res.status(500).send("Database error: "+err);
+            }
+            else if(resolvedBoards === null){
+              res.status(400).send("Subscribed boards error, can't find: "+ err);
+            }
+            console.log(resolvedBoards);
+            res.send(resolvedBoards);
+          });
 
-      res.send(subscribedBoards);
+        }
+      });
     } else {
+      //unathorized
       res.status(401).end();
     }
   });
 
+/*
   app.put('/user/:userid/subscribedBoards/:boardid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 
@@ -70,4 +89,5 @@ exports.setApp = function(app,
       res.status(401).end();
     }
   });
+  */
 };
