@@ -83,7 +83,7 @@ exports.setApp = function(app,
     });
   }
 
-  function updateSubscribedBoards(userId, boardId, callback){
+  function addToSubscribedBoards(userId, boardId, callback){
     db.collection('users').updateOne({_id: userId}, {$push: { subscribedBoards: boardId }}, function(err, results){
       if(err){
         return callback(err);
@@ -94,8 +94,19 @@ exports.setApp = function(app,
       callback(null, results);
     });
   }
-  function updateBoardNumUsers(boardId, callback){
-    db.collection('boards').updateOne({_id: boardId}, {$inc: {numUsers: 1}}, function(err, result){
+  function deleteFromSubscribedBoards(userId, boardId, callback){
+    db.collection('users').updateOne({_id: userId}, {$pull: { subscribedBoards: boardId }}, function(err, results){
+      if(err){
+        return callback(err);
+      }
+      else if(results === null){
+        return callback(null, null);
+      }
+      callback(null, results);
+    });
+  }
+  function updateBoardNumUsers(boardId, amount, callback){
+    db.collection('boards').updateOne({_id: boardId}, {$inc: {numUsers: amount}}, function(err, result){
       if(err){
         callback(err);
       }
@@ -113,7 +124,7 @@ exports.setApp = function(app,
     var boardId = new ObjectID(req.params.boardid);
 
     if (fromUser == userId) {
-      updateSubscribedBoards(userId, boardId, function(err, result){
+      addToSubscribedBoards(userId, boardId, function(err, result){
         if(err){
           res.status(500).send("Database error: "+ err);
         }
@@ -121,7 +132,7 @@ exports.setApp = function(app,
           res.status(400).send("Internal error adding board: "+ err);
         }
       });
-      updateBoardNumUsers(boardId, function(err, result){
+      updateBoardNumUsers(boardId, 1, function(err, result){
         if(err){
           res.status(500).send("Database error: " + err);
         }
@@ -143,27 +154,41 @@ exports.setApp = function(app,
     }
   });
 
-/*
-  a/*pp.delete('/user/:userid/subscribedBoards/:boardid', function(req, res) {
+  app.delete('/user/:userid/subscribedBoards/:boardid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 
-    var userId = parseInt(req.params.userid, 10);
-    var boardId = parseInt(req.params.boardid, 10);
+    var userId = new ObjectID(req.params.userid);
+    var boardId = new ObjectID(req.params.boardid);
 
-    if (fromUser === userId) {
-      var userData = readDocument('users', userId);
-      var index = getIndex(userData.subscribedBoards, boardId);
-      userData.subscribedBoards.splice(index, 1);
-      writeDocument('users', userData);
-
-      var board = readDocument('boards', req.params.boardid);
-      board.numUsers--;
-      writeDocument('boards', board);
-
-      res.send(userData);
+    if (fromUser == userId) {
+      deleteFromSubscribedBoards(userId, boardId, function(err, result){
+        if(err){
+          res.status(500).send("Database error: "+ err);
+        }
+        else if (result === null){
+          res.status(400).send("Internal error adding board: "+ err);
+        }
+      });
+      updateBoardNumUsers(boardId, -1, function(err, result){
+        if(err){
+          res.status(500).send("Database error: " + err);
+        }
+        else if(result === null){
+          res.status(400).send("Interal error updating board meta data: "+ err);
+        }
+      });
+      getSubscribedBoards(userId, function(err, result){
+        if(err){
+          res.status(500).send("Database error: " + err);
+        }
+        else if(result === null){
+          res.status(400).send("Interal error updating board meta data: "+ err);
+        }
+        res.status(201).send(result);
+      });
     } else {
       res.status(401).end();
     }
   });
-  */
+
 };
