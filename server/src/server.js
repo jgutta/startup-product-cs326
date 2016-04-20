@@ -147,7 +147,8 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/messaging.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument);
+                   db, ObjectID,
+                   getUser);
 
   // ====================
   // /thread/
