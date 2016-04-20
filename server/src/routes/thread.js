@@ -2,11 +2,20 @@ var replySchema = require('../schemas/reply.json');
 
 var validate = require('express-jsonschema').validate;
 
-exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument)
+exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument, db)
 {
-  function getBoardSync(boardId) {
-    var board = readDocument('boards', boardId);
-    return board;
+  function getBoardSync(boardId, callback) {
+    db.collection('boards').findOne({
+      _id: boardId
+    }, function(err, board) {
+      if (err) {
+        return callback(err);
+      } else if (board === null) {
+        return callback(null, null);
+      }
+
+      callback(null, board)
+    });
   }
 
   function getReplySync(replyId) {
