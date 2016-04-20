@@ -217,7 +217,7 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/accountsettings.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument, db);
+                   readDocument, writeDocument, db, ObjectID);
 
   // ==========
   // /user/:userid/subscribedboards
