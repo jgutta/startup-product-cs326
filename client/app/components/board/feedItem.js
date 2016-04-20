@@ -22,17 +22,19 @@ export default class FeedItem extends React.Component {
     var pinned = this.state.pinned.contents;
     var bool = false;
     for(var i in pinned){
-      if(pinned[i] === this.props.data._id)
+      if(pinned[i]._id === this.props.data._id)
         bool = true;
     }
     return bool;
   }
   handlePinClick(clickEvent){
+    console.log(this.state.pinned);
     clickEvent.preventDefault();
     if(clickEvent.button === 0){
 
       if(this.isPinned())
         deletePinnedPost(this.props.user, this.props.data._id, (pinn) =>{
+          console.log(pinn);
           this.setState({pinned: pinn});
         });
       else
@@ -40,6 +42,7 @@ export default class FeedItem extends React.Component {
           this.setState({pinned: pinn});
         });
     }
+    console.log(this.state.pinned);
   }
 
   render() {
