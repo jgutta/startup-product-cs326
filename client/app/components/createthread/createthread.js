@@ -139,27 +139,27 @@ export default class CreateThread extends React.Component {
           <div className="col-md-12">
             <div className="input-box-title">Boards to post to<font color="red">*</font></div>
             <ul className="checkbox-grid" onChange={(e) => this.handleBoardChange(e)}>
-              <li><input type="checkbox" name="board" value="1"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000001"/>
                 General</li>
-              <li><input type="checkbox" name="board" value="2"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000002"/>
                 Concerts</li>
-              <li><input type="checkbox" name="board" value="3"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000003"/>
                 Games</li>
-              <li><input type="checkbox" name="board" value="4"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000004"/>
                 Local Events</li>
-              <li><input type="checkbox" name="board" value="5"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000005"/>
                 Music</li>
-              <li><input type="checkbox" name="board" value="6"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000006"/>
                 Notes/Textbooks</li>
-              <li><input type="checkbox" name="board" value="7"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000007"/>
                 RSOs</li>
-              <li><input type="checkbox" name="board" value="8"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000008"/>
                 Sports</li>
-              <li><input type="checkbox" name="board" value="9"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000009"/>
                 Studying</li>
-              <li><input type="checkbox" name="board" value="10"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000010"/>
                 TV/Movies</li>
-              <li><input type="checkbox" name="board" value="11"/>
+              <li><input type="checkbox" name="board" value="000000000000000000000011"/>
                 Videogames</li>
             </ul>
           </div>

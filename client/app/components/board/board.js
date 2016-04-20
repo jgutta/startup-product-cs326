@@ -1,6 +1,7 @@
 import React from 'react';
 import MainContent from '../maincontent';
 import FeedItem from './feedItem.js';
+import { Link } from 'react-router';
 import {getBoardContent} from '../../server';
 export default class Board extends React.Component {
   constructor(props){
@@ -13,7 +14,6 @@ export default class Board extends React.Component {
   };
   }
   componentDidMount() {
-
     getBoardContent(this.props.params.id, (boardData) => {
       //console.log(boardData.threads[0])
       boardData.threads = boardData.threads.reverse();
@@ -32,31 +32,16 @@ export default class Board extends React.Component {
 
     window.scrollTo(0, 0);
 }
-/*pinPost(userID,threadID){
-  addPinnedPost(userID,threadID, (pinnedData) => {
-    this.setState({pinned: pinnedData});
-
-    console.log(this.state);
-  });
-}
-unPinPost(userID, threadID){
-  delPinnedPost(userID,threadID, (pinnedData) => {
-    this.setState({pinned: pinnedData});
-
-    console.log(this.state);
-  })
-}*/
-//  console.log(this.state.threads)
   render() {
     return (
       <MainContent title={this.state.name}>
-
+      <Link to={"/boards/" + "000000000000000000000001"}>Dummy link here, Edit my ID for other boards</Link>
             {this.state.contents.map((thread,i) => {
               // console.log(thread, i)
                return (
 
                    //console.log(obj);
-                   <FeedItem user = {this.props.user} key={i} data= {thread}/>
+                   <FeedItem user = {this.props.route.user} key={i} data= {thread}/>
 
                );
              })}

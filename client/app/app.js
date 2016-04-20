@@ -75,8 +75,8 @@ render(
   <Router history={hashHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={MainPage} />
-      <Route path='board' component={Board} />
-      <Route path='boards/:id' component={Board} />
+      <Route path='board' component={Board} user={"000000000000000000000001"}/>
+      <Route path='boards/:id' component={Board} user={"000000000000000000000001"} />
       <Route path='thread' component={Thread} />
       <Route path='threads/:id' component={Thread} />
       <Route path='createthread' component={CreateThreadPage} />

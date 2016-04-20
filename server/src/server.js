@@ -75,17 +75,80 @@ MongoClient.connect(url, function(err, db) {
   // ===================
   // /board/
   app.get('/board/:boardId', function(req, res){
-    var board = readDocument('boards', req.params.boardId);
-    board.threads = board.threads.map((id) => getThreadSync(id));
-    //  board.threads.originalPost.author = board.threads.originalPost.author.map((id) => readDocument('users', id)); Needs Testing
-    res.send(board);
+    gatherBoardData(req.params.boardId, function(err, boardData){
+      if(err){
+         res.status(500).send("Database Boards error: " + err);
+      }else if (boardData === null) {
+         res.status(400).send("Could not look up board " + req.params.boardId);
+      } else {
+        res.send(boardData);
+      }
+
+    });
   });
 
-  function getThreadSync(threadId) {
-    var thread = readDocument('threads', threadId);
-    return thread;
-  }
+  function gatherBoardData(boardID, callback) {
+    db.collection('boards').findOne({
+      _id: new ObjectID(boardID)
+    }, function(err, boardData) {
+      if (err) {
+        return callback(err);
+      } else if (boardData === null) {
+        return callback(null, null);
+      }
+      var threadHolder = [];
+      function amalgomate(i){
+        getThreadAuth(boardData.threads[i], function(err, fullThread){
+          if(err){
+            return callback(err);
+          }
+          else if(fullThread === null){
+            return callback(null, boardData)
+          }
+          else{
+            threadHolder.push(fullThread);
+            if(threadHolder.length === boardData.threads.length){
+              boardData.threads = threadHolder;
+              callback(null, boardData);
+            }
+            else{
+              amalgomate(i + 1);
+            }
+          }
+        });
+      }
+      if (boardData.threads.length === 0) {
+        callback(null, boardData);
+      } else {
+        amalgomate(0);
+      }
 
+    });
+    }
+
+    function getThreadAuth(threadId, callback) {
+      db.collection('threads').findOne({
+        _id: threadId
+      }, function(err, thread) {
+        if (err) {
+          return callback(err);
+        } else if (thread === null) {
+          return callback(null, null);
+        }
+        getUser(thread.originalPost.author, function(err, userData){
+          if(err){
+            return callback(err);
+          }
+          else if(userData === null){
+            return callback(null,null);
+          }
+          else{
+            thread.originalPost.author = userData;
+            callback(null,thread);
+          }
+        });
+      });
+    }
   function getThread(threadId, callback) {
     db.collection('threads').findOne({
       _id: threadId
@@ -177,7 +240,7 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/pinnedposts.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument, getThreadSync);
+                   readDocument, writeDocument, getThread);
 
   // ==========
   // /user/:userid/conversation
@@ -196,7 +259,7 @@ MongoClient.connect(url, function(err, db) {
             setApp(app,
                    getUserIdFromToken,
                    addDocument, readDocument, writeDocument,
-                   db);
+                   db, ObjectID);
 
   require('./routes/thread.js').
             setApp(app,
@@ -271,30 +334,18 @@ MongoClient.connect(url, function(err, db) {
     if (fromUser === userId || userId === '000000000000000000000002') {
       getUser(new ObjectID(userId), function(err, user) {
         getFeedData(user.feed, function(err, feedData) {
+          if(err){
+            res.status(500).end();
+          }
+          else{
           res.send(feedData);
+        }
         });
       });
     } else {
       res.status(401).end();
     }
   });
-
-
-  /*app.get('/feed/:userid/', function(req, res) {
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
-    // Convert params from string to number.
-    var userId = req.params.userid;
-    if (fromUser === userId || userId === '000000000000000000000002') {
-      var userData = readDocument('users', userId);
-      var feedData = readDocument('feeds', userData.feed);
-
-      feedData.contents = feedData.contents.map(getThreadSync);
-
-      res.send(feedData)
-    } else {
-      res.status(401).end();
-    }
-  });*/
 
   // ==========
   // /search
