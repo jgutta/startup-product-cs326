@@ -221,7 +221,7 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/accountsettings.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument);
+                   readDocument, writeDocument, db);
 
   // ==========
   // /user/:userid/subscribedboards
@@ -249,7 +249,8 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/messaging.js').
             setApp(app,
                    getUserIdFromToken,
-                   readDocument, writeDocument);
+                   db, ObjectID,
+                   getUser);
 
   // ====================
   // /thread/

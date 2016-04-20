@@ -4,26 +4,70 @@ var validate = require('express-jsonschema').validate;
 
 exports.setApp = function(app,
                           getUserIdFromToken,
-                          readDocument, writeDocument)
+                          db, ObjectID,
+                          getUser)
 {
-  function getMessageData(message) {
-    message.authorUsername = readDocument('users', message.author).username;
-    return message;
+  function getMessageData(message, callback) {
+    db.collection('users').findOne({
+      _id: message.author
+    }, function(err, user) {
+      if (err) {
+        return callback(err);
+      } else if (user === null) {
+        return callback(null, null);
+      }
+
+      message.authorUsername = user.username;
+
+      callback(null, message)
+    });
   }
 
-  function getConversationData(user, conversationId) {
-    var conversation = readDocument('conversations', conversationId);
-
-    conversation.messages = conversation.messages.map(getMessageData);
-
-    for(var i = conversation.users.length - 1; i >= 0; i--) {
-      if(conversation.users[i] === user) {
-        conversation.users.splice(i, 1);
+  function getConversation(conversationId, userId, callback) {
+    db.collection('conversations').findOne({
+      _id: conversationId
+    }, function(err, conversation) {
+      if (err) {
+        return callback(err);
+      } else if (conversation === null) {
+        return callback(null, null);
       }
-    }
-    conversation.user = readDocument('users', conversation.users[0]);
 
-    return conversation;
+      for(var i = conversation.users.length - 1; i >= 0; i--) {
+        // == because object vs string
+        if(conversation.users[i] == userId) {
+          conversation.users.splice(i, 1);
+        }
+      }
+
+      getUser(conversation.users[0], function(err, user) {
+        conversation.user = user;
+
+        var resolvedContents = [];
+
+        function processNextMessage(i) {
+          getMessageData(conversation.messages[i], function(err, message) {
+            if (err) {
+              callback(err);
+            } else {
+              resolvedContents.push(message);
+              if (resolvedContents.length === conversation.messages.length) {
+                conversation.messages = resolvedContents;
+                callback(null, conversation);
+              } else {
+                processNextMessage(i + 1);
+              }
+            }
+          });
+        }
+
+        if (conversation.messages.length === 0) {
+          callback(null, conversation);
+        } else {
+          processNextMessage(0);
+        }
+      });
+    });
   }
 
   function compareConversations(convA, convB) {
@@ -34,24 +78,47 @@ exports.setApp = function(app,
     return timeB - timeA;
   }
 
-  function getConversations(user) {
-    var userData = readDocument('users', user);
+  function getConversations(userId, callback) {
+    getUser(new ObjectID(userId), function(err, user) {
+      var conversationsData = {
+        contents: []
+      };
 
-    var conversationsData = {
-      contents: []
-    };
-    conversationsData.contents = userData.conversations.map((conversation) => getConversationData(user, conversation));
+      var resolvedContents = [];
 
-    conversationsData.contents.sort(compareConversations);
+      function processNextConversation(i) {
+        getConversation(user.conversations[i], userId, function(err, conversation) {
+          if (err) {
+            callback(err);
+          } else {
+            resolvedContents.push(conversation);
+            if (resolvedContents.length === user.conversations.length) {
+              conversationsData.contents = resolvedContents;
+              conversationsData.contents.sort(compareConversations);
 
-    return conversationsData;
+              callback(null, conversationsData);
+            } else {
+              processNextConversation(i + 1);
+            }
+          }
+        });
+      }
+
+      if (user.conversations.length === 0) {
+        callback(null, feedData);
+      } else {
+        processNextConversation(0);
+      }
+    });
   }
 
   app.get('/user/:userid/conversation', function(req, res) {
     var userid = req.params.userid;
     var fromUser = getUserIdFromToken(req.get('Authorization'));
     if (fromUser === userid) {
-      res.send(getConversations(userid));
+      getConversations(userid, function(err, conversationsData) {
+        res.send(conversationsData);
+      });
     } else {
       res.status(401).end();
     }
@@ -62,9 +129,11 @@ exports.setApp = function(app,
     var conversationId = req.params.conversationid;
     var userId = req.params.userid;
     if (fromUser === userId) {
-      var conversationData = {};
-      conversationData.conversation = getConversationData(userId, conversationId);
-      res.send(conversationData)
+      getConversation(new ObjectID(conversationId), new ObjectID(userId), function(err, conversation) {
+        var conversationData = {};
+        conversationData.conversation = conversation;
+        res.send(conversationData);
+      });
     } else {
       res.status(401).end();
     }
