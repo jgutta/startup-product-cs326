@@ -1,22 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { unixTimeFromNow } from '../../util';
-import {deletePinnedPost, addPinnedPost, retrieveNameFromId, getPinned} from '../../server';
+import {deletePinnedPost, addPinnedPost, getPinnedPostsData} from '../../server';
 export default class FeedItem extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-    // Empty feed.
+    // Empty feed.S
     author: '',
     pinned: []
     //id: 0
   };
   }
   componentDidMount() {
-    retrieveNameFromId(this.props.data.originalPost.author, (name) => {
-      this.setState({author: name});
-    });
-    getPinned(this.props.user, (pinnedNew) =>{
+    getPinnedPostsData(this.props.user, (pinnedNew) =>{
       this.setState({pinned: pinnedNew})
     })
 
@@ -73,7 +70,7 @@ export default class FeedItem extends React.Component {
                   <a href = "#" onClick={(e) => this.handlePinClick(e)}>{pin}</a>
                  </div>
         <div className="col-md-6 result-metadata">
-                  {this.state.author} -  Posted {unixTimeFromNow(data.originalPost.postDate)}
+                  {data.originalPost.author.username} -  Posted {unixTimeFromNow(data.originalPost.postDate)}
                  </div>
         </div>
 

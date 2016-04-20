@@ -1,6 +1,7 @@
 import React from 'react';
 import MainContent from '../maincontent';
 import FeedItem from './feedItem.js';
+import { Link } from 'react-router';
 import {getBoardContent} from '../../server';
 export default class Board extends React.Component {
   constructor(props){
@@ -34,7 +35,7 @@ export default class Board extends React.Component {
   render() {
     return (
       <MainContent title={this.state.name}>
-
+      <Link to={"/boards/" + "000000000000000000000001"}>Dummy link here, Edit my ID for other boards</Link>
             {this.state.contents.map((thread,i) => {
               // console.log(thread, i)
                return (
