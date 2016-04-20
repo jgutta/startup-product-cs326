@@ -1,6 +1,6 @@
 var replySchema = require('../schemas/reply.json');
-
 var validate = require('express-jsonschema').validate;
+var ObjectID = require('mongodb').ObjectID;
 
 exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument, db)
 {
@@ -13,7 +13,8 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       } else if (board === null) {
         return callback(null, null);
       }
-
+      //console.log('777');
+      //console.log(board);
       callback(null, board)
     });
   }
@@ -26,22 +27,29 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
      reply.authorImage = user.image;
       reply.replies = reply.replies.map(getReplySync);
       return reply; */
+      console.log(getReplySync);
+      console.log(replyId);
       db.collection('replies').findOne({
         _id: replyId
       }, function(err, reply) {
         if (err) {
+          console.log('err 1');
           return callback(err);
         } else if (reply === null) {
+          console.log('err 2');
           return callback(null, null);
         }
         db.collection('users').findOne({
           _id: reply.author
         }, function(err, user) {
           if (err) {
+            console.log('err 11');
             return callback(err);
           } else if (user === null) {
+            console.log('err 22');
             return callback(null, null);
           }
+          console.log("update reps");
           db.collection('replies').updateOne(
             { _id: replyId },
             { $set: { authorUsername: user.username } },
@@ -53,6 +61,8 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
               } else if (result === null) {
                 return callback(null, null);
               }
+              console.log("result:");
+              console.log(result);
               callback(null, result);
             }
           );
@@ -62,7 +72,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
         });
     }
 
-  function getFullThreadSync(threadId, callback){
+  function getFullThread(threadId, callback){
     /*
     var thread = readDocument('threads', threadId);
     var user = readDocument('users', thread.originalPost.author);
@@ -73,30 +83,41 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
     db.collection('threads').findOne({
       _id: threadId
     }, function(err, thread) {
+      //console.log("flagOne");
       if (err) {
+        //console.log("flag 2");
         return callback(err);
       } else if (thread === null) {
+        //console.log("flag 3");
         return callback(null, null);
       }
+      //console.log("flag 4");
       db.collection('users').findOne({
         _id: thread.originalPost.author
       }, function(err, user) {
         if (err) {
+          //console.log("flag 5");
           return callback(err);
         } else if (user === null) {
+          //console.log("flag 6");
           return callback(null, null);
         }
+        //console.log("888");
         db.collection('threads').updateOne(
           { _id: threadId },
           { $set: { originalPost: {authorUsername: user.username} } },
           { $set: {boards: thread.boards.map(getBoardSync)} },
           { $set: {replies: thread.replies.map(getReplySync)} },
           function(err, thread) {
+            console.log("flag !");
             if (err) {
+              console.log("flag !!");
               return callback(err);
             } else if (thread === null) {
+              console.log("flag !!!");
               return callback(null, null);
             }
+            console.log("flag !-V");
             callback(null, thread);
           }
         );
@@ -108,7 +129,10 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
   //getFullThreadData
   app.get('/thread/:threadId', function(req, res){
     var threadId = req.params.threadId;
-    var thread = getFullThreadSync(threadId);
+    //console.log(threadId);
+    var thread = getFullThread(new ObjectID(threadId), function(error, threadData){
+      res.send(threadData);
+    });
      var threadData = {
        contents: thread
      };
@@ -139,7 +163,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       thread.replies.push(rep._id);
       thread.commentsNo = thread.commentsNo + 1;
       writeDocument('threads', thread);
-      var fullThread = getFullThreadSync(threadId);
+      var fullThread = getFullThread(threadId);
          var threadData = {
            contents: fullThread
          };
@@ -181,7 +205,7 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       writeDocument('replies', reply);
       thread.commentsNo = thread.commentsNo + 1;
       writeDocument('threads', thread);
-      var fullThread = getFullThreadSync(threadId);
+      var fullThread = getFullThread(threadId);
       var threadData = {
         contents: fullThread
       };

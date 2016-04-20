@@ -175,40 +175,9 @@ MongoClient.connect(url, function(err, db) {
         callback(null, boardData);
     });
   }
-  function getResolvedSubscribedBoards(subscribedBoardsArray, callback){
-    var subscribedBoards = {
-      contents: []
-    }
-
-    function processNextBoard(i){
-      getBoardData(subscribedBoardsArray[i], function(err, board) {
-        if (err) {
-          // Pass an error to the callback.
-          callback(err);
-        } else {
-          // Success!
-          subscribedBoards.contents.push(board);
-          if (subscribedBoards.contents.length === subscribedBoardsArray.length) {
-            // I am the final feed item; all others are resolved.
-            // Pass the resolved feed document back to the callback.
-            callback(null, subscribedBoards);
-          } else {
-            // Process the next feed item.
-            processNextBoard(i + 1);
-          }
-        }
-      });
-    }
-    // Special case: board array is empty.
-    if (subscribedBoardsArray.length === 0) {
-      callback(null, subscribedBoardsArray);
-    } else {
-      processNextBoard(0);
-    }
-  }
 
   function getAllBoards(callback){
-    var boardsData = {
+    var boardsData = {// We chose to hardcode the board ids, because only the admins(us) have the ability to create new boards.
       boardsList: [new ObjectID("000000000000000000000001"), new ObjectID("000000000000000000000002"), new ObjectID("000000000000000000000003"),
                   new ObjectID("000000000000000000000004"), new ObjectID("000000000000000000000005"), new ObjectID("000000000000000000000006"),
                   new ObjectID("000000000000000000000007"), new ObjectID("000000000000000000000008"), new ObjectID("000000000000000000000009"),
@@ -257,8 +226,8 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/subscribedboards.js').
             setApp(app,
                    getUserIdFromToken,
-                   getUser, getResolvedSubscribedBoards,
-                   ObjectID);
+                   getUser, getBoardData,
+                   ObjectID, db);
 
   // ==========
   // /user/:userid/pinnedposts
@@ -292,7 +261,8 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/thread.js').
             setApp(app,
                    getUserIdFromToken,
-                   addDocument, readDocument, writeDocument);
+                   addDocument, readDocument, writeDocument,
+                   db, ObjectID);
 
 
 
