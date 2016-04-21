@@ -45,8 +45,6 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
         //console.log(result.insertedId)
         thread._id = result.insertedId;
 
-        // or for(var i in body.boards)
-        //   db.collection('boards').update({ _id: body.boards[i] })
         db.collection('boards').updateMany({ _id: body.boards},
           {
             $push: {
@@ -59,8 +57,14 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
             if (err){
               sendDatabaseError(res, err);
             }
-
-            body.boards.numPosts++;
+            db.collection('boards').find(body.boards, function(err, board){
+              if(err){
+                sendDatabaseError(res, err);
+              }
+              else{
+                board.numPosts++;
+              }
+            });
             res.status(201);
             res.set('Location', '/threads/' + thread._id);
             res.send(thread);

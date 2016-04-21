@@ -88,7 +88,7 @@ MongoClient.connect(url, function(err, db) {
          // Send data.
          res.send(pinnedData);
        }
-     }); //pinnedData includes the ID, so for this function we only send back contents
+     });
     } else {
       res.status(401).end();
     }
@@ -111,16 +111,33 @@ MongoClient.connect(url, function(err, db) {
   app.put('/user/:userid/pinnedposts/:threadid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 
-    var userId = parseInt(req.params.userid, 10);
-    var threadId = parseInt(req.params.threadid, 10);
+    var userId = req.params.userid
+    var threadId = new ObjectID(req.params.threadid);
 
     if (fromUser === userId) {
-      var userData = readDocument('users', userId);
-      var pinned = readDocument('pinnedPosts', userData.pinnedPosts);
-      pinned.contents.push(threadId);
-      writeDocument('pinnedPosts', pinned);
+        userId = new ObjectID(req.params.userid);
+      addToPinned(userId, threadId, function(err, newPinned){ // add post to pinned
+        if(err){
+           res.status(500).send("Database error: " + err);
+        } else if(newPinned === null){
+          res.status(400).send("Could not add Pinned Posts for user " + userId);
+        } else{
+          getPinnedData(new ObjectID(userId), function(err, pinnedData){ // get newly resolved pinned to return
+            if (err) {
+             // A database error happened.
+             // Internal Error: 500.
+             res.status(500).send("Database error: " + err);
+           } else if (pinnedData === null) {
+             // Couldn't find the feed in the database.
+             res.status(400).send("Could not look up Pinned Posts for user " + userId);
+           } else {
+             // Send data.
+             res.send(pinnedData);
+           }
+         });
+        }
 
-      res.send(pinned);
+      });
     } else {
       res.status(401).end();
     }
@@ -129,22 +146,78 @@ MongoClient.connect(url, function(err, db) {
   app.delete('/user/:userid/pinnedposts/:threadid', function(req, res) {
     var fromUser = getUserIdFromToken(req.get('Authorization'));
 
-    var userId = parseInt(req.params.userid, 10);
-    var threadId = parseInt(req.params.boardid, 10);
+    var userId = req.params.userid
+    var threadId = new ObjectID(req.params.threadid);
 
     if (fromUser === userId) {
-      var userData = readDocument('users', userId);
-      var pinnedPostsData = readDocument('pinnedPosts', userData.pinnedPosts);
-      var index = pinnedPostsData.contents.indexOf(threadId);
-      console.log(index);
-      pinnedPostsData.contents.splice(index, 1);
-      writeDocument('pinnedPosts', pinnedPostsData);
+        userId = new ObjectID(req.params.userid);
+      deleteFromPinned(userId, threadId, function(err, newPinned){ //delete from pinned
+        if(err){
+           res.status(500).send("Database error: " + err);
+        } else if(newPinned === null){
+          res.status(400).send("Could not delete Pinned Posts for user " + userId);
+        } else{
+          getPinnedData(new ObjectID(userId), function(err, pinnedData){// get newly resolved pinned to return
+            if (err) {
+             // A database error happened.
+             // Internal Error: 500.
+             res.status(500).send("Database error: " + err);
+           } else if (pinnedData === null) {
+             // Couldn't find the feed in the database.
+             res.status(400).send("Could not look up Pinned Posts for user " + userId);
+           } else {
+             // Send data.
+             res.send(pinnedData);
+           }
+         });
+        }
 
-      res.send(pinnedPostsData);
+      });
     } else {
       res.status(401).end();
     }
   });
+
+  function addToPinned(userID, threadID, callback){
+      db.collection('users').findOne({
+        _id: userID
+      }, function(err, userData) {
+        if (err) {
+          return callback(err);
+        } else if (userData === null) {
+          return callback(null, null);
+        }
+    db.collection('pinnedPosts').updateOne({_id: userData.pinnedPosts}, {$push: { contents: threadID }}, function(err, results){
+      if(err){
+        return callback(err);
+      }
+      else if(results === null){
+        return callback(null, null);
+      }
+      callback(null, results);
+    });
+    });
+  }
+  function deleteFromPinned(userID, threadID, callback){
+    db.collection('users').findOne({
+      _id: userID
+    }, function(err, userData) {
+      if (err) {
+        return callback(err);
+      } else if (userData === null) {
+        return callback(null, null);
+      }
+    db.collection('pinnedPosts').updateOne({_id: userData.pinnedPosts}, {$pull: { contents: threadID }}, function(err, results){
+      if(err){
+        return callback(err);
+      }
+      else if(results === null){
+        return callback(null, null);
+      }
+      callback(null, results);
+    });
+    });
+  }
 
 
 }); //End of mongo brace
