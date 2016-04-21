@@ -50,9 +50,6 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
           }
           db.collection('replies').updateOne(
             { _id: replyId },
-            { $set: { authorUsername: user.username } },
-            { $set: { authorImage: user.image } },
-            { $set: { replies: reply.replies.map(getReplySync) } },
             function(err, result) {
               if (err) {
                 return callback(err);
@@ -109,19 +106,19 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
         //console.log("888");
         db.collection('threads').updateOne(
           { _id: threadId },
-          { $set: { originalPost: {authorUsername: user.username} } },
-          { $set: { boards: thread.boards.map(getBoardSync) } },
-          { $set: {replies: thread.replies.map(getReplySync)} },
-          function(err, thread) {
+          function(err, newThread) {
             console.log("flag !");
             if (err) {
               console.log("flag !!");
               return callback(err);
-            } else if (thread === null) {
+            } else if (newThread === null) {
               console.log("flag !!!");
               return callback(null, null);
             }
             console.log("flag !-V");
+            thread.originalPost.authorUsername = user.username;
+            thread.boards = newThread.boards.map(getBoardSync);
+            thread.replies = newThread.replies.map(getReplySync);
             callback(null, thread);
           }
         );
