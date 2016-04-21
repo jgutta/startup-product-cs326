@@ -26,8 +26,10 @@ exports.setApp = function(app,
         if (err){
           callback(err);
         }else{
-          console.log(results);
-          user.blockedUsers = results;
+
+          results[0]._id = new ObjectID(results[0]._id);
+          console.log(results[0]._id);
+          user.blockedUsers = results[0];
           callback(null, user);
         }
       });
@@ -83,7 +85,7 @@ exports.setApp = function(app,
           callback(err);
         }else{
           console.log(results);
-          user.blockedUsers = results._id;
+          user.blockedUsers = results[0]._id;
           callback(null, user);
         }
       });
