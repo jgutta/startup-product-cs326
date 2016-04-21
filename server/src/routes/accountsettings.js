@@ -26,7 +26,7 @@ exports.setApp = function(app,
         if (err){
           callback(err);
         }else{
-          console.log(user);
+          console.log(results);
           user.blockedUsers = results;
           callback(null, user);
         }
@@ -77,7 +77,16 @@ exports.setApp = function(app,
       } else if (user === null) {
         return callback(null, null);
       }
-      callback(null, user)
+      asynce.map(user.blockedUsers, getBlockedUserSync, function(err, results){
+        console.log("inside map");
+        if (err){
+          callback(err);
+        }else{
+          console.log(results);
+          user.blockedUsers = results._id;
+          callback(null, user);
+        }
+      });
     });
   }
 
@@ -98,8 +107,10 @@ exports.setApp = function(app,
               "username": userData.username,
               "gender": userData.gender,
               "password": userData.password,
-              "userData.blockedUsers": userData.blocked.map((user) => {
-                return user._id
+              "userData.blockedUsers": getUserId(userId, function(err, res){
+                if(err){
+                  res.status(500).send("Database blocked user map error" + err);
+                }
               }),
               "userData.email": userData.email,
               "userData.emailset": userData.emailset,
@@ -144,10 +155,6 @@ exports.setApp = function(app,
       var fromUser = getUserIdFromToken(req.get('Authorization'));
       var userid = req.params._id;
       var blockedId = req.params.userid;
-      // Convert from a string into a number.
-      //console.log("1");
-      //  var useridNumber = parseInt(userid, 10);
-      //console.log("2: " + userid );
       if(fromUser === userid){
         unBlock(new ObjectID(userid), new ObjectID(blockedId), function(err, user){
           if(err){
