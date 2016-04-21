@@ -1,9 +1,10 @@
 var replySchema = require('../schemas/reply.json');
 var validate = require('express-jsonschema').validate;
-var ObjectID = require('mongodb').ObjectID;
+//var ObjectID = require('mongodb').ObjectID;
 
-exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, writeDocument, db)
+exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
 {
+
   function getBoardSync(boardId, callback) {
     db.collection('boards').findOne({
       _id: boardId
@@ -13,7 +14,8 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
       } else if (board === null) {
         return callback(null, null);
       }
-      //console.log('777');
+      //console.log('666');
+      //console.log(callback);
       //console.log(board);
       callback(null, board)
     });
@@ -34,23 +36,18 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
         _id: replyId
       }, function(err, reply) {
         if (err) {
-          console.log('err 1');
           return callback(err);
         } else if (reply === null) {
-          console.log('err 2');
           return callback(null, null);
         }
         db.collection('users').findOne({
           _id: reply.author
         }, function(err, user) {
           if (err) {
-            console.log('err 11');
             return callback(err);
           } else if (user === null) {
-            console.log('err 22');
             return callback(null, null);
           }
-          console.log("update reps");
           db.collection('replies').updateOne(
             { _id: replyId },
             { $set: { authorUsername: user.username } },
@@ -64,7 +61,12 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
               }
               console.log("result:");
               console.log(result);
-              callback(null, result);
+
+              reply.authorUsername = user.username;
+              reply.authorImage = user.image;
+              reply.replies = result.replies;
+
+              callback(null, reply);
             }
           );
 
@@ -132,14 +134,23 @@ exports.setApp = function(app,getUserIdFromToken, addDocument, readDocument, wri
   app.get('/thread/:threadId', function(req, res){
     var threadId = req.params.threadId;
     //console.log(threadId);
-    var thread = getFullThread(new ObjectID(threadId), function(error, threadData){
+    getFullThread(new ObjectID(threadId), function(error, threadData){
+      if(error){
+         res.status(500).send("database error, couldn't find board: " + error);
+      }
+      else if(threadData == null){
+        res.status(400).send("internal error: "+ error);
+      }
+      else{
       res.send(threadData);
+    }
     });
+    /*
      var threadData = {
        contents: thread
      };
      res.status(201);
-     res.send(threadData);
+     res.send(threadData); */
   });
 
   //for posting replies to OP
