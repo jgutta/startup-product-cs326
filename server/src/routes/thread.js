@@ -29,9 +29,6 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
      reply.authorImage = user.image;
       reply.replies = reply.replies.map(getReplySync);
       return reply; */
-      console.log(getReplySync);
-      console.log(replyId);
-      console.log(callback);
       db.collection('replies').findOne({
         _id: replyId
       }, function(err, reply) {
@@ -48,24 +45,11 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
           } else if (user === null) {
             return callback(null, null);
           }
-          db.collection('replies').updateOne(
-            { _id: replyId },
-            function(err, result) {
-              if (err) {
-                return callback(err);
-              } else if (result === null) {
-                return callback(null, null);
-              }
-              console.log("result:");
-              console.log(result);
-
-              reply.authorUsername = user.username;
-              reply.authorImage = user.image;
-              reply.replies = result.replies;
-
-              callback(null, reply);
-            }
-          );
+          reply.authorUsername = user.username;
+          reply.authorImage = user.image;
+          reply.replies = reply.replies.map(getReplySync);
+          //console.log(reply.replies);
+          callback(null, reply);
 
           });
 
@@ -97,31 +81,20 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
         _id: thread.originalPost.author
       }, function(err, user) {
         if (err) {
-          //console.log("flag 5");
           return callback(err);
         } else if (user === null) {
-          //console.log("flag 6");
           return callback(null, null);
         }
-        //console.log("888");
-        db.collection('threads').updateOne(
-          { _id: threadId },
-          function(err, newThread) {
-            console.log("flag !");
-            if (err) {
-              console.log("flag !!");
-              return callback(err);
-            } else if (newThread === null) {
-              console.log("flag !!!");
-              return callback(null, null);
-            }
-            console.log("flag !-V");
-            thread.originalPost.authorUsername = user.username;
-            thread.boards = newThread.boards.map(getBoardSync);
-            thread.replies = newThread.replies.map(getReplySync);
-            callback(null, thread);
-          }
-        );
+        console.log("1");
+        thread.originalPost.authorUsername = user.username;
+        console.log("2");
+        thread.boards = thread.boards.map(getBoardSync);
+        console.log("3");
+        thread.replies = thread.replies.map(getReplySync);
+        console.log("4");
+        console.log(callback);
+        console.log(thread);
+        callback(null, thread);
         });
     }
     );
@@ -130,24 +103,17 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
   //getFullThreadData
   app.get('/thread/:threadId', function(req, res){
     var threadId = req.params.threadId;
-    //console.log(threadId);
+
     getFullThread(new ObjectID(threadId), function(error, threadData){
       if(error){
-         res.status(500).send("database error, couldn't find board: " + error);
+         res.status(500).send("database error, couldn't find thread: " + error);
       }
       else if(threadData == null){
         res.status(400).send("internal error: "+ error);
       }
-      else{
       res.send(threadData);
-    }
     });
-    /*
-     var threadData = {
-       contents: thread
-     };
-     res.status(201);
-     res.send(threadData); */
+
   });
 
   //for posting replies to OP
