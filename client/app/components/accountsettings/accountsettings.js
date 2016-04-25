@@ -26,15 +26,15 @@ export default class AccountSettings extends React.Component {
 
   getAgain() {
     getUserData(this.props.user, (userData) => {
-      this.setState({
-        user: userData.user,
-        email: userData.user.email,
-        username: userData.user.username,
-        gender: userData.user.gender,
-        password: userData.user.password,
-        emailset: userData.user.emailset,
-        image: userData.user.image,
-        blockedUsers: userData.user.blockedUsers
+    this.setState({
+        user: userData,
+        email: userData.email,
+        username: userData.username,
+        gender: userData.gender,
+        password: userData.password,
+        emailset: userData.emailset,
+        image: userData.image,
+        blockedUsers: userData.blockedUsers
       });
     });
     this.setState({editEmail: false,

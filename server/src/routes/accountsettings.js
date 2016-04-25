@@ -27,9 +27,9 @@ exports.setApp = function(app,
           callback(err);
         }else{
 
-          results[0]._id = new ObjectID(results[0]._id);
-          console.log(results[0]._id);
-          user.blockedUsers = results[0];
+          //results[0]._id = new ObjectID(results[0]._id);
+          //console.log(results[0]._id);
+          user.blockedUsers = results;
           callback(null, user);
         }
       });
