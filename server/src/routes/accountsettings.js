@@ -26,10 +26,7 @@ exports.setApp = function(app,
         if (err){
           callback(err);
         }else{
-
-          results[0]._id = new ObjectID(results[0]._id);
-          console.log(results[0]._id);
-          user.blockedUsers = results[0];
+          user.blockedUsers = results;
           callback(null, user);
         }
       });
@@ -70,28 +67,6 @@ exports.setApp = function(app,
     });
   }
 
-  function getUserId(userId, callback) {
-    db.collection('users').findOne({
-      _id: userId
-    }, function(err, user) {
-      if (err) {
-        return callback(err);
-      } else if (user === null) {
-        return callback(null, null);
-      }
-      asynce.map(user.blockedUsers, getBlockedUserSync, function(err, results){
-        console.log("inside map");
-        if (err){
-          callback(err);
-        }else{
-          console.log(results);
-          user.blockedUsers = results[0]._id;
-          callback(null, user);
-        }
-      });
-    });
-  }
-
     app.put('/user/:userid/', validate({
       body: UserSchema
     }), function(req, res) {
@@ -109,14 +84,10 @@ exports.setApp = function(app,
               "username": userData.username,
               "gender": userData.gender,
               "password": userData.password,
-              "userData.blockedUsers": getUserId(userId, function(err, res){
-                if(err){
-                  res.status(500).send("Database blocked user map error" + err);
-                }
-              }),
-              "userData.email": userData.email,
-              "userData.emailset": userData.emailset,
-              "userData.image": userData.image
+              "blockedUsers": userData.blockedUsers.map((user) => new ObjectID(user._id)),
+              "email": userData.email,
+              "emailset": userData.emailset,
+              "image": userData.image
             }
           }, function(err, result) {
             if (err) {
