@@ -22,7 +22,6 @@ exports.setApp = function(app,
         return callback(null, null);
       }
       asynce.map(user.blockedUsers, getBlockedUserSync, function(err, results){
-        console.log("inside map");
         if (err){
           callback(err);
         }else{
@@ -110,23 +109,24 @@ exports.setApp = function(app,
 
 
     function unBlock(user, blockedUser, callback) {
-      db.collection('users').findOne({
-      _id: user
-    }, function(err, user) {
+      db.collection('users').updateOne({_id: user},
+        {
+          $pull:{
+          blockedUsers: new ObjectID(blockedUser)
+        }
+      }, function(err) {
       if (err) {
         return callback(err);
       } else if (user === null) {
         return callback(null, null);
       }
-      var index = user.blockedUsers.indexOf(blockedUser);
-        user.blockedUsers.splice(index, 1);
-      callback(null, user)
+      callback(null, user);
     });
 }
 
     app.delete('/user/:id/blockedusers/:userid', function(req, res) {
       var fromUser = getUserIdFromToken(req.get('Authorization'));
-      var userid = req.params._id;
+      var userid = req.params.id;
       var blockedId = req.params.userid;
       if(fromUser === userid){
         unBlock(new ObjectID(userid), new ObjectID(blockedId), function(err, user){
@@ -137,7 +137,16 @@ exports.setApp = function(app,
            }else if (blockedId === null) {
               res.status(400).send("Could not look up blockeduser " + blockedId);
            }else {
-             res.send(user);
+             getUserData(user, function(err, userId) {
+               if(err){
+                res.status(500).send("Database user error: " + err);
+             }else if (userId === null) {
+                res.status(400).send("Could not look up user " + userid);
+             } else {
+               res.send(userId);
+             }
+
+             });
            }
         });
       } else {
