@@ -29,7 +29,8 @@ exports.setApp = function(app,
     }
     // Special case: board array is empty.
     if (subscribedBoardsArray.length === 0) {
-      callback(null, subscribedBoardsArray);
+      subscribedBoards.contents = subscribedBoardsArray;
+      callback(null, subscribedBoards);
     } else {
       processNextBoard(0);
     }
@@ -49,7 +50,7 @@ exports.setApp = function(app,
           // user not in db
           res.status(400).send("Could not find user data for user: "+ userId);
         }
-        res.status(201).send(userData);
+        res.send(userData);
       });
     } else {
       //unathorized
@@ -147,7 +148,7 @@ exports.setApp = function(app,
         else if(result === null){
           res.status(400).send("Interal error updating board meta data: "+ err);
         }
-        res.status(201).send(result);
+        res.send(result);
       });
     } else {
       res.status(401).end();
@@ -184,7 +185,7 @@ exports.setApp = function(app,
         else if(result === null){
           res.status(400).send("Interal error updating board meta data: "+ err);
         }
-        res.status(201).send(result);
+        res.send(result);
       });
     } else {
       res.status(401).end();

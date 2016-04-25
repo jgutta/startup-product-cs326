@@ -162,6 +162,7 @@ export function addSubscribeBoard(user, board, cb) {
 
 export function deleteSubscribeBoard(user, board, cb) {
   sendXHR('DELETE', '/user/' + user + '/subscribedboards/' + board, undefined, (xhr) => {
+    console.log(JSON.parse(xhr.responseText));
     cb(JSON.parse(xhr.responseText));
   });
 }

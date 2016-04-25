@@ -7,7 +7,7 @@ exports.setApp = function(app, getAllBoards){
       else if(boardsData === null){
         res.status(400).send("internal error when finding all boards: "+ err);
       }
-      res.status(201).send(boardsData);
+      res.send(boardsData);
     });
   });
 }
