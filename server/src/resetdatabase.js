@@ -302,7 +302,7 @@ var initialData = {
       'replies': []
     },
     '8': {
-      '_id': new ObjectID("000000000000000000000006"),
+      '_id': new ObjectID("000000000000000000000008"),
       'author': new ObjectID("000000000000000000000005"),
       'postDate': 1458072751982,
       'contents': "They're awesome, man. I went to my first one last year at UMass. Do you need a team?",

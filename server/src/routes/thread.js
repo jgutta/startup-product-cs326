@@ -2,9 +2,8 @@ var replySchema = require('../schemas/reply.json');
 var validate = require('express-jsonschema').validate;
 //var ObjectID = require('mongodb').ObjectID;
 
-exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
+exports.setApp = function( app, getUserIdFromToken, db, ObjectID, asyn, getUser )
 {
-
   function getBoardSync(boardId, callback) {
     db.collection('boards').findOne({
       _id: boardId
@@ -21,100 +20,74 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
     });
   }
 
-  function getReplySync(replyId, callback) {
-     /*
-     var reply = readDocument('replies', replyId);
-     var user = readDocument('users', reply.author);
-     reply.authorUsername: = user.username;
-     reply.authorImage = user.image;
-      reply.replies = reply.replies.map(getReplySync);
-      return reply; */
-      db.collection('replies').findOne({
-        _id: replyId
-      }, function(err, reply) {
-        if (err) {
-          return callback(err);
-        } else if (reply === null) {
-          return callback(null, null);
-        }
-        db.collection('users').findOne({
-          _id: reply.author
-        }, function(err, user) {
-          if (err) {
-            return callback(err);
-          } else if (user === null) {
-            return callback(null, null);
-          }
-          reply.authorUsername = user.username;
-          reply.authorImage = user.image;
-          reply.replies = reply.replies.map(getReplySync);
-          //console.log(reply.replies);
-          callback(null, reply);
+  function getReply(replyId, callback) {
+    db.collection('replies').findOne({
+      _id: replyId
+    }, function(err, reply) {
+      if (err) {
+        return callback(err);
+      } else if (reply === null) {
+        return callback(null, null);
+      }
 
-          });
+      getUser(reply.author, function(err, user) {
+	reply.authorUsername = user.username;
+	reply.authorImage = user.image;
 
-        });
-    }
+	asyn.map(reply.replies, getReply, function(err, resolvedItems) {
+	  reply.replies = resolvedItems;
+	  callback(null, reply)
+	});
+      });
+    });
+  }
 
   function getFullThread(threadId, callback){
-    /*
-    var thread = readDocument('threads', threadId);
-    var user = readDocument('users', thread.originalPost.author);
-    thread.originalPost.authorUsername = user.username;
-    thread.boards = thread.boards.map(getBoardSync);
-    thread.replies = thread.replies.map(getReplySync);
-    return thread; */
-    console.log(callback);
     db.collection('threads').findOne({
       _id: threadId
     }, function(err, thread) {
-      //console.log("flagOne");
       if (err) {
-        //console.log("flag 2");
         return callback(err);
       } else if (thread === null) {
-        //console.log("flag 3");
         return callback(null, null);
       }
-      //console.log("flag 4");
-      db.collection('users').findOne({
-        _id: thread.originalPost.author
-      }, function(err, user) {
-        if (err) {
-          return callback(err);
-        } else if (user === null) {
-          return callback(null, null);
-        }
-        console.log("1");
-        thread.originalPost.authorUsername = user.username;
-        console.log("2");
-        thread.boards = thread.boards.map(getBoardSync);
-        console.log("3");
-        thread.replies = thread.replies.map(getReplySync);
-        console.log("4");
-        console.log(callback);
-        console.log(thread);
-        callback(null, thread);
-        });
-    }
-    );
-  }
+      getUser(thread.originalPost.author, function(err, user) {
+         thread.originalPost.authorUsername = user.username;
+
+      asyn.map(thread.replies, getReply, function(err, resolvedItems) {
+      thread.replies = resolvedItems;
+      callback(null, thread)
+         });
+      });
+      });
+      }
+
+
 
   //getFullThreadData
-  app.get('/thread/:threadId', function(req, res){
-    var threadId = req.params.threadId;
+  //getFullThreadData
+   app.get('/thread/:threadId', function(req, res){
+     var threadId = req.params.threadId;
 
-    getFullThread(new ObjectID(threadId), function(error, threadData){
-      if(error){
-         res.status(500).send("database error, couldn't find thread: " + error);
-      }
-      else if(threadData == null){
-        res.status(400).send("internal error: "+ error);
-      }
-      res.send(threadData);
-    });
+    getFullThread(new ObjectID(threadId), function(error, thread){
+       if(error){
+        res.status(500).send("database error, couldn't find board: " + error);
+       }
 
-  });
+      else if(threadData === null){
+         res.status(400).send("internal error: "+ error);
+       }
+       else{
+
+	var threadData = {
+    contents: thread
+	}
+
+	res.send(threadData);
+      }
+     });
+
+   });
 
   //for posting replies to OP
   app.post('/thread/:threadId/replyto', validate({ body: replySchema }), function(req, res){
