@@ -4,7 +4,7 @@ var validate = require('express-jsonschema').validate;
 
 exports.setApp = function( app, getUserIdFromToken, db, ObjectID, asyn, getUser )
 {
-  function getBoardSync(boardId, callback) {
+  function getBoard(boardId, callback) {
     db.collection('boards').findOne({
       _id: boardId
     }, function(err, board) {
@@ -13,10 +13,10 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID, asyn, getUser 
       } else if (board === null) {
         return callback(null, null);
       }
-      //console.log('666');
-      //console.log(callback);
-      //console.log(board);
-      callback(null, board)
+      asyn.map(board, getBoard, function(err, resolvedItems){
+        board = resolvedItems;
+        callback(null, board);
+      });
     });
   }
 
@@ -62,9 +62,6 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID, asyn, getUser 
       });
       }
 
-
-
-  //getFullThreadData
   //getFullThreadData
    app.get('/thread/:threadId', function(req, res){
      var threadId = req.params.threadId;
@@ -89,45 +86,81 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID, asyn, getUser 
 
    });
 
-  //for posting replies to OP
+   function postReply(newReply, threadId, callback){
+     //callback(null, null);
+
+     db.collection('threads').findOne({
+       _id: threadId
+     }, function(err, thread) {
+       if (err) {
+         return callback(err);
+       } else if (thread === null) {
+         return callback(null, null);
+       }
+       db.collection('replies').insertOne(newReply, function(err, result) {
+         if (err) {
+            return callback(err);
+          }
+          newReply._id = result.insertedId;
+       });
+       db.collection('threads').updateOne(
+         { _id: threadId},
+         { $push: {"thread.replies": newReply._id} },
+         { $set: {"thread.commentsNo": thread.commentsNo+1} }
+       );
+
+       callback(null, thread);
+     });
+     //rep = addDocument('replies', rep);
+     //push current replyId to thread.replies
+     //thread.replies.push(rep._id);
+     //thread.commentsNo = thread.commentsNo + 1;
+     //writeDocument('threads', thread);
+   }
+
+   //for posting replies to OP
   app.post('/thread/:threadId/replyto', validate({ body: replySchema }), function(req, res){
-    var body = req.body;
-    var fromUser = getUserIdFromToken(req.get('Authorization'));
-    if (fromUser === body.author) {
-      if(typeof(body.contents) !== 'string'){
-        // 400: Bad request.
-        res.status(400).end();
-        return;
+   var body = req.body;
+   var fromUser = getUserIdFromToken(req.get('Authorization'));
+   if (fromUser === body.author) {
+     if(typeof(body.contents) !== 'string'){
+       // 400: Bad request.
+       res.status(400).end();
+       return;
+     }
+     var threadId = req.params.threadId;
+     var newRep = {
+       'author': body.author,
+       'postDate': body.postDate,
+       'contents': body.contents,
+       'replies': []
+     };
+     postReply(newRep, threadId, function(error, thread){
+       if(error){
+        res.status(500).send("database error, couldn't find board: " + error);
+       }
+      else if(thread === null){
+         res.status(400).send("internal error: "+ error);
+       }
+       else{
+         var fullThread = getFullThread(threadId);
+            var threadData = {
+              contents: fullThread
+            };
+            res.status(201);
+            res.send(threadData);
       }
-      var threadId = req.params.threadId;
-      var thread = readDocument('threads', threadId);
-      var rep = {
-        'author': body.author,
-        'postDate': body.postDate,
-        'contents': body.contents,
-        'replies': []
-      };
-      rep = addDocument('replies', rep);
-      //push current replyId to thread.replies
-      thread.replies.push(rep._id);
-      thread.commentsNo = thread.commentsNo + 1;
-      writeDocument('threads', thread);
-      var fullThread = getFullThread(threadId);
-         var threadData = {
-           contents: fullThread
-         };
+     });
 
-         res.status(201);
-         res.send(threadData);
-    }
+   }
 
 
-    else {
-      // 401: Unauthorized.
-      res.status(401).end();
-    }
+   else {
+     // 401: Unauthorized.
+     res.status(401).end();
+   }
 
-  });
+ });
 
   //for posting replies to replies
   app.post('/thread/:threadId/replyto/:replyId/sub', validate({ body: replySchema }), function(req, res){
