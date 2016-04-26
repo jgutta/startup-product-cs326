@@ -2,9 +2,8 @@ var replySchema = require('../schemas/reply.json');
 var validate = require('express-jsonschema').validate;
 //var ObjectID = require('mongodb').ObjectID;
 
-exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
+exports.setApp = function( app, getUserIdFromToken, db, ObjectID, asyn, getUser )
 {
-
   function getBoardSync(boardId, callback) {
     db.collection('boards').findOne({
       _id: boardId
@@ -21,133 +20,68 @@ exports.setApp = function( app, getUserIdFromToken, db, ObjectID )
     });
   }
 
-  function getReplySync(replyId, callback) {
-     /*
-     var reply = readDocument('replies', replyId);
-     var user = readDocument('users', reply.author);
-     reply.authorUsername: = user.username;
-     reply.authorImage = user.image;
-      reply.replies = reply.replies.map(getReplySync);
-      return reply; */
-      console.log(getReplySync);
-      console.log(replyId);
-      console.log(callback);
-      db.collection('replies').findOne({
-        _id: replyId
-      }, function(err, reply) {
-        if (err) {
-          return callback(err);
-        } else if (reply === null) {
-          return callback(null, null);
-        }
-        db.collection('users').findOne({
-          _id: reply.author
-        }, function(err, user) {
-          if (err) {
-            return callback(err);
-          } else if (user === null) {
-            return callback(null, null);
-          }
-          db.collection('replies').updateOne(
-            { _id: replyId },
-            function(err, result) {
-              if (err) {
-                return callback(err);
-              } else if (result === null) {
-                return callback(null, null);
-              }
-              console.log("result:");
-              console.log(result);
+  function getReply(replyId, callback) {
+    db.collection('replies').findOne({
+      _id: replyId
+    }, function(err, reply) {
+      if (err) {
+        return callback(err);
+      } else if (reply === null) {
+        return callback(null, null);
+      }
 
-              reply.authorUsername = user.username;
-              reply.authorImage = user.image;
-              reply.replies = result.replies;
+      getUser(reply.author, function(err, user) {
+	reply.authorUsername = user.username;
+	reply.authorImage = user.image;
 
-              callback(null, reply);
-            }
-          );
-
-          });
-
-        });
-    }
+	asyn.map(reply.replies, getReply, function(err, resolvedItems) {
+	  reply.replies = resolvedItems;
+	  callback(null, reply)
+	});
+      });
+    });
+  }
 
   function getFullThread(threadId, callback){
-    /*
-    var thread = readDocument('threads', threadId);
-    var user = readDocument('users', thread.originalPost.author);
-    thread.originalPost.authorUsername = user.username;
-    thread.boards = thread.boards.map(getBoardSync);
-    thread.replies = thread.replies.map(getReplySync);
-    return thread; */
-    console.log(callback);
     db.collection('threads').findOne({
       _id: threadId
     }, function(err, thread) {
-      //console.log("flagOne");
       if (err) {
-        //console.log("flag 2");
         return callback(err);
       } else if (thread === null) {
-        //console.log("flag 3");
         return callback(null, null);
       }
-      //console.log("flag 4");
-      db.collection('users').findOne({
-        _id: thread.originalPost.author
-      }, function(err, user) {
-        if (err) {
-          //console.log("flag 5");
-          return callback(err);
-        } else if (user === null) {
-          //console.log("flag 6");
-          return callback(null, null);
-        }
-        //console.log("888");
-        db.collection('threads').updateOne(
-          { _id: threadId },
-          function(err, newThread) {
-            console.log("flag !");
-            if (err) {
-              console.log("flag !!");
-              return callback(err);
-            } else if (newThread === null) {
-              console.log("flag !!!");
-              return callback(null, null);
-            }
-            console.log("flag !-V");
-            thread.originalPost.authorUsername = user.username;
-            thread.boards = newThread.boards.map(getBoardSync);
-            thread.replies = newThread.replies.map(getReplySync);
-            callback(null, thread);
-          }
-        );
-        });
-    }
-    );
+
+      getUser(thread.originalPost.author, function(err, user) {
+	thread.originalPost.authorUsername = user.username;
+
+	asyn.map(thread.replies, getReply, function(err, resolvedItems) {
+	  thread.replies = resolvedItems;
+	  callback(null, thread)
+	});	
+      });
+    });
   }
 
   //getFullThreadData
   app.get('/thread/:threadId', function(req, res){
     var threadId = req.params.threadId;
-    //console.log(threadId);
-    getFullThread(new ObjectID(threadId), function(error, threadData){
+
+    getFullThread(new ObjectID(threadId), function(error, thread){
       if(error){
-         res.status(500).send("database error, couldn't find board: " + error);
+        res.status(500).send("database error, couldn't find board: " + error);
       }
-      else if(threadData == null){
+      else if(threadData === null){
         res.status(400).send("internal error: "+ error);
       }
       else{
-      res.send(threadData);
-    }
+	var threadData = {
+	  contents: thread
+	}
+
+	res.send(threadData);
+      }
     });
-    /*
-     var threadData = {
-       contents: thread
-     };
-     res.status(201);
-     res.send(threadData); */
   });
 
   //for posting replies to OP

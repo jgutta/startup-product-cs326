@@ -263,7 +263,7 @@ MongoClient.connect(url, function(err, db) {
   require('./routes/thread.js').
             setApp(app,
                    getUserIdFromToken,
-                   db, ObjectID);
+                   db, ObjectID, asyn, getUser);
 
 
 
