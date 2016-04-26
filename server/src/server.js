@@ -350,103 +350,50 @@ MongoClient.connect(url, function(err, db) {
   // /search
   // ==========
 
-  // app.post('/search', function(req, res) {
-  //   if (typeof(req.body) === 'string') {
-  //     // trim() removes whitespace before and after the query.
-  //     // toLowerCase() makes the query lowercase.
-  //     var queryText = req.body.trim().toLowerCase();
-  //     // Search the user's feed.
-  //
-  //     var threads = getCollection('threads');
-  //     db.collection('threads').find().toArray(function(err, threads) {
-  //     });
-  //
-  //     var threadsData = [];
-  //
-  //     for(var i in threads) {
-  //       var th = threads[i];
-  //       th.boards = th.boards.map(getBoardData);
-  //// th.boards = asyn.map(th.boards, getBoardData, function(err, result){});
-  //       //var userData = readDocument('users', th.originalPost.author);
-  //       db.collection('users').findOne({_id: th.originalPost.author
-  //       }, function(err, userData) {
-  //         th.originalPost.authorName = userData.username;
-  //         threadsData.push(th);
-  //       })
-  //     }
-  //
-  //     // "filter" is like "map" in that it is a magic method for
-  //     // arrays. It takes an anonymous function, which it calls
-  //     // with each item in the array. If that function returns 'true',
-  //     // it will include the item in a return array. Otherwise, it will
-  //     // not.
-  //     // Here, we use filter to return only feedItems that contain the
-  //     // query text.
-  //     // Since the array contains feed item IDs, we later map the filtered
-  //     // IDs to actual feed item objects.
-  //     var searchResults = {
-  //       contents: []
-  //     };
-  //
-  //     searchResults.contents = threadsData.filter((thread) => {
-  //       var threadDescription = thread.originalPost.description;
-  //       return threadDescription.toLowerCase().indexOf(queryText) !== -1;
-  //     });
-  //
-  //     res.send(searchResults);
-  //   } else {
-  //     // 400: Bad Request.
-  //     res.status(400).end();
-  //   }
-  // });
-app.post('/search', function(req, res) {
-  if (typeof(req.body) === 'string') {
-    // trim() removes whitespace before and after the query.
-    // toLowerCase() makes the query lowercase.
-    var queryText = req.body.trim().toLowerCase();
+  function getSearchedThread(thread, callback) {
+    getUser(thread.originalPost.author, function(err, userData) {
+      if (err) {
+        return callback(err);
+      } else if (userData === null) {
+        return callback(null, null);
+      } else {
+        thread.originalPost.authorName = userData.username;
+        asyn.map(thread.boards, getBoardData, function(err, resolvedItems) {
+          thread.boards = resolvedItems;
+          callback(null, thread);
+        });
+      }
+    });
+  }
 
-        db.collection('threads').find({
-          $text: {
-            $search: queryText
-          }
-        }).toArray(function(err, items) {
-          if (err) {
-            return err;
-          }
-          var threadsData = {
-            contents: []
-          };
+  app.post('/search', function(req, res) {
+    if (typeof(req.body) === 'string') {
+      // trim() removes whitespace before and after the query.
+      // toLowerCase() makes the query lowercase.
+      var queryText = req.body.trim().toLowerCase();
 
-        for(var i in items) {
-            var th = items[i];
-
-          console.log(th.boards);
-
-        asyn.map(th.boards,
-            getBoardData, function(err, result){
-              for(var j in result){
-                console.log(result[j].name)
-                items[i].boards[j] = result[j].name;
-                console.log(items[i].boards[j])
-              }
-          });
-          //items[i] = th;
+      db.collection('threads').find({
+        $text: {
+          $search: queryText
         }
-          console.log(items);
-          threadsData.contents = items;
-          // threadsData.contents.boards = asyn.map(threadsData.contents.boards ,
-          //   getBoardData, function(err, result){
-          //
-          //   console.log(threadsData.contents.boards);
-          // });
+      }).toArray(function(err, items) {
+        if (err) {
+          return err;
+        }
+        var threadsData = {
+          contents: []
+        };
 
+        asyn.map(items, getSearchedThread, function(err, resolvedItems) {
+          threadsData.contents = resolvedItems
           res.send(threadsData);
         });
-      } else {
-        // 400: Bad Request.
-        res.status(400).end();
-      }
-});
+      });
+    } else {
+      // 400: Bad Request.
+      res.status(400).end();
+    }
+  });
 
   /**
    * Translate JSON Schema Validation failures into error 400s.
